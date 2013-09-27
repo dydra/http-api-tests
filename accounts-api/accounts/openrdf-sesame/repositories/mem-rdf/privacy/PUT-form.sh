@@ -22,7 +22,7 @@ curl -f -s -S -X GET \
  | json_reformat -m | fgrep '"privacy_setting":5' | fgrep -q '192.168.1.3'
 
 
-initialize_privacy | fgrep -q "204"
+initialize_privacy | egrep -q "STATUS_UPDATED"
 
 
 curl -f -s -S -X GET\

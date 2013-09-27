@@ -1,5 +1,6 @@
 
 # http api tests
+Combined tests for the sesame http communication protocol, the sparql graph store http protocol, and the dydra account administration http api
 
 These tests exercise the sesame rest api, as per the openrdf "http communication protocol"
 [description](http://www.openrdf.org/doc/sesame2/system/ch08.html)

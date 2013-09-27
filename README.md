@@ -3,9 +3,9 @@
 Combined tests for the sesame http communication protocol, the sparql graph store http protocol, and the dydra account administration http api
 
 These tests exercise the sesame rest api, as per the openrdf "http communication protocol"
-[description](http://www.openrdf.org/doc/sesame2/system/ch08.html)
+[description](http://www.openrdf.org/doc/sesame2/system/ch08.html),
 [or](http://openrdf.callimachus.net/sesame/2.7/docs/system.docbook?view#chapter-http-protocol)
-and the "sparlq 1.1 graph store http protocol", as per the
+and the "sparlq 1.1 graph store http protocol", as per the w3c
 [specification](http://www.w3.org/TR/sparql11-http-rdf-update/).
 
 The script `script_runner.sh` searches for all `.sh` scripts in the tree,
@@ -30,7 +30,7 @@ the described overview:
                 /service         : Graph Store operations on indirectly referenced named graphs 
                                    in repository (GET/PUT/POST/DELETE)
                                    includes the query argument graph=${STORE_IGRAPH}
-                /${STORE_DGRAPH> : Graph Store operations on directly referenced named graphs 
+                /${STORE_RGRAPH} : Graph Store operations on directly referenced named graphs 
                                    in repository (GET/PUT/POST/DELETE)
             /namespaces          : overview of namespace definitions (GET/DELETE)
                 /${STORE_PREFIX} : namespace-prefix definition (GET/PUT/DELETE)
@@ -40,9 +40,9 @@ to address the resource and its content:
 
         ${STORE_URL}/${STORE_ACCOUNT}
           /${STORE_REPOSITORY}
-          /${STORE_REPOSITORY}?default
-          /${STORE_REPOSITORY}?graph=${STORE_IGRAPH}
-          /${STORE_REPOSITORY}/${STORE_RGRAPH}
+          /${STORE_REPOSITORY}?default               : the default graph
+          /${STORE_REPOSITORY}?graph=${STORE_IGRAPH} : an arbitrary indirect graph
+          /${STORE_REPOSITORY}/${STORE_RGRAPH}       : graph relative to the repository base url
 
 
 In addition to these paths, the account and repository metadata is located along a path
@@ -64,16 +64,16 @@ distinct from possible repository linked-data resources:
 The scripts test a subset of the accept formats
 - for repository content
 
-    RDF/XML   application/rdf+xml
-    N-triples text/plain, application/n-triples
-    TriX      application/trix
-    json      application/json
-    N-Quads   application/n-quads
+      RDF/XML   application/rdf+xml
+      N-triples text/plain, application/n-triples
+      TriX      application/trix
+      json      application/json
+      N-Quads   application/n-quads
 
 - for query results and metadata
 
-    XML       application/sparql-results+xml
-    json      application/sparql-results+json
+      XML       application/sparql-results+xml
+      json      application/sparql-results+json
 
 The scripts cover variations of access privileges, content- and accept-type,
 and resource existence. 
@@ -87,8 +87,8 @@ and json_reformat. Test failures match against the HTTP status code.
 the graph store support under [sesame](http://www.openrdf.org/doc/sesame2/system/ch08.html#d0e659)
 provides two resource patterns. 
 
-  <SESAME_URL>/repositories/<ID>/rdf-graphs/service
-  <SESAME_URL>/repositories/<ID>/rdf-graphs/<NAME>
+    <SESAME_URL>/repositories/<ID>/rdf-graphs/service
+    <SESAME_URL>/repositories/<ID>/rdf-graphs/<NAME>
 
 the first, for which the path ends in `service`, requires an additional `graph` query argument
 to designated the referenced graph indirectly, while in the second case, the request url itself
@@ -218,7 +218,7 @@ The combinations yield the following effects:
 In order to validate the results, one script exists for the PUT operations for
 each of the combinations, named according to the pattern
 
-  PUT-<protocolGraph>-<contentType>.sh
+    PUT-<protocolGraph>-<contentType>.sh
 
 which performs a PUT request of the respective graph and content type combination
 and validates the content of a subsequent GET

@@ -1,0 +1,9 @@
+.DS_Store
+.gz
+*.cfsl
+.tmp
+.yardoc
+pkg
+tmp
+*~
+#*#

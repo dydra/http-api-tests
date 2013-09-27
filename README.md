@@ -64,16 +64,16 @@ distinct from possible repository linked-data resources:
 The scripts test a subset of the accept formats
 - for repository content
 
-      RDF/XML   application/rdf+xml
-      N-triples text/plain, application/n-triples
-      TriX      application/trix
-      json      application/json
-      N-Quads   application/n-quads
+    - RDF/XML   application/rdf+xml
+    - N-triples text/plain, application/n-triples
+    - TriX      application/trix
+    - json      application/json
+    - N-Quads   application/n-quads
 
 - for query results and metadata
 
-      XML       application/sparql-results+xml
-      json      application/sparql-results+json
+    - XML       application/sparql-results+xml
+    - json      application/sparql-results+json
 
 The scripts cover variations of access privileges, content- and accept-type,
 and resource existence. 

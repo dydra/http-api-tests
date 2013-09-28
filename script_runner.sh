@@ -21,7 +21,7 @@ export STORE_TOKEN=`cat ~/.dydra/token-${STORE_ACCOUNT}`
 export STORE_PREFIX="rdf"
 export STORE_DGRAPH="sesame"
 export STORE_IGRAPH="http://example.org"
-export STORE_NAMED_GRAPH="http://dydra.com/graph-name"
+export STORE_NAMED_GRAPH="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/graph-name"
 export STORE_IS_LOCAL=false
 fgrep 127.0.0.1 /etc/hosts | fgrep -q ${STORE_HOST}
 if [[ "$?" == "0" ]]
@@ -29,10 +29,12 @@ then
   export STORE_IS_LOCAL=true
 fi
 
-export PUT_SUCCESS=201
+export STATUS_OK=200
+export STATUS_PATCH_SUCCESS=201
 export POST_SUCCESS=201
+export PUT_SUCCESS=201
 export STATUS_CREATED=201
-wxport STATUS_NO_CONTENT=204
+export STATUS_NO_CONTENT=204
 export STATUS_UPDATED="201|204"
 export DELETE_SUCCESS=204
 export STATUS_BAD_REQUEST=400
@@ -146,10 +148,10 @@ initialize_repository_public | fgrep -q "${PUT_SUCCESS}"
 #   find ./*/ -name '*.sh*' | while read file; do
 # this limits the test complement to the number of arguments the shell permits
 
-SCRIPTS="$1"
-if [[ "${SCRIPTS}" != "" ]]
+
+if [[ "$@" != "" ]]
 then
-  SCRIPTS=`ls ${SCRIPTS}`
+  SCRIPTS=$@
 else
   SCRIPTS=`find ./*/ -name '*.sh*'`
 fi

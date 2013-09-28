@@ -1,9 +1,13 @@
 #! /bin/bash
 
 
-curl -f -s -S -X GET\
+curl -f -s -X GET\
      -H "Accept: application/n-quads" \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} \
+     ${STORE_NAMED_GRAPH}?auth_token=${STORE_TOKEN} \
    | rapper -q --input nquads --output nquads \ | tr -s '\n' '\t' \
-   | fgrep "<${STORE_NAMED_GRAPH}>" \
-   | fgrep '"default object"' | fgrep -q '"named object"' 
+   | fgrep '"named object"' | fgrep "${STORE_NAMED_GRAPH}" \
+   | tr -s '\t' '\n' | wc -l | fgrep -q 1
+
+    
+
+

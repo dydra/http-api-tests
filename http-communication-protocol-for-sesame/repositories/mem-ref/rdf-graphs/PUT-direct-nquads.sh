@@ -1,7 +1,6 @@
 #! /bin/bash
 
-# the protocol target is a direct graph, which is not present in the repository,
-# the statements include quads and the content type is n-quads:
+# the protocol target is a direct graph, which is not present in the repository, the content is n-quads:
 # - triples are added to the _default_ graph.
 # - quads are added to the document graph.
 # - statements would be removed from the target graph only, but there are none

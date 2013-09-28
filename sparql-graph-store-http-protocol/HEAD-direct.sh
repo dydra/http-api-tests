@@ -1,12 +1,8 @@
 #! /bin/bash
 
-# environment :
-# STORE_ACCOUNT : account name
-# STORE_URL : host http url 
-# STORE_REPOSITORY : individual repository
 
-curl -f -s -S --head\
+curl -w "%{http_code}\n" -f -s --head\
      -H "Accept: application/n-quads" \
-     $STORE_URL/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} \
- | fgrep -q "200 OK"
+     ${STORE_NAMED_GRAPH}?auth_token=${STORE_TOKEN} \
+   | fgrep -q "${STATUS_OK}"
 

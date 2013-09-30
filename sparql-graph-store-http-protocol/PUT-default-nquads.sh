@@ -19,7 +19,7 @@ curl -f -s -S -X GET\
      -H "Accept: application/n-quads" \
      ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} \
    | tr -s '\n' '\t' \
-   | fgrep -v '"default object"' | fgrep '"named object"' | fgrep "<${STORE_NAMED_GRAPH}>"
+   | fgrep -v '"default object"' | fgrep '"named object"' | fgrep "<${STORE_NAMED_GRAPH}>" \
    | fgrep '"default object PUT1"' | fgrep '"named object PUT1"' | fgrep "<${STORE_NAMED_GRAPH}-two>" \
    | tr -s '\t' '\n' | wc -l | fgrep -q 3
 

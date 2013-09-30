@@ -1,33 +1,5 @@
 #! /bin/bash
 
-# environment :
-# STORE_ACCOUNT : account name
-# STORE_URL : host http url 
-# STORE_REPOSITORY : individual repository
-
-curl -w "%{http_code}\n" -f -s -S -X PUT \
-     -H "Content-Type: application/n-quads" \
-     --data-binary @PUT.nq \
-     ?auth_token=${STORE_TOKEN} \
- | fgrep -q "201"
-
-rc=$?
-
-if [[ "0" == "$rc" ]]
-then
-  curl -f -s -S -X GET\
-       -H "Accept: application/n-quads" \
-       ${STORE_NAMED_GRAPH}?auth_token=${STORE_TOKEN} \
-   | diff -q - PUT.nq > /dev/null ;
-  rc=$?
-fi
-
-exit  $rc 
-
-
-
-#! /bin/bash
-
 # the protocol target is an indirect graph, the statements include quads and the content type is n-quads:
 # - triples are added to the document (default) graph.
 # - quads are added to the document graph.
@@ -37,7 +9,7 @@ exit  $rc
 curl -w "%{http_code}\n" -f -s -S -X PUT \
      -H "Content-Type: application/n-quads" \
      --data-binary @- \
-     ${STORE_NAMED_GRAPH}-three\&auth_token=${STORE_TOKEN} <<EOF \
+     ${STORE_NAMED_GRAPH}-three?auth_token=${STORE_TOKEN} <<EOF \
    | fgrep -q "${PUT_SUCCESS}"
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT1" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT1" <${STORE_NAMED_GRAPH}-two> .
@@ -56,7 +28,7 @@ curl -f -s -S -X GET\
 curl -w "%{http_code}\n" -f -s -S -X PUT \
      -H "Content-Type: application/n-quads" \
      --data-binary @- \
-     ${STORE_NAMED_GRAPH}-three\&auth_token=${STORE_TOKEN} <<EOF \
+     ${STORE_NAMED_GRAPH}-three?auth_token=${STORE_TOKEN} <<EOF \
    | fgrep -q "${PUT_SUCCESS}"
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT2" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT2" <${STORE_NAMED_GRAPH}-two> .

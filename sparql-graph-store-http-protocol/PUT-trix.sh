@@ -1,11 +1,11 @@
 #! /bin/bash
 
 
-curl -w "%{http_code}\n" -f -s -S -X PUT \
+curl -w "%{http_code}\n" -f -s -X PUT \
      -H "Content-Type: application/trix" \
      --data-binary @- \
-     $STORE_URL/${STORE_ACCOUNT}/${STORE_REPOSITORY} <<EOF\
-   | fgrep -q "${STATUS_UNSUPPORTED_MEDIA}"
+     $STORE_URL/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} <<EOF\
+   | egrep -q "${STATUS_UNSUPPORTED_MEDIA}|${STATUS_BAD_REQUEST}"
 <?xml version="1.0" encoding="utf-8"?>
 <graph>
   <uri>http://dydra.com/put-graph-name</uri>

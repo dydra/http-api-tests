@@ -1,6 +1,7 @@
 #! /bin/bash
 
 # the protocol target is the repository, the content is n-quads:
+# a new graph is generated, but the document graphs supersede it
 # - triples are added to the document(default) graph.
 # - quads are added to the document graph.
 # - no statements are removed

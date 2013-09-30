@@ -23,11 +23,7 @@ export STORE_DGRAPH="sesame"
 export STORE_IGRAPH="http://example.org"
 export STORE_NAMED_GRAPH="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/graph-name"
 export STORE_IS_LOCAL=false
-fgrep 127.0.0.1 /etc/hosts | fgrep -q ${STORE_HOST}
-if [[ "$?" == "0" ]]
-then
-  export STORE_IS_LOCAL=true
-fi
+fgrep 127.0.0.1 /etc/hosts | fgrep -q ${STORE_HOST} &&  export STORE_IS_LOCAL=true
 
 export STATUS_OK=200
 export STATUS_PATCH_SUCCESS=201
@@ -168,8 +164,13 @@ do
   then
     echo "   ok"
   else
-    echo "   failed";
+    fgrep -q "$script_filename" known-to_fail.txt
+    if [ $? -eq 0 ]
+    then echo " KNOWN FAIL";
+    else echo " FAILED";
+    fi
     (( STORE_ERRORS = $STORE_ERRORS + 1))
+    initialize_repository | egrep -q "${STATUS_UPDATED}"
   fi
 done
 

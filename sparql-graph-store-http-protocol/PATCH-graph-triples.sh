@@ -41,7 +41,7 @@ curl -f -s -S -X GET\
      ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} \
    | tr -s '\n' '\t' \
    | fgrep '"default object"' | fgrep '"named object"' | fgrep  "<${STORE_NAMED_GRAPH}>" \
-   | fgrep -v '"default object PATCH1"' | -h fgrep '"named object PATCH1"' | fgrep -v "<${STORE_NAMED_GRAPH}-two>" \
+   | fgrep -v '"default object PATCH1"' | fgrep -v '"named object PATCH1"' | fgrep -v "<${STORE_NAMED_GRAPH}-two>" \
    | fgrep '"default object PATCH2"' | fgrep '"named object PATCH2"' \
    | tr -s '\t' '\n' | fgrep "${STORE_NAMED_GRAPH}-three" | wc -l | fgrep -q 2
 

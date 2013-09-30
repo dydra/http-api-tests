@@ -1,8 +1,9 @@
 #! /bin/bash
 
 # the protocol target is the repository, the statements include quads and the content type is n-triples:
-# - triples are added to the default graph.
-# - quads are added to the default graph.
+# - a new graph identifier is generated
+# - triples are added to the new graph.
+# - quads are added to the new graph.
 # - no statements are removed
 
 curl -w "%{http_code}\n" -f -s -X POST \
@@ -20,7 +21,7 @@ curl -f -s -S -X GET\
      ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} \
    | tr -s '\n' '\t' \
    | fgrep '"default object"' | fgrep '"named object"' | fgrep  "<${STORE_NAMED_GRAPH}>" \
-   | fgrep '"default object POST1"' | fgrep '"named object POST1"' | fgrep  "<${STORE_NAMED_GRAPH}-two>" \
+   | fgrep '"default object POST1"' | fgrep '"named object POST1"' | fgrep  "urn:uuid" \
    | tr -s '\t' '\n' | wc -l | fgrep -q 4
 
 
@@ -40,7 +41,7 @@ curl -f -s -S -X GET\
    | tr -s '\n' '\t' \
    | fgrep '"default object"' | fgrep '"named object"' | fgrep  "<${STORE_NAMED_GRAPH}>" \
    | fgrep '"default object POST1"' | fgrep '"named object POST1"' \
-   | fgrep '"default object POST2"' | fgrep '"named object POST2"' | fgrep  "<${STORE_NAMED_GRAPH}-two>" \
+   | fgrep '"default object POST2"' | fgrep '"named object POST2"' | fgrep  "urn:uuid" \
    | tr -s '\t' '\n' | wc -l | fgrep -q 6
 
 initialize_repository | fgrep -q "${POST_SUCCESS}"

@@ -14,3 +14,5 @@ curl -f -s -S -X GET\
      $STORE_URL/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} \
    | tr -s '\n' '\t' \
    | fgrep '"default object"' | fgrep -q -v '"named object"' 
+
+initialize_repository | egrep -q "${STATUS_UPDATED}"

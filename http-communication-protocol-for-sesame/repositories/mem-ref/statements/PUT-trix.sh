@@ -17,4 +17,6 @@ curl -w "%{http_code}\n" -f -s -S -X PUT \
 </graph>
 EOF
 
+initialize_repository | fgrep -q "${POST_SUCCESS}"
+
 echo -n " NYI "

@@ -1,0 +1,32 @@
+PUT-form.sh  :  FAILED
+GET.sh  :  FAILED
+GET-srj-public-authenticated.sh  :  FAILED
+GET-srx.sh  :  FAILED
+GET-indirect-400.sh  :  FAILED
+POST-default-ntriples.sh  :  KNOWN TO FAIL
+PUT-default-nquads.sh  :  FAILED
+PUT-default-ntriples.sh  :  KNOWN TO FAIL
+GET-context-ntriples.sh  :  FAILED
+GET-default-ntriples.sh  :  FAILED
+GET-ntriples.sh  :  FAILED
+GET-rj.sh  :  KNOWN TO FAIL
+GET-trix.sh  :  KNOWN TO FAIL
+POST-json.sh  :  FAILED
+POST-rdfxml.sh  :  FAILED
+POST-trix.sh  :  FAILED
+PUT-json.sh  :  FAILED
+PUT-trix.sh  :  KNOWN TO FAIL
+GET-jsonld.sh  :  KNOWN TO FAIL
+GET-rj.sh  :  KNOWN TO FAIL
+GET-trix.sh  :  KNOWN TO FAIL
+PATCH-default-ntriples.sh  :  KNOWN TO FAIL
+PATCH-nquads.sh  :  KNOWN TO FAIL
+PATCH-ntriples.sh  :  KNOWN TO FAIL
+PATCH-trix.sh  :  KNOWN TO FAIL
+PATCH-ttl.sh  :  KNOWN TO FAIL
+POST-default-ntriples.sh  :  KNOWN TO FAIL
+PUT-default-ntriples.sh  :  KNOWN TO FAIL
+GET-csv.sh  :  FAILED
+GET-srj+srx.sh  :  FAILED
+GET-srj.sh  :  FAILED
+GET-tsv.sh  :  FAILED

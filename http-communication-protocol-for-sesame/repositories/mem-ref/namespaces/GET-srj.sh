@@ -4,7 +4,7 @@
 
 curl -f -s -S -X GET \
      -H "Accept: application/sparql-results+json" \
-     $STORE_URL/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/namespaces?auth_token=${STORE_TOKEN} \
-  | json_reformat -m \
-  | fgrep '{"prefix":{"type":"literal","value":"cc"}' \
-  | fgrep -q '{"prefix":{"type":"literal","value":"xsd"}'
+     ${STORE_URL}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/namespaces?auth_token=${STORE_TOKEN} \
+   | json_reformat -m \
+   | fgrep '{"prefix":{"type":"literal","value":"cc"}' \
+   | fgrep -q '{"prefix":{"type":"literal","value":"xsd"}'

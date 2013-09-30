@@ -8,8 +8,8 @@
 curl -w "%{http_code}\n" -f -s -X POST \
      -H "Content-Type: application/not-n-quads" \
      --data-binary @- \
-     $STORE_URL/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/rdf-graphs/sesame?auth_token=${STORE_TOKEN} <<EOF \
+     ${STORE_URL}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/rdf-graphs/sesame?auth_token=${STORE_TOKEN} <<EOF \
    | fgrep -q "${STATUS_UNSUPPORTED_MEDIA}"
-<http://example.com/default-subject> <http://example.com/default-predicate> "default object rdf-graphs POST1" .
-<http://example.com/named-subject> <http://example.com/named-predicate> "named object rdf-graphs POST1" <${STORE_NAMED_GRAPH}-two> .
+<http://example.com/default-subject> <http://example.com/default-predicate> "default object POST1" .
+<http://example.com/named-subject> <http://example.com/named-predicate> "named object POST1" <${STORE_NAMED_GRAPH}-two> .
 EOF

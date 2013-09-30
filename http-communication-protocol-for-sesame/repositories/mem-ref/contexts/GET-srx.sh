@@ -4,7 +4,7 @@
 
 curl -f -s -S -X GET \
      -H "Accept: application/sparql-results+xml" \
-     $DYDRA_URL/${DYDRA_ACCOUNT}/repositories/${DYDRA_REPOSITORY}/contexts \
+     ${STORE_URL}/${STORA_ACCOUNT}/repositories/${STORE_REPOSITORY}/contexts \
    | xmllint  --c14n11 - \
    | tr -s '\t\n\r\f' ' ' | sed 's/ +/ /g' \
    | egrep -s '<binding name="contextID"> <uri>${STORE_NAMED_GRAPH}</uri>' \

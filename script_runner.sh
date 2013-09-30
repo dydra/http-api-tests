@@ -29,6 +29,7 @@ export STATUS_OK=200
 export STATUS_PATCH_SUCCESS=201
 export POST_SUCCESS=201
 export PUT_SUCCESS=201
+export PATCH_SUCCESS=201
 export STATUS_CREATED=201
 export STATUS_NO_CONTENT=204
 export STATUS_UPDATED="201|204"
@@ -151,10 +152,11 @@ then
 else
   SCRIPTS=`find ./*/ -name '*.sh*'`
 fi
+cat /dev/null > failed.txt
 
 for script_pathname in $SCRIPTS
 do
-  echo -n $script_pathname;
+  echo -n "${script_pathname} :  ";
   script_filename=`basename $script_pathname`
   script_directory=`dirname $script_pathname`
   ( cd $script_directory;
@@ -166,10 +168,13 @@ do
   else
     fgrep -q "$script_filename" known-to_fail.txt
     if [ $? -eq 0 ]
-    then echo " KNOWN FAIL";
-    else echo " FAILED";
+    then EXPECTED=" KNOWN TO FAIL";
+    else EXPECTED=" FAILED";
     fi
+    ENTRY="${script_filename}  : ${EXPECTED}"
     (( STORE_ERRORS = $STORE_ERRORS + 1))
+    echo "${ENTRY}" >> failed.txt
+    echo "${EXPECTED}"
     initialize_repository | egrep -q "${STATUS_UPDATED}"
   fi
 done

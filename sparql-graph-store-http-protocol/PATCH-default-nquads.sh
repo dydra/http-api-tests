@@ -44,4 +44,4 @@ curl -f -s -S -X GET\
    | fgrep '"default object PATCH2"' | fgrep '"named object PATCH2"' | fgrep  "<${STORE_NAMED_GRAPH}-two>" \
    | tr -s '\t' '\n' | wc -l | fgrep -q 4
 
-initialize_repository | fgrep -q "${POST_SUCCESS}"
+initialize_repository | fgrep -q "${PUT_SUCCESS}"

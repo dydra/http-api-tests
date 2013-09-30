@@ -1,6 +1,11 @@
+./sparql-graph-store-http-protocol//GET-jsonld.sh # NYI
 ./sparql-graph-store-http-protocol/GET-rj.sh    # NYI
 ./sparql-graph-store-http-protocol/GET-trix.sh    # NYI
 ./sparql-graph-store-http-protocol/PATCH-default-ntriples.sh # the quad should have been placed in the default graph
+./sparql-graph-store-http-protocol/PATCH-nquads.sh  # did not first clear the respective graph (uses rdfcache_import rather than dydra_import)
+./sparql-graph-store-http-protocol/PATCH-ntriples.sh # ''
+./sparql-graph-store-http-protocol/PATCH-trix.sh
+./sparql-graph-store-http-protocol/PATCH-ttl.sh
 ./sparql-graph-store-http-protocol/POST-default-ntriples.sh # the quad should have been placed in the default graph
 ./sparql-graph-store-http-protocol/PUT-default-ntriples.sh # the quad should have been placed in the default graph
 ./sparql-graph-store-http-protocol/PUT-trix.sh    # NYI

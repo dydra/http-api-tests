@@ -1,10 +1,10 @@
 #! /bin/bash
 
 
-curl -w "%{http_code}\n" -f -s -S -X POST \
+curl -w "%{http_code}\n" -f -s -X POST \
      -H "Content-Type: application/trix" \
      --data-binary @- \
-     $STORE_URL/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/statements <<EOF\
+     $STORE_URL/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/statements?auth_token=${STORE_TOKEN} <<EOF\
    | fgrep -q "${STATUS_UNSUPPORTED_MEDIA}"
 <?xml version="1.0" encoding="utf-8"?>
 <graph>

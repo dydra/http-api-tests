@@ -1,7 +1,7 @@
 #! /bin/bash
 
 
-curl -v -f -s -S -X POST \
+curl -f -s -S -X POST \
      -H "Accept: application/sparql-results+json" \
      --data-binary @- \
      ${STORE_URL}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} <<EOF \

@@ -4,7 +4,7 @@
 # test the get response and then cycle back to the original state
 # content emulates rails' requests
 
-curl -w "%{http_code}\n" -f -s -X PUT \
+curl -w "%{http_code}\n" -f -s -X POST \
      -H "Content-Type: application/x-www-form-urlencoded" \
      --data-urlencode @- \
      ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/privacy?auth_token=${STORE_TOKEN} <<EOF \

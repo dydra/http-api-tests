@@ -42,6 +42,7 @@ to address the resource and its content:
           /${STORE_REPOSITORY}
           /${STORE_REPOSITORY}?default               : the default graph
           /${STORE_REPOSITORY}?graph=${STORE_IGRAPH} : an arbitrary indirect graph
+                               graph=urn:dydra:service-description : the repository SPARQL endpoint service description
           /${STORE_REPOSITORY}/${STORE_RGRAPH}       : graph relative to the repository base url
 
 
@@ -58,6 +59,7 @@ distinct from possible repository linked-data resources:
             /prefixes            : default namespace prefix bindings (cf. sesame namespaces)
             /privacy             : repository privacy setting
             /provenance_repository : respective provenanace repository identifier
+            /service_description : the repository SPARQL endpoint service description
             /undefined_variable_behaviour : disposition for queries with unbound variables
 
 

@@ -4,7 +4,7 @@
 curl -w "%{http_code}\n" -f -s -S -X PUT \
      -H "Content-Type: application/rdf+xml" \
      --data-binary @- \
-     $STORE_URL/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/statements?auth_token=${STORE_TOKEN} <<EOF\
+     $STORE_URL/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/statements?auth_token=${STORE_TOKEN} <<EOF \
    | fgrep -q "${PUT_SUCCESS}"
 <?xml version="1.0" encoding="utf-8"?>
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -15,4 +15,4 @@ curl -w "%{http_code}\n" -f -s -S -X PUT \
 EOF
 
 
-initialize_repository | fgrep -q "${POST_SUCCESS}"
+initialize_repository | fgrep -q "${PUT_SUCCESS}"

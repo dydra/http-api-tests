@@ -2,7 +2,7 @@
 
 # rdf json imported is not yet implemented
 
-curl -w "%{http_code}\n" -f -s -S -X POST \
+curl -w "%{http_code}\n" -f -s -X POST \
      -H "Content-Type: application/rdf+json" \
      --data-binary @- \
      ${STORE_URL}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/statements?auth_token=${STORE_TOKEN} <<EOF \
@@ -23,11 +23,11 @@ curl -f -s -S -X GET \
    | tr -s '\t' '\n' | wc -l | fgrep -q 3
 
 
-curl -w "%{http_code}\n" -f -s -S -X POST \
+curl -w "%{http_code}\n" -f -s -X POST \
      -H "Content-Type: application/rdf+json" \
      --data-binary @- \
      ${STORE_URL}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/statements?auth_token=${STORE_TOKEN} <<EOF \
-   # | fgrep -q "${POST_SUCCESS}"
+   | fgrep -q "${POST_SUCCESS}"
 { "http://example.com/default-subject" : {
   "http://example.com/default-predicate" : [ { "value" : "default object POST2",
                                                "type" : "literal" } ]

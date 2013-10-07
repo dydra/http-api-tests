@@ -5,7 +5,7 @@ curl -w "%{http_code}\n" -f -s -X PUT \
      -H "Content-Type: application/trix" \
      --data-binary @- \
      $STORE_URL/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} <<EOF\
-   | egrep -q "${STATUS_UNSUPPORTED_MEDIA}|${STATUS_BAD_REQUEST}"
+   | egrep -q "${STATUS_PUT_SUCCESS}"
 <?xml version="1.0" encoding="utf-8"?>
 <graph>
   <uri>http://dydra.com/put-graph-name</uri>
@@ -16,5 +16,3 @@ curl -w "%{http_code}\n" -f -s -X PUT \
   </triple>
 </graph>
 EOF
-
-echo -n " NYI "

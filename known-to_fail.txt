@@ -2,14 +2,17 @@ http-communication-protocol-for-sesame/repositories/mem-ref/statements/GET-rj.sh
 http-communication-protocol-for-sesame/repositories/mem-ref/statements/GET-trix.sh # NYI
 http-communication-protocol-for-sesame/repositories/mem-ref/statements/POST-trix.sh  # ERROR: ld.so: object '/lib64/getuid.so' from LD_PRELOAD cannot be preloaded: ignored
 http-communication-protocol-for-sesame/repositories/mem-ref/statements/PUT-trix.sh  # ERROR: ld.so: object '/lib64/getuid.so' from LD_PRELOAD cannot be preloaded: ignored
-sparql-graph-store-http-protocol//GET-jsonld.sh # NYI
-sparql-graph-store-http-protocol/GET-rj.sh    # NYI
-sparql-graph-store-http-protocol/GET-trix.sh    # NYI
+http-communication-protocol-for-sesame/repositories/mem-ref/rdf-graphs/service/POST-default-ntriples.sh # the quad should have been placed in the default graph
+http-communication-protocol-for-sesame/repositories/mem-ref/rdf-graphs/service/PUT-default-ntriples.sh  # the quad should have been placed in the default graph
+sparql-graph-store-http-protocol//GET-jsonld.sh  # NYI
+sparql-graph-store-http-protocol/GET-jsonld.sh   # df_writer_write_quad() failed with errno=22  \ rdfcache: Invalid argument
+sparql-graph-store-http-protocol/GET-rj.sh       # NYI
+sparql-graph-store-http-protocol/GET-trix.sh     # NYI
 sparql-graph-store-http-protocol/PATCH-default-ntriples.sh # the quad should have been placed in the default graph
-sparql-graph-store-http-protocol/PATCH-nquads.sh  # did not first clear the respective graph (uses rdfcache_import rather than dydra_import)
+sparql-graph-store-http-protocol/PATCH-nquads.sh # did not first clear the respective graph (uses rdfcache_import rather than dydra_import)
 sparql-graph-store-http-protocol/PATCH-ntriples.sh # ''
 sparql-graph-store-http-protocol/PATCH-trix.sh
 sparql-graph-store-http-protocol/PATCH-ttl.sh
 sparql-graph-store-http-protocol/POST-default-ntriples.sh # the quad should have been placed in the default graph
 sparql-graph-store-http-protocol/PUT-default-ntriples.sh # the quad should have been placed in the default graph
-sparql-graph-store-http-protocol/PUT-trix.sh    # NYI
+sparql-graph-store-http-protocol/PUT-trix.sh     # NYI

@@ -16,3 +16,4 @@ sparql-graph-store-http-protocol/PATCH-ttl.sh
 sparql-graph-store-http-protocol/POST-default-ntriples.sh # the quad should have been placed in the default graph
 sparql-graph-store-http-protocol/PUT-default-ntriples.sh # the quad should have been placed in the default graph
 sparql-graph-store-http-protocol/PUT-trix.sh     # NYI
+sparql-graph-store-http-protocol/GET-construct-srx-406.sh # no content : dydra-query: Caught exception 'St16invalid_argument': unknown content type: application/sparql-results+xml

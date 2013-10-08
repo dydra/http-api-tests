@@ -1,12 +1,1 @@
-http-communication-protocol-for-sesame/repositories/mem-ref/rdf-graphs/service/POST-default-ntriples.sh  :  KNOWN TO FAIL
-script_runner.sh  :  FAILED
-sparql-graph-store-http-protocol/GET-jsonld.sh  :  KNOWN TO FAIL
-sparql-graph-store-http-protocol/GET-rj.sh  :  KNOWN TO FAIL
-sparql-graph-store-http-protocol/GET-trix.sh  :  KNOWN TO FAIL
-sparql-graph-store-http-protocol/PATCH-default-ntriples.sh  :  KNOWN TO FAIL
-sparql-graph-store-http-protocol/PATCH-nquads.sh  :  KNOWN TO FAIL
-sparql-graph-store-http-protocol/PATCH-ntriples.sh  :  KNOWN TO FAIL
-sparql-graph-store-http-protocol/PATCH-trix.sh  :  KNOWN TO FAIL
-sparql-graph-store-http-protocol/PATCH-ttl.sh  :  KNOWN TO FAIL
-sparql-graph-store-http-protocol/POST-default-ntriples.sh  :  KNOWN TO FAIL
-sparql-graph-store-http-protocol/PUT-default-ntriples.sh  :  KNOWN TO FAIL
+http-communication-protocol-for-sesame/repositories/mem-ref/statements/POST-context=bnode-ntriples.sh  :  FAILED

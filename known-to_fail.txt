@@ -2,6 +2,9 @@ http-communication-protocol-for-sesame/repositories/mem-ref/statements/GET-rj.sh
 http-communication-protocol-for-sesame/repositories/mem-ref/statements/GET-trix.sh # NYI
 http-communication-protocol-for-sesame/repositories/mem-ref/statements/POST-trix.sh  # ERROR: ld.so: object '/lib64/getuid.so' from LD_PRELOAD cannot be preloaded: ignored
 http-communication-protocol-for-sesame/repositories/mem-ref/statements/PUT-trix.sh  # ERROR: ld.so: object '/lib64/getuid.so' from LD_PRELOAD cannot be preloaded: ignored
+
+http-communication-protocol-for-sesame/repositories/mem-ref/statements/POST-context=bnode-ntriples.sh  # support blank node graphs?
+
 http-communication-protocol-for-sesame/repositories/mem-ref/rdf-graphs/service/POST-default-ntriples.sh # the quad should have been placed in the default graph
 http-communication-protocol-for-sesame/repositories/mem-ref/rdf-graphs/service/PUT-default-ntriples.sh  # the quad should have been placed in the default graph
 sparql-graph-store-http-protocol//GET-jsonld.sh  # NYI
@@ -16,4 +19,4 @@ sparql-graph-store-http-protocol/PATCH-ttl.sh
 sparql-graph-store-http-protocol/POST-default-ntriples.sh # the quad should have been placed in the default graph
 sparql-graph-store-http-protocol/PUT-default-ntriples.sh # the quad should have been placed in the default graph
 sparql-graph-store-http-protocol/PUT-trix.sh     # NYI
-sparql-graph-store-http-protocol/GET-construct-srx-406.sh # no content : dydra-query: Caught exception 'St16invalid_argument': unknown content type: application/sparql-results+xml
+sparql-graph-store-http-protocol/GET-construct-srx-406.sh # no content : dydra-query: Caught exception ... unknown content type: application/sparql-results+xml

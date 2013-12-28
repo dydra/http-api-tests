@@ -15,7 +15,8 @@ if [[ "" == "${STORE_URL}" ]]
 then
   export STORE_URL="http://localhost"
 fi
-export STORE_HOST=${STORE_URL:7}
+STORE_HOST=${STORE_URL#http://}
+export STORE_HOST=${STORE_HOST%:*}
 export STORE_ACCOUNT="openrdf-sesame"
 export STORE_REPOSITORY="mem-rdf"
 export STORE_REPOSITORY_PUBLIC="public"

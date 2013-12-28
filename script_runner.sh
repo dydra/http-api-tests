@@ -9,7 +9,10 @@
 # STORE_REPOSITORY : individual repository
 # STORE_TOKEN : the authentication token
 
-export CURL=curl
+if [[ "" == "${CURL}" ]]
+then
+  export CURL=curl
+fi
 
 if [[ "" == "${STORE_URL}" ]]
 then

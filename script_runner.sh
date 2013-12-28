@@ -9,6 +9,8 @@
 # STORE_REPOSITORY : individual repository
 # STORE_TOKEN : the authentication token
 
+export CURL=curl
+
 if [[ "" == "${STORE_URL}" ]]
 then
   export STORE_URL="http://localhost"

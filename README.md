@@ -19,9 +19,9 @@ For the v2.0 sesame protocol, the concrete resources, with reference to
 the described overview:
 
         ${STORE_URL}/${STORE_ACCOUNT}
-        /protocol                : protocol version (GET)
-        /repositories            : overview of available repositories (GET)
-        /${STORE_REPOSITORY}     : query evaluation and administration tasks on 
+          /protocol              : protocol version (GET)
+          /repositories          : overview of available repositories (GET)
+          /${STORE_REPOSITORY}   : query evaluation and administration tasks on 
                                    a repository (GET/POST/DELETE)
             /statements          : repository statements (GET/POST/PUT/DELETE)
             /contexts            : context overview (GET)

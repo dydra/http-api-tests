@@ -1,1 +1,1 @@
-http-communication-protocol-for-sesame/repositories/mem-ref/statements/POST-context=bnode-ntriples.sh  :  FAILED
+http-communication-protocol-for-sesame/protocol/GET.sh  :  FAILED

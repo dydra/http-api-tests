@@ -8,7 +8,7 @@
 curl -w "%{http_code}\n" -f -s -X POST \
      -H "Content-Type: application/n-quads" \
      --data-binary @- \
-    ${STORE_NAMED_GRAPH}?auth_token=${STORE_TOKEN} <<EOF \
+    ${STORE_NAMED_GRAPH_URL}?auth_token=${STORE_TOKEN} <<EOF \
    | fgrep -q "${POST_SUCCESS}"
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object POST1" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object POST1" <${STORE_NAMED_GRAPH}-two> .
@@ -27,7 +27,7 @@ curl -f -s -S -X GET\
 curl -w "%{http_code}\n" -f -s -S -X POST \
      -H "Content-Type: application/n-quads" \
      --data-binary @- \
-     ${STORE_NAMED_GRAPH}?auth_token=${STORE_TOKEN} <<EOF \
+     ${STORE_NAMED_GRAPH_URL}?auth_token=${STORE_TOKEN} <<EOF \
   | fgrep -q "${POST_SUCCESS}"
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object POST2" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object POST2" <${STORE_NAMED_GRAPH}-two> .

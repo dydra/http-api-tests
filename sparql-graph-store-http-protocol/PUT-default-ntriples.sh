@@ -1,4 +1,5 @@
 #! /bin/bash
+set -o errexit
 
 # the protocol target the default graph, the statements include quads and the content type is n-triples:
 # - triples are added to the protocol (default) graph.

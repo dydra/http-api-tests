@@ -1,4 +1,5 @@
 #! /bin/bash
+set -o errexit
 
 # the protocol target is the default graph, the content is n-quads:
 # - triples are added to the document(default) graph.

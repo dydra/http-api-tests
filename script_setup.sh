@@ -20,10 +20,7 @@ then
 fi
 STORE_HOST=${STORE_URL#http://}
 export STORE_HOST=${STORE_HOST%:*}
-if [[ "" == "${STORE_SITE}" ]]
-then
-  export STORE_SITE="${STORE_HOST}"
-fi
+export STORE_SITE="dydra.com"
 export STORE_ACCOUNT="openrdf-sesame"
 export STORE_REPOSITORY="mem-rdf"
 export STORE_REPOSITORY_PUBLIC="public"

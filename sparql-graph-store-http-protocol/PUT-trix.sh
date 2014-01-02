@@ -1,12 +1,12 @@
 #! /bin/bash
 
 
-curl -w "%{http_code}\n" -f -s -X PUT \
+$CURL -w "%{http_code}\n" -f -s -X PUT \
      -H "Content-Type: application/trix" \
      --data-binary @- \
      $STORE_URL/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} <<EOF\
-   | egrep -q "${STATUS_PUT_SUCCESS}"
-<?xml version="1.0" encoding="utf-8"?>
+   | egrep -q "$STATUS_PUT_SUCCESS"
+<TriX>
 <graph>
   <uri>http://dydra.com/put-graph-name</uri>
   <triple>
@@ -15,4 +15,5 @@ curl -w "%{http_code}\n" -f -s -X PUT \
    <plainLiteral>default object . PUT.nt</plainLiteral>
   </triple>
 </graph>
+</TriX>
 EOF

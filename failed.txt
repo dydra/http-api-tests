@@ -1,0 +1,1 @@
+sparql-graph-store-http-protocol/PUT-default-ntriples.sh  :  KNOWN TO FAIL

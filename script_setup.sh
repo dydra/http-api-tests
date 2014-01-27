@@ -20,10 +20,7 @@ then
 fi
 STORE_HOST=${STORE_URL#http://}
 export STORE_HOST=${STORE_HOST%:*}
-if [[ "" == "${STORE_SITE}" ]]
-then
-  export STORE_SITE="${STORE_HOST}"
-fi
+export STORE_SITE="dydra.com"
 export STORE_ACCOUNT="openrdf-sesame"
 export STORE_REPOSITORY="mem-rdf"
 export STORE_REPOSITORY_PUBLIC="public"
@@ -38,9 +35,12 @@ export STORE_IS_LOCAL=false
 fgrep 127.0.0.1 /etc/hosts | fgrep -q ${STORE_HOST} &&  export STORE_IS_LOCAL=true
 
 export STATUS_OK=200
+export STATUS_DELETE_SUCCESS=204
 export STATUS_PATCH_SUCCESS=201
-export POST_SUCCESS=201
-export PUT_SUCCESS=201
+export POST_SUCCESS="201|204"
+export STATUS_POST_SUCCESS="201|204"
+export PUT_SUCCESS="201|204"
+export STATUS_PUT_SUCCESS="201|204"
 export PATCH_SUCCESS=201
 export STATUS_CREATED=201
 export STATUS_NO_CONTENT=204

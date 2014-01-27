@@ -1,11 +1,11 @@
 #! /bin/bash
 
 
-curl -w "%{http_code}\n" -f -s -S -X PUT \
+$CURL -w "%{http_code}\n" -f -s -S -X PUT \
      -H "Content-Type: application/rdf+json" \
      --data-binary @- \
      ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} <<EOF\
- | fgrep -q "${PUT_SUCCESS}"
+ | egrep -q "$STATUS_PUT_SUCCESS"
 { "http://example.com/default-subject" : {
   "http://example.com/default-predicate" : [ { "value" : "default object PUT1",
                                                "type" : "literal" } ]
@@ -18,7 +18,7 @@ curl -w "%{http_code}\n" -f -s -S -X PUT \
 EOF
 
 
-curl -f -s -S -X GET\
+$CURL -f -s -S -X GET\
      -H "Accept: application/n-quads" \
      $STORE_URL/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} \
    | tr -s '\n' '\t' \
@@ -26,4 +26,4 @@ curl -f -s -S -X GET\
    | tr -s '\t' '\n' | wc -l | fgrep -q 2
 
 
-initialize_repository | fgrep -q "${PUT_SUCCESS}"
+initialize_repository | egrep -q "$STATUS_PUT_SUCCESS"

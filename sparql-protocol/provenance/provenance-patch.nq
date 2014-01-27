@@ -1,0 +1,2 @@
+<urn:dydra:transaction:ff78d110-8bb3-0130-8d97-02355ec43fb8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <urn:dydra:Transaction> .
+<urn:dydra:transaction:ff78d110-8bb3-0130-8d97-02355ec43fb8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/prov#Activity> .

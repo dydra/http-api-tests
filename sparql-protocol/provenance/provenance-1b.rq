@@ -1,0 +1,7 @@
+
+PREFIX provenanceRepositoryID: <jhacker/726-provenance>
+
+INSERT DATA {
+<http://example.org/uri1/one> <foaf:name> 'object-one' .
+<http://example.org/uri1/one> rdf:type <http://example.org/thing> .
+}

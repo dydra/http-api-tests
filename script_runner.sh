@@ -11,15 +11,8 @@
 
 source ./script_setup.sh
 
-export -f initialize_repository
-export -f initialize_repository_public
-export -f initialize_repository_rdf_graphs
-export -f initialize_about
-export -f initialize_collaboration
-export -f initialize_prefixes
-export -f initialize_privacy
 
-
+initialize_account | fgrep -q "${PUT_SUCCESS}"
 initialize_repository | fgrep -q "${PUT_SUCCESS}"
 initialize_repository_public | fgrep -q "${PUT_SUCCESS}"
 # necessary ?

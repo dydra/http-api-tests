@@ -1,5 +1,6 @@
 #! /bin/bash
 # test multiple accept headers
+# quality should invert order
 
 curl -f -s -S -X GET\
      -H "Accept: application/n-quads;q=0.5" \

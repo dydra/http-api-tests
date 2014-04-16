@@ -57,7 +57,50 @@ STORE_ERRORS=0
 # provide operators to restore aspects of the store to a known state
 # they presumes, that the various PUT operators work
 
+
+function initialize_account () {
+# metadata
+${CURL} -w "%{http_code}\n" -L -f -s -X POST \
+     -H "Content-Type: application/n-quads" --data-binary @- \
+     ${STORE_URL}/${STORE_ACCOUNT}/system?auth_token=${STORE_TOKEN} <<EOF
+<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:baseIRI> <http://www.openrdf.org> <http://dydra.com/accounts/openrdf-sesame> .
+<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:skolemize> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> <http://dydra.com/accounts/openrdf-sesame> .
+<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:defaultContextTerm> <urn:dydra:all> <http://dydra.com/accounts/openrdf-sesame> .
+<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:describeForm> <urn:rdfcache:simple-concise-bounded-description> <http://dydra.com/accounts/openrdf-sesame> .
+<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:describeObjectDepth> "2"^^<http://www.w3.org/2001/XMLSchema#integer> <http://dydra.com/accounts/openrdf-sesame> .
+<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:describeSubjectDepth> "0"^^<http://www.w3.org/2001/XMLSchema#integer> <http://dydra.com/accounts/openrdf-sesame> .
+<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:federationMode> <urn:rdfcache:none>  <http://dydra.com/accounts/openrdf-sesame> .
+<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:requestMemoryLimit> "1000000"^^<http://www.w3.org/2001/XMLSchema#integer> <http://dydra.com/accounts/openrdf-sesame> .
+<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:namedContextsTerm> <urn:dydra:named> <http://dydra.com/accounts/openrdf-sesame> .
+<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:prefixes> "cc: <http://creativecommons.org/ns#>"  <http://dydra.com/accounts/openrdf-sesame> .
+<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:provenanceRepositoryId> <http://dydra.com/accounts/openrdf-sesame/repository/provenance> <http://dydra.com/accounts/openrdf-sesame> .
+<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:requestSolutionLimit>  "10000"^^<http://www.w3.org/2001/XMLSchema#integer>  <http://dydra.com/accounts/openrdf-sesame> .
+<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:strictVocabularyTerms> "false"^^<http://www.w3.org/2001/XMLSchema#boolean> <http://dydra.com/accounts/openrdf-sesame> .
+<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:requestTimeLimit>  "60"^^<http://www.w3.org/2001/XMLSchema#integer>  <http://dydra.com/accounts/openrdf-sesame> .
+<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:undefinedVariableBehavior> <urn:dydra:error>  <http://dydra.com/accounts/openrdf-sesame> .
+EOF
+}
+
 function initialize_repository () {
+# metadata
+${CURL} -w "%{http_code}\n" -L -f -s -X POST \
+     -H "Content-Type: application/n-quads" --data-binary @- \
+     ${STORE_URL}/${STORE_ACCOUNT}/system?auth_token=${STORE_TOKEN} <<EOF
+<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:baseIRI> <http://www.openrdf.org/mem-rdf> <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:skolemize> "false"^^<http://www.w3.org/2001/XMLSchema#boolean> <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:defaultContextTerm> <urn:dydra:default> <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:describeForm> <urn:rdfcache:simple-symmetric-concise-bounded-description> <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:describeObjectDepth> "2"^^<http://www.w3.org/2001/XMLSchema#integer> <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:describeSubjectDepth> "2"^^<http://www.w3.org/2001/XMLSchema#integer> <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:federationMode> <urn:rdfcache:internal>  <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:namedContextsTerm> <urn:dydra:named> <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:prefixes> "dc: <http://purl.org/dc/terms/>"  <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:provenanceRepositoryId> <http://dydra.com/accounts/openrdf-sesame/repository/provenance> <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:strictVocabularyTerms> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:undefinedVariableBehavior> <urn:dydra:dynamicBinding>  <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
+EOF
+
+# content
 ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
      -H "Accept: application/n-quads" \
      -H "Content-Type: application/n-quads" --data-binary @- \
@@ -87,12 +130,12 @@ ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
 EOF
 }
 
-function initialize_about () {
-${CURL} -w "%{http_code}\n" -f -s -X PUT \
+function initialize_profile () {
+${CURL} -w "%{http_code}\n" -f -s -X POST \
      -H "Content-Type: application/json" \
      -H "Accept: " \
      --data-binary @- \
-     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/about?auth_token=${STORE_TOKEN} <<EOF 
+     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/profile?auth_token=${STORE_TOKEN} <<EOF 
 {
     "name": "mem-rdf",
     "homepage": "http://example.org/test",
@@ -121,7 +164,7 @@ ${CURL} -w "%{http_code}\n" -f -s -X PUT \
      -H "Content-Type: application/json" \
      -H "Accept: " \
      --data-binary @- \
-     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/prefixes?auth_token=${STORE_TOKEN} <<EOF
+     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/configuration/namespaces?auth_token=${STORE_TOKEN} <<EOF
 {"default_repository_prefixes":{"cc":"http://creativecommons.org/ns#","cert":"http://www.w3.org/ns/auth/cert#","dbp":"http://dbpedia.org/property/","dc":"http://purl.org/dc/terms/","dc11":"http://purl.org/dc/elements/1.1/","dcterms":"http://purl.org/dc/terms/","doap":"http://usefulinc.com/ns/doap#","exif":"http://www.w3.org/2003/12/exif/ns#","fn":"http://www.w3.org/2005/xpath-functions#","foaf":"http://xmlns.com/foaf/0.1/","geo":"http://www.w3.org/2003/01/geo/wgs84_pos#","geonames":"http://www.geonames.org/ontology#","gr":"http://purl.org/goodrelations/v1#","http":"http://www.w3.org/2006/http#","log":"http://www.w3.org/2000/10/swap/log#","owl":"http://www.w3.org/2002/07/owl#","rdf":"http://www.w3.org/1999/02/22-rdf-syntax-ns#","rdfs":"http://www.w3.org/2000/01/rdf-schema#","rei":"http://www.w3.org/2004/06/rei#","rsa":"http://www.w3.org/ns/auth/rsa#","rss":"http://purl.org/rss/1.0/","sfn":"http://www.w3.org/ns/sparql#","sioc":"http://rdfs.org/sioc/ns#","skos":"http://www.w3.org/2004/02/skos/core#","swrc":"http://swrc.ontoware.org/ontology#","types":"http://rdfs.org/sioc/types#","wot":"http://xmlns.com/wot/0.1/","xhtml":"http://www.w3.org/1999/xhtml#","xsd":"http://www.w3.org/2001/XMLSchema#"}
 }
 EOF
@@ -136,11 +179,39 @@ ${CURL} -w "%{http_code}\n" -f -s -X PUT \
 EOF
 }
 
+function run_test() {
+  bash $1
+  if [[ "0" == "$?" ]]
+  then
+    echo succeeded
+  else
+    echo failed
+  fi
+}
 
+function run_tests() {
+  for file in $*; do
+    case "$file" in
+    *.sh )
+      bash $file
+      if [[ "0" == "$?" ]]
+      then
+        echo $file succeeded
+      else
+        echo $file failed
+      fi
+      ;;
+    * )
+      ;;
+    esac
+  done
+}
+
+export -f initialize_account
 export -f initialize_repository
 export -f initialize_repository_public
 export -f initialize_repository_rdf_graphs
-export -f initialize_about
+export -f initialize_profile
 export -f initialize_collaboration
 export -f initialize_prefixes
 export -f initialize_privacy

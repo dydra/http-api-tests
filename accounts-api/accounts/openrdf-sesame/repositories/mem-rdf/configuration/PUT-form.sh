@@ -1,11 +1,6 @@
 #! /bin/bash
 
-# write privacy settings and test the immediate response;
-# test the get response and then cycle back to the original state
-#
-# STORE_ACCOUNT : account name
-# STORE_URL : host http url 
-# STORE_REPOSITORY : individual repository
+# write onfiguration changes as for request
 
 curl -w "%{http_code}\n" -f -s -X PUT \
      -H "Content-Type: application/x-www-form-urlencoded" \
@@ -13,7 +8,7 @@ curl -w "%{http_code}\n" -f -s -X PUT \
      --data-urlencode @- \
      ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/prefixes?auth_token=${STORE_TOKEN} <<EOF \
  | fgrep -q "204"
-_method=PUT&repository[default_repository_prefixes]=PREFIX xx: <http://xx.com> PREFIX yy: <http://zz.com> PREFIX zz2: <http://zz2.com>
+_method=PUT&repository[prefixes]=PREFIX xx: <http://xx.com> PREFIX yy: <http://zz.com> PREFIX zz2: <http://zz2.com>
 EOF
 
 

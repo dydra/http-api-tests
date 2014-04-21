@@ -6,13 +6,23 @@
 # STORE_URL : host http url 
 # STORE_REPOSITORY : individual repository
 
-curl -f -s -X PUT \
+curl -w "%{http_code}\n"  -f -s -X POST \
      -H "Content-Type: application/json" \
-     -H "Accept: application/json" \
      --data-binary @- \
-     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/prefixes?auth_token=${STORE_TOKEN} <<EOF \
- | json_reformat -m | fgrep '"cc-not":' | fgrep -q '"xsd-not":'
-{"default_repository_prefixes":{"cc-not":"http://creativecommons.org/ns#","xsd-not":"http://www.w3.org/2001/XMLSchema#"}}
+     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/configuration?auth_token=${STORE_TOKEN} <<EOF \
+ |  fgrep -q "204"
+{"undefinedVariableBehavior": {"type":"uri", "value":"urn:dydra:error"},
+ "strictVocabularyTerms": false,
+ "provenanceRepositoryId": false,
+ "prefixes": "PREFIX cc-not: <http://creativecommons.org/ns#> PREFIX xsd-not: <http://www.w3.org/2001/XMLSchema#>",
+ "namedContextsTerm": {"type":"uri", "value":"http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"},
+ "federationMode": {"type":"uri", "value":"urn:dydra:none"},
+ "describeSubjectDepth": 1,
+ "describeObjectDepth": 1,
+ "describeForm": {"type":"uri", "value":"urn:dydra:simple-concise-bounded-description"},
+ "defaultContextTerm": {"type":"uri", "value":"http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"},
+ "skolemize": true,
+ "baseIRI": {"type":"uri", "value":"http://www.dydra.com"}}
 EOF
 
 curl -f -s -S -X GET\

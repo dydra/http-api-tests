@@ -72,7 +72,7 @@ ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
 <http://dydra.com/accounts/openrdf-sesame> <urn:dydra:federationMode> <urn:rdfcache:none>  <http://dydra.com/accounts/openrdf-sesame> .
 <http://dydra.com/accounts/openrdf-sesame> <urn:dydra:requestMemoryLimit> "1000000"^^<http://www.w3.org/2001/XMLSchema#integer> <http://dydra.com/accounts/openrdf-sesame> .
 <http://dydra.com/accounts/openrdf-sesame> <urn:dydra:namedContextsTerm> <urn:dydra:named> <http://dydra.com/accounts/openrdf-sesame> .
-<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:prefixes> "cc: <http://creativecommons.org/ns#>"  <http://dydra.com/accounts/openrdf-sesame> .
+<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:prefixes> "prefix cc: <http://creativecommons.org/ns#>"  <http://dydra.com/accounts/openrdf-sesame> .
 <http://dydra.com/accounts/openrdf-sesame> <urn:dydra:provenanceRepositoryId> <http://dydra.com/accounts/openrdf-sesame/repository/provenance> <http://dydra.com/accounts/openrdf-sesame> .
 <http://dydra.com/accounts/openrdf-sesame> <urn:dydra:requestSolutionLimit>  "10000"^^<http://www.w3.org/2001/XMLSchema#integer>  <http://dydra.com/accounts/openrdf-sesame> .
 <http://dydra.com/accounts/openrdf-sesame> <urn:dydra:strictVocabularyTerms> "false"^^<http://www.w3.org/2001/XMLSchema#boolean> <http://dydra.com/accounts/openrdf-sesame> .
@@ -81,7 +81,7 @@ ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
 EOF
 }
 
-function initialize_repository () {
+function initialize_repository_configuration () {
 # metadata
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -H "Content-Type: application/n-quads" --data-binary @- \
@@ -94,12 +94,14 @@ ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
 <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:describeSubjectDepth> "2"^^<http://www.w3.org/2001/XMLSchema#integer> <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
 <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:federationMode> <urn:rdfcache:internal>  <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
 <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:namedContextsTerm> <urn:dydra:named> <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
-<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:prefixes> "dc: <http://purl.org/dc/terms/>"  <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:prefixes> "prefix dc: <http://purl.org/dc/terms/>"  <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
 <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:provenanceRepositoryId> <http://dydra.com/accounts/openrdf-sesame/repository/provenance> <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
 <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:strictVocabularyTerms> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
 <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:undefinedVariableBehavior> <urn:dydra:dynamicBinding>  <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
 EOF
+}
 
+function initialize_repository_content () {
 # content
 ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
      -H "Accept: application/n-quads" \
@@ -108,6 +110,11 @@ ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
+}
+
+function initialize_repository () {
+  initialize_repository_configuration;
+  initialize_repository_content;
 }
 
 function initialize_repository_public () {
@@ -164,9 +171,8 @@ ${CURL} -w "%{http_code}\n" -f -s -X PUT \
      -H "Content-Type: application/json" \
      -H "Accept: " \
      --data-binary @- \
-     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/configuration/namespaces?auth_token=${STORE_TOKEN} <<EOF
-{"default_repository_prefixes":{"cc":"http://creativecommons.org/ns#","cert":"http://www.w3.org/ns/auth/cert#","dbp":"http://dbpedia.org/property/","dc":"http://purl.org/dc/terms/","dc11":"http://purl.org/dc/elements/1.1/","dcterms":"http://purl.org/dc/terms/","doap":"http://usefulinc.com/ns/doap#","exif":"http://www.w3.org/2003/12/exif/ns#","fn":"http://www.w3.org/2005/xpath-functions#","foaf":"http://xmlns.com/foaf/0.1/","geo":"http://www.w3.org/2003/01/geo/wgs84_pos#","geonames":"http://www.geonames.org/ontology#","gr":"http://purl.org/goodrelations/v1#","http":"http://www.w3.org/2006/http#","log":"http://www.w3.org/2000/10/swap/log#","owl":"http://www.w3.org/2002/07/owl#","rdf":"http://www.w3.org/1999/02/22-rdf-syntax-ns#","rdfs":"http://www.w3.org/2000/01/rdf-schema#","rei":"http://www.w3.org/2004/06/rei#","rsa":"http://www.w3.org/ns/auth/rsa#","rss":"http://purl.org/rss/1.0/","sfn":"http://www.w3.org/ns/sparql#","sioc":"http://rdfs.org/sioc/ns#","skos":"http://www.w3.org/2004/02/skos/core#","swrc":"http://swrc.ontoware.org/ontology#","types":"http://rdfs.org/sioc/types#","wot":"http://xmlns.com/wot/0.1/","xhtml":"http://www.w3.org/1999/xhtml#","xsd":"http://www.w3.org/2001/XMLSchema#"}
-}
+     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/configuration/prefixes?auth_token=${STORE_TOKEN} <<EOF
+{"prefixes": "PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>" }
 EOF
 }
 
@@ -174,18 +180,18 @@ function initialize_privacy () {
 ${CURL} -w "%{http_code}\n" -f -s -X PUT \
      -H "Content-Type: application/json" \
      --data-binary @- \
-     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/privacy?auth_token=${STORE_TOKEN} <<EOF
+     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/authorization?auth_token=${STORE_TOKEN} <<EOF
 {"permissable_ip_addresses":["192.168.1.1"],"privacy_setting":1}
 EOF
 }
 
 function run_test() {
-  bash $1
+  bash -e $1
   if [[ "0" == "$?" ]]
   then
-    echo succeeded
+    echo $1 succeeded
   else
-    echo failed
+    echo $1 failed
   fi
 }
 
@@ -193,7 +199,7 @@ function run_tests() {
   for file in $*; do
     case "$file" in
     *.sh )
-      bash $file
+      bash -e $file
       if [[ "0" == "$?" ]]
       then
         echo $file succeeded
@@ -209,6 +215,8 @@ function run_tests() {
 
 export -f initialize_account
 export -f initialize_repository
+export -f initialize_repository_configuration
+export -f initialize_repository_content
 export -f initialize_repository_public
 export -f initialize_repository_rdf_graphs
 export -f initialize_profile

@@ -9,7 +9,7 @@
 # STORE_REPOSITORY : individual repository
 # STORE_TOKEN : the authentication token
 
-source ./script_setup.sh
+source ./setup.sh
 
 
 initialize_account | fgrep -q "${PUT_SUCCESS}"

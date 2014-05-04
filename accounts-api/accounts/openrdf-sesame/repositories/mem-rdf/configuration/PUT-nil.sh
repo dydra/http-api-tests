@@ -6,7 +6,7 @@
 # STORE_URL : host http url 
 # STORE_REPOSITORY : individual repository
 
-${CURL} -w "%{http_code}\n"  -f -s -X POST \
+${CURL} -w "%{http_code}\n" -f -s -X POST \
      -H "Content-Type: application/json" \
      --data-binary @- \
      ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/configuration?auth_token=${STORE_TOKEN} <<EOF \
@@ -21,7 +21,10 @@ ${CURL} -f -s -S -X GET\
 
 initialize_repository_configuration | fgrep -q "204"
 
+# make sure it has something from the defaults
 ${CURL} -f -s -S -X GET\
      -H "Accept: application/json" \
-     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/prefixes?auth_token=${STORE_TOKEN} \
- | json_reformat -m | fgrep '"cc":"http://creativecommons.org/ns#"' | fgrep -q 'xsd":"http://www.w3.org/2001/XMLSchema#"'
+     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/configuration?auth_token=${STORE_TOKEN} \
+  | json_reformat -m \
+  | fgrep 'baseIRI' \
+  | fgrep -q "/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}"

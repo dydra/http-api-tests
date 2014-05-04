@@ -1,7 +1,7 @@
 #! /bin/bash
 
 
-# http api tests : environment initialization
+# http api tests : run-time environment initialization
 #
 # environment :
 # STORE_URL : host http url
@@ -63,21 +63,7 @@ function initialize_account () {
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -H "Content-Type: application/n-quads" --data-binary @- \
      ${STORE_URL}/${STORE_ACCOUNT}/system?auth_token=${STORE_TOKEN} <<EOF
-<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:baseIRI> <http://www.openrdf.org> <http://dydra.com/accounts/openrdf-sesame> .
-<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:skolemize> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> <http://dydra.com/accounts/openrdf-sesame> .
-<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:defaultContextTerm> <urn:dydra:all> <http://dydra.com/accounts/openrdf-sesame> .
-<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:describeForm> <urn:rdfcache:simple-concise-bounded-description> <http://dydra.com/accounts/openrdf-sesame> .
-<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:describeObjectDepth> "2"^^<http://www.w3.org/2001/XMLSchema#integer> <http://dydra.com/accounts/openrdf-sesame> .
-<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:describeSubjectDepth> "0"^^<http://www.w3.org/2001/XMLSchema#integer> <http://dydra.com/accounts/openrdf-sesame> .
-<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:federationMode> <urn:rdfcache:none>  <http://dydra.com/accounts/openrdf-sesame> .
-<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:requestMemoryLimit> "1000000"^^<http://www.w3.org/2001/XMLSchema#integer> <http://dydra.com/accounts/openrdf-sesame> .
-<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:namedContextsTerm> <urn:dydra:named> <http://dydra.com/accounts/openrdf-sesame> .
-<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:prefixes> "prefix cc: <http://creativecommons.org/ns#>"  <http://dydra.com/accounts/openrdf-sesame> .
-<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:provenanceRepositoryId> <http://dydra.com/accounts/openrdf-sesame/repository/provenance> <http://dydra.com/accounts/openrdf-sesame> .
-<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:requestSolutionLimit>  "10000"^^<http://www.w3.org/2001/XMLSchema#integer>  <http://dydra.com/accounts/openrdf-sesame> .
-<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:strictVocabularyTerms> "false"^^<http://www.w3.org/2001/XMLSchema#boolean> <http://dydra.com/accounts/openrdf-sesame> .
-<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:requestTimeLimit>  "60"^^<http://www.w3.org/2001/XMLSchema#integer>  <http://dydra.com/accounts/openrdf-sesame> .
-<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:undefinedVariableBehavior> <urn:dydra:error>  <http://dydra.com/accounts/openrdf-sesame> .
+<http://dydra.com/accounts/openrdf-sesame> <urn:dydra:baseIRI> <http://dydra.com/accounts/openrdf-sesame> <http://dydra.com/accounts/openrdf-sesame> .
 EOF
 }
 
@@ -86,18 +72,18 @@ function initialize_repository_configuration () {
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -H "Content-Type: application/n-quads" --data-binary @- \
      ${STORE_URL}/${STORE_ACCOUNT}/system?auth_token=${STORE_TOKEN} <<EOF
-<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:baseIRI> <http://www.openrdf.org/mem-rdf> <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
-<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:skolemize> "false"^^<http://www.w3.org/2001/XMLSchema#boolean> <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
-<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:defaultContextTerm> <urn:dydra:default> <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
-<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:describeForm> <urn:rdfcache:simple-symmetric-concise-bounded-description> <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
-<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:describeObjectDepth> "2"^^<http://www.w3.org/2001/XMLSchema#integer> <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
-<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:describeSubjectDepth> "2"^^<http://www.w3.org/2001/XMLSchema#integer> <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
-<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:federationMode> <urn:rdfcache:internal>  <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
-<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:namedContextsTerm> <urn:dydra:named> <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
-<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:prefixes> "prefix dc: <http://purl.org/dc/terms/>"  <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
-<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:provenanceRepositoryId> <http://dydra.com/accounts/openrdf-sesame/repository/provenance> <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
-<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:strictVocabularyTerms> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
-<http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:undefinedVariableBehavior> <urn:dydra:dynamicBinding>  <http://dydra.com/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:baseIRI> <http://www.openrdf.org/mem-rdf> <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:skolemize> "false"^^<http://www.w3.org/2001/XMLSchema#boolean> <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:defaultContextTerm> <urn:dydra:default> <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:describeForm> <urn:rdfcache:simple-symmetric-concise-bounded-description> <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:describeObjectDepth> "2"^^<http://www.w3.org/2001/XMLSchema#integer> <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:describeSubjectDepth> "2"^^<http://www.w3.org/2001/XMLSchema#integer> <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:federationMode> <urn:rdfcache:internal>  <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:namedContextsTerm> <urn:dydra:named> <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:prefixes> "prefix dc: <http://purl.org/dc/terms/>"  <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:provenanceRepositoryId> <http://${STORE_SITE}/accounts/openrdf-sesame/repository/provenance> <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:strictVocabularyTerms> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> .
+<http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:undefinedVariableBehavior> <urn:dydra:dynamicBinding>  <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> .
 EOF
 }
 

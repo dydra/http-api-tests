@@ -27,12 +27,7 @@ EOF
 
 curl -f -s -S -X GET\
      -H "Accept: application/json" \
-     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/prefixes?auth_token=${STORE_TOKEN} \
- | json_reformat -m | fgrep '"cc-not":' | fgrep -v '"cc":' | fgrep '"xsd-not":' | fgrep -q -v '"xsd":'
+     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/configuration?auth_token=${STORE_TOKEN} \
+ | json_reformat -m | fgrep -q -v 'urn:dydra:error'
 
 initialize_prefixes | fgrep -q "204"
-
-curl -f -s -S -X GET\
-     -H "Accept: application/json" \
-     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/prefixes?auth_token=${STORE_TOKEN} \
- | json_reformat -m | fgrep '"cc":"http://creativecommons.org/ns#"' | fgrep -q 'xsd":"http://www.w3.org/2001/XMLSchema#"'

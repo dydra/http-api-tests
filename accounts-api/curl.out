@@ -1,0 +1,29 @@
+== Info: About to connect() to dev.dydra.com port 80 (#0)
+== Info:   Trying 5.9.39.231... == Info: connected
+== Info: Connected to dev.dydra.com (5.9.39.231) port 80 (#0)
+=> Send header, 296 bytes (0x128)
+0000: 50 4f 53 54 20 2f 61 63 63 6f 75 6e 74 73 2f 6f POST /accounts/o
+0010: 70 65 6e 72 64 66 2d 73 65 73 61 6d 65 2f 72 65 penrdf-sesame/re
+0020: 70 6f 73 69 74 6f 72 69 65 73 2f 6d 65 6d 2d 72 positories/mem-r
+0030: 64 66 2f 70 72 6f 66 69 6c 65 3f 61 75 74 68 5f df/profile?auth_
+0040: 74 6f 6b 65 6e 3d 45 42 79 69 78 68 35 47 51 43 token=EByixh5GQC
+0050: 5a 51 66 31 68 41 64 35 79 48 20 48 54 54 50 2f ZQf1hAd5yH HTTP/
+0060: 31 2e 31 0d 0a 55 73 65 72 2d 41 67 65 6e 74 3a 1.1..User-Agent:
+0070: 20 63 75 72 6c 2f 37 2e 32 31 2e 31 20 28 70 6f  curl/7.21.1 (po
+0080: 77 65 72 70 63 2d 61 70 70 6c 65 2d 64 61 72 77 werpc-apple-darw
+0090: 69 6e 38 2e 31 31 2e 30 29 20 6c 69 62 63 75 72 in8.11.0) libcur
+00a0: 6c 2f 37 2e 32 31 2e 31 20 4f 70 65 6e 53 53 4c l/7.21.1 OpenSSL
+00b0: 2f 31 2e 30 2e 30 61 20 7a 6c 69 62 2f 31 2e 32 /1.0.0a zlib/1.2
+00c0: 2e 35 20 6c 69 62 69 64 6e 2f 31 2e 31 39 0d 0a .5 libidn/1.19..
+00d0: 48 6f 73 74 3a 20 64 65 76 2e 64 79 64 72 61 2e Host: dev.dydra.
+00e0: 63 6f 6d 0d 0a 41 63 63 65 70 74 3a 20 2a 2f 2a com..Accept: */*
+00f0: 0d 0a 43 6f 6e 74 65 6e 74 2d 54 79 70 65 3a 20 ..Content-Type: 
+0100: 61 70 70 6c 69 63 61 74 69 6f 6e 2f 6a 73 6f 6e application/json
+0110: 0d 0a 43 6f 6e 74 65 6e 74 2d 4c 65 6e 67 74 68 ..Content-Length
+0120: 3a 20 34 37 0d 0a 0d 0a                         : 47....
+=> Send data, 47 bytes (0x2f)
+0000: 7b 0a 20 20 20 22 68 6f 6d 65 70 61 67 65 22 3a {.   "homepage":
+0010: 20 22 2f 2f 68 74 74 70 3a 2f 2f 65 78 61 6d 70  "//http://examp
+0020: 6c 65 2e 6f 72 67 2f 74 65 73 74 22 0a 7d 0a    le.org/test".}.
+== Info: The requested URL returned error: 400
+== Info: Closing connection #0

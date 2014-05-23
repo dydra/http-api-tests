@@ -6,4 +6,4 @@ curl -f -s -S -X GET\
    | xmllint  --c14n11 - \
    | tr -s '\t\n\r\f' ' ' | sed 's/ +/ /g' \
    | fgrep 'variable name="count1"' \
-   | egrep -q -s '<binding name="count1"> <literal .*>1</literal>'
+   | egrep -q -s '<binding name="count1">.*<literal .*>1</literal>'

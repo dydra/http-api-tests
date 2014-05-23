@@ -10,7 +10,7 @@ $CURL -w "%{http_code}\n" -f -s -S -X POST \
      -H "Content-Type: application/n-quads" \
      --data-binary @- \
      ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}?graph=${STORE_NAMED_GRAPH}-three\&auth_token=${STORE_TOKEN} <<EOF \
-   | egrep -q "$STATUS_POST_SUCCESS"
+   | egrep -q "$STATUS_CREATED"
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object POST1" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object POST1" <${STORE_NAMED_GRAPH}-two> .
 EOF

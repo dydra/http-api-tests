@@ -13,4 +13,4 @@ curl -f -s -S -X GET \
    | wc -l | fgrep -q "0"
 
 
-initialize_repository | fgrep -q "${PUT_SUCCESS}"
+initialize_repository | grep_put_success

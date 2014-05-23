@@ -10,7 +10,7 @@ curl -w "%{http_code}\n" -f -s -X PATCH \
      -H "Content-Type: application/trix" \
      --data-binary @- \
      $STORE_URL/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} <<EOF \
-   | fgrep -q "${PATCH_SUCCESS}"
+   | grep_patch_success
 <?xml version="1.0" encoding="utf-8"?>
 <trix xmlns="http://www.w3.org/2004/03/trix/trix-1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2004/03/trix/trix-1/ http://www.w3.org/2004/03/trix/trix-1/trix-1.0.xsd">
  <graph>
@@ -39,7 +39,7 @@ curl -w "%{http_code}\n" -f -s -X PATCH \
      -H "Content-Type: application/trix" \
      --data-binary @- \
      $STORE_URL/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} <<EOF \
-   | fgrep -q "${PATCH_SUCCESS}"
+   | grep_patch_success
 <?xml version="1.0" encoding="utf-8"?>
 <trix xmlns="http://www.w3.org/2004/03/trix/trix-1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2004/03/trix/trix-1/ http://www.w3.org/2004/03/trix/trix-1/trix-1.0.xsd">
  <graph>
@@ -65,4 +65,4 @@ curl -f -s -S -X GET\
    | tr -s '\t' '\n' | wc -l | fgrep -q 3
 
 
-initialize_repository | fgrep -q "${PUT_SUCCESS}"
+initialize_repository | grep_put_success

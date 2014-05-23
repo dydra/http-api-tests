@@ -9,7 +9,7 @@ $CURL -w "%{http_code}\n" -f -s -S -X PUT \
      -H "Content-Type: application/n-triples" \
      --data-binary @- \
      ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}?graph=${STORE_NAMED_GRAPH}-three\&auth_token=${STORE_TOKEN} <<EOF \
-  | egrep -q "$STATUS_PUT_SUCCESS"
+  | egrep -q "$STATUS_CREATED"
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT1" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT1" <${STORE_NAMED_GRAPH}-two> .
 EOF

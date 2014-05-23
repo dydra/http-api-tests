@@ -10,7 +10,13 @@ ${CURL} -w "%{http_code}\n"  -f -s -X POST \
 EOF
 
 ${CURL} -f -s -S -X GET\
+     -H "Accept: application/sparql-results+json" \
+     $STORE_URL/${STORE_ACCOUNT}/repositories?auth_token=${STORE_TOKEN} \
+   | json_reformat -m \
+   | fgrep -q '"value":"new"'
+
+${CURL} -f -s -S -X GET\
      -H "Accept: application/json" \
      $STORE_URL/${STORE_ACCOUNT}/repositories?auth_token=${STORE_TOKEN} \
    | json_reformat -m \
-   | fgrep -q '"name": "new"'
+   | fgrep -q '"value":"new"'

@@ -2,7 +2,7 @@
 set -o errexit
 
 # the protocol target is the repository, the statements include quads and the content type is n-triples:
-# - a new graph identifier is generated - thus the uuid urn
+# - a new graph is generated as the encoding is n-triples and no graph is specified - thus the uuid urn
 # - triples are added to the new graph.
 # - quads are added to the new graph.
 # - no statements are removed

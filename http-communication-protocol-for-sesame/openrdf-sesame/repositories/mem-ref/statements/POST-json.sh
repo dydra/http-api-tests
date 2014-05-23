@@ -1,12 +1,14 @@
 #! /bin/bash
 
-# rdf json imported is not yet implemented
+# rdf json import
+# - for the sesame protocol, even with a post request _no_ new graph is generated even though no graph is specified.
+
 
 curl -w "%{http_code}\n" -f -s -X POST \
      -H "Content-Type: application/rdf+json" \
      --data-binary @- \
      ${STORE_URL}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/statements?auth_token=${STORE_TOKEN} <<EOF \
-   | fgrep -q "${POST_SUCCESS}"
+   | egrep -q "${POST_SUCCESS}"
 { "http://example.com/default-subject" : {
   "http://example.com/default-predicate" : [ { "value" : "default object POST1",
                                                "type" : "literal" } ]
@@ -19,7 +21,6 @@ curl -f -s -S -X GET \
      ${STORE_URL}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/statements?auth_token=${STORE_TOKEN} \
    | tr -s '\n' '\t' \
    | fgrep '"default object"' | fgrep '"named object"' | fgrep  "default object POST1" \
-   | fgrep "<${STORE_NAMED_GRAPH}>" | fgrep 'urn:uuid' \
    | tr -s '\t' '\n' | wc -l | fgrep -q 3
 
 
@@ -27,7 +28,7 @@ curl -w "%{http_code}\n" -f -s -X POST \
      -H "Content-Type: application/rdf+json" \
      --data-binary @- \
      ${STORE_URL}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/statements?auth_token=${STORE_TOKEN} <<EOF \
-   | fgrep -q "${POST_SUCCESS}"
+   | egrep -q "${POST_SUCCESS}"
 { "http://example.com/default-subject" : {
   "http://example.com/default-predicate" : [ { "value" : "default object POST2",
                                                "type" : "literal" } ]
@@ -41,7 +42,6 @@ curl -f -s -S -X GET \
      ${STORE_URL}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/statements?auth_token=${STORE_TOKEN} \
    | tr -s '\n' '\t' \
    | fgrep '"default object"' | fgrep '"named object"' | fgrep  "default object POST1" | fgrep  "default object POST2" \
-   | fgrep "<${STORE_NAMED_GRAPH}>" | fgrep 'urn:uuid' \
    | tr -s '\t' '\n' | wc -l | fgrep -q 4
 
-initialize_repository | fgrep -q "${PUT_SUCCESS}"
+initialize_repository | grep_put_success

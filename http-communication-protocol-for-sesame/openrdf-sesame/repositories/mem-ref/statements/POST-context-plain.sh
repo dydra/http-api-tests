@@ -6,7 +6,7 @@ curl -w "%{http_code}\n" -f -s -S -X POST \
      -H "Content-Type: text/plain" \
      --data-binary @- \
      ${STORE_URL}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/statements?context=%3C${STORE_NAMED_GRAPH}-three%3E\&auth_token=${STORE_TOKEN} <<EOF \
-   # | fgrep -q "${POST_SUCCESS}"
+   | egrep -q "${POST_SUCCESS}"
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object POST1" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object POST1" <${STORE_NAMED_GRAPH}-two> .
 EOF
@@ -21,4 +21,4 @@ curl -f -s -S -X GET \
    | tr -s '\t' '\n' | fgrep "${STORE_NAMED_GRAPH}-three" | wc -l | fgrep -q 2
 
 
-initialize_repository | fgrep -q "${POST_SUCCESS}"
+initialize_repository | egrep -q "${POST_SUCCESS}"

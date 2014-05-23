@@ -9,5 +9,3 @@ curl -f -s -S -X POST \
  | egrep -q -s '"bindings".*"COUNT1".*"value":"1"'
 query=select%20count(*)%20where%20%7b?s%20?p%20?o%7d
 EOF
-
-initialize_repository | fgrep -q "${POST_SUCCESS}"

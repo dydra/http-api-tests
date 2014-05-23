@@ -5,6 +5,5 @@
 curl -f -s -S -X GET \
      -H "Accept: application/sparql-results+json" \
      $STORE_URL/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/contexts?auth_token=${STORE_TOKEN} \
-   | json_reformat -m \
-   | fgrep 'contextID' | fgrep "\"value\":\"${STORE_NAMED_GRAPH}\"" \
-   | tr -s ':' '\n' | fgrep -c 'contextID' | fgrep -q '2'
+   | jq '.results.bindings[] | .[].value' \
+   | wc -l | fgrep -q '2'

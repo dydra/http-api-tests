@@ -9,7 +9,7 @@ curl -w "%{http_code}\n" -f -s -S -X PUT \
      -H "Content-Type: application/n-triples" \
      --data-binary @- \
      ${STORE_URL}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/rdf-graphs/sesame?auth_token=${STORE_TOKEN} <<EOF \
-   | fgrep -q "${PUT_SUCCESS}"
+   | grep_put_success
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT1" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT1" <${STORE_NAMED_GRAPH}-two> .
 EOF
@@ -28,7 +28,7 @@ curl -w "%{http_code}\n" -f -s -S -X PUT \
      -H "Content-Type: application/n-triples" \
      --data-binary @- \
      ${STORE_URL}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/rdf-graphs/sesame?auth_token=${STORE_TOKEN} <<EOF \
-   | fgrep -q "${PUT_SUCCESS}"
+   | grep_put_success
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT2" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT2" <${STORE_NAMED_GRAPH}-two> .
 EOF
@@ -41,4 +41,4 @@ curl -f -s -S -X GET\
    | fgrep -v "<${STORE_NAMED_GRAPH}-two>" | fgrep -v "PUT1" \
    | tr -s '\t' '\n' | fgrep 'rdf-graphs/sesame' | wc -l | fgrep -q 2
 
-initialize_repository | fgrep -q "${PUT_SUCCESS}"
+initialize_repository | grep_put_success

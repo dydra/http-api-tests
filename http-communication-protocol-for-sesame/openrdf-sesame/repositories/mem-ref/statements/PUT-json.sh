@@ -5,7 +5,7 @@ curl -w "%{http_code}\n" -f -s -X PUT \
      -H "Content-Type: application/rdf+json" \
      --data-binary @- \
      ${STORE_URL}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/statements?auth_token=${STORE_TOKEN} <<EOF \
- | fgrep -q "${PUT_SUCCESS}"
+ | egrep -q "${PUT_SUCCESS}"
 { "http://example.com/default-subject" : {
   "http://example.com/default-predicate" : [ { "value" : "default object PUT1",
                                                "type" : "literal" } ]
@@ -25,7 +25,7 @@ curl -w "%{http_code}\n" -f -s -X PUT \
      -H "Content-Type: application/rdf+json" \
      --data-binary @- \
      ${STORE_URL}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/statements?auth_token=${STORE_TOKEN} <<EOF \
-   | fgrep -q "${PUT_SUCCESS}"
+   | egrep -q "${PUT_SUCCESS}"
 { "http://example.com/default-subject" : {
   "http://example.com/default-predicate" : [ { "value" : "default object PUT2",
                                                "type" : "literal" } ]
@@ -41,4 +41,4 @@ curl -f -s -S -X GET \
    | fgrep -v '"default object"' | fgrep -v '"named object"' | fgrep -v "default object PUT1" | fgrep "default object PUT2" \
    | tr -s '\t' '\n' | wc -l | fgrep -q 1
 
-initialize_repository | fgrep -q "${PUT_SUCCESS}"
+initialize_repository | egrep -q "${PUT_SUCCESS}"

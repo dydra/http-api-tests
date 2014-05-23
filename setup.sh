@@ -14,6 +14,11 @@ then
   export CURL=curl
 fi
 
+if [[ "" == ${STORE_CLIENT_IP_AUTHORIZED} ]]
+then 
+  export STORE_CLIENT_IP_AUTHORIZED=true
+fi
+
 if [[ "" == "${STORE_URL}" ]]
 then
   export STORE_URL="http://localhost"
@@ -26,6 +31,7 @@ export STORE_REPOSITORY="mem-rdf"
 export STORE_REPOSITORY_PUBLIC="public"
 export STORE_TOKEN=`cat ~/.dydra/token-${STORE_ACCOUNT}`
 export STORE_TOKEN_JHACKER=`cat ~/.dydra/token-jhacker`
+export STORE_CLIENT_IP="127.0.0.1"
 export STORE_PREFIX="rdf"
 export STORE_DGRAPH="sesame"
 export STORE_IGRAPH="http://example.org"
@@ -36,7 +42,7 @@ fgrep 127.0.0.1 /etc/hosts | fgrep -q ${STORE_HOST} &&  export STORE_IS_LOCAL=tr
 
 export STATUS_OK=200
 export STATUS_DELETE_SUCCESS=204
-export STATUS_PATCH_SUCCESS=201
+export STATUS_PATCH_SUCCESS="201|204"
 export POST_SUCCESS="201|204"
 export STATUS_POST_SUCCESS="201|204"
 export PUT_SUCCESS="201|204"
@@ -51,8 +57,23 @@ export STATUS_UNAUTHORIZED=401
 export STATUS_NOT_FOUND=404
 export STATUS_NOT_ACCEPTABLE=406
 export STATUS_UNSUPPORTED_MEDIA=415
+
+# indicate whether those put/post operations for which the request specified the default graph, will apply any
+# quad statements to the default graph or to that graph from the statement. false implies by statement.
+export QUAD_DISPOSITION_BY_REQUEST=false
 STORE_ERRORS=0
 
+function grep_patch_success () {
+  egrep -q "${STATUS_PATCH_SUCCESS}"
+}
+
+function grep_post_success () {
+  egrep -q "${STATUS_POST_SUCCESS}"
+}
+
+function grep_put_success () {
+  egrep -q "${STATUS_PUT_SUCCESS}"
+}
 
 # provide operators to restore aspects of the store to a known state
 # they presumes, that the various PUT operators work
@@ -99,7 +120,6 @@ EOF
 }
 
 function initialize_repository () {
-  initialize_repository_configuration;
   initialize_repository_content;
 }
 
@@ -178,6 +198,7 @@ function run_test() {
     echo $1 succeeded
   else
     echo $1 failed
+    initialize_repository > /dev/null
   fi
 }
 
@@ -191,13 +212,23 @@ function run_tests() {
         echo $file succeeded
       else
         echo $file failed
+        initialize_repository > /dev/null
       fi
       ;;
     * )
+      if (test -d $file)
+      then run_tests `find $file -name '*.sh'`
+      fi
       ;;
     esac
   done
 }
+
+
+
+export -f grep_patch_success
+export -f grep_post_success
+export -f grep_put_success
 
 export -f initialize_account
 export -f initialize_repository

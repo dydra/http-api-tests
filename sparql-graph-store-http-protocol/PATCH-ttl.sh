@@ -10,7 +10,7 @@ curl -w "%{http_code}\n" -f -s -X PATCH \
      -H "Content-Type: application/turtle" \
      --data-binary @- \
      $STORE_URL/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} <<EOF \
-   | fgrep -q "${PATCH_SUCCESS}"
+   | grep_patch_success
 <http://example.com/default-subject>
     <http://example.com/default-predicate>
       "default object PATCH1" , 
@@ -31,7 +31,7 @@ curl -w "%{http_code}\n" -f -s -X PATCH \
      -H "Content-Type: application/turtle" \
      --data-binary @- \
      $STORE_URL/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} <<EOF \
-   | fgrep -q "${PATCH_SUCCESS}"
+   | grep_patch_success
 <http://example.com/default-subject>
     <http://example.com/default-predicate>
       "default object PATCH2" , 
@@ -49,4 +49,4 @@ curl -f -s -X GET\
    | tr -s '\t' '\n' | wc -l | fgrep -q 3
 
 
-initialize_repository | fgrep -q "${PUT_SUCCESS}"
+initialize_repository | grep_put_success

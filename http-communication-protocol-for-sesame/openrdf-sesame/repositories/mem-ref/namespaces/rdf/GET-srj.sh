@@ -2,8 +2,8 @@
 
 # verify response content type limits
 
-curl -w "%{http_code}\n" -f -s -X GET \
+curl -f -s -X GET \
      -H "Accept: application/sparql-results+json" \
      $STORE_URL/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/namespaces/rdf?auth_token=${STORE_TOKEN} \
-   | fgrep -q "406"
-
+   | json_reformat -m \
+   | fgrep -q "http://www.w3.org/1999/02/22-rdf-syntax-ns#"

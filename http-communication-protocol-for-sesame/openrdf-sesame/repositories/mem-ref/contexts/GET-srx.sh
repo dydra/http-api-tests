@@ -7,6 +7,6 @@ curl -f -s -S -X GET \
      ${STORE_URL}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/contexts?auth_token=${STORE_TOKEN} \
    | xmllint  --c14n11 - \
    | tr -s '\t\n\r\f' ' ' | sed 's/ +/ /g' \
-   | fgrep "<binding name=\"contextID\"> <uri>${STORE_NAMED_GRAPH}</uri>" \
-   | tr -s '=' '\n' | fgrep -c 'contextID' | fgrep -q '2'
+   | egrep "<binding name=\"contextID\">.*<uri>${STORE_NAMED_GRAPH}</uri>" \
+   | egrep -q "<binding name=\"contextID\">.*<uri>urn:dydra:default</uri>"
 

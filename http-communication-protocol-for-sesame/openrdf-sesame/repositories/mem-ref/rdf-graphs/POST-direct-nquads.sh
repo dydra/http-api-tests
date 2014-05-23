@@ -10,7 +10,7 @@ curl -w "%{http_code}\n" -f -s -S -X POST \
      -H "Content-Type: application/n-quads" \
      --data-binary @- \
      ${STORE_URL}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/rdf-graphs/sesame?auth_token=${STORE_TOKEN} <<EOF \
-   | fgrep -q "${POST_SUCCESS}"
+   | egrep -q "${POST_SUCCESS}"
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object POST1" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object POST1" <${STORE_NAMED_GRAPH}-two> .
 EOF
@@ -29,7 +29,7 @@ curl -w "%{http_code}\n" -f -s -S -X POST \
      -H "Content-Type: application/n-quads" \
      --data-binary @- \
      ${STORE_URL}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/rdf-graphs/sesame?auth_token=${STORE_TOKEN} <<EOF \
-   | fgrep -q "${POST_SUCCESS}"
+   | egrep -q "${POST_SUCCESS}"
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object POST2" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object POST2" <${STORE_NAMED_GRAPH}-two> .
 EOF
@@ -44,4 +44,4 @@ curl -f -s -S -X GET\
    | fgrep '"default object POST2"' | fgrep '"named object POST2"' | fgrep  "<${STORE_NAMED_GRAPH}-two>" \
    | tr -s '\t' '\n' | wc -l | fgrep -q 6
 
-initialize_repository | fgrep -q "${POST_SUCCESS}"
+initialize_repository | egrep -q "${POST_SUCCESS}"

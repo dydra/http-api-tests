@@ -8,18 +8,45 @@ export STORE_TOKEN_ADMIN=`cat ~/.dydra/token-admin`
 
 # create one account/repository for various authorization combinations
 #
-#  $ACCOUNT-anon                : allowing anonymous access to its profile and repository list
-#  $ACCOUNT-read                : granted read authorization to the -byuser repository
-#  $ACCOUNT-write               : granted write authorization to the -byuser repository
-#  $ACCOUNT-readwrite           : granted read/write authorization to the -byuser repository
-#  $ACCOUNT/$REPOSITORY         : owner authorization for read/write - the normal case
-#  $ACCOUNT/$REPOSITORY-anon    : owner plus anonymous (agent) read
-#  $ACCOUNT/$REPOSITORY-user    : owner plus authenticated (user) read
-#  $ACCOUNT/$REPOSITORY-byuser  : owner plus access specific to user
-#  $ACCOUNT/$REPOSITORY-ipread  : owner plus read for 127.0.0.1
-#  $ACCOUNT/$REPOSITORY-ipwrite : owner plus write for 127.0.0.1 
+#  $ACCOUNT                       : the base account
+#  $ACCOUNT-anon                  : allowing anonymous access to its profile and repository list
+#  $ACCOUNT-read                  : granted read authorization to the -byuser repository
+#  $ACCOUNT-write                 : granted write authorization to the -byuser repository
+#  $ACCOUNT-readwrite             : granted read/write authorization to the -byuser repository
+#  $ACCOUNT/$REPOSITORY           : owner authorization for read/write - the normal case
+#  $ACCOUNT/$REPOSITORY-anon      : owner plus anonymous (agent) read
+#  $ACCOUNT/$REPOSITORY-user      : owner plus authenticated (user) read
+#  $ACCOUNT/$REPOSITORY-byuser    : owner plus access specific to user
+#  $ACCOUNT/$REPOSITORY-readbyip  : owner plus read for $STORE_CLIENT_IP for any agent
+#  $ACCOUNT/$REPOSITORY-writebyip : owner plus write for $STORE_CLIENT_IP for any user (not just agent)
 #
 # n.b. creation requires admin priviledges
+
+
+#  $ACCOUNT                     : the base account
+
+${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
+     ${STORE_URL}/accounts?auth_token=${STORE_TOKEN_ADMIN} <<EOF \
+ |  egrep -q "${STATUS_POST_SUCCESS}"
+{"account": {"name": "${STORE_ACCOUNT}"} }
+EOF
+
+# authorization and metadata :
+# add authorization for authenticated users to read the repository list either from both accounts-api and the sesame resources
+
+${CURL} -w "%{http_code}\n" -L -f -s -X POST \
+     -H "Content-Type: application/n-quads" --data-binary @- \
+     ${STORE_URL}/${STORE_ACCOUNT}/system?auth_token=${STORE_TOKEN_ADMIN} <<EOF \
+ |  egrep -q "${STATUS_POST_SUCCESS}"
+_:aclBase1 <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}> .
+_:aclBase1 <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/repositories> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}> .
+_:aclBase1 <http://www.w3.org/ns/auth/acl#mode> <http://www.w3.org/ns/auth/acl#Read> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}> .
+_:aclBase1 <http://www.w3.org/ns/auth/acl#agentClass> <urn:dydra:User> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}> .
+_:aclBase2 <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}> .
+_:aclBase2 <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/repositories> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}> .
+_:aclBase2 <http://www.w3.org/ns/auth/acl#mode> <http://www.w3.org/ns/auth/acl#Read> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}> .
+_:aclBase2 <http://www.w3.org/ns/auth/acl#agentClass> <http://xmlns.com/foaf/0.1/Agent> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}> .
+EOF
 
 
 #  $ACCOUNT-anon                : allowing anonymous profile and repository list access
@@ -30,7 +57,8 @@ ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --
 {"account": {"name": "${STORE_ACCOUNT}-anon"} }
 EOF
 
-# metadata
+# authorization and metadata
+
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -H "Content-Type: application/n-quads" --data-binary @- \
      ${STORE_URL}/${STORE_ACCOUNT}-anon/system?auth_token=${STORE_TOKEN_ADMIN} <<EOF \
@@ -61,7 +89,8 @@ ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --
 {"repository": {"name": "${STORE_REPOSITORY}"} }
 EOF
 
-initialize_repository_configuration
+initialize_repository_configuration ;
+initialize_repository_content ;
 
 
 #  $ACCOUNT/$REPOSITORY-anon    : owner plus anonymous (agent) read
@@ -71,6 +100,7 @@ ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --
  |  egrep -q "${STATUS_POST_SUCCESS}"
 {"repository": {"name": "${STORE_REPOSITORY}-anon"} }
 EOF
+# (initialize-repository-metadata (repository "openrdf-sesame/mem-rdf-anon"))
 
 # metadata w/ anonymous read access
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
@@ -121,7 +151,8 @@ EOF
 ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
      -H "Accept: application/n-quads" \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-user?auth_token=${STORE_TOKEN} <<EOF
+     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-user?auth_token=${STORE_TOKEN} <<EOF \
+ |  egrep -q "${STATUS_PUT_SUCCESS}"
 <http://example.com/subject> <http://example.com/predicate> "object" <${STORE_URL}>.
 EOF
 
@@ -134,6 +165,7 @@ ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --
  |  egrep -q "${STATUS_POST_SUCCESS}"
 {"repository": {"name": "${STORE_REPOSITORY}-byuser"} }
 EOF
+# to reset: (initialize-repository-metadata (repository "openrdf-sesame/mem-rdf-byuser"))
 
 # metadata w/ anonymous access specific to user
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
@@ -198,6 +230,75 @@ ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
      -H "Accept: application/n-quads" \
      -H "Content-Type: application/n-quads" --data-binary @- \
      ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-byuser?auth_token=${STORE_TOKEN} <<EOF \
+ |  egrep -q "${STATUS_PUT_SUCCESS}"
+<http://example.com/subject> <http://example.com/predicate> "object" <${STORE_URL}>.
+EOF
+
+
+#  $ACCOUNT/$REPOSITORY-readbyip : owner plus read for $STORE_CLIENT_IP for any agent
+
+${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
+     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories?auth_token=${STORE_TOKEN} <<EOF \
+ |  egrep -q "${STATUS_POST_SUCCESS}"
+{"repository": {"name": "${STORE_REPOSITORY}-readbyip"} }
+EOF
+# to reset: (initialize-repository-metadata (repository "openrdf-sesame/mem-rdf-readbyip"))
+
+# metadata w/ anonymous access specific to user
+
+${CURL} -w "%{http_code}\n" -L -f -s -X POST \
+     -H "Content-Type: application/n-quads" --data-binary @- \
+     ${STORE_URL}/${STORE_ACCOUNT}/system?auth_token=${STORE_TOKEN} <<EOF \
+ |  egrep -q "${STATUS_POST_SUCCESS}"
+_:aclReadByIp <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-readbyip> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-readbyip> .
+_:aclReadByIp <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-readbyip> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-readbyip> .
+_:aclReadByIp <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-readbyip> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-readbyip> .
+_:aclReadByIp <http://www.w3.org/ns/auth/acl#mode> <http://www.w3.org/ns/auth/acl#Read> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-readbyip> .
+_:aclReadByIp <http://www.w3.org/ns/auth/acl#agentClass> <http://xmlns.com/foaf/0.1/Agent> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-readbyip> .
+_:aclReadByIp <http://rdfs.org/sioc/ns#ip_address>  "${STORE_CLIENT_IP}" <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-readbyip> .
+<http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-byuser> <http://purl.org/dc/elements/1.1/description> "An account to test ip-restricted read access" <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-readbyip> .
+EOF
+
+# and minimal data
+${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
+     -H "Accept: application/n-quads" \
+     -H "Content-Type: application/n-quads" --data-binary @- \
+     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-readbyip?auth_token=${STORE_TOKEN} <<EOF \
+ |  egrep -q "${STATUS_PUT_SUCCESS}"
+<http://example.com/subject> <http://example.com/predicate> "object" <${STORE_URL}>.
+EOF
+
+
+
+#  $ACCOUNT/$REPOSITORY-writebyip : owner plus write for $STORE_CLIENT_IP for any user
+
+${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
+     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories?auth_token=${STORE_TOKEN} <<EOF \
+ |  egrep -q "${STATUS_POST_SUCCESS}"
+{"repository": {"name": "${STORE_REPOSITORY}-writebyip"} }
+EOF
+# to reset: (initialize-repository-metadata (repository "openrdf-sesame/mem-rdf-writebyip"))
+
+# metadata w/ anonymous access specific to user
+
+${CURL} -w "%{http_code}\n" -L -f -s -X POST \
+     -H "Content-Type: application/n-quads" --data-binary @- \
+     ${STORE_URL}/${STORE_ACCOUNT}/system?auth_token=${STORE_TOKEN} <<EOF \
+ |  egrep -q "${STATUS_POST_SUCCESS}"
+_:aclWriteByIp <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-writebyip> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-writebyip> .
+_:aclWriteByIp <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-writeby> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-writebyip> .
+_:aclWriteByIp <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-writebyip> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-writebyip> .
+_:aclWriteByIp <http://www.w3.org/ns/auth/acl#mode> <http://www.w3.org/ns/auth/acl#Write> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-writebyip> .
+_:aclWriteByIp <http://www.w3.org/ns/auth/acl#agentClass> <urn:dydra:User> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-writebyip> .
+_:aclWriteByIp <http://rdfs.org/sioc/ns#ip_address>  "${STORE_CLIENT_IP}" <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-writebyip> .
+<http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-byuser> <http://purl.org/dc/elements/1.1/description> "An account to test ip-restricted write access" <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-writebyip> .
+EOF
+
+# and minimal data
+${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
+     -H "Accept: application/n-quads" \
+     -H "Content-Type: application/n-quads" --data-binary @- \
+     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-writebyip?auth_token=${STORE_TOKEN} <<EOF \
  |  egrep -q "${STATUS_PUT_SUCCESS}"
 <http://example.com/subject> <http://example.com/predicate> "object" <${STORE_URL}>.
 EOF

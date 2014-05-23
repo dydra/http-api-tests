@@ -2,7 +2,7 @@
 
 # verify NO write access for user with read access only
 
-$CURL -w "%{http_code}\n" -f -s -S -X PUT \
+$CURL -w "%{http_code}\n" -f -s -X PUT \
      -H "Content-Type: application/n-quads" \
      --data-binary @- \
      ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-byuser?auth_token=${STORE_TOKEN}_READ <<EOF \

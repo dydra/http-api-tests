@@ -1,0 +1,49 @@
+@prefix : <http://example.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+_:a  :location "Allinge"@da  ;
+     :value 11.0 .
+
+_:b  :location "Aulum"@da  ;
+     :value "10.0"^^xsd:float.
+
+_:c  :location "Broager"@da  ;
+     :value "9.0"^^xsd:double ;
+     :value "12.0"^^xsd:float .
+
+_:d  :location "Br\u00E6dstrup"@da ;
+     :value "8.0"^^xsd:decimal.
+
+_:e  :location "B\u00F8rkop"@da  ;
+     :value 7.0 .
+
+_:f  :location "Wandsbek"@da  ;
+     :value 6.0 .
+
+_:g  :location "\u00C6r\u00F8sk\u00F8bing"@da  ;
+     :value 5.0 .
+
+_:h  :location "\u00D8lgod"@da  ;
+     :value 4.0 .
+
+_:i  :location "Aabybro"@da  ;
+     :value 3.0 .
+
+_:j  :location "\u00C5kirkeby"@da  ;
+     :value 2.0 .
+
+_:k  :location "Aalborg"@da  ;
+     :value 1.0 .
+
+_:o  :location "Barcelona"^^xsd:string  ;
+     :value 4 .
+
+_:m  :location "Berlin"  ;
+     :value 3 .
+
+_:l  :location "New York"  ;
+     :value 2 .
+
+_:n  :location "Paris"^^xsd:string  ;
+     :value 1 .
+

@@ -1,2 +1,6 @@
 language: c
 script:  ./run.sh
+notifications:
+  email:
+    recipients:
+      - james@dydra.com

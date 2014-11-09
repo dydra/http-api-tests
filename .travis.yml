@@ -1,5 +1,5 @@
 language: c
-script:  ./run.sh
+script:  bash ./run.sh
 notifications:
   email:
     recipients:

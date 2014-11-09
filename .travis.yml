@@ -4,3 +4,5 @@ notifications:
   email:
     recipients:
       - james@dydra.com
+env: STORE_URL=http://stage.dydra.com
+secure: "W35d3rxxkL8geZRd3QUjb3uDppi15YFJx+SHti8aazXa4zcHtWZx7ukO57VWH4EonnUOmwaHfhqFVmUgfMVlHo3XQpnmz5XpvLJ4mTWJBMg9po4ZJ1ZzzHbVqFrbogQdpPvxJ+LPp6NtqeEa6So5oLTM5Bxv3bHjUfHMB7MLEqk="

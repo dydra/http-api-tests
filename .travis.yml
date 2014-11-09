@@ -6,5 +6,5 @@ notifications:
   email:
     recipients:
       - james@dydra.com
-env: STORE_URL=http://stage.dydra.com
+secure: "NrRLrq5ZBsM3T8se2cGhcQ3kcElPWi22ZuYAgApoPMsLaO6LusIE0cvuK6wx8rV9Cl/JYvotg/Az+lXglWftCocHARHXKk5A4bzXXu0QJpmUR35mU+7KDRg8vHzgTrPeUfqSGHbMHc/a3UWIFXOVkuYcjgAU9gDJILoAjSRpEhw="
 secure: "W35d3rxxkL8geZRd3QUjb3uDppi15YFJx+SHti8aazXa4zcHtWZx7ukO57VWH4EonnUOmwaHfhqFVmUgfMVlHo3XQpnmz5XpvLJ4mTWJBMg9po4ZJ1ZzzHbVqFrbogQdpPvxJ+LPp6NtqeEa6So5oLTM5Bxv3bHjUfHMB7MLEqk="

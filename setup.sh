@@ -23,14 +23,21 @@ if [[ "" == "${STORE_URL}" ]]
 then
   export STORE_URL="http://localhost"
 fi
+if [[ "" == ${STORE_TOKEN} ]]
+then 
+  export STORE_TOKEN=`cat ~/.dydra/token-${STORE_ACCOUNT}`
+fi
+if [[ "" == ${STORE_TOKEN_JHACKER} ]]
+then 
+  export STORE_TOKEN_JHACKER=`cat ~/.dydra/token-jhacker`
+fi
+
 STORE_HOST=${STORE_URL#http://}
 export STORE_HOST=${STORE_HOST%:*}
 export STORE_SITE="dydra.com"
 export STORE_ACCOUNT="openrdf-sesame"
 export STORE_REPOSITORY="mem-rdf"
 export STORE_REPOSITORY_PUBLIC="public"
-export STORE_TOKEN=`cat ~/.dydra/token-${STORE_ACCOUNT}`
-export STORE_TOKEN_JHACKER=`cat ~/.dydra/token-jhacker`
 export STORE_CLIENT_IP="127.0.0.1"
 export STORE_PREFIX="rdf"
 export STORE_DGRAPH="sesame"

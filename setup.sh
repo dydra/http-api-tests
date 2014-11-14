@@ -1,6 +1,5 @@
 #! /bin/bash
 
-
 # http api tests : run-time environment initialization
 #
 # environment :
@@ -9,12 +8,14 @@
 # STORE_REPOSITORY : individual repository
 # STORE_TOKEN : the authentication token
 
+set -e
+
 if [[ "" == "${CURL}" ]]
 then
   export CURL=curl
 fi
 
-if [[ "" == ${STORE_CLIENT_IP_AUTHORIZED} ]]
+if [[ "" == "${STORE_CLIENT_IP_AUTHORIZED}" ]]
 then 
   export STORE_CLIENT_IP_AUTHORIZED=true
 fi
@@ -32,9 +33,9 @@ then
   export STORE_TOKEN_JHACKER=`cat ~/.dydra/token-jhacker`
 fi
 
-STORE_HOST=${STORE_URL#http://}
+STORE_HOST=${STORE_URL#http://}        # the actual host
 export STORE_HOST=${STORE_HOST%:*}
-export STORE_SITE="dydra.com"
+export STORE_SITE="dydra.com"          # the abstract site name
 export STORE_ACCOUNT="openrdf-sesame"
 export STORE_REPOSITORY="mem-rdf"
 export STORE_REPOSITORY_PUBLIC="public"

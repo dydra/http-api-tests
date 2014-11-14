@@ -1,6 +1,5 @@
 #! /bin/bash
 
-
 # http api tests
 #
 # environment :

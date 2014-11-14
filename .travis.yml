@@ -3,16 +3,18 @@ before_install:
  - sudo apt-get install -qq raptor2-utils
  - sudo apt-get install -qq yajl-tools
  - sudo apt-get install -qq jq
+
+# STORE_TOKEN
+secure: "W35d3rxxkL8geZRd3QUjb3uDppi15YFJx+SHti8aazXa4zcHtWZx7ukO57VWH4EonnUOmwaHfhqFVmUgfMVlHo3XQpnmz5XpvLJ4mTWJBMg9po4ZJ1ZzzHbVqFrbogQdpPvxJ+LPp6NtqeEa6So5oLTM5Bxv3bHjUfHMB7MLEqk="
+# STORE_TOKEN_JHACKER
+secure: "goljJQIEULTH18B9TXbpyapu6Pi36tbazEdf/AQHRwGInQ3GpoG8GdmDmPRyYABd6vHMGTufOr3vMeMnb9srf7Tk36F3+Xh+Jm1vvImTeEXmHH9KzRr1kWn91ovKx7IGmhc1ESUQYvErfLrrCm9kT4M+oHHCRzhSrAEf/Sb9On8="
+# STORE_TOKEN_OPENRDF-SESAME
+secure: "BT1m47CbN9tCUGcJRWOFvuxcqPXTXzwdMJasmgiIEWlhkddyQoe6F1kZLwNYP4zvylfPxyPtdjt4ipT+Qv1fQwPuYeNGjwaGtqUCHlvT8Q4EGOce3wJnLXc7+ceROP/SSWT7Sjcd29noZyP+QyUozsweKM/X0EcC0UcEvHbj0fI="
+# STORE_URL
+secure: "NrRLrq5ZBsM3T8se2cGhcQ3kcElPWi22ZuYAgApoPMsLaO6LusIE0cvuK6wx8rV9Cl/JYvotg/Az+lXglWftCocHARHXKk5A4bzXXu0QJpmUR35mU+7KDRg8vHzgTrPeUfqSGHbMHc/a3UWIFXOVkuYcjgAU9gDJILoAjSRpEhw="
+
 script:  bash ./run.sh
 notifications:
   email:
     recipients:
       - james@dydra.com
-# jhacker
-secure: "goljJQIEULTH18B9TXbpyapu6Pi36tbazEdf/AQHRwGInQ3GpoG8GdmDmPRyYABd6vHMGTufOr3vMeMnb9srf7Tk36F3+Xh+Jm1vvImTeEXmHH9KzRr1kWn91ovKx7IGmhc1ESUQYvErfLrrCm9kT4M+oHHCRzhSrAEf/Sb9On8="
-# openrdf-sesame
-secure: "BT1m47CbN9tCUGcJRWOFvuxcqPXTXzwdMJasmgiIEWlhkddyQoe6F1kZLwNYP4zvylfPxyPtdjt4ipT+Qv1fQwPuYeNGjwaGtqUCHlvT8Q4EGOce3wJnLXc7+ceROP/SSWT7Sjcd29noZyP+QyUozsweKM/X0EcC0UcEvHbj0fI="
-# host
-secure: "NrRLrq5ZBsM3T8se2cGhcQ3kcElPWi22ZuYAgApoPMsLaO6LusIE0cvuK6wx8rV9Cl/JYvotg/Az+lXglWftCocHARHXKk5A4bzXXu0QJpmUR35mU+7KDRg8vHzgTrPeUfqSGHbMHc/a3UWIFXOVkuYcjgAU9gDJILoAjSRpEhw="
-# general
-secure: "W35d3rxxkL8geZRd3QUjb3uDppi15YFJx+SHti8aazXa4zcHtWZx7ukO57VWH4EonnUOmwaHfhqFVmUgfMVlHo3XQpnmz5XpvLJ4mTWJBMg9po4ZJ1ZzzHbVqFrbogQdpPvxJ+LPp6NtqeEa6So5oLTM5Bxv3bHjUfHMB7MLEqk="

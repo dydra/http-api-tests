@@ -23,11 +23,11 @@ if [[ "" == "${STORE_URL}" ]]
 then
   export STORE_URL="http://localhost"
 fi
-if [[ "" == ${STORE_TOKEN} ]]
+if [[ "" == "${STORE_TOKEN}" ]]
 then 
   export STORE_TOKEN=`cat ~/.dydra/token-${STORE_ACCOUNT}`
 fi
-if [[ "" == ${STORE_TOKEN_JHACKER} ]]
+if [[ "" == "${STORE_TOKEN_JHACKER}" ]]
 then 
   export STORE_TOKEN_JHACKER=`cat ~/.dydra/token-jhacker`
 fi

@@ -30,10 +30,12 @@ initialize_repository_public | fgrep -q "${PUT_SUCCESS}"
 # this limits the test complement to the number of arguments the shell permits
 
 
-
+#SCRIPT_PATTERN='*.sh*'
+SCRIPT_PATTERN=math_operators.sh
+SCRIPT_ROOT='./*/'
 if [[ "$#" == "0" ]]
 then
-  SCRIPTS=`find ./*/ -name '*.sh*'`
+  SCRIPTS=`find $SCRIPT_ROOT -name $SCRIPT_PATTERN`
 elif [[ "$#" == "1" && ("/" == "${1: -1}") ]]
 then
   SCRIPTS=`find $1 -name '*.sh*'`
@@ -61,7 +63,7 @@ do
   script_directory=`dirname $script_pathname`
   script_tag=`basename $script_directory`"/${script_filename}"
   ( cd $script_directory;
-    bash -e $script_filename;
+    bash -e -u $script_filename;
   )
   if [[ $? == "0" ]]
   then

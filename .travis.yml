@@ -1,6 +1,8 @@
 language: c
 before_install:
  - sudo apt-get install -qq raptor2-utils
+ - apt-get install -qq yajl-tools
+ - apt-get install -qq jq
 script:  bash ./run.sh
 notifications:
   email:

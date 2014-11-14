@@ -2,6 +2,10 @@
 # http api tests
 Combined tests for the sesame http communication protocol, the sparql graph store http protocol, and the dydra account administration http api
 
+.. image:: https://api.travis-ci.org/dydra/http-api-tests.svg?branch=master
+   :target: https://travis-ci.org/dydra/http-api-tests
+   :alt: Travis CI build status
+
 These tests exercise the sesame rest api, as per the openrdf "http communication protocol"
 [description](http://www.openrdf.org/doc/sesame2/system/ch08.html),
 [or](http://openrdf.callimachus.net/sesame/2.7/docs/system.docbook?view#chapter-http-protocol)

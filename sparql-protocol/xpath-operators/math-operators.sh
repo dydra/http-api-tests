@@ -12,7 +12,6 @@ ${CURL} -f -s -S -X POST \
  | fgrep '"' | fgrep -v null | wc -l | fgrep -q '14'
 
 prefix math: <http://www.w3.org/2005/xpath-functions/math#>
-
 select (math:acos(1) as ?acos)
        (math:asin(1) as ?asin)
        (math:atan(1) as ?atan)
@@ -41,7 +40,6 @@ ${CURL} -f -s -S -X POST \
  | fgrep null | wc -l | fgrep -q '13'
 
 prefix math: <http://www.w3.org/2005/xpath-functions/math#>
-
 select (math:acos('1') as ?acos)
        (math:asin('1') as ?asin)
        (math:atan('1') as ?atan)

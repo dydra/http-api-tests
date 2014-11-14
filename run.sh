@@ -13,6 +13,8 @@
 # STORE_TOKEN : the authentication token
 
 source ./define.sh
+export CURL="curl -v"
+set -v
 #SCRIPT_PATTERN='*.sh*' 
 SCRIPT_PATTERN=math-operators.sh
 SCRIPT_ROOT='.'

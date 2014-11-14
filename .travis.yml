@@ -13,9 +13,12 @@ env:
     # STORE_TOKEN_OPENRDF-SESAME
     - secure: "BT1m47CbN9tCUGcJRWOFvuxcqPXTXzwdMJasmgiIEWlhkddyQoe6F1kZLwNYP4zvylfPxyPtdjt4ipT+Qv1fQwPuYeNGjwaGtqUCHlvT8Q4EGOce3wJnLXc7+ceROP/SSWT7Sjcd29noZyP+QyUozsweKM/X0EcC0UcEvHbj0fI="
     # STORE_URL
-    - secure: "NrRLrq5ZBsM3T8se2cGhcQ3kcElPWi22ZuYAgApoPMsLaO6LusIE0cvuK6wx8rV9Cl/JYvotg/Az+lXglWftCocHARHXKk5A4bzXXu0QJpmUR35mU+7KDRg8vHzgTrPeUfqSGHbMHc/a3UWIFXOVkuYcjgAU9gDJILoAjSRpEhw="
+    # staging site
+    # - secure: "NrRLrq5ZBsM3T8se2cGhcQ3kcElPWi22ZuYAgApoPMsLaO6LusIE0cvuK6wx8rV9Cl/JYvotg/Az+lXglWftCocHARHXKk5A4bzXXu0QJpmUR35mU+7KDRg8vHzgTrPeUfqSGHbMHc/a3UWIFXOVkuYcjgAU9gDJILoAjSRpEhw="
+    # development site
+    - secure: "ShsLbROq/GQ4HpXuuOgmbZO8vqGRDWIFWa+/ViBlBn+3zxBCUINdlQeAetIvoONmqWs5A2I5ecnuFcu3DU2l4aNxSDJudEUm2zeRlG1uBs43KlDsbDNc/vwAMFvrynJHLZcoco4uFG3BZpwiD2RYaFZ8loNtCueWlr2UPbRzXYI="
 
-script:  bash ./run.sh
+script:  bash -v ./run.sh
 notifications:
   email:
     recipients:

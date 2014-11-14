@@ -17,7 +17,7 @@ env:
     # STORE_TOKEN (openrdf-sesame)
     - secure: "XjqQM5yPDyzlBCXY3kBq9Pm9NC6Mwv3jdXvFThBWXbTA6GFbxPjQyzi9Kl7z9xS8EOEWVFjnm0Rq4fB6ZnpMLF3fqhngA8fT9d5/xsDUvhTxSPkqJ2uk6x2e+D7y2RKgz82JIqAGMEky6iIQ8RtxTaF2HgasiSgotwBXNiynrd4="
     # STORE_TOKEN_JHACKER
-    - secure: "MSQoBN8XUz6LbH/E9OJ5Ramvxlp/iivQDc3AUDo1C0r7RFp1sRajdsYX7sxhfmQ/OB6uIQSwJBJfYQSBt0DaEh0Oe6jG1wiLqYVNoY3h3PxNXprsvoHtoSCJ87kf97eJL+G4DtzUft6pNkF2X8yxUM8RzUfxu7+6VOukK8GxAoQ="
+    - secure: "XvcP79q/f4AH5u9PwJPVk6tHjhKiCuz3UOKsENmFwhZHnQJdKJbbSOYzTsvDS72d2DHiqrc0GjcHovqoeU5auyNpbJ3H2BubOqOdZ/o973s5xWmUvjoQPglQih56TKNF+V1u/YCAdl3HUYf5SZKfZeuArWAk0M0ww7+KYvUKOq4="
     
 
 script:  bash -v ./run.sh

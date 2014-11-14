@@ -8,8 +8,6 @@
 # STORE_REPOSITORY : individual repository
 # STORE_TOKEN : the authentication token
 
-set -e
-
 if [[ "" == "${STORE_URL}" ]]
 then
   export STORE_URL="http://localhost"

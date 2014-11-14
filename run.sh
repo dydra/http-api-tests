@@ -12,6 +12,7 @@
 # STORE_REPOSITORY : individual repository
 # STORE_TOKEN : the authentication token
 
+set -e
 source ./define.sh
 export CURL="curl -v"
 set -v
@@ -60,6 +61,7 @@ cat /dev/null > failed.txt
 EXPECTED_FAILURES=""
 UNEXPECTED_FAILURES=""
 WD_PREFIX=`pwd`/
+set +e     # allow failure in order to record it
 for script_pathname in $SCRIPTS
 do
   script_pathname=`echo -n ${script_pathname} | sed 's.//./.g'`

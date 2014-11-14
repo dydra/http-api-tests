@@ -10,32 +10,15 @@
 
 set -e
 
-if [[ "" == "${CURL}" ]]
-then
-  export CURL=curl
-fi
-
-if [[ "" == "${STORE_CLIENT_IP_AUTHORIZED}" ]]
-then 
-  export STORE_CLIENT_IP_AUTHORIZED=true
-fi
-
 if [[ "" == "${STORE_URL}" ]]
 then
   export STORE_URL="http://localhost"
 fi
-if [[ "" == "${STORE_TOKEN}" ]]
-then 
-  export STORE_TOKEN=`cat ~/.dydra/token-${STORE_ACCOUNT}`
-fi
-if [[ "" == "${STORE_TOKEN_JHACKER}" ]]
-then 
-  export STORE_TOKEN_JHACKER=`cat ~/.dydra/token-jhacker`
-fi
-
-STORE_HOST=${STORE_URL#http://}        # the actual host
+# strip the protocol and possible user authentication to yield the actual host
+export STORE_HOST=${STORE_URL#*http://} 
+# strip a possible port
 export STORE_HOST=${STORE_HOST%:*}
-export STORE_SITE="dydra.com"          # the abstract site name
+export STORE_SITE="dydra.com"           # the abstract site name
 export STORE_ACCOUNT="openrdf-sesame"
 export STORE_REPOSITORY="mem-rdf"
 export STORE_REPOSITORY_PUBLIC="public"
@@ -65,6 +48,25 @@ export STATUS_UNAUTHORIZED=401
 export STATUS_NOT_FOUND=404
 export STATUS_NOT_ACCEPTABLE=406
 export STATUS_UNSUPPORTED_MEDIA=415
+
+if [[ "" == "${CURL}" ]]
+then
+  export CURL=curl
+fi
+
+if [[ "" == "${STORE_CLIENT_IP_AUTHORIZED}" ]]
+then 
+  export STORE_CLIENT_IP_AUTHORIZED=true
+fi
+
+if [[ "" == "${STORE_TOKEN}" ]]
+then 
+  export STORE_TOKEN=`cat ~/.dydra/token-${STORE_ACCOUNT}@${STORE_HOST}`
+fi
+if [[ "" == "${STORE_TOKEN_JHACKER}" ]]
+then 
+  export STORE_TOKEN_JHACKER=`cat ~/.dydra/token-jhacker@${STORE_HOST}`
+fi
 
 # indicate whether those put/post operations for which the request specified the default graph, will apply any
 # quad statements to the default graph or to that graph from the statement. false implies by statement.

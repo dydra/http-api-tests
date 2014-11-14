@@ -1,6 +1,10 @@
 #! /bin/bash
 
-# http api tests
+# run http api tests :
+# 
+# incorporate the standard function and environment definitions and then run
+# a group of test scripts -- either as specified by shell arguments, or
+# hard-wired as the default. 
 #
 # environment :
 # STORE_URL : host http url
@@ -8,18 +12,12 @@
 # STORE_REPOSITORY : individual repository
 # STORE_TOKEN : the authentication token
 
-source ./setup.sh
+source ./define.sh
+#SCRIPT_PATTERN='*.sh*' 
+SCRIPT_PATTERN=math-operators.sh
+SCRIPT_ROOT='.'
 
-
-initialize_account | fgrep -q "${PUT_SUCCESS}"
-initialize_repository | fgrep -q "${PUT_SUCCESS}"
-initialize_repository_public | fgrep -q "${PUT_SUCCESS}"
-# necessary ?
-# initialize_about | fgrep -q "${PUT_SUCCESS}"
-# initialize_collaboration | fgrep -q "${PUT_SUCCESS}"
-# initialize_prefixes | fgrep -q "${PUT_SUCCESS}"
-# initialize_privacy | fgrep -q "${PUT_SUCCESS}"
-
+echo "SCRIPT_PATTERN: '${SCRIPT_PATTERN}' SCRIPT_ROOT: '${SCRIPT_ROOT}'"
 # iterate over all '.sh' scripts in the current wd tree, run each, record if it succeeds
 # report and total failures.
 #
@@ -28,19 +26,33 @@ initialize_repository_public | fgrep -q "${PUT_SUCCESS}"
 #   find ./*/ -name '*.sh*' | while read file; do
 # this limits the test complement to the number of arguments the shell permits
 
+function expand_test_path () {
+  path=$1;
+  if [[ $path =~ .*/.* ]] ; then     # if it is a path, 
+    if [[ $path =~ .*\.sh ]] ; then  # if the leaves are constrained, expand that
+      ls $path
+    else                           # otherwise look for all shell scripts from that root
+      find $path -name '*.sh*';
+    fi
+  else                             # if not a path, then use as a leaf pattern
+    find $SCRIPT_ROOT -name $path;
+  fi
+}
 
-#SCRIPT_PATTERN='*.sh*'
-SCRIPT_PATTERN=math_operators.sh
-SCRIPT_ROOT='./*/'
-if [[ "$#" == "0" ]]
-then
-  SCRIPTS=`find $SCRIPT_ROOT -name $SCRIPT_PATTERN`
-elif [[ "$#" == "1" && ("/" == "${1: -1}") ]]
-then
-  SCRIPTS=`find $1 -name '*.sh*'`
-else
-  SCRIPTS=$@
+echo script patterh :  $SCRIPT_PATTERN
+
+if [[ "$#" == "0" ]] ; then
+  SCRIPTS=`expand_test_path $SCRIPT_PATTERN`
+else 
+  SCRIPTS="";
+  for script_pattern in $@; do
+    expanded_pattern=`expand_test_path $script_pattern`
+    SCRIPTS="${SCRIPTS} ${expanded_pattern}"
+  done
 fi
+echo "run scripts: $SCRIPTS"
+
+## osx lacks truncate
 cat /dev/null > failed.txt
 
 EXPECTED_FAILURES=""

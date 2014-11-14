@@ -3,10 +3,10 @@
 
 # http api tests : repository creation and content initialization
 set -e
-source ./setup.sh
-export STORE_TOKEN_ADMIN=`cat ~/.dydra/token-admin`
+source ./definitions.sh
+export STORE_TOKEN_ADMIN=`cat ~/.dydra/token-admin@${STORE_HOST}`
 
-# create one account/repository for various authorization combinations
+# create one account/repository for each of various authorization combinations
 #
 #  $ACCOUNT                       : the base account
 #  $ACCOUNT-anon                  : allowing anonymous access to its profile and repository list

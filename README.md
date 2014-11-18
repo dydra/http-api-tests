@@ -51,7 +51,7 @@ for example
     export STORE_REPOSITORY="mem-rdf"
     export STORE=TOKEN="1234567890"
     source define.sh
-    bash run.sh sparql-extensions/temporal-data
+    bash run.sh extensions/sparql-protocol/temporal-data
 
 ## Sesame HTTP communication protocol
 
@@ -401,7 +401,7 @@ Test scripts for account and repository management operations are present under 
 
 ## DYDRA service extensions
 
-The DYDRA service provides several extensions to the standard SPARQL facilities:
+The DYDRA service provides several extensions to standard SPARQL facilities:
 - It implements the temporal datatypes `xsd:date`, `xsd:dayTimeDuration`,
 `xsd:time`, `xsd:yearMonthDuration`and the atomic Gregorian datatypes and implements the
 respective constuctor, accessor and combination operators as described in 
@@ -414,4 +414,4 @@ and statement terms by content.
 - It affords access to repository revisions.
 - It implements IRI component accessors.
 
-Test scripts for these capabilities are present under the directory `sparql-extensions`
+Test scripts for these capabilities are present under the directory `extensions`

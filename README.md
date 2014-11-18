@@ -60,7 +60,7 @@ for example
 The tests are coded as bash shell scripts. They depend on several utility programs:
 - `jq` : `apt-get install jq`
 - `json_reformat` : `apt-get install yajl-tools`
-- `rapper` : `apt-get install libraptor2-0`
+- `rapper` : `apt-get install raptor2-utils`
 
 ---
 

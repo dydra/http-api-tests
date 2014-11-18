@@ -12,6 +12,11 @@ This repository comprises tests for the DYDRA RDF cloud service:
 
 ---
 
+The tests implemented as a collection of shell scripts and arranged in a directory hierarchy according to topic.
+The root directory contains several utility scripts which establish the test environment,
+administer the target repositories and execute tests.
+
+
 The script `script_runner.sh` searches for all `.sh` scripts in the tree,
 runs each in turn, reports errors, and returns the error count as its result.
 The scripts are arranged in directories which reflect the protocol resource paths.
@@ -20,6 +25,17 @@ for the sesame protocol tests, the openrdf documentation examples should
 apply, as given in its documentation.
 
 
+In order to execute simple scripts manually:
+
+- establish values for the shell variables
+  - STORE_URI : the HTTP uri to specify the remote host. eg. `http://dydra.com`
+  - STORE_ACCOUNT : the account name. eg. `"openrdf-sesame"`
+  - STORE_REPOSITORY : the repository name eg. `"mem-rdf"`
+  - STORE_TOKEN : an authentication if authentication is required.
+- define the shell environment
+  source define.sh
+- run the desired script(s)
+  bash run.sh script/path/or/pattern
 
 ## the Sesame HTTP communication protocol
 

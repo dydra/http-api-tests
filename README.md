@@ -1,13 +1,12 @@
 
 # http api tests
 
-This repository coprises combined tests for
-the Sesame HTTP communication protocol,
-the SPARQL graph store http protocol,
-the SPARQL query protocol,
-the DYDRA account administration http api
-and
-DYDRA extension tests
+This repository comprises tests for the DYDRA RDF cloud service:
+- the Sesame HTTP communication protocol,
+- the SPARQL graph store http protocol,
+- the SPARQL query protocol,
+- the DYDRA account administration http api
+- DYDRA extension tests
 
 [![Build Status](https://travis-ci.org/dydra/http-api-tests.svg?branch=master)](https://travis-ci.org/dydra/http-api-tests)
 

@@ -9,9 +9,7 @@ the DYDRA account administration http api
 and
 DYDRA extension tests
 
-.. image:: https://api.travis-ci.org/dydra/http-api-tests.svg?branch=master
-   :target: https://travis-ci.org/dydra/http-api-tests
-   :alt: Travis CI build status
+[![Build Status](https://travis-ci.org/dydra/http-api-tests.svg?branch=master)](https://travis-ci.org/dydra/http-api-tests)
 
 ---
 
@@ -24,7 +22,7 @@ apply, as given in its documentation.
 
 
 
-## the sesame http communication protocol
+## the Sesame HTTP communication protocol
 
 These tests exercise the sesame rest api, as per the openrdf "http communication protocol"
 [description](http://www.openrdf.org/doc/sesame2/system/ch08.html),
@@ -358,7 +356,7 @@ in order to demonstrate the consequence of the statement's given content on its 
 
 Each DYDRA repository constitutes a SPARQL endpoint which is identified by the resource
 
-  <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>
+    <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>
 
 Requests which conform to the terms of a SPARQL request described in the
 "SPARQL 1.1 Protocol" [recommendation](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321)

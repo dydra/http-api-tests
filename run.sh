@@ -16,11 +16,26 @@ set -e
 source ./define.sh
 export CURL="curl -v"
 set -v
-#SCRIPT_PATTERN='*.sh*' 
-SCRIPT_PATTERN=math-operators.sh
+SCRIPT_PATTERN='*.sh' 
 SCRIPT_ROOT='.'
+if [[ "$#" == "0" ]] ; then
+  SCRIPTS=`find . -mindepth 2 -name "${SCRIPT_PATTERN}"`
+elif [[ "$#" == "1" ]] ; then
+  SCRIPTS=`find $1 -name "${SCRIPT_PATTERN}"`
+else
+  SCRIPT_ROOT="$1";
+  shift;
+  SCRIPTS="";
+  for SCRIPT_PATTERN in "$@" ; do
+    echo finding ${SCRIPT_ROOT} "${SCRIPT_PATTERN}"
+    expanded_pattern=`find ${SCRIPT_ROOT} -name "${SCRIPT_PATTERN}"`
+    SCRIPTS="${SCRIPTS} ${expanded_pattern}"
+  done
+fi
 
-echo "SCRIPT_PATTERN: '${SCRIPT_PATTERN}' SCRIPT_ROOT: '${SCRIPT_ROOT}'"
+## osx lacks truncate
+cat /dev/null > failed.txt
+
 # iterate over all '.sh' scripts in the current wd tree, run each, record if it succeeds
 # report and total failures.
 #
@@ -28,35 +43,6 @@ echo "SCRIPT_PATTERN: '${SCRIPT_PATTERN}' SCRIPT_ROOT: '${SCRIPT_ROOT}'"
 # but not the "while read do" due to the pipe
 #   find ./*/ -name '*.sh*' | while read file; do
 # this limits the test complement to the number of arguments the shell permits
-
-function expand_test_path () {
-  path=$1;
-  if [[ $path =~ .*/.* ]] ; then     # if it is a path, 
-    if [[ $path =~ .*\.sh ]] ; then  # if the leaves are constrained, expand that
-      ls $path
-    else                           # otherwise look for all shell scripts from that root
-      find $path -name '*.sh*';
-    fi
-  else                             # if not a path, then use as a leaf pattern
-    find $SCRIPT_ROOT -name $path;
-  fi
-}
-
-echo script patterh :  $SCRIPT_PATTERN
-
-if [[ "$#" == "0" ]] ; then
-  SCRIPTS=`expand_test_path $SCRIPT_PATTERN`
-else 
-  SCRIPTS="";
-  for script_pattern in $@; do
-    expanded_pattern=`expand_test_path $script_pattern`
-    SCRIPTS="${SCRIPTS} ${expanded_pattern}"
-  done
-fi
-echo "run scripts: $SCRIPTS"
-
-## osx lacks truncate
-cat /dev/null > failed.txt
 
 EXPECTED_FAILURES=""
 UNEXPECTED_FAILURES=""

@@ -7,7 +7,7 @@ curl -f -s -S -X POST \
      -H "Accept: application/sparql-results+json" \
      --data-binary @- \
      ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} <<EOF \
- | jq '.results.bindings[] | fgrep -v null | wc -l | fgrep -q '14'
+ | jq '.results.bindings[] | .[].value' | fgrep -q 'true'
 
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
 prefix fn: <http://www.w3.org/2005/xpath-functions#>

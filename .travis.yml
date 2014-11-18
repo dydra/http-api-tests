@@ -20,7 +20,7 @@ env:
     - secure: "XvcP79q/f4AH5u9PwJPVk6tHjhKiCuz3UOKsENmFwhZHnQJdKJbbSOYzTsvDS72d2DHiqrc0GjcHovqoeU5auyNpbJ3H2BubOqOdZ/o973s5xWmUvjoQPglQih56TKNF+V1u/YCAdl3HUYf5SZKfZeuArWAk0M0ww7+KYvUKOq4="
     
 
-script:  bash -v ./run.sh
+script:  bash -v ./run.sh extensions/temporal-data
 notifications:
   email:
     recipients:

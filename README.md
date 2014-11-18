@@ -28,14 +28,21 @@ apply, as given in its documentation.
 In order to execute simple scripts manually:
 
 - establish values for the shell variables
-  - STORE_URI : the HTTP uri to specify the remote host. eg. `http://dydra.com`
-  - STORE_ACCOUNT : the account name. eg. `"openrdf-sesame"`
-  - STORE_REPOSITORY : the repository name eg. `"mem-rdf"`
+  - STORE_URI : the HTTP uri to specify the remote host.
+  - STORE_ACCOUNT : the account name.
+  - STORE_REPOSITORY : the repository name eg.
   - STORE_TOKEN : an authentication if authentication is required.
 - define the shell environment
-  source define.sh
 - run the desired script(s)
-  bash run.sh script/path/or/pattern
+
+for example
+
+    export STORE_URI="http://dydra.com"
+    export STORE_ACCOUNT="openrdf-sesame"
+    export STORE_REPOSITORY="mem-rdf"
+    export STORE=TOKEN="1234567890"
+    source define.sh
+    bash run.sh sparql-extensions/temporal-data
 
 ## the Sesame HTTP communication protocol
 

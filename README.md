@@ -53,7 +53,7 @@ for example
     source define.sh
     bash run.sh sparql-extensions/temporal-data
 
-## the Sesame HTTP communication protocol
+## Sesame HTTP communication protocol
 
 These tests exercise the sesame rest api, as per the openrdf "http communication protocol"
 [description](http://www.openrdf.org/doc/sesame2/system/ch08.html),
@@ -172,7 +172,7 @@ while a request of the form
 designate exactly that named graph in the store.
 
 
-## SPARQL graph store support
+## SPARQL graph store protocol
 
 The "sparlq 1.1 graph store http protocol", is supported as per the w3c
 [specification](http://www.w3.org/TR/sparql11-http-rdf-update/).
@@ -383,7 +383,7 @@ in order to demonstrate the consequence of the statement's given content on its 
     </tr>
 </table>
 
-## the SPARQL query protocol
+## SPARQL query protocol
 
 Each DYDRA repository constitutes a SPARQL endpoint which is identified by the resource
 
@@ -394,12 +394,12 @@ Requests which conform to the terms of a SPARQL request described in the
 are processed as ASPQRQL requests. 
 The tests for this facility are present in the directory `
 
-## the DYDRA account administration http api
+## DYDRA account administration HTTP API
 
 Test scripts for account and repository management operations are present under the directory
 `accounts-api`.
 
-## DYDRA extension tests
+## DYDRA service extensions
 
 The DYDRA service provides several extensions to the standard SPARQL facilities:
 - It implements the temporal datatypes `xsd:date`, `xsd:dayTimeDuration`,

@@ -84,7 +84,7 @@ do
   then
     echo "   ok"
   else
-    fgrep -q "${script_pathname}" known-to_fail.txt
+    fgrep -q "${script_pathname}" known-to-fail.txt
     if [ $? -eq 0 ]
     then EXPECTED=" KNOWN TO FAIL"; EXPECTED_FAILURES="${EXPECTED_FAILURES} ${script_tag}";
     else EXPECTED=" FAILED"; UNEXPECTED_FAILURES="${UNEXPECTED_FAILURES} ${script_tag}"

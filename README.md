@@ -16,9 +16,18 @@ The tests implemented as a collection of shell scripts and arranged in a directo
 The root directory contains several utility scripts which establish the test environment,
 administer the target repositories and execute tests.
 
+- `define.sh`
+Defines the shell environment variables and operators to be employed by the test scripts
+- `ìnitialize.sh`
+Creates the test target repositories with respective meta-data and content.
+- `reset.sh`
+Resets test target repository content
+- `run.sh`
+Runs a given collection of test scripts, reports the outcomes.
+Observes known failures from `known-to-fail.txt`.
+Records new failures in the file `failures.txt`.
+Returns the error count as its result.
 
-The script `script_runner.sh` searches for all `.sh` scripts in the tree,
-runs each in turn, reports errors, and returns the error count as its result.
 The scripts are arranged in directories which reflect the protocol resource paths.
 The account (`openrdf-sesame`) and repository (`mem-rdf`) are defined such that,
 for the sesame protocol tests, the openrdf documentation examples should
@@ -28,10 +37,10 @@ apply, as given in its documentation.
 In order to execute simple scripts manually:
 
 - establish values for the shell variables
-  - STORE_URI : the HTTP uri to specify the remote host.
-  - STORE_ACCOUNT : the account name.
-  - STORE_REPOSITORY : the repository name eg.
-  - STORE_TOKEN : an authentication if authentication is required.
+  - `STORE_URI` : the HTTP uri to specify the remote host.
+  - `STORE_ACCOUNT` : the account name.
+  - `STORE_REPOSITORY` : the repository name eg.
+  - `STORE_TOKEN` : an authentication if authentication is required.
 - define the shell environment
 - run the desired script(s)
 

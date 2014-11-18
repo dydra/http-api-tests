@@ -53,6 +53,8 @@ for example
     source define.sh
     bash run.sh extensions/sparql-protocol/temporal-data
 
+---
+
 ## Sesame HTTP communication protocol
 
 These tests exercise the sesame rest api, as per the openrdf "http communication protocol"

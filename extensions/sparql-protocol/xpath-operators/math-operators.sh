@@ -2,7 +2,7 @@
 
 # exercise the math operators
 
-# require non-null values for all functions
+# require non-null values to be present for all functions
 ${CURL} -f -s -S -X POST \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" \

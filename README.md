@@ -1,16 +1,19 @@
 
 # http api tests
-Combined tests for the sesame http communication protocol, the sparql graph store http protocol, and the dydra account administration http api
+
+This repository coprises combined tests for
+the Sesame HTTP communication protocol,
+the SPARQL graph store http protocol,
+the SPARQL query protocol,
+the DYDRA account administration http api
+and
+DYDRA extension tests
 
 .. image:: https://api.travis-ci.org/dydra/http-api-tests.svg?branch=master
    :target: https://travis-ci.org/dydra/http-api-tests
    :alt: Travis CI build status
 
-These tests exercise the sesame rest api, as per the openrdf "http communication protocol"
-[description](http://www.openrdf.org/doc/sesame2/system/ch08.html),
-[or](http://openrdf.callimachus.net/sesame/2.7/docs/system.docbook?view#chapter-http-protocol)
-and the "sparlq 1.1 graph store http protocol", as per the w3c
-[specification](http://www.w3.org/TR/sparql11-http-rdf-update/).
+---
 
 The script `script_runner.sh` searches for all `.sh` scripts in the tree,
 runs each in turn, reports errors, and returns the error count as its result.
@@ -19,6 +22,13 @@ The account (`openrdf-sesame`) and repository (`mem-rdf`) are defined such that,
 for the sesame protocol tests, the openrdf documentation examples should
 apply, as given in its documentation.
 
+
+
+## the sesame http communication protocol
+
+These tests exercise the sesame rest api, as per the openrdf "http communication protocol"
+[description](http://www.openrdf.org/doc/sesame2/system/ch08.html),
+[or](http://openrdf.callimachus.net/sesame/2.7/docs/system.docbook?view#chapter-http-protocol).
 For the v2.0 sesame protocol, the concrete resources, with reference to
 the described overview:
 
@@ -88,7 +98,7 @@ requests with response content, against result prototypes as canonicalized per x
 and json_reformat. Test failures match against the HTTP status code.
 
 
-## graph store support through the sesame http protocol
+### graph store support through the sesame http protocol
 
 the graph store support under [sesame](http://www.openrdf.org/doc/sesame2/system/ch08.html#d0e659)
 provides two resource patterns. 
@@ -112,8 +122,6 @@ sesame request uri is the literal url. that is, it includes the "/repositories" 
 > as the named graph identifier in the repository.
 
 
-### designating DYDRA resources
-
 For a repository on a DYDRA host, the sesame request patterns manifest in terms of the host authority, the
 user account and the repository name
 
@@ -135,8 +143,10 @@ while a request of the form
 designate exactly that named graph in the store.
 
 
-## native graph store support
+## SPARQL graph store support
 
+The "sparlq 1.1 graph store http protocol", is supported as per the w3c
+[specification](http://www.w3.org/TR/sparql11-http-rdf-update/).
 For a repository on a DYDRA host, the native request patterns comprise just the host authority, the
 user account and the repository name
 
@@ -168,7 +178,8 @@ The `application/x-www-form-url-encoded` request type is supported for `GET` req
 protocol for [query](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/#query-via-post-urlencoded)
  and [update](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/#update-via-post-urlencoded) operations. 
 
-## triples, quads and named graph in import requests
+
+## triples, quads and named graphs in import requests
 
 The graph store management operations which involve an RDF payload - `PATCH`, `POST`, and `PUT`,
 permit a request to target a specific graph as described above, as well as to transfer graph content
@@ -341,7 +352,37 @@ in order to demonstrate the consequence of the statement's given content on its 
     <td>the named (indirectly specified) graph is cleared, which means the extant default and named graphs remain.
         all statements (default and context) go into the named (indirectly specified) graph.</td>
     </tr>
-
-
-
 </table>
+
+## the SPARQL query protocol
+
+Each DYDRA repository constitutes a SPARQL endpoint which is identified by the resource
+
+  <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>
+
+Requests which conform to the terms of a SPARQL request described in the
+"SPARQL 1.1 Protocol" [recommendation](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321)
+are processed as ASPQRQL requests. 
+The tests for this facility are present in the directory `
+
+## the DYDRA account administration http api
+
+Test scripts for account and repository management operations are present under the directory
+`accounts-api`.
+
+## DYDRA extension tests
+
+The DYDRA service provides several extensions to the standard SPARQL facilities:
+- It implements the temporal datatypes `xsd:date`, `xsd:dayTimeDuration`,
+`xsd:time`, `xsd:yearMonthDuration`and the atomic Gregorian datatypes and implements the
+respective constuctor, accessor and combination operators as described in 
+["XPath and XQuery Functions and Operators 3.0"](http://www.w3.org/TR/xpath-functions-30).
+- It implements the math operators from the
+XPath [recommendation](http://www.w3.org/TR/xpath-functions-30/#trigonometry).
+- It implements native statement reification and provides operators to identify and locate statements
+and statement terms by content.
+- It provides access to query operation meta-data.
+- It affords access to repository revisions.
+- It implements IRI component accessors.
+
+Test scripts for these capabilities are present under the directory `sparql-extensions`

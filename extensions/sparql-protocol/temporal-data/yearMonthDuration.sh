@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# exercise the query state functions
+# exercise yearMonthDuration accessors
 
 curl -f -s -S -X POST \
      -H "Content-Type: application/sparql-query" \

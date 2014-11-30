@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# exercise the temporal constructors
+# exercise the temporal cast operators and accessors
 # see also the xpath specifications' sections on casting:
 #  http://www.w3.org/TR/xpath-functions/#casting
 #  http://www.w3.org/TR/xpath-functions-30/#casting
@@ -68,23 +68,23 @@ select (NOW() as ?NOW)
        # g-day
        (xsd:string(?gDay) as ?gdString)
        (xsd:gDay(?gDay) as ?gdGDay)
-       (xsd:gDay(?dayTime) as ?dtGDay)
+       (xsd:gDay(?dateTime) as ?dtGDay)
        # g-month
        (xsd:string(?gMonth) as ?gmString)
        (xsd:gMonth(?gMonth) as ?gmGMonth)
-       (xsd:gMonth(?dayTime) as ?dtGMonth)
+       (xsd:gMonth(?dateTime) as ?dtGMonth)
        # g-month-day
        (xsd:string(?gMonthDay) as ?gmdString)
        (xsd:gMonthDay(?gMonthDay) as ?gmdGMonthDay)
-       (xsd:gMonthDay(?dayTime) as ?dtGMonthDay)
+       (xsd:gMonthDay(?dateTime) as ?dtGMonthDay)
        # g-year
        (xsd:string(?gYear) as ?gyString)
        (xsd:gYear(?gYear) as ?gyGYear)
-       (xsd:gYear(?dayTime) as ?dtGYear)
+       (xsd:gYear(?dateTime) as ?dtGYear)
        # g-year-month
        (xsd:string(?gYearMonth) as ?gymString)
        (xsd:gYearMonth(?gYearMonth) as ?gymGYearMonth)
-       (xsd:gYearMonth(?dayTime) as ?dtGYearMonth)
+       (xsd:gYearMonth(?dateTime) as ?dtGYearMonth)
        # year-month-duration
        (xsd:string(?yearMonthDuration) as ?ymdString)
        (xsd:yearMonthDuration(?yearMonthDuration) as ?ymdYearMonthDuration)
@@ -96,8 +96,8 @@ where {
 
  bind(xsd:dayTimeDuration('P1D2H3M4S') as ?dayTimeDuration) .
  bind(xsd:gDay("---12") as ?gDay) .
- bind(xsd:gMonth("-11") as ?gMonth) .
- bind(xsd:gMonthDay("-1112") as ?gMonthDay) .
+ bind(xsd:gMonth("--11") as ?gMonth) .
+ bind(xsd:gMonthDay("--11-12") as ?gMonthDay) .
  bind(xsd:gYear("1955") as ?gYear) .
  bind(xsd:gYearMonth("195511") as ?gYearMonth) .
  bind(xsd:yearMonthDuration('P10Y1M') as ?yearMonthDuration) .

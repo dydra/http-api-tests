@@ -2,7 +2,7 @@
 
 # exercise the query state functions
 
-curl -f -s -S -X POST \
+${CURL} -f -s -S -X POST \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" \
      --data-binary @- \

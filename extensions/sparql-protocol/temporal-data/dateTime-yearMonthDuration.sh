@@ -42,7 +42,9 @@ curl -f -s -S -X POST \
 
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
 
-select ( (((?baseDate + xsd:yearMonthDuration('P0Y')) = '1902-04-30T00:00:00Z'^^xsd:dateTime) &&
+select ( ?baseDate as ?bd )
+       (   (?baseDate + xsd:yearMonthDuration('P0Y')) as ?ed )
+       (  (((?baseDate + xsd:yearMonthDuration('P0Y')) = '1902-04-30T00:00:00Z'^^xsd:dateTime) &&
           ((?baseDate + xsd:yearMonthDuration('P1M')) = '1902-05-31T00:00:00Z'^^xsd:dateTime) &&
           ((?baseDate + xsd:yearMonthDuration('P2M')) = '1902-06-30T00:00:00Z'^^xsd:dateTime) &&
           ((?baseDate + xsd:yearMonthDuration('P3M')) = '1902-07-31T00:00:00Z'^^xsd:dateTime) &&
@@ -58,7 +60,7 @@ select ( (((?baseDate + xsd:yearMonthDuration('P0Y')) = '1902-04-30T00:00:00Z'^^
           ((?baseDate + xsd:yearMonthDuration('P1Y10M')) = '1904-02-29T00:00:00Z'^^xsd:dateTime) &&
           ((?baseDate + xsd:yearMonthDuration('P1Y11M')) = '1904-03-31T00:00:00Z'^^xsd:dateTime) &&
           ((?baseDate + xsd:yearMonthDuration('P2Y')) = '1904-04-30T00:00:00Z'^^xsd:dateTime) &&
-          ((?baseDate + xsd:yearMonthDuration('P2Y1M')) = '1904-02-29T00:00:00Z'^^xsd:dateTime))
+          ((?baseDate + xsd:yearMonthDuration('P2Y1M')) = '1904-05-31T00:00:00Z'^^xsd:dateTime))
         as ?ok)
 where {
  bind(xsd:dateTime('1902-04-30T00:00:00Z') as ?baseDate)

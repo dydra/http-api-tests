@@ -19,9 +19,11 @@ select ((( xsd:gYearMonth('1976-02-05:00') = '1976-02-05:00'^^xsd:gYearMonth) &&
          ( xsd:gYearMonth('1976-02-10:00') != '1976-02Z'^^xsd:gYearMonth) &&
 
          # no order, but also not incommendurable
-         (! ( xsd:gYearMonth('1975-02') <   xsd:gYearMonth('1976-02') )) &&
+         ( xsd:gYearMonth('1975-02') <   xsd:gYearMonth('1976-02') ) &&
+         ( xsd:gYearMonth('1975-02') <=   xsd:gYearMonth('1976-02') ) &&
+         ( xsd:gYearMonth('1975-02') <=   xsd:gYearMonth('1975-02') ) &&
+         (! ( xsd:gYearMonth('1975-02') <   xsd:gYearMonth('1975-02') )) &&
          (! ( xsd:gYearMonth('1976-02') <   xsd:gYearMonth('1975-02') )) &&
-         (! ( xsd:gYearMonth('1975-02') <=   xsd:gYearMonth('1976-02') )) &&
          (! ( xsd:gYearMonth('1976-02') <=   xsd:gYearMonth('1975-02') )))
        as ?ok)
 where {

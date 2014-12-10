@@ -24,3 +24,35 @@ where {
  bind(xsd:dayTimeDuration('P1DT2H3M4S') as ?dayTimeDuration) .
  }
 EOF
+
+# excercise the dayTimeDuration comparison operators
+
+curl -f -s -S -X POST \
+     -H "Content-Type: application/sparql-query" \
+     -H "Accept: application/sparql-results+json" \
+     --data-binary @- \
+     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} <<EOF \
+ | jq '.results.bindings[] | .[].value' | fgrep -q 'true'
+
+prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
+prefix fn: <http://www.w3.org/2005/xpath-functions#>
+
+select (((xsd:dayTimeDuration('P1D') = xsd:dayTimeDuration('P1D')) &&
+         (xsd:dayTimeDuration('P1D') = xsd:dayTimeDuration('PT24H')) &&
+         (xsd:dayTimeDuration('P1D') = xsd:dayTimeDuration('PT1440M')) &&
+         (xsd:dayTimeDuration('P1D') = xsd:dayTimeDuration('PT86400S')) &&
+         (xsd:dayTimeDuration('P1DT12H') = xsd:dayTimeDuration('PT2160M')) &&
+         (!(xsd:dayTimeDuration('P1D') = xsd:dayTimeDuration('PT12H'))) &&
+         (xsd:dayTimeDuration('P1D') < xsd:dayTimeDuration('P1DT12H')) &&
+         (xsd:dayTimeDuration('P1D') < xsd:dayTimeDuration('PT36H')) &&
+         (!(xsd:dayTimeDuration('P1D') < xsd:dayTimeDuration('PT12H'))) &&
+         (!(xsd:dayTimeDuration('P1D') < xsd:dayTimeDuration('P1D'))) &&
+         (xsd:dayTimeDuration('P1D') > xsd:dayTimeDuration('PT12H')) &&
+         (xsd:dayTimeDuration('PT36H') > xsd:dayTimeDuration('P1D')) &&
+         (!(xsd:dayTimeDuration('PT12H') > xsd:dayTimeDuration('P1D'))) &&
+         (!(xsd:dayTimeDuration('P1D') > xsd:dayTimeDuration('PT2160M'))))
+        as ?ok)
+where {
+ }
+EOF
+

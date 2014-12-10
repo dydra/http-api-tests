@@ -24,7 +24,13 @@ select ( (((?baseDate + xsd:yearMonthDuration('P0Y')) = "1902-01-31T00:00:00Z"^^
           ((?baseDate + xsd:yearMonthDuration('P9M')) = "1902-10-31T00:00:00Z"^^xsd:dateTime) &&
           ((?baseDate + xsd:yearMonthDuration('P10M')) = "1902-11-30T00:00:00Z"^^xsd:dateTime) &&
           ((?baseDate + xsd:yearMonthDuration('P11M')) = "1902-12-31T00:00:00Z"^^xsd:dateTime) &&
+          ((?baseDate + xsd:yearMonthDuration('P12M')) = "1903-01-31T00:00:00Z"^^xsd:dateTime) &&
+          ((?baseDate + xsd:yearMonthDuration('P25M')) = "1904-02-29T00:00:00Z"^^xsd:dateTime) &&
+          ((?baseDate + xsd:yearMonthDuration('-P1M')) = "1901-12-31T00:00:00Z"^^xsd:dateTime) &&
+          ((?baseDate - xsd:yearMonthDuration('P1M')) = "1901-12-31T00:00:00Z"^^xsd:dateTime) &&
           ((?baseDate + xsd:yearMonthDuration('P1Y')) = "1903-01-31T00:00:00Z"^^xsd:dateTime) &&
+          ((?baseDate + xsd:yearMonthDuration('-P1Y')) = "1901-01-31T00:00:00Z"^^xsd:dateTime) &&
+          ((?baseDate - xsd:yearMonthDuration('P1Y')) = "1901-01-31T00:00:00Z"^^xsd:dateTime) &&
           ((?baseDate + xsd:yearMonthDuration('P2Y')) = "1904-01-31T00:00:00Z"^^xsd:dateTime) &&
           ((?baseDate + xsd:yearMonthDuration('P2Y1M')) = "1904-02-29T00:00:00Z"^^xsd:dateTime))
         as ?ok)
@@ -56,7 +62,13 @@ select ( ?baseDate as ?bd )
           ((?baseDate + xsd:yearMonthDuration('P9M')) = '1903-01-31T00:00:00Z'^^xsd:dateTime) &&
           ((?baseDate + xsd:yearMonthDuration('P10M')) = '1903-02-28T00:00:00Z'^^xsd:dateTime) &&
           ((?baseDate + xsd:yearMonthDuration('P11M')) = '1903-03-31T00:00:00Z'^^xsd:dateTime) &&
+          ((?baseDate + xsd:yearMonthDuration('P12M')) = '1903-04-30T00:00:00Z'^^xsd:dateTime) &&
+          ((?baseDate + xsd:yearMonthDuration('P25M')) = '1904-05-31T00:00:00Z'^^xsd:dateTime) &&
+          ((?baseDate + xsd:yearMonthDuration('-P1M')) = '1902-03-31T00:00:00Z'^^xsd:dateTime) &&
+          ((?baseDate - xsd:yearMonthDuration('P1M')) = '1902-03-31T00:00:00Z'^^xsd:dateTime) &&
           ((?baseDate + xsd:yearMonthDuration('P1Y')) = '1903-04-30T00:00:00Z'^^xsd:dateTime) &&
+          ((?baseDate + xsd:yearMonthDuration('-P1Y')) = '1901-04-30T00:00:00Z'^^xsd:dateTime) &&
+          ((?baseDate - xsd:yearMonthDuration('P1Y')) = '1901-04-30T00:00:00Z'^^xsd:dateTime) &&
           ((?baseDate + xsd:yearMonthDuration('P1Y10M')) = '1904-02-29T00:00:00Z'^^xsd:dateTime) &&
           ((?baseDate + xsd:yearMonthDuration('P1Y11M')) = '1904-03-31T00:00:00Z'^^xsd:dateTime) &&
           ((?baseDate + xsd:yearMonthDuration('P2Y')) = '1904-04-30T00:00:00Z'^^xsd:dateTime) &&

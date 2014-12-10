@@ -48,8 +48,8 @@ curl -f -s -S -X POST \
 
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
 
-select ( ?baseDate as ?bd )
-       (   (?baseDate + xsd:yearMonthDuration('P0Y')) as ?ed )
+select # ( ?baseDate as ?bd )
+       # (   (?baseDate + xsd:yearMonthDuration('P0Y')) as ?ed )
        (  (((?baseDate + xsd:yearMonthDuration('P0Y')) = '1902-04-30T00:00:00Z'^^xsd:dateTime) &&
           ((?baseDate + xsd:yearMonthDuration('P1M')) = '1902-05-31T00:00:00Z'^^xsd:dateTime) &&
           ((?baseDate + xsd:yearMonthDuration('P2M')) = '1902-06-30T00:00:00Z'^^xsd:dateTime) &&

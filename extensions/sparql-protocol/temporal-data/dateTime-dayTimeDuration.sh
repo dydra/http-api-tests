@@ -45,8 +45,8 @@ curl -f -s -S -X POST \
 
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
 
-select ( ?baseDate as ?bd )
-       (   (?baseDate + xsd:dayTimeDuration('P0D')) as ?ed )
+select # ( ?baseDate as ?bd )
+       # (   (?baseDate + xsd:dayTimeDuration('P0D')) as ?ed )
        (  (((?baseDate + xsd:dayTimeDuration('P0D')) = "1902-04-30T00:00:00Z"^^xsd:dateTime) &&
           ((?baseDate + xsd:dayTimeDuration('P1D')) = "1902-05-01T00:00:00Z"^^xsd:dateTime) &&
           ((?baseDate + xsd:dayTimeDuration('-P1D')) = "1902-04-29T00:00:00Z"^^xsd:dateTime) &&

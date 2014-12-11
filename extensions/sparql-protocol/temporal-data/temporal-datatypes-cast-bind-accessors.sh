@@ -18,12 +18,13 @@
 # xs:yearMonthDuration
 # xs:gYear
 
-curl -f -s -S -X POST \
+${CURL} -f -s -S -X POST \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" \
      --data-binary @- \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} <<EOF \
- | jq '.results.bindings[] #| .[].value' # | fgrep -v null #| wc -l | fgrep -q '14'
+     -u ":${STORE_TOKEN}" \
+     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY} <<EOF \
+ | jq '.results.bindings[] | keys' | fgrep '"' | wc -l # | fgrep -q '49'
 
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
 
@@ -94,12 +95,12 @@ where {
  bind(xsd:date('2014-01-01') as ?date) .
  bind(xsd:time('23:59:58') as ?time) .
 
- bind(xsd:dayTimeDuration('P1D2H3M4S') as ?dayTimeDuration) .
+ bind(xsd:dayTimeDuration('P1DT2H3M4S') as ?dayTimeDuration) .
  bind(xsd:gDay("---12") as ?gDay) .
  bind(xsd:gMonth("--11") as ?gMonth) .
  bind(xsd:gMonthDay("--11-12") as ?gMonthDay) .
  bind(xsd:gYear("1955") as ?gYear) .
- bind(xsd:gYearMonth("195511") as ?gYearMonth) .
+ bind(xsd:gYearMonth("1955-11") as ?gYearMonth) .
  bind(xsd:yearMonthDuration('P10Y1M') as ?yearMonthDuration) .
  }
 EOF

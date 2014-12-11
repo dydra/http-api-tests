@@ -2,12 +2,13 @@
 
 # exercise the query state functions
 
-curl -f -s -S -X POST \
+${CURL} -f -s -S -X POST \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" \
      --data-binary @- \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} <<EOF \
- | jq '.results.bindings[] ' #| .[].value' | fgrep -q 'true'
+     -u ":${STORE_TOKEN}" \
+     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY} <<EOF \
+ | jq '.results.bindings[] | .[].value' | fgrep -q 'true'
 
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
 prefix fn: <http://www.w3.org/2005/xpath-functions#>
@@ -21,7 +22,8 @@ select (((hours(?time) = 23) &&
          (fn:seconds-from-time(?time) = 58) &&
          
          (datatype(TIMEZONE(?time)) = xsd:dayTimeDuration) &&
-         (datatype(fn:timezone-from-time(?time)) = xsd:dayTimeDuration))
+         (datatype(fn:timezone-from-time(?time)) = xsd:dayTimeDuration)
+         )
         as ?ok)
 where {
  bind(xsd:time('23:59:58Z') as ?time) .

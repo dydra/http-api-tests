@@ -2,11 +2,12 @@
 
 # exercise the query state functions
 
-curl -f -s -S -X POST \
+${CURL} -f -s -S -X POST \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" \
      --data-binary @- \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} <<EOF \
+     -u ":${STORE_TOKEN}" \
+     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY} <<EOF \
  | jq '.results.bindings[] | .[].value' | fgrep -v null | wc -l | fgrep -q '21'
 
 prefix math: <http://www.w3.org/2005/xpath-functions/math#>

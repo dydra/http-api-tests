@@ -49,7 +49,7 @@ export STATUS_UNSUPPORTED_MEDIA=415
 
 if [[ "" == "${CURL}" ]]
 then
-  export CURL=curl
+  export CURL="curl --ipv4"
 fi
 
 if [[ "" == "${STORE_CLIENT_IP_AUTHORIZED}" ]]

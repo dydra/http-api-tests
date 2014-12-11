@@ -2,13 +2,13 @@
 
 # exercise the duration comparison operators
 
-${CURL} -f -s -S -X POST \
+${CURL} -v -f -s -S -X POST \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" \
      --data-binary @- \
      -u ":${STORE_TOKEN}" \
      ${CURL_URL} <<EOF \
- | jq '.results.bindings[] | .[].value' | fgrep -q 'true'
+ | jq '.results.bindings[] | .[].value' #| fgrep -q 'true'
 
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
 prefix fn: <http://www.w3.org/2005/xpath-functions#>
@@ -35,7 +35,7 @@ select (((xsd:yearMonthDuration('P1Y1M') = xsd:yearMonthDuration('P1Y1M')) &&
          (!(xsd:yearMonthDuration('P1Y') = xsd:dayTimeDuration('P365D'))) &&
          (xsd:yearMonthDuration("P2Y") = xsd:yearMonthDuration("P24M")) &&
          (xsd:dayTimeDuration("P10D") = xsd:dayTimeDuration("PT240H"))
-          )
+         )
         as ?ok)
 where {
  }

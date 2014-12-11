@@ -30,8 +30,8 @@ select ( (((?baseDate + xsd:dayTimeDuration('P0D')) = "1902-01-31T00:00:00Z"^^xs
           ((?baseDate + xsd:dayTimeDuration('PT1S')) = "1902-01-31T00:00:01Z"^^xsd:dateTime) &&
           ((?baseDate + xsd:dayTimeDuration('PT60S')) = "1902-01-31T00:01:00Z"^^xsd:dateTime) &&
           ((?baseDate + xsd:dayTimeDuration('PT3600S')) = "1902-01-31T01:00:00Z"^^xsd:dateTime) &&
-          ((?baseDate + xsd:dayTimeDuration('-PT1S')) = "1902-01-30T23:59:29Z"^^xsd:dateTime) &&
-          ((?baseDate - xsd:dayTimeDuration('PT1S')) = "1902-01-30T23:59:29Z"^^xsd:dateTime) &&
+          ((?baseDate + xsd:dayTimeDuration('-PT1S')) = "1902-01-30T23:59:59Z"^^xsd:dateTime) &&
+          ((?baseDate - xsd:dayTimeDuration('PT1S')) = "1902-01-30T23:59:59Z"^^xsd:dateTime) &&
           ((?baseDate + xsd:dayTimeDuration('PT0.001S')) = "1902-01-31T00:00:00.001Z"^^xsd:dateTime) &&
           ((?baseDate + xsd:dayTimeDuration('P4DT3H2M1S')) = "1902-02-04T03:02:01Z"^^xsd:dateTime))
         as ?ok)
@@ -69,8 +69,8 @@ select # ( ?baseDate as ?bd )
           ((?baseDate + xsd:dayTimeDuration('PT1S')) = "1902-04-30T00:00:01Z"^^xsd:dateTime) &&
           ((?baseDate + xsd:dayTimeDuration('PT60S')) = "1902-04-30T00:01:00Z"^^xsd:dateTime) &&
           ((?baseDate + xsd:dayTimeDuration('PT3600S')) = "1902-04-30T01:00:00Z"^^xsd:dateTime) &&
-          ((?baseDate + xsd:dayTimeDuration('-PT1S')) = "1902-04-29T23:59:29Z"^^xsd:dateTime) &&
-          ((?baseDate - xsd:dayTimeDuration('PT1S')) = "1902-04-29T23:59:29Z"^^xsd:dateTime) &&
+          ((?baseDate + xsd:dayTimeDuration('-PT1S')) = "1902-04-29T23:59:59Z"^^xsd:dateTime) &&
+          ((?baseDate - xsd:dayTimeDuration('PT1S')) = "1902-04-29T23:59:59Z"^^xsd:dateTime) &&
           ((?baseDate + xsd:dayTimeDuration('PT0.001S')) = "1902-04-30T00:00:00.001Z"^^xsd:dateTime) &&
           ((?baseDate + xsd:dayTimeDuration('P4DT3H2M1S')) = "1902-05-04T03:02:01Z"^^xsd:dateTime))
         as ?ok)

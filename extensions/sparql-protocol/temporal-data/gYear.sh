@@ -20,8 +20,8 @@ select ((( xsd:gYear('1976-05:00') = '1976-05:00'^^xsd:gYear) &&
          ( xsd:gYear('1976-10:00') != '1976Z'^^xsd:gYear) &&
 
          # no order, but also not incommendurable
-         ( xsd:gYear('1975') <   xsd:gYear('1976') ) &&
-         ( xsd:gYear('1975') <=   xsd:gYear('1976') ) &&
+         (! ( xsd:gYear('1975') <   xsd:gYear('1976') )) &&
+         (! ( xsd:gYear('1976') <   xsd:gYear('1975') )) &&
          (! ( xsd:gYear('1976') <   xsd:gYear('1975') )) &&
          (! ( xsd:gYear('1976') <=   xsd:gYear('1975') )))
        as ?ok)

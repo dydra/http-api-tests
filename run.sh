@@ -14,7 +14,7 @@
 
 set -e
 source ./define.sh
-export CURL="curl -v"
+export CURL="curl"
 set -v
 SCRIPT_PATTERN='*.sh' 
 SCRIPT_ROOT='.'

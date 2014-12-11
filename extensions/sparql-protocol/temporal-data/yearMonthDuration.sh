@@ -34,10 +34,7 @@ curl -f -s -S -X POST \
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
 prefix fn: <http://www.w3.org/2005/xpath-functions#>
 
-select (((xsd:yearMonthDuration('P1Y1M') = xsd:yearMonthDuration('P1Y1M')) &&
-         (xsd:yearMonthDuration('P1Y1M') = xsd:yearMonthDuration('P13M')) &&
-         (!(xsd:yearMonthDuration('P1M') = xsd:yearMonthDuration('P1Y'))) &&
-         (xsd:yearMonthDuration('P1Y') < xsd:yearMonthDuration('P1Y1M')) &&
+select (((xsd:yearMonthDuration('P1Y') < xsd:yearMonthDuration('P1Y1M')) &&
          (xsd:yearMonthDuration('P1Y') < xsd:yearMonthDuration('P13M')) &&
          (!(xsd:yearMonthDuration('P1Y') < xsd:yearMonthDuration('P1M'))) &&
          (!(xsd:yearMonthDuration('P1M') < xsd:yearMonthDuration('P1M'))) &&

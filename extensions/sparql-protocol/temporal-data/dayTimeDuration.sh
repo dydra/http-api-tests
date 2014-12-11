@@ -37,13 +37,7 @@ curl -f -s -S -X POST \
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
 prefix fn: <http://www.w3.org/2005/xpath-functions#>
 
-select (((xsd:dayTimeDuration('P1D') = xsd:dayTimeDuration('P1D')) &&
-         (xsd:dayTimeDuration('P1D') = xsd:dayTimeDuration('PT24H')) &&
-         (xsd:dayTimeDuration('P1D') = xsd:dayTimeDuration('PT1440M')) &&
-         (xsd:dayTimeDuration('P1D') = xsd:dayTimeDuration('PT86400S')) &&
-         (xsd:dayTimeDuration('P1DT12H') = xsd:dayTimeDuration('PT2160M')) &&
-         (!(xsd:dayTimeDuration('P1D') = xsd:dayTimeDuration('PT12H'))) &&
-         (xsd:dayTimeDuration('P1D') < xsd:dayTimeDuration('P1DT12H')) &&
+select (((xsd:dayTimeDuration('P1D') < xsd:dayTimeDuration('P1DT12H')) &&
          (xsd:dayTimeDuration('P1D') < xsd:dayTimeDuration('PT36H')) &&
          (!(xsd:dayTimeDuration('P1D') < xsd:dayTimeDuration('PT12H'))) &&
          (!(xsd:dayTimeDuration('P1D') < xsd:dayTimeDuration('P1D'))) &&

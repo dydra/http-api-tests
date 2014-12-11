@@ -92,7 +92,8 @@ function initialize_account () {
 # metadata
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     ${STORE_URL}/${STORE_ACCOUNT}/system?auth_token=${STORE_TOKEN} <<EOF
+     -u ":${STORE_TOKEN}" \
+     ${STORE_URL}/${STORE_ACCOUNT}/system <<EOF
 <http://dydra.com/accounts/openrdf-sesame> <urn:dydra:baseIRI> <http://dydra.com/accounts/openrdf-sesame> <http://dydra.com/accounts/openrdf-sesame> .
 EOF
 }
@@ -101,7 +102,8 @@ function initialize_repository_configuration () {
 # metadata
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     ${STORE_URL}/${STORE_ACCOUNT}/system?auth_token=${STORE_TOKEN} <<EOF
+     -u ":${STORE_TOKEN}" \
+     ${STORE_URL}/${STORE_ACCOUNT}/system <<EOF
 <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:baseIRI> <http://www.openrdf.org/mem-rdf> <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> .
 <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:skolemize> "false"^^<http://www.w3.org/2001/XMLSchema#boolean> <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> .
 <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:defaultContextTerm> <urn:dydra:default> <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> .
@@ -122,7 +124,8 @@ function initialize_repository_content () {
 ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
      -H "Accept: application/n-quads" \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} <<EOF
+     -u ":${STORE_TOKEN}" \
+     ${CURL_URL} <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
@@ -135,7 +138,8 @@ function initialize_repository () {
 function initialize_repository_public () {
 ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY_PUBLIC}?auth_token=${STORE_TOKEN} <<EOF
+     -u ":${STORE_TOKEN}" \
+     ${CURL_URL} <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
@@ -145,7 +149,8 @@ function initialize_repository_rdf_graphs () {
 ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
      -H "Accept: application/n-quads" \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} <<EOF
+     -u ":${STORE_TOKEN}" \
+     ${CURL_URL} <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "rdf-graphs named object" <$STORE_URL/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/rdf-graphs/sesame> .
@@ -157,6 +162,7 @@ ${CURL} -w "%{http_code}\n" -f -s -X POST \
      -H "Content-Type: application/json" \
      -H "Accept: " \
      --data-binary @- \
+     -u ":${STORE_TOKEN}" \
      ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/profile?auth_token=${STORE_TOKEN} <<EOF 
 {
     "name": "mem-rdf",
@@ -173,7 +179,8 @@ ${CURL} -w "%{http_code}\n" -f -s -X POST \
      -H "Content-Type: application/json" \
      -H "Accept: " \
      --data-binary @- \
-     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/collaborations?auth_token=${STORE_TOKEN} <<EOF
+     -u ":${STORE_TOKEN}" \
+     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/collaborations <<EOF
 {"collaborator": "jhacker",
  "read": true,
  "write": false
@@ -186,7 +193,8 @@ ${CURL} -w "%{http_code}\n" -f -s -X PUT \
      -H "Content-Type: application/json" \
      -H "Accept: " \
      --data-binary @- \
-     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/configuration/prefixes?auth_token=${STORE_TOKEN} <<EOF
+     -u ":${STORE_TOKEN}" \
+     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/configuration/prefixes <<EOF
 {"prefixes": "PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>" }
 EOF
 }
@@ -195,7 +203,8 @@ function initialize_privacy () {
 ${CURL} -w "%{http_code}\n" -f -s -X PUT \
      -H "Content-Type: application/json" \
      --data-binary @- \
-     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/authorization?auth_token=${STORE_TOKEN} <<EOF
+     -u ":${STORE_TOKEN}" \
+     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/authorization <<EOF
 {"permissable_ip_addresses":["192.168.1.1"],"privacy_setting":1}
 EOF
 }

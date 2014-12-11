@@ -23,6 +23,7 @@ where {
  }
 EOF
 
+# excercise the yearMonthDuration comparison operators
 
 ${CURL} -f -s -S -X POST \
      -H "Content-Type: application/sparql-query" \
@@ -35,14 +36,16 @@ ${CURL} -f -s -S -X POST \
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
 prefix fn: <http://www.w3.org/2005/xpath-functions#>
 
-select (((year(?yearMonthDuration) = 10) &&
-         (month(?yearMonthDuration) = 1) &&
-         (fn:years-from-duration(?yearMonthDuration) = 10) &&
-         (fn:months-from-duration(?yearMonthDuration) = 1))
+select (((xsd:yearMonthDuration('P1Y') < xsd:yearMonthDuration('P1Y1M')) &&
+         (xsd:yearMonthDuration('P1Y') < xsd:yearMonthDuration('P13M')) &&
+         (!(xsd:yearMonthDuration('P1Y') < xsd:yearMonthDuration('P1M'))) &&
+         (!(xsd:yearMonthDuration('P1M') < xsd:yearMonthDuration('P1M'))) &&
+         (xsd:yearMonthDuration('P1Y') > xsd:yearMonthDuration('P1M')) &&
+         (xsd:yearMonthDuration('P13M') > xsd:yearMonthDuration('P1Y')) &&
+         (!(xsd:yearMonthDuration('P1M') > xsd:yearMonthDuration('P1Y'))) &&
+         (!(xsd:yearMonthDuration('P1M') > xsd:yearMonthDuration('P1M'))))
         as ?ok)
 where {
- bind(xsd:dateTime('1902-01-31T00:00:00Z') as ?baseDate)
- bind(xsd:yearMonthDuration('P10Y1M') as ?yearMonthDuration) .
  }
 EOF
 

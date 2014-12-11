@@ -14,8 +14,8 @@
 
 set -e
 source ./define.sh
-export CURL="curl"
 set -v
+
 SCRIPT_PATTERN='*.sh' 
 SCRIPT_ROOT='.'
 if [[ "$#" == "0" ]] ; then
@@ -43,6 +43,12 @@ cat /dev/null > failed.txt
 # but not the "while read do" due to the pipe
 #   find ./*/ -name '*.sh*' | while read file; do
 # this limits the test complement to the number of arguments the shell permits
+
+echo "STORE_URL        : '${STORE_URL}'"
+echo "STORE_ACCOUNT    : '${STORE_ACCOUNT}'"
+echo "STORE_REPOSITORY : '${STORE_REPOSITORY}'"
+echo "CURL             : '${CURL}'"
+echo "CURL_URL         : '${CURL_URL}'"
 
 EXPECTED_FAILURES=""
 UNEXPECTED_FAILURES=""

@@ -51,6 +51,7 @@ if [[ "" == "${CURL}" ]]
 then
   export CURL="curl --ipv4"
 fi
+export CURL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}"
 
 if [[ "" == "${STORE_CLIENT_IP_AUTHORIZED}" ]]
 then 

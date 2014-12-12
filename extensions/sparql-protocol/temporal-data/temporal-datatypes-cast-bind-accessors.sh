@@ -22,15 +22,14 @@ ${CURL} -f -s -S -X POST \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" \
      --data-binary @- \
-     -u ":${STORE_TOKEN}" \
-     ${CURL_URL} <<EOF \
- | jq '.results.bindings[] | keys' | fgrep '"' | wc -l # | fgrep -q '49'
+     -u "${STORE_TOKEN}:" \
+     "${SPARQL_URL}" <<EOF \
+ | jq '.results.bindings[] | keys' | fgrep '"' | wc -l | fgrep -q '47'
 
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
 
 select (NOW() as ?NOW)
        (now() as ?now)
-       # date
        (xsd:string(?date) as ?dateString)
        (xsd:date(?date) as ?dateDate)
        (xsd:date(?dateTime) as ?dateTimeDate)
@@ -39,8 +38,6 @@ select (NOW() as ?NOW)
        (DAY(?date) as ?dateDay)
        (TIMEZONE(?date) as ?dateTimezone)  # supported as for dateTime
        (TZ(?date) as ?dateTZ)
-
-       # dateTime
        (xsd:string(?dateTime) as ?dateTimeString)
        (xsd:dateTime(?dateTime) as ?dateTimeDateTime)
        (xsd:dateTime(?date) as ?dateDateTime)
@@ -52,8 +49,6 @@ select (NOW() as ?NOW)
        (SECONDS(?dateTime) as ?dateTimeSeconds)
        (TIMEZONE(?dateTime) as ?dateTimeTimezone)
        (TZ(?dateTime) as ?dateTimeTZ)
-       
-       # time
        (xsd:string(?time) as ?timeString)
        (xsd:time(?time) as ?timeTime)  # time casts are limited
        (HOURS(?time) as ?timeHours)
@@ -61,32 +56,23 @@ select (NOW() as ?NOW)
        (SECONDS(?time) as ?timeSeconds)
        (TIMEZONE(?time) as ?timeTimezone)
        (TZ(?time) as ?timeTZ)
-
-       # extensions
-       # day-time-duration
        (xsd:string(?dayTimeDuration) as ?dtdString)
        (xsd:dayTimeDuration(?dayTimeDuration) as ?dtdDayTimeDuration)
-       # g-day
        (xsd:string(?gDay) as ?gdString)
        (xsd:gDay(?gDay) as ?gdGDay)
        (xsd:gDay(?dateTime) as ?dtGDay)
-       # g-month
        (xsd:string(?gMonth) as ?gmString)
        (xsd:gMonth(?gMonth) as ?gmGMonth)
        (xsd:gMonth(?dateTime) as ?dtGMonth)
-       # g-month-day
        (xsd:string(?gMonthDay) as ?gmdString)
        (xsd:gMonthDay(?gMonthDay) as ?gmdGMonthDay)
        (xsd:gMonthDay(?dateTime) as ?dtGMonthDay)
-       # g-year
        (xsd:string(?gYear) as ?gyString)
        (xsd:gYear(?gYear) as ?gyGYear)
        (xsd:gYear(?dateTime) as ?dtGYear)
-       # g-year-month
        (xsd:string(?gYearMonth) as ?gymString)
        (xsd:gYearMonth(?gYearMonth) as ?gymGYearMonth)
        (xsd:gYearMonth(?dateTime) as ?dtGYearMonth)
-       # year-month-duration
        (xsd:string(?yearMonthDuration) as ?ymdString)
        (xsd:yearMonthDuration(?yearMonthDuration) as ?ymdYearMonthDuration)
 

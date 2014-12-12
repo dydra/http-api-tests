@@ -14,7 +14,7 @@
 
 set -e
 source ./define.sh
-set -v
+# set -v
 
 SCRIPT_PATTERN='*.sh' 
 SCRIPT_ROOT='.'
@@ -48,7 +48,7 @@ echo "STORE_URL        : '${STORE_URL}'"
 echo "STORE_ACCOUNT    : '${STORE_ACCOUNT}'"
 echo "STORE_REPOSITORY : '${STORE_REPOSITORY}'"
 echo "CURL             : '${CURL}'"
-echo "CURL_URL         : '${CURL_URL}'"
+echo "SPARQL_URL       : '${SPARQL_URL}'"
 
 EXPECTED_FAILURES=""
 UNEXPECTED_FAILURES=""

@@ -23,7 +23,7 @@ ${CURL} -f -s -S -X POST \
      -H "Accept: application/sparql-results+json" \
      --data-binary @- \
      -u ":${STORE_TOKEN}" \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY} <<EOF \
+     ${CURL_URL} <<EOF \
  | jq '.results.bindings[] | keys' | fgrep '"' | wc -l # | fgrep -q '49'
 
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>

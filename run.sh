@@ -14,7 +14,7 @@
 
 set -e
 source ./define.sh
-# set -v
+set -v
 
 SCRIPT_PATTERN='*.sh' 
 SCRIPT_ROOT='.'

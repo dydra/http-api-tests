@@ -15,7 +15,7 @@
 set -e
 source ./define.sh
 set -v
-echo "set for verbose"
+echo "set for verbose..."
 
 SCRIPT_PATTERN='*.sh' 
 SCRIPT_ROOT='.'

@@ -49,7 +49,7 @@ export STATUS_UNSUPPORTED_MEDIA=415
 
 if [[ "" == "${CURL}" ]]
 then
-  export CURL="curl -v --ipv4"
+  export CURL="curl --ipv4"
 fi
 # export SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}"
 export SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/sparql"

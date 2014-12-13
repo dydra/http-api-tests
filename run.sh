@@ -14,8 +14,8 @@
 
 set -e
 source ./define.sh
-set -v
-echo "set for verbose..."
+# set -v
+# export CURL="${CURL} -v"
 
 SCRIPT_PATTERN='*.sh' 
 SCRIPT_ROOT='.'

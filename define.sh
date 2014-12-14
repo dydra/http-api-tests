@@ -51,9 +51,27 @@ if [[ "" == "${CURL}" ]]
 then
   export CURL="curl --ipv4"
 fi
+
+# define operators to export sparql and graph store url variables of the appropriate pattern
+# and define the values for the default repository. these will be overridden by scripts which expect to use a
+# different repository than the default.
 # export SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}"
-export SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/sparql"
-export GRAPH_STORE_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/service"
+# export SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/sparql"
+# export GRAPH_STORE_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/service"
+
+function set_sparql_url() {
+  # $1 : account name
+  # $2 : repository name
+  export SPARQL_URL="${STORE_URL}/${1}/${2}/sparql"
+# export SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}"
+}
+function set_graph_store_url() {
+  # $1 : account name
+  # $2 : repository name
+  export GRAPH_STORE_URL="${STORE_URL}/${1}/${2}/service"
+}
+set_sparql_url ${STORE_ACCOUNT} ${STORE_REPOSITORY}
+set_graph_store_url ${STORE_ACCOUNT} ${STORE_REPOSITORY}
 
 if [[ "" == "${STORE_CLIENT_IP_AUTHORIZED}" ]]
 then 
@@ -66,7 +84,12 @@ then
 fi
 if [[ "" == "${STORE_TOKEN_JHACKER}" ]]
 then 
-  export STORE_TOKEN_JHACKER=`cat ~/.dydra/token-jhacker@${STORE_HOST}`
+  if [ -f ~/.dydra/token-jhacker@${STORE_HOST} ]
+  then 
+    export STORE_TOKEN_JHACKER=`cat ~/.dydra/token-jhacker@${STORE_HOST}`
+  else
+    export STORE_TOKEN_JHACKER=`cat ~/.dydra/token-jhacker`
+  fi
 fi
 
 # indicate whether those put/post operations for which the request specified the default graph, will apply any
@@ -249,6 +272,8 @@ function run_tests() {
 export -f grep_patch_success
 export -f grep_post_success
 export -f grep_put_success
+export -f set_sparql_url
+export -f set_graph_store_url
 
 export -f initialize_account
 export -f initialize_repository

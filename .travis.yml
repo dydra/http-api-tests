@@ -23,7 +23,8 @@ env:
     # TOKEN (openrdf-sesame)
     - secure: "ICDCVRrtGS4GNoe3h74D1LfB3DmLjO4pWkxhB7GIs4lrRMY1UlKqqtldMv+ODldwHJHIIle0dvvnCv+yeNRGNBtdn4uE/0LgqQp7dIag0dUuLLy8KE1JIWiEezekxyOWVoaxQeRBZ9uc9zHQpXOSv9f0GkapyJ/sujEUxklMKCc="
 
-script:  bash  ./run.sh extensions/sparql-protocol/temporal-data
+script:  bash  ./run.shextensions/sparql-protocol/ 'ordered-*.sh' 'temporal-*.sh' 'query-state*.sh'
+
 notifications:
   email:
     recipients:

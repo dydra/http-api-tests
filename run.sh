@@ -45,11 +45,12 @@ cat /dev/null > failed.txt
 #   find ./*/ -name '*.sh*' | while read file; do
 # this limits the test complement to the number of arguments the shell permits
 
-echo "STORE_URL        : '${STORE_URL}'"
-echo "STORE_ACCOUNT    : '${STORE_ACCOUNT}'"
-echo "STORE_REPOSITORY : '${STORE_REPOSITORY}'"
-echo "CURL             : '${CURL}'"
-echo "SPARQL_URL       : '${SPARQL_URL}'"
+# echo "STORE_URL        : '${STORE_URL}'"
+# echo "STORE_ACCOUNT    : '${STORE_ACCOUNT}'"
+# echo "STORE_REPOSITORY : '${STORE_REPOSITORY}'"
+# echo "CURL             : '${CURL}'"
+# echo "SPARQL_URL       : '${SPARQL_URL}'"
+# echo "GRAPH_STORE_URL  : '${GRAPH_STORE_URL}'"
 
 EXPECTED_FAILURES=""
 UNEXPECTED_FAILURES=""

@@ -7,7 +7,8 @@ ${CURL} -f -s -S -X POST \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" \
      --data-binary @- \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} <<EOF \
+     -u "${STORE_TOKEN}:" \
+     "${SPARQL_URL}" <<EOF \
  | jq '.results.bindings[] | [.acos, .asin, .atan, .atan2, .cos, .exp, .exp10, .log, .log10, .pi, .pow, .sin, .sqrt, .tan] | map(.value)' \
  | fgrep '"' | fgrep -v null | wc -l | fgrep -q '14'
 
@@ -35,7 +36,8 @@ ${CURL} -f -s -S -X POST \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" \
      --data-binary @- \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} <<EOF \
+     -u "${STORE_TOKEN}:" \
+     "${SPARQL_URL}" <<EOF \
  | jq '.results.bindings[] | [.acos, .asin, .atan, .atan2, .cos, .exp, .exp10, .log, .log10, .pi, .pow, .sin, .sqrt, .tan] | map(.value)' \
  | fgrep null | wc -l | fgrep -q '13'
 

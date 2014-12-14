@@ -6,8 +6,8 @@ ${CURL} -f -s -S -X POST \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" \
      --data-binary @- \
-     -u ":${STORE_TOKEN}" \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY} <<EOF \
+     -u "${STORE_TOKEN}:" \
+     "${SPARQL_URL}" <<EOF \
  | jq '.results.bindings[] | .[].value' | fgrep -q 'true'
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
 

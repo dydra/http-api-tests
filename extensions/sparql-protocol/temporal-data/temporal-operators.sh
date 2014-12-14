@@ -6,9 +6,9 @@ ${CURL} -f -s -S -X POST \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" \
      --data-binary @- \
-     -u ":${STORE_TOKEN}" \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY} <<EOF \
- | jq '.results.bindings[] | .[].value' | fgrep -v null | wc -l | fgrep -q '21'
+     -u "${STORE_TOKEN}:" \
+     "${SPARQL_URL}" <<EOF \
+ | jq '.results.bindings[] | .[].type' | fgrep literal | wc -l | fgrep -q '21'
 
 prefix math: <http://www.w3.org/2005/xpath-functions/math#>
 
@@ -25,7 +25,7 @@ select (math:acos(1) as ?acos)
        (math:pow(2, 2) as ?pow)
        (math:sin(0) as ?sin)
        (math:sqrt(2) as ?sqrt)
-       (math:tan(1) as ?tan)
+       (math:tan(0) as ?tan)
        (fn:day-from-dateTime(?date) as ?nowDay)
        (fn:hours-from-dateTime(?date) as ?nowHour)
        (fn:minutes-from-dateTime(?date) as ?nowMinute)

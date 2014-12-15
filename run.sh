@@ -81,10 +81,11 @@ do
     fgrep -q "${script_pathname}" known-to-fail.txt
     if [ $? -eq 0 ]
     then EXPECTED=" KNOWN TO FAIL"; EXPECTED_FAILURES="${EXPECTED_FAILURES} ${script_tag}";
-    else EXPECTED=" FAILED"; UNEXPECTED_FAILURES="${UNEXPECTED_FAILURES} ${script_tag}"
+    else
+      EXPECTED=" FAILED"; UNEXPECTED_FAILURES="${UNEXPECTED_FAILURES} ${script_tag}"
+      (( STORE_ERRORS = $STORE_ERRORS + 1))
     fi
     ENTRY="${script_pathname}  : ${EXPECTED}"
-    (( STORE_ERRORS = $STORE_ERRORS + 1))
     echo "${ENTRY}" >> failed.txt
     echo "${EXPECTED}"
     echo "${script_filename}" | egrep -q -e '^.*GET.*sh$' # allow bash 2.0

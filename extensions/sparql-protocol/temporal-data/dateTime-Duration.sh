@@ -42,7 +42,7 @@ EOF
 
 
 curl_sparql_request "Accept: application/sparql-results+json" <<EOF \
- | jq '.results.bindings[] | .[].value' | fgrep -q 'true'
+ | jq '.results.bindings[] | .[].value' | fgrep 'true' | wc -l | fgrep -q '4'
 
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
 prefix ex: <http://example.com/>

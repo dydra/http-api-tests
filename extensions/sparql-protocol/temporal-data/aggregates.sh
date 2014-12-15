@@ -23,7 +23,7 @@ _:b ex:start "2014-01-01T00:00:00Z"^^xsd:dateTime ;
 _:c ex:start "2014-01-01T00:00:00Z"^^xsd:dateTime ;
   ex:end "2014-02-01T00:00:00Z"^^xsd:dateTime .
 
-_:b ex:start "2014-01-01T00:00:00Z"^^xsd:dateTime ;
+_:d ex:start "2014-01-01T00:00:00Z"^^xsd:dateTime ;
   ex:end "2015-01-01T00:00:00Z"^^xsd:dateTime .
 EOF
 

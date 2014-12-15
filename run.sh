@@ -99,14 +99,14 @@ done
 if [[ "${STORE_ERRORS}" != "0" ]]
 then
   echo "${STORE_ERRORS} errors"
-  if [[ "${EXPECTED_FAILURES}" != "" ]]
-  then
-    echo "expected: ${EXPECTED_FAILURES}"
-  fi
   if [[ "${UNEXPECTED_FAILURES}" != "" ]]
   then
     echo "new: ${UNEXPECTED_FAILURES}"
   fi
+fi
+if [[ "${EXPECTED_FAILURES}" != "" ]]
+then
+  echo "expected failures: ${EXPECTED_FAILURES}"
 fi
 
 exit ${STORE_ERRORS}

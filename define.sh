@@ -78,16 +78,25 @@ then
   export STORE_CLIENT_IP_AUTHORIZED=true
 fi
 
+# define a token for the primary account
 if [[ "" == "${STORE_TOKEN}" ]]
-then 
-  export STORE_TOKEN=`cat ~/.dydra/token-${STORE_ACCOUNT}@${STORE_HOST}`
+then
+  if [ -f ~/.dydra/token-${STORE_ACCOUNT}@${STORE_HOST} ]
+  then 
+    export STORE_TOKEN=`cat ~/.dydra/token-${STORE_ACCOUNT}@${STORE_HOST}`
+  elif [ -f ~/.dydra/token-${STORE_ACCOUNT} ]
+  then
+    export STORE_TOKEN=`cat ~/.dydra/token-${STORE_ACCOUNT}`
+  fi
 fi
+# and one for another registered user
 if [[ "" == "${STORE_TOKEN_JHACKER}" ]]
 then 
   if [ -f ~/.dydra/token-jhacker@${STORE_HOST} ]
   then 
     export STORE_TOKEN_JHACKER=`cat ~/.dydra/token-jhacker@${STORE_HOST}`
-  else
+  elif [ -f ~/.dydra/token-jhacker ]
+  then
     export STORE_TOKEN_JHACKER=`cat ~/.dydra/token-jhacker`
   fi
 fi

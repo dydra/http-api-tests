@@ -226,7 +226,8 @@ permit a request to target a specific graph as described above, as well as to tr
 as trix or nquads in order to stipulate the target graph for statements in the payload document itself.
 The protocol and document specifications are not exclusive.
 When both appear, the graph encoded in the document supersedes that specified in the protocol request
-with respect to the destination graph, while the protocol graph specifies which graph is to be cleared by a put
+with respect to the destination graph, while the protocol graph specifies which graph is to be cleared by a put.
+Where no protocol graph is specified for a `POST` request, a new graph is generated.
 The combinations yield the following effects:
 
 <table  border=0 cellpadding=2px cellspacing=0 >
@@ -235,10 +236,10 @@ The combinations yield the following effects:
 <td >protocol graph designator<td  >content type<td  >statement graph designator<td  >effective graph</tr>
 <tr >
 <td class=hd>
-<td >-<td>n-triple, rdf<td >-<td >-</tr>
+<td >-<td>n-triple, rdf<td >-<td >-/<post></tr>
 <tr >
 <td class=hd>
-<td >-<td>n-quad, trix<td >-<td >-</tr>
+<td >-<td>n-quad, trix<td >-<td >-/<post></tr>
 <tr >
 <td class=hd>
 <td >-<td>n-triple, rdf<td>&lt;statement&gt; : invalid<td><i>skipped</i></tr>

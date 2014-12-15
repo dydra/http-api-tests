@@ -2,6 +2,9 @@
 
 # exercise aggregation over temporal data
 
+set_sparql_url "${STORE_ACCOUNT}" "${STORE_REPOSITORY}-write"
+set_graph_store_url "${STORE_ACCOUNT}" "${STORE_REPOSITORY}-write"
+
 $CURL -w "%{http_code}\n" -f -s -S -X PUT \
      -H "Content-Type: application/turtle" \
      --data-binary @- \

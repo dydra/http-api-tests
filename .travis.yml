@@ -28,6 +28,7 @@ script:
   -  bash  ./run.sh extensions/sparql-protocol/temporal-data
   -  bash  ./run.sh extensions/sparql-protocol/collation
   -  bash  ./run.sh extensions/sparql-protocol/xpath-operators
+  -  bash  ./run.sh sparql-protocol
 
 notifications:
   email:

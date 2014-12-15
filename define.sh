@@ -150,8 +150,14 @@ ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
      -H "Accept: application/n-quads" \
      -H "Content-Type: application/n-quads" --data-binary @- \
      -u "${STORE_TOKEN}:" \
-     ${GRAPH_STORE_URL} <<EOF
+     ${GRAPH_STORE_URL}?default <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
+EOF
+${CURL} -w "%{http_code}\n" -L -f -s -X POST \
+     -H "Accept: application/n-quads" \
+     -H "Content-Type: application/n-quads" --data-binary @- \
+     -u "${STORE_TOKEN}:" \
+     "${GRAPH_STORE_URL}?graph=${STORE_NAMED_GRAPH}" <<EOF
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
 }

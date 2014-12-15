@@ -1,6 +1,6 @@
 #! /bin/bash
 
-set_sparql_url "openrdf-sesame" "collation"
+set_sparql_url "${STORE_ACCOUNT}" "collation"
 
 ${CURL} -f -s -S -X GET \
      -H "Accept: application/sparql-results+json" \

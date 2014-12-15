@@ -236,10 +236,10 @@ The combinations yield the following effects:
 <td >protocol graph designator<td  >content type<td  >statement graph designator<td  >effective graph</tr>
 <tr >
 <td class=hd>
-<td >-<td>n-triple, rdf<td >-<td >-/<post></tr>
+<td >-<td>n-triple, rdf<td >-<td >-/&lt;post&gt;</tr>
 <tr >
 <td class=hd>
-<td >-<td>n-quad, trix<td >-<td >-/<post></tr>
+<td >-<td>n-quad, trix<td >-<td >-/&lt;post&gt;</tr>
 <tr >
 <td class=hd>
 <td >-<td>n-triple, rdf<td>&lt;statement&gt; : invalid<td><i>skipped</i></tr>

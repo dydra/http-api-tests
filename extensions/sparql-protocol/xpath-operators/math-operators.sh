@@ -3,12 +3,7 @@
 # exercise the math operators
 
 # require non-null values to be present for all functions
-${CURL} -f -s -S -X POST \
-     -H "Content-Type: application/sparql-query" \
-     -H "Accept: application/sparql-results+json" \
-     --data-binary @- \
-     -u "${STORE_TOKEN}:" \
-     "${SPARQL_URL}" <<EOF \
+curl_sparql_request "Accept: application/sparql-results+json" <<EOF \
  | jq '.results.bindings[] | [.acos, .asin, .atan, .atan2, .cos, .exp, .exp10, .log, .log10, .pi, .pow, .sin, .sqrt, .tan] | map(.value)' \
  | fgrep '"' | fgrep -v null | wc -l | fgrep -q '14'
 
@@ -32,12 +27,7 @@ EOF
 
 
 # check that each signals a condition for invalid arguments
-${CURL} -f -s -S -X POST \
-     -H "Content-Type: application/sparql-query" \
-     -H "Accept: application/sparql-results+json" \
-     --data-binary @- \
-     -u "${STORE_TOKEN}:" \
-     "${SPARQL_URL}" <<EOF \
+curl_sparql_request "Accept: application/sparql-results+json" <<EOF \
  | jq '.results.bindings[] | [.acos, .asin, .atan, .atan2, .cos, .exp, .exp10, .log, .log10, .pi, .pow, .sin, .sqrt, .tan] | map(.value)' \
  | fgrep null | wc -l | fgrep -q '13'
 

@@ -282,13 +282,22 @@ function run_tests() {
   done
 }
 
-
+function curl_sparql_request () {
+  if [[ "$#" == "1" ]] ; then curl_url="${SPARQL_URL}" ; else curl_url="${2}" ; fi ;
+  ${CURL} -f -s -S -X POST \
+     -H "Content-Type: application/sparql-query" \
+     -H "${1}" \
+     --data-binary @- \
+     -u "${STORE_TOKEN}:" \
+     "${curl_url}"
+}
 
 export -f grep_patch_success
 export -f grep_post_success
 export -f grep_put_success
 export -f set_sparql_url
 export -f set_graph_store_url
+export -f curl_sparql_request
 
 export -f initialize_account
 export -f initialize_repository

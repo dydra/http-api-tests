@@ -2,12 +2,7 @@
 
 # exercise the query state functions
 
-${CURL} -f -s -S -X POST \
-     -H "Content-Type: application/sparql-query" \
-     -H "Accept: application/sparql-results+json" \
-     --data-binary @- \
-     -u "${STORE_TOKEN}:" \
-     "${SPARQL_URL}" <<EOF \
+curl_sparql_request "Accept: application/sparql-results+json" <<EOF \
  | jq '.results.bindings[] | .[].value' | fgrep -q 'true'
 
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
@@ -28,12 +23,7 @@ EOF
 
 # excercise the dayTimeDuration comparison operators
 
-curl -f -s -S -X POST \
-     -H "Content-Type: application/sparql-query" \
-     -H "Accept: application/sparql-results+json" \
-     --data-binary @- \
-     -u "${STORE_TOKEN}:" \
-     "${SPARQL_URL}" <<EOF \
+curl_sparql_request "Accept: application/sparql-results+json" <<EOF \
  | jq '.results.bindings[] | .[].value' | fgrep -q 'true'
 
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>

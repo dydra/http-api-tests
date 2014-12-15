@@ -4,11 +4,7 @@
 
 set_sparql_url "openrdf-sesame" "collation"
 
-${CURL} -f -s -S -X POST --data-binary @- \
-     -H "Content-Type: application/sparql-query" \
-     -H "Accept: application/sparql-results+json" \
-     -u "${STORE_TOKEN}:" \
-     "${SPARQL_URL}" <<EOF \
+curl_sparql_request "Accept: application/sparql-results+json" <<EOF \
  | jq '.results.bindings[] | ( .value.value + " " + .location.value)' | diff - ordered-lv-combination.txt
 select distinct ?s ?value ?location
  where {

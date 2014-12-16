@@ -17,7 +17,7 @@ $CURL -w "%{http_code}\n" -f -s -S -X PUT \
      "${GRAPH_STORE_URL}?default" <<EOF \
     | egrep -q "$STATUS_PUT_SUCCESS"
 @prefix ex: <http://example.com/> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 _:a ex:dateEq "2013-12-31T00:00:00Z"^^xsd:dateTime ;
   ex:dateLt "2013-12-31T00:00:01Z"^^xsd:dateTime ;
@@ -35,14 +35,14 @@ _:c ex:dateEq "2013-10-01T00:00:00Z"^^xsd:dateTime ;
   ex:duration "P3M"^^xsd:yearMonthDuration .
 
 _:d ex:dateEq "2012-07-01T00:00:00Z"^^xsd:dateTime ;
-  ex:dateLt "2011-07-01T00:00:00Z"^^xsd:dateTime ;
-  ex:dateGt "2013-07-01T00:00:00Z"^^xsd:dateTime ;
+  ex:dateLt "2013-07-01T00:00:00Z"^^xsd:dateTime ;
+  ex:dateGt "2011-07-01T00:00:00Z"^^xsd:dateTime ;
   ex:duration "P1Y6M"^^xsd:yearMonthDuration .
 EOF
 
 
 curl_sparql_request "Accept: application/sparql-results+json" <<EOF \
- | jq '.results.bindings[] | .[].value' | fgrep 'true' | wc -l | fgrep -q '4'
+  | jq '.results.bindings[] | .[].value' | fgrep 'true' | wc -l | fgrep -q '4'
 
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
 prefix ex: <http://example.com/>

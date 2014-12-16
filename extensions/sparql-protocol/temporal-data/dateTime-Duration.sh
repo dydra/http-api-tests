@@ -6,6 +6,17 @@
 # - the value of ex:duration is the duration to be subtracted from ?now
 # - the values of ex:dateEq, ex:dateLt and ex:dateGt are xsd:dateTime values that are used for the respective eq, lt and gt comparisons
 # - these values are such that the result of the comparison is expected to be true
+#
+# nb. wrt the names for temporal datatypes
+# one must exercise care when specifying the type for temporal values in the store.
+# although the XPATH semantics associated with the terms in the namespace "http://www.w3.org/2001/XMLSchema-datatypes"
+# is defined to be the same as that of the respective terms in the namespace "http://www.w3.org/2001/XMLSchema",
+# with respect to RDF, these terms are not the same. that is, if compared, they are neither identical nor equal.
+# within the sparql processor, the XPath semantic equivalence applies with respect to arithmetic operations,
+# which range over both XMLSchema-datatypes and XMLSchema terms, but logical operations revert in this case to
+# RDF semantics, under which terms from the different namespaces are incommensurable.
+#
+# thus the namespace specified in the import must be "http://www.w3.org/2001/XMLSchema#"
 
 set_sparql_url "${STORE_ACCOUNT}" "${STORE_REPOSITORY}-write"
 set_graph_store_url "${STORE_ACCOUNT}" "${STORE_REPOSITORY}-write"

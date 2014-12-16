@@ -1,14 +1,12 @@
 #! /bin/bash
 
-# provenance 6/1648 and 6/1649
-
 OBJECT_ID=$RANDOM
-curl -w "%{http_code}\n" -f -s -S -X POST \
-     -H "Content-Type: application/sparql-update" \
-     --data-binary @- \
-     ${STORE_URL}/jhacker/726-base?auth_token=${STORE_TOKEN} <<EOF \
-  | fgrep 201
-PREFIX provenanceRepositoryID: <jhacker/726-provenance>
+
+set_sparql_url "${STORE_ACCOUNT}" "${STORE_REPOSITORY}-write"
+
+curl_sparql_update "Accept: application/sparql-results+json" <<EOF \
+ # | jq '.boolean' | fgrep -q 'true'
+PREFIX provenanceRepositoryID: <${STORE_ACCOUNT}/${STORE_REPOSITORY}-provenance>
 
 INSERT DATA {
  GRAPH <http://example.org/uri1/${OBJECT_ID}> {
@@ -18,17 +16,26 @@ INSERT DATA {
 }
 EOF
 
-curl -f -s -S -X GET\
-     -H "Accept: application/n-quads" \
-     ${STORE_URL}/jhacker/726-provenance?auth_token=${STORE_TOKEN} \
-   | rapper -q --input nquads --output nquads /dev/stdin - | tr -s '\n' '\t' \
-   | fgrep "object-${OBJECT_ID}" | fgrep -q '/thing' 
 
+set_graph_store_url "${STORE_ACCOUNT}" "${STORE_REPOSITORY}-write"
 
 curl -f -s -S -X GET\
      -H "Accept: application/n-quads" \
-     ${STORE_URL}/jhacker/726-provenance?auth_token=${STORE_TOKEN} \
-   | rapper -q --input nquads --output nquads /dev/stdin - | tr -s '\n' '\t' \
-   | fgrep -q 'http://example.org/uri1/${OBJECT_ID}'
+     -u "${STORE_TOKEN}:" \
+     ${GRAPH_STORE_URL}?graph=http://example.org/uri1/${OBJECT_ID} \
+   | rapper -q --input nquads --output nquads /dev/stdin - \
+   | fgrep -q "object-${OBJECT_ID}"
 
 
+set_graph_store_url "${STORE_ACCOUNT}" "${STORE_REPOSITORY}-provenance"
+
+# verify that transaction graph has appeared in the provenance repository.
+# for now, search the entire repository. the approach is necessary until some aspect of the the response
+# provides information on the transaction to be used to determine the graph which was added to the provenance repository
+
+curl -f -s -S -X GET\
+     -H "Accept: application/n-quads" \
+     -u "${STORE_TOKEN}:" \
+     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-provenance.nq \
+   | rapper -q --input nquads --output nquads /dev/stdin -  \
+   | fgrep "${OBJECT_ID}" | fgrep -q '<urn:dydra:Graph>'

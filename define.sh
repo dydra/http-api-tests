@@ -292,6 +292,16 @@ function curl_sparql_request () {
      "${curl_url}"
 }
 
+function curl_sparql_update () {
+  if [[ "$#" == "1" ]] ; then curl_url="${SPARQL_URL}" ; else curl_url="${2}" ; fi ;
+  ${CURL} -f -s -S -X POST \
+     -H "Content-Type: application/sparql-update" \
+     -H "${1}" \
+     --data-binary @- \
+     -u "${STORE_TOKEN}:" \
+     "${curl_url}"
+}
+
 export -f grep_patch_success
 export -f grep_post_success
 export -f grep_put_success

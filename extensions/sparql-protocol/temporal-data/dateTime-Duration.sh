@@ -6,6 +6,17 @@
 # - the value of ex:duration is the duration to be subtracted from ?now
 # - the values of ex:dateEq, ex:dateLt and ex:dateGt are xsd:dateTime values that are used for the respective eq, lt and gt comparisons
 # - these values are such that the result of the comparison is expected to be true
+#
+# nb. wrt the names for temporal datatypes
+# one must exercise care when specifying the type for temporal values in the store.
+# although the XPATH semantics associated with the terms in the namespace "http://www.w3.org/2001/XMLSchema-datatypes"
+# is defined to be the same as that of the respective terms in the namespace "http://www.w3.org/2001/XMLSchema",
+# with respect to RDF, these terms are not the same. that is, if compared, they are neither identical nor equal.
+# within the sparql processor, the XPath semantic equivalence applies with respect to arithmetic operations,
+# which range over both XMLSchema-datatypes and XMLSchema terms, but logical operations revert in this case to
+# RDF semantics, under which terms from the different namespaces are incommensurable.
+#
+# thus the namespace specified in the import must be "http://www.w3.org/2001/XMLSchema#"
 
 set_sparql_url "${STORE_ACCOUNT}" "${STORE_REPOSITORY}-write"
 set_graph_store_url "${STORE_ACCOUNT}" "${STORE_REPOSITORY}-write"
@@ -17,7 +28,7 @@ $CURL -w "%{http_code}\n" -f -s -S -X PUT \
      "${GRAPH_STORE_URL}?default" <<EOF \
     | egrep -q "$STATUS_PUT_SUCCESS"
 @prefix ex: <http://example.com/> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 _:a ex:dateEq "2013-12-31T00:00:00Z"^^xsd:dateTime ;
   ex:dateLt "2013-12-31T00:00:01Z"^^xsd:dateTime ;
@@ -35,14 +46,14 @@ _:c ex:dateEq "2013-10-01T00:00:00Z"^^xsd:dateTime ;
   ex:duration "P3M"^^xsd:yearMonthDuration .
 
 _:d ex:dateEq "2012-07-01T00:00:00Z"^^xsd:dateTime ;
-  ex:dateLt "2011-07-01T00:00:00Z"^^xsd:dateTime ;
-  ex:dateGt "2013-07-01T00:00:00Z"^^xsd:dateTime ;
+  ex:dateLt "2013-07-01T00:00:00Z"^^xsd:dateTime ;
+  ex:dateGt "2011-07-01T00:00:00Z"^^xsd:dateTime ;
   ex:duration "P1Y6M"^^xsd:yearMonthDuration .
 EOF
 
 
 curl_sparql_request "Accept: application/sparql-results+json" <<EOF \
- | jq '.results.bindings[] | .[].value' | fgrep 'true' | wc -l | fgrep -q '4'
+  | jq '.results.bindings[] | .[].value' | fgrep 'true' | wc -l | fgrep -q '4'
 
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
 prefix ex: <http://example.com/>

@@ -308,6 +308,7 @@ export -f grep_put_success
 export -f set_sparql_url
 export -f set_graph_store_url
 export -f curl_sparql_request
+export -f curl_sparql_update
 
 export -f initialize_account
 export -f initialize_repository

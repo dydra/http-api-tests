@@ -49,7 +49,7 @@ For example
     export STORE_URL="http://dydra.com"
     export STORE_ACCOUNT="openrdf-sesame"
     export STORE_REPOSITORY="mem-rdf"
-    export STORE=TOKEN="1234567890"
+    export STORE_TOKEN="1234567890"
     source define.sh
     bash run.sh extensions/sparql-protocol/temporal-data
 

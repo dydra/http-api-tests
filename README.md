@@ -1,11 +1,11 @@
 
-# http api tests
+# HTTP API tests
 
 This repository comprises tests for the DYDRA RDF cloud service:
 - the Sesame HTTP communication protocol,
-- the SPARQL graph store http protocol,
+- the SPARQL graph store HTTP protocol,
 - the SPARQL query protocol,
-- the DYDRA account administration http api
+- the DYDRA account administration HTTP API
 - DYDRA extension tests
 
 [![Build Status](https://travis-ci.org/dydra/http-api-tests.svg?branch=master)](https://travis-ci.org/dydra/http-api-tests)
@@ -37,7 +37,7 @@ apply, as given in its documentation.
 In order to execute simple scripts manually:
 
 - establish values for the shell variables
-  - `STORE_URL` : the HTTP uri to specify the remote host.
+  - `STORE_URL` : the HTTP URI to specify the remote host.
   - `STORE_ACCOUNT` : the account name.
   - `STORE_REPOSITORY` : the repository name eg.
   - `STORE_TOKEN` : an authentication if authentication is required.
@@ -66,10 +66,10 @@ The tests are coded as bash shell scripts. They depend on several utility progra
 
 ## Sesame HTTP communication protocol
 
-These tests exercise the sesame rest api, as per the openrdf "http communication protocol"
+These tests exercise the Sesame rest api, as per the OpenRDF "HTTP communication protocol"
 [description](http://www.openrdf.org/doc/sesame2/system/ch08.html),
 [or](http://openrdf.callimachus.net/sesame/2.7/docs/system.docbook?view#chapter-http-protocol).
-For the v2.0 sesame protocol, the concrete resources, with reference to
+For the v2.0 Sesame protocol, the concrete resources, with reference to
 the described overview:
 
         ${STORE_URL}/${STORE_ACCOUNT}
@@ -138,7 +138,7 @@ requests with response content, against result prototypes as canonicalized per x
 and json_reformat. Test failures match against the HTTP status code.
 
 
-### graph store support through the sesame http protocol
+### Graph store support through the Sesame HTTP protocol
 
 the graph store support under [sesame](http://www.openrdf.org/doc/sesame2/system/ch08.html#d0e659)
 provides two resource patterns. 
@@ -152,7 +152,7 @@ designates that graph.
 
 note that, given the [discussion](http://www.openrdf.org/issues/browse/SES-895)
 on the openrdf topic, the designator for a directly referenced named graph in a
-sesame request uri is the literal url. that is, it includes the "/repositories" text.
+sesame request URI is the literal URL. that is, it includes the "/repositories" text.
 
 > The SPARQL 1.1 Graph Store HTTP Protocol is supported on a per-repository basis. 
 > The functionality is accessible at <SESAME_URL>/repositories/<ID>/rdf-graphs/service 
@@ -168,7 +168,7 @@ user account and the repository name
     <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/service
     <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/<NAME>
 
-the consequence is that, in order to designate the repository as a whole, the sesame request url must take a form
+the consequence is that, in order to designate the repository as a whole, the sesame request URL must take a form
 
     <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/service?graph=<HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>
 
@@ -200,7 +200,7 @@ and an indirect graph reference takes the form
 
     <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>?graph=<graph>
 
-## linked data designators
+## Linked data designators
 
 In addition to the root repository graph, it is also possible to link directly to
 an arbitrary directly designated graph which extends beyon the root
@@ -208,7 +208,7 @@ an arbitrary directly designated graph which extends beyon the root
     <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>/<FURTHER>/<PATH>/<STEPS>
 
 
-### graph store content types
+### Graph store content types
 
 The `multipart/form-data` request content type described in the graph store
 [protocol](http://www.w3.org/TR/2013/REC-sparql11-http-rdf-update-20130321/#graph-management)
@@ -219,7 +219,7 @@ protocol for [query](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/#q
  and [update](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/#update-via-post-urlencoded) operations. 
 
 
-## triples, quads and named graphs in import requests
+## Triples, quads and named graphs in import requests
 
 The graph store management operations which involve an RDF payload - `PATCH`, `POST`, and `PUT`,
 permit a request to target a specific graph as described above, as well as to transfer graph content

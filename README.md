@@ -121,7 +121,7 @@ The scripts test a subset of the accept formats:
 - For repository content
 
     - RDF/XML :   `application/rdf+xml`
-    - N-triples : `text/plain, application/n-triples`
+    - N-Triples : `text/plain, application/n-triples`
     - TriX :      `application/trix`
     - JSON :      `application/json`
     - N-Quads :   `application/n-quads`
@@ -223,7 +223,7 @@ protocol for [query](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/#q
 
 The graph store management operations which involve an RDF payload - `PATCH`, `POST`, and `PUT`,
 permit a request to target a specific graph as described above, as well as to transfer graph content
-as trix or nquads in order to stipulate the target graph for statements in the payload document itself.
+as TriX or N-Quads in order to stipulate the target graph for statements in the payload document itself.
 The protocol and document specifications are not exclusive.
 When both appear, the graph encoded in the document supersedes that specified in the protocol request
 with respect to the destination graph, while the protocol graph specifies which graph is to be cleared by a put.

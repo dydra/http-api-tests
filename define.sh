@@ -70,8 +70,15 @@ function set_graph_store_url() {
   # $2 : repository name
   export GRAPH_STORE_URL="${STORE_URL}/${1}/${2}/service"
 }
+function set_download_url() {
+  # $1 : account name
+  # $2 : repository name
+  export DOWNLOAD_URL="${STORE_URL}/${1}/${2}"
+}
+# set the default values - each script can over-ride
 set_sparql_url ${STORE_ACCOUNT} ${STORE_REPOSITORY}
 set_graph_store_url ${STORE_ACCOUNT} ${STORE_REPOSITORY}
+set_download_url ${STORE_ACCOUNT} ${STORE_REPOSITORY}
 
 if [[ "" == "${STORE_CLIENT_IP_AUTHORIZED}" ]]
 then 
@@ -302,13 +309,31 @@ function curl_sparql_update () {
      "${curl_url}"
 }
 
+function curl_graph_store_get () {
+  if [[ "$#" == "1" ]] ; then graph="default" ; else graph="${2}" ; fi ;
+  ${CURL} -f -s -X GET \
+     -H "${1}" \
+     -u "${STORE_TOKEN}:" \
+     ${GRAPH_STORE_URL}?${graph}
+}
+
+function curl_download () {
+  ${CURL} -f -s -S -X GET \
+     -H "${1}" \
+     -u "${STORE_TOKEN}:" \
+     ${DOWNLOAD_URL}.${2}
+}
+
 export -f grep_patch_success
 export -f grep_post_success
 export -f grep_put_success
 export -f set_sparql_url
 export -f set_graph_store_url
+export -f set_download_url
 export -f curl_sparql_request
 export -f curl_sparql_update
+export -f curl_graph_store_get
+export -f curl_download
 
 export -f initialize_account
 export -f initialize_repository

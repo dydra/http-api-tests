@@ -2,10 +2,10 @@
 # HTTP API tests
 
 This repository comprises tests for the DYDRA RDF cloud service:
-- the Sesame HTTP communication protocol,
-- the SPARQL graph store HTTP protocol,
-- the SPARQL query protocol,
-- the DYDRA account administration HTTP API
+- The Sesame HTTP communication protocol,
+- The SPARQL graph store HTTP protocol,
+- The SPARQL query protocol,
+- The DYDRA account administration HTTP API
 - DYDRA extension tests
 
 [![Build Status](https://travis-ci.org/dydra/http-api-tests.svg?branch=master)](https://travis-ci.org/dydra/http-api-tests)
@@ -36,15 +36,15 @@ apply, as given in its documentation.
 
 In order to execute simple scripts manually:
 
-- establish values for the shell variables
+- Establish values for the shell variables
   - `STORE_URL` : the HTTP URI to specify the remote host.
   - `STORE_ACCOUNT` : the account name.
   - `STORE_REPOSITORY` : the repository name eg.
   - `STORE_TOKEN` : an authentication if authentication is required.
-- define the shell environment
-- run the desired script(s)
+- Define the shell environment
+- Run the desired script(s)
 
-for example
+For example
 
     export STORE_URL="http://dydra.com"
     export STORE_ACCOUNT="openrdf-sesame"
@@ -117,19 +117,19 @@ distinct from possible repository linked-data resources:
             /undefined_variable_behaviour : disposition for queries with unbound variables
 
 
-The scripts test a subset of the accept formats
-- for repository content
+The scripts test a subset of the accept formats:
+- For repository content
 
-    - RDF/XML   application/rdf+xml
-    - N-triples text/plain, application/n-triples
-    - TriX      application/trix
-    - json      application/json
-    - N-Quads   application/n-quads
+    - RDF/XML :   `application/rdf+xml`
+    - N-triples : `text/plain, application/n-triples`
+    - TriX :      `application/trix`
+    - JSON :      `application/json`
+    - N-Quads :   `application/n-quads`
 
-- for query results and metadata
+- For query results and metadata
 
-    - XML       application/sparql-results+xml
-    - json      application/sparql-results+json
+    - XML :       `application/sparql-results+xml`
+    - JSON :      `application/sparql-results+json`
 
 The scripts cover variations of access privileges, content- and accept-type,
 and resource existence. 
@@ -140,19 +140,19 @@ and json_reformat. Test failures match against the HTTP status code.
 
 ### Graph store support through the Sesame HTTP protocol
 
-the graph store support under [sesame](http://www.openrdf.org/doc/sesame2/system/ch08.html#d0e659)
+The graph store support under [sesame](http://www.openrdf.org/doc/sesame2/system/ch08.html#d0e659)
 provides two resource patterns. 
 
     <SESAME_URL>/repositories/<ID>/rdf-graphs/service
     <SESAME_URL>/repositories/<ID>/rdf-graphs/<NAME>
 
-the first, for which the path ends in `service`, requires an additional `graph` query argument
+The first, for which the path ends in `service`, requires an additional `graph` query argument
 to designated the referenced graph indirectly, while in the second case, the request url itself
 designates that graph.
 
-note that, given the [discussion](http://www.openrdf.org/issues/browse/SES-895)
+Note that, given the [discussion](http://www.openrdf.org/issues/browse/SES-895)
 on the openrdf topic, the designator for a directly referenced named graph in a
-sesame request URI is the literal URL. that is, it includes the "/repositories" text.
+sesame request URI is the literal URL. That is, it includes the "/repositories" text.
 
 > The SPARQL 1.1 Graph Store HTTP Protocol is supported on a per-repository basis. 
 > The functionality is accessible at <SESAME_URL>/repositories/<ID>/rdf-graphs/service 
@@ -168,7 +168,7 @@ user account and the repository name
     <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/service
     <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/<NAME>
 
-the consequence is that, in order to designate the repository as a whole, the sesame request URL must take a form
+The consequence is that, in order to designate the repository as a whole, the sesame request URL must take a form
 
     <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/service?graph=<HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>
 
@@ -176,7 +176,7 @@ and the default graph is designated as
 
     <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/service?default
 
-while a request of the form
+While a request of the form
 
     <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/<NAME>
 

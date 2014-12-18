@@ -185,8 +185,8 @@ designate exactly that named graph in the store.
 
 ## SPARQL graph store protocol
 
-The "sparlq 1.1 graph store http protocol", is supported as per the w3c
-[specification](http://www.w3.org/TR/sparql11-http-rdf-update/).
+The "SPARQL 1.1 Graph Store HTTP Protocol", is supported as per the W3C
+[recommendation](http://www.w3.org/TR/sparql11-http-rdf-update/).
 For a repository on a DYDRA host, the native request patterns comprise just the host authority, the
 user account and the repository name
 
@@ -214,7 +214,7 @@ The `multipart/form-data` request content type described in the graph store
 [protocol](http://www.w3.org/TR/2013/REC-sparql11-http-rdf-update-20130321/#graph-management)
 is not supported. Each request must target an individual graph.
 
-The `application/x-www-form-url-encoded` request type is supported for `GET` requests only, as described in the sparql
+The `application/x-www-form-url-encoded` request type is supported for `GET` requests only, as described in the SPARQL
 protocol for [query](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/#query-via-post-urlencoded)
  and [update](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/#update-via-post-urlencoded) operations. 
 
@@ -403,7 +403,7 @@ Each DYDRA repository constitutes a SPARQL endpoint which is identified by the r
 
 Requests which conform to the terms of a SPARQL request described in the
 "SPARQL 1.1 Protocol" [recommendation](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321)
-are processed as ASPQRQL requests. 
+are processed as SPARQL requests. 
 The tests for this facility are present in the directory `
 
 ## DYDRA account administration HTTP API

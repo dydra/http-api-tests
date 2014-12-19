@@ -1,11 +1,11 @@
 
-# http api tests
+# HTTP API tests
 
 This repository comprises tests for the DYDRA RDF cloud service:
-- the Sesame HTTP communication protocol,
-- the SPARQL graph store http protocol,
-- the SPARQL query protocol,
-- the DYDRA account administration http api
+- The Sesame HTTP communication protocol,
+- The SPARQL graph store HTTP protocol,
+- The SPARQL query protocol,
+- The DYDRA account administration HTTP API
 - DYDRA extension tests
 
 [![Build Status](https://travis-ci.org/dydra/http-api-tests.svg?branch=master)](https://travis-ci.org/dydra/http-api-tests)
@@ -36,20 +36,20 @@ apply, as given in its documentation.
 
 In order to execute simple scripts manually:
 
-- establish values for the shell variables
-  - `STORE_URL` : the HTTP uri to specify the remote host.
+- Establish values for the shell variables
+  - `STORE_URL` : the HTTP URI to specify the remote host.
   - `STORE_ACCOUNT` : the account name.
   - `STORE_REPOSITORY` : the repository name eg.
   - `STORE_TOKEN` : an authentication if authentication is required.
-- define the shell environment
-- run the desired script(s)
+- Define the shell environment
+- Run the desired script(s)
 
-for example
+For example
 
     export STORE_URL="http://dydra.com"
     export STORE_ACCOUNT="openrdf-sesame"
     export STORE_REPOSITORY="mem-rdf"
-    export STORE=TOKEN="1234567890"
+    export STORE_TOKEN="1234567890"
     source define.sh
     bash run.sh extensions/sparql-protocol/temporal-data
 
@@ -66,10 +66,10 @@ The tests are coded as bash shell scripts. They depend on several utility progra
 
 ## Sesame HTTP communication protocol
 
-These tests exercise the sesame rest api, as per the openrdf "http communication protocol"
+These tests exercise the Sesame rest api, as per the OpenRDF "HTTP communication protocol"
 [description](http://www.openrdf.org/doc/sesame2/system/ch08.html),
 [or](http://openrdf.callimachus.net/sesame/2.7/docs/system.docbook?view#chapter-http-protocol).
-For the v2.0 sesame protocol, the concrete resources, with reference to
+For the v2.0 Sesame protocol, the concrete resources, with reference to
 the described overview:
 
         ${STORE_URL}/${STORE_ACCOUNT}
@@ -117,19 +117,19 @@ distinct from possible repository linked-data resources:
             /undefined_variable_behaviour : disposition for queries with unbound variables
 
 
-The scripts test a subset of the accept formats
-- for repository content
+The scripts test a subset of the accept formats:
+- For repository content
 
-    - RDF/XML   application/rdf+xml
-    - N-triples text/plain, application/n-triples
-    - TriX      application/trix
-    - json      application/json
-    - N-Quads   application/n-quads
+    - RDF/XML :   `application/rdf+xml`
+    - N-Triples : `text/plain, application/n-triples`
+    - TriX :      `application/trix`
+    - JSON :      `application/json`
+    - N-Quads :   `application/n-quads`
 
-- for query results and metadata
+- For query results and metadata
 
-    - XML       application/sparql-results+xml
-    - json      application/sparql-results+json
+    - XML :       `application/sparql-results+xml`
+    - JSON :      `application/sparql-results+json`
 
 The scripts cover variations of access privileges, content- and accept-type,
 and resource existence. 
@@ -138,21 +138,21 @@ requests with response content, against result prototypes as canonicalized per x
 and json_reformat. Test failures match against the HTTP status code.
 
 
-### graph store support through the sesame http protocol
+### Graph store support through the Sesame HTTP protocol
 
-the graph store support under [sesame](http://www.openrdf.org/doc/sesame2/system/ch08.html#d0e659)
+The graph store support under [sesame](http://www.openrdf.org/doc/sesame2/system/ch08.html#d0e659)
 provides two resource patterns. 
 
     <SESAME_URL>/repositories/<ID>/rdf-graphs/service
     <SESAME_URL>/repositories/<ID>/rdf-graphs/<NAME>
 
-the first, for which the path ends in `service`, requires an additional `graph` query argument
+The first, for which the path ends in `service`, requires an additional `graph` query argument
 to designated the referenced graph indirectly, while in the second case, the request url itself
 designates that graph.
 
-note that, given the [discussion](http://www.openrdf.org/issues/browse/SES-895)
+Note that, given the [discussion](http://www.openrdf.org/issues/browse/SES-895)
 on the openrdf topic, the designator for a directly referenced named graph in a
-sesame request uri is the literal url. that is, it includes the "/repositories" text.
+sesame request URI is the literal URL. That is, it includes the "/repositories" text.
 
 > The SPARQL 1.1 Graph Store HTTP Protocol is supported on a per-repository basis. 
 > The functionality is accessible at <SESAME_URL>/repositories/<ID>/rdf-graphs/service 
@@ -168,7 +168,7 @@ user account and the repository name
     <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/service
     <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/<NAME>
 
-the consequence is that, in order to designate the repository as a whole, the sesame request url must take a form
+The consequence is that, in order to designate the repository as a whole, the sesame request URL must take a form
 
     <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/service?graph=<HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>
 
@@ -176,7 +176,7 @@ and the default graph is designated as
 
     <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/service?default
 
-while a request of the form
+While a request of the form
 
     <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/<NAME>
 
@@ -185,8 +185,8 @@ designate exactly that named graph in the store.
 
 ## SPARQL graph store protocol
 
-The "sparlq 1.1 graph store http protocol", is supported as per the w3c
-[specification](http://www.w3.org/TR/sparql11-http-rdf-update/).
+The "SPARQL 1.1 Graph Store HTTP Protocol", is supported as per the W3C
+[recommendation](http://www.w3.org/TR/sparql11-http-rdf-update/).
 For a repository on a DYDRA host, the native request patterns comprise just the host authority, the
 user account and the repository name
 
@@ -200,7 +200,7 @@ and an indirect graph reference takes the form
 
     <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>?graph=<graph>
 
-## linked data designators
+## Linked data designators
 
 In addition to the root repository graph, it is also possible to link directly to
 an arbitrary directly designated graph which extends beyon the root
@@ -208,22 +208,22 @@ an arbitrary directly designated graph which extends beyon the root
     <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>/<FURTHER>/<PATH>/<STEPS>
 
 
-### graph store content types
+### Graph store content types
 
 The `multipart/form-data` request content type described in the graph store
 [protocol](http://www.w3.org/TR/2013/REC-sparql11-http-rdf-update-20130321/#graph-management)
 is not supported. Each request must target an individual graph.
 
-The `application/x-www-form-url-encoded` request type is supported for `GET` requests only, as described in the sparql
+The `application/x-www-form-url-encoded` request type is supported for `GET` requests only, as described in the SPARQL
 protocol for [query](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/#query-via-post-urlencoded)
  and [update](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/#update-via-post-urlencoded) operations. 
 
 
-## triples, quads and named graphs in import requests
+## Triples, quads and named graphs in import requests
 
 The graph store management operations which involve an RDF payload - `PATCH`, `POST`, and `PUT`,
 permit a request to target a specific graph as described above, as well as to transfer graph content
-as trix or nquads in order to stipulate the target graph for statements in the payload document itself.
+as TriX or N-Quads in order to stipulate the target graph for statements in the payload document itself.
 The protocol and document specifications are not exclusive.
 When both appear, the graph encoded in the document supersedes that specified in the protocol request
 with respect to the destination graph, while the protocol graph specifies which graph is to be cleared by a put.
@@ -403,7 +403,7 @@ Each DYDRA repository constitutes a SPARQL endpoint which is identified by the r
 
 Requests which conform to the terms of a SPARQL request described in the
 "SPARQL 1.1 Protocol" [recommendation](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321)
-are processed as ASPQRQL requests. 
+are processed as SPARQL requests. 
 The tests for this facility are present in the directory `
 
 ## DYDRA account administration HTTP API

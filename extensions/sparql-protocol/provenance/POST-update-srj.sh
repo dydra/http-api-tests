@@ -1,5 +1,5 @@
 #! /bin/bash
-
+set -v
 OBJECT_ID=provenance
 
 set_sparql_url "${STORE_ACCOUNT}" "${STORE_REPOSITORY}-provenance"
@@ -31,7 +31,7 @@ curl_graph_store_get "Accept: application/n-quads" "graph=http://example.org/uri
   | fgrep -q "object-${OBJECT_ID}"
 
 
-# verify that transaction graph has appeared in the provenance repository.
+# verify that the transaction graph has appeared in the provenance repository.
 # for now, search the entire repository. the approach is necessary until some aspect of the the response
 # provides information on the transaction to be used to determine the graph which was added to the provenance repository
 

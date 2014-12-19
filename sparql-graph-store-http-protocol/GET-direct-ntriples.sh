@@ -1,9 +1,7 @@
 #! /bin/bash
 
-
-curl -f -s -X GET \
-     -H "Accept: application/n-triples" \
-     ${STORE_NAMED_GRAPH_URL}?auth_token=${STORE_TOKEN} \
+set_graph_store_url ${STORE_ACCOUNT} ${STORE_REPOSITORY}/graph-name
+curl_graph_store_get "Accept: application/n-triples" \
    | rapper -q --input ntriples --output ntriples /dev/stdin - | tr -s '\n' '\t' \
    | fgrep '"named object"' | fgrep -v "${STORE_NAMED_GRAPH}" \
    | tr -s '\t' '\n' | wc -l | fgrep -q 1

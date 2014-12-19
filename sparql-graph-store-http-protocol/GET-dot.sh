@@ -1,6 +1,4 @@
 #! /bin/bash
 
-curl -f -s -S -X GET \
-     -H "Accept: text/x-graphviz" \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} \
+curl_graph_store_get "Accept: text/x-graphviz" "" \
    | fgrep -q 'digraph' 

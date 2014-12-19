@@ -4,7 +4,7 @@
 # echo the environment settings for http api tests
 #
 
-source ./script_setup.sh
+source ./define.sh
 
 echo STORE_URL=${STORE_URL}
 echo STORE_HOST=${STORE_HOST}

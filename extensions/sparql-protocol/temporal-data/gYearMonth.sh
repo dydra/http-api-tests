@@ -14,7 +14,7 @@ select ((( xsd:gYearMonth('1976-02-05:00') = '1976-02-05:00'^^xsd:gYearMonth) &&
          ( xsd:gYearMonth('1976-02-12:00') != '1976-02+12:00'^^xsd:gYearMonth) &&
          ( xsd:gYearMonth('1976-02-10:00') != '1976-02Z'^^xsd:gYearMonth) &&
 
-         # no order, but also not incommendurable
+         # no order, but also not incommensurable
          (! ( xsd:gYearMonth('1975-02') <   xsd:gYearMonth('1976-02') )) &&
          (! ( xsd:gYearMonth('1976-02') <   xsd:gYearMonth('1975-02') )) &&
          (! ( xsd:gYearMonth('1975-02') <=   xsd:gYearMonth('1976-02') )) &&

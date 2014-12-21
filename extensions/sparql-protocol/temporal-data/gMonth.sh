@@ -16,7 +16,7 @@ select ((( xsd:gMonth('--12') = '--12'^^xsd:gMonth) &&
          ( xsd:gMonth('--12-14:00') != '--12+10:00'^^xsd:gMonth) &&
          ( xsd:gMonth('--12-10:00') != '--12Z'^^xsd:gMonth) &&
 
-         # no order, but also not incommendurable
+         # no order, but also not incommensurable
          (! ( xsd:gMonth('--11') <   xsd:gMonth('--12') )) &&
          (! ( xsd:gMonth('--12') <   xsd:gMonth('--11') )) &&
          (! ( xsd:gMonth('--11') <=   xsd:gMonth('--12') )) &&

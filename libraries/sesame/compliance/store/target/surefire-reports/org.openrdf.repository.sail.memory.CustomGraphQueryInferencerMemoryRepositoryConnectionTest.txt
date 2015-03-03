@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: org.openrdf.repository.sail.memory.CustomGraphQueryInferencerMemoryRepositoryConnectionTest
--------------------------------------------------------------------------------
-Tests run: 61, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.753 sec

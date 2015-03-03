@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: org.openrdf.repository.sail.nativerdf.CustomGraphQueryInferencerNativeRepositoryConnectionTest
--------------------------------------------------------------------------------
-Tests run: 61, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.428 sec

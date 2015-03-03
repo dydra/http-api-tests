@@ -1,9 +1,0 @@
-org/openrdf/sail/dydra/DydraStoreInterruptTest.class
-org/openrdf/sail/dydra/DydraStoreCustomInferencingTest.class
-org/openrdf/sail/dydra/DydraStoreContextTest.class
-org/openrdf/sail/dydra/DydraStoreTest.class
-org/openrdf/sail/dydra/datastore/DydraDataStorePerfTest.class
-org/openrdf/sail/dydra/DydraStoreConcurrencyTest.class
-org/openrdf/sail/dydra/DydraStoreInferencingTest.class
-org/openrdf/sail/dydra/DydraStoreConsistencyTest.class
-org/openrdf/sail/dydra/DydraStoreIsolationLevelTest.class

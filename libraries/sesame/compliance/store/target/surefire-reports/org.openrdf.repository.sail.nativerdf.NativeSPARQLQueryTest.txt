@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest
+-------------------------------------------------------------------------------
+Tests run: 242, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.757 sec

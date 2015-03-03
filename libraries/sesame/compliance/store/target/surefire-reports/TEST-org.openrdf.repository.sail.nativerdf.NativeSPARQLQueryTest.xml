@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="242" failures="0" name="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" time="5.152" errors="0" skipped="0">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib"/>
+    <property name="java.vm.version" value="25.25-b02"/>
+    <property name="user.country.format" value="DE"/>
+    <property name="gopherProxySet" value="false"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="path.separator" value=":"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="/Development/Source/Library/com/github/dydra/http-api-tests/libraries/sesame/compliance/store"/>
+    <property name="java.runtime.version" value="1.8.0_25-b17"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment"/>
+    <property name="java.endorsed.dirs" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/endorsed"/>
+    <property name="os.arch" value="x86_64"/>
+    <property name="java.io.tmpdir" value="/var/folders/4n/vh45gkx14rlgzz0mjn3322880000gn/T/"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="classworlds.conf" value="/Development/Applications/apache-maven-3.2.5/bin/m2.conf"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/jamesanderson/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="52.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="10.9.5"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="user.home" value="/Users/jamesanderson"/>
+    <property name="user.timezone" value="Europe/Berlin"/>
+    <property name="java.awt.printerjob" value="sun.lwawt.macosx.CPrinterJob"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="user.name" value="jamesanderson"/>
+    <property name="java.class.path" value="/Development/Applications/apache-maven-3.2.5/boot/plexus-classworlds-2.5.2.jar"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher test"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.language" value="en"/>
+    <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.8.0_25"/>
+    <property name="java.ext.dirs" value="/Users/jamesanderson/Library/Java/Extensions:/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java"/>
+    <property name="sun.boot.class.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/classes"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="maven.home" value="/Development/Applications/apache-maven-3.2.5"/>
+    <property name="file.separator" value="/"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="sun.cpu.isalist" value=""/>
+  </properties>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Non-matching triple pattern" time="0.047"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Prefix name 1" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic graph pattern - spoo" time="0.023"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - Prefix/Base 1" time="0.02"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - Prefix/Base 2" time="0.036"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - Prefix/Base 3" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - Prefix/Base 4" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - Prefix/Base 5" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - List 1" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - List 2" time="0.046"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - List 3" time="0.02"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - List 4" time="0.02"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - Quotes 1" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - Quotes 2" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - Quotes 3" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - Quotes 4" time="0.02"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - Term 1" time="0.02"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - Term 2" time="0.022"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - Term 3" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - Term 4" time="0.045"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - Term 5" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - Term 6" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - Term 7" time="0.033"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - Term 8" time="0.022"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - Term 9" time="0.026"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - Var 1" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Basic - Var 2" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dawg-triple-pattern-001" time="0.031"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dawg-triple-pattern-002" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dawg-triple-pattern-003" time="0.015"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dawg-triple-pattern-004" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="open-eq-01" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="open-eq-02" time="0.023"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="open-eq-03" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="open-eq-04" time="0.022"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="open-eq-05" time="0.014"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="open-eq-06" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="open-eq-07" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="open-eq-08" time="0.041"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="open-eq-09" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="open-eq-10" time="0.024"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="open-eq-11" time="0.023"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="open-eq-12" time="0.023"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="date-2" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="date-3" time="0.021"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="date-4" time="0.02"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="open-cmp-01" time="0.021"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="open-cmp-02" time="0.067"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Join operator with OPTs, BGPs, and UNIONs" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Join operator with Graph and Union" time="0.023"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Nested Optionals - 1" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Nested Optionals - 2" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Optional-filter - 1" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Optional-filter - 2 filters" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Optional-filter - scope of variable" time="0.034"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Filter-placement - 1" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Filter-placement - 2" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Filter-placement - 3" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Filter-nested - 1" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Filter-nested - 2" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Filter-scope - 1" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Join scope - 1" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dawg-bnode-coreference" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Complex optional semantics: 1" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Complex optional semantics: 2" time="0.05"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Complex optional semantics: 3" time="0.021"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Complex optional semantics: 4" time="0.025"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="One optional clause" time="0.015"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Two optional clauses" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Union is not optional" time="0.015"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="OPTIONAL-FILTER" time="0.015"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="OPTIONAL - Outer FILTER" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="OPTIONAL - Outer FILTER with BOUND" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="OPTIONAL - Inner FILTER with negative EBV for outer variables" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="graph-01" time="0.029"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="graph-02" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="graph-03" time="0.013"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="graph-04" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="graph-05" time="0.02"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="graph-06" time="0.02"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="graph-07" time="0.034"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="graph-08" time="0.022"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="graph-09" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="graph-10b" time="0.044"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="graph-11" time="0.066"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dataset-01" time="0.014"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dataset-02" time="0.014"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dataset-03" time="0.013"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dataset-04" time="0.012"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dataset-05" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dataset-06" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dataset-07" time="0.014"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dataset-08" time="0.044"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dataset-09b" time="0.015"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dataset-10b" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dataset-11" time="0.02"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dataset-12b" time="0.026"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-double-double" time="0.09"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-double-float" time="0.021"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-double-decimal" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-float-float" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-float-decimal" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-decimal-decimal" time="0.025"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-integer-short" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-nonPositiveInteger-short" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-negativeInteger-short" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-long-short" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-int-short" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-short-short" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-byte-short" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-nonNegativeInteger-short" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-unsignedLong-short" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-unsignedInt-short" time="0.04"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-unsignedShort-short" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-unsignedByte-short" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-positiveInteger-short" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-short-double" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-short-float" time="0.036"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-short-decimal" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-short-short-fail" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-byte-short-fail" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-short-long-fail" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-short-int-fail" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-short-byte-fail" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-double-float-fail" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-double-decimal-fail" time="0.02"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="tP-float-decimal-fail" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Cast to xsd:string" time="0.029"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Cast to xsd:float" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Cast to xsd:double" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Cast to xsd:decimal" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Cast to xsd:integer" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Cast to xsd:dateTime" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Cast to xsd:boolean" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Test literal &apos;true&apos;" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Test &apos;boolean effective value&apos; - true" time="0.015"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Test &apos;boolean effective value&apos; - false" time="0.015"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Test &apos;boolean effective value&apos; - &amp;&amp;" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Test &apos;boolean effective value&apos; - ||" time="0.037"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Test &apos;boolean effective value&apos; - optional" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Test &apos;boolean effective value&apos; - unknown types" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dawg-bound-query-001" time="0.014"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="isLiteral" time="0.015"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="str-1" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="str-2" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="str-3" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="str-4" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="isBlank-1" time="0.015"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="datatype-1" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="datatype-2 : Literals with a datatype" time="0.038"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="datatype-3 : Literals with a datatype of xsd:string" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="lang-1 : Literals with a lang tag of some kind" time="0.02"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="lang-2 : Literals with a lang tag of &apos;&apos;" time="0.073"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="lang-3 : Graph matching with lang tag being a different case" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="isURI-1" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="isIRI-1" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="LangMatches-1" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="LangMatches-2" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="LangMatches-3" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="LangMatches-4" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="LangMatches-basic" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="lang-case-insensitive-eq" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="lang-case-insensitive-ne" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="sameTerm-simple" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="sameTerm-eq" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="sameTerm-not-eq" time="0.025"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Unary Plusn" time="0.015"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Unary Minus" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Addition" time="0.038"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Subtraction" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Multiplication" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Greater-than or equals" time="0.014"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Less-than or equals" time="0.021"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Equality 1-1" time="0.013"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Equality 1-2" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Equality 1-3" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Equality 1-4" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Equality 1-5" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Equality - 2 var - test equals" time="0.058"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Equality - 2 var - test not equals " time="0.028"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Equality 1-1 -- graph" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Equality 1-2 -- graph" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Equality 1-3 -- graph" time="0.021"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Equality 1-4 -- graph" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Equality 1-5 -- graph" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="regex-query-001" time="0.015"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="regex-query-002" time="0.015"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="regex-query-003" time="0.015"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="regex-query-004" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="kanji-01" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="kanji-02" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="normalization-01" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="normalization-02" time="0.014"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="normalization-03" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dawg-construct-identity" time="0.021"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dawg-construct-subgraph" time="0.015"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dawg-construct-reification-1" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dawg-construct-reification-2" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="dawg-construct-optional" time="0.015"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="ASK-1  SPARQL XML results " time="0.045"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="ASK-4  SPARQL XML results " time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="ASK-7  SPARQL XML results " time="0.015"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="ASK-8  SPARQL XML results " time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="SELECT DISTINCT *" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Numbers: No distinct" time="0.02"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Numbers: Distinct" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Strings: No distinct" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Strings: Distinct" time="0.024"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Nodes: No distinct" time="0.038"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Nodes: Distinct" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Opt: No distinct" time="0.02"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Opt: Distinct" time="0.045"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="All: No distinct" time="0.022"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="All: Distinct" time="0.022"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="sort-1" time="0.022"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="sort-2" time="0.022"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="sort-3" time="0.02"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="sort-4" time="0.032"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="sort-5" time="0.02"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="sort-6" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="sort-7" time="0.018"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="sort-8" time="0.025"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="sort-9" time="0.019"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="sort-10" time="0.021"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Expression sort" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Builtin sort" time="0.015"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Function sort" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Limit 1" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Limit 2" time="0.022"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Limit 3" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Limit 4" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Offset 1" time="0.015"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Offset 2" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Offset 3" time="0.017"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Offset 4" time="0.015"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Slice 1" time="0.032"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Slice 2" time="0.015"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Slice 3" time="0.064"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Slice 4" time="0.021"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="Slice 5" time="0.015"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="SELECT REDUCED *" time="0.016"/>
+  <testcase classname="org.openrdf.repository.sail.nativerdf.NativeSPARQLQueryTest" name="SELECT REDUCED ?x with strings" time="0.017"/>
+</testsuite>

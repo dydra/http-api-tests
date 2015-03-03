@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: org.openrdf.sail.dydra.DydraStoreContextTest
+-------------------------------------------------------------------------------
+Tests run: 36, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.459 sec

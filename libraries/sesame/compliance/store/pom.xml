@@ -1,0 +1,158 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+        <groupId>org.datagraph.dydra</groupId>
+	<artifactId>dydra-sesame-store-compliance</artifactId>
+        <version>0.1.0</version>
+	<packaging>jar</packaging>
+
+	<name>Dydra OpenRDF SAIL and Repository compliance test</name>
+	<description>Tests for the Dydra specialized SAILs and Repositories</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+                <maven.compiler.source>1.7</maven.compiler.source>
+                <maven.compiler.target>1.7</maven.compiler.target>
+		
+		<slf4j.version>1.7.5</slf4j.version>
+		<logback.version>1.0.13</logback.version>
+		<spring.version>2.5.6</spring.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame</artifactId>
+			<version>2.7.14</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-store-testsuite</artifactId>
+			<version>2.9.0-SNAPSHOT</version>
+		</dependency>
+		
+<!--		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-serql-testsuite</artifactId>
+			<version>2.9.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-sparql-testsuite</artifactId>
+			<version>2.9.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-repository-http</artifactId>
+			<version>2.9.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-repository-sail</artifactId>
+			<version>2.9.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-repository-sparql</artifactId>
+			<version>2.9.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-sail-memory</artifactId>
+			<version>2.9.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-sail-nativerdf</artifactId>
+			<version>2.9.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-sail-rdbms</artifactId>
+			<version>2.9.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-sail-federation</artifactId>
+			<version>2.9.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-http-server</artifactId>
+			<version>2.9.0-SNAPSHOT</version>
+			<type>war</type>
+		</dependency> -->
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+                        <version>1.7.5</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>log4j-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<!-- <configuration>
+					<skipTests>true</skipTests>
+				</configuration> -->
+				<configuration>
+                                  <argLine>-Djava.library.path=/opt/dydra/lib/</argLine>
+				</configuration>
+				<executions>
+					<execution>
+						<id>surefire-it</id>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<skipTests>false</skipTests>
+							<forkCount>1</forkCount>
+							<reuseForks>false</reuseForks>
+							<argLine>-Xmx512M -XX:MaxPermSize=256M</argLine>
+							<excludes>
+							</excludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: org.openrdf.repository.sail.memory.MemoryStoreConnectionTest
+-------------------------------------------------------------------------------
+Tests run: 61, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.24 sec

@@ -1,0 +1,2071 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="121" failures="0" name="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" time="0.8" errors="106" skipped="15">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib"/>
+    <property name="java.vm.version" value="25.25-b02"/>
+    <property name="user.country.format" value="DE"/>
+    <property name="gopherProxySet" value="false"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="path.separator" value=":"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="/Development/Source/Library/com/github/dydra/http-api-tests/libraries/sesame/compliance/store"/>
+    <property name="java.runtime.version" value="1.8.0_25-b17"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment"/>
+    <property name="java.endorsed.dirs" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/endorsed"/>
+    <property name="os.arch" value="x86_64"/>
+    <property name="java.io.tmpdir" value="/var/folders/4n/vh45gkx14rlgzz0mjn3322880000gn/T/"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="classworlds.conf" value="/Development/Applications/apache-maven-3.2.5/bin/m2.conf"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/jamesanderson/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="52.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="10.9.5"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="user.home" value="/Users/jamesanderson"/>
+    <property name="user.timezone" value="Europe/Berlin"/>
+    <property name="java.awt.printerjob" value="sun.lwawt.macosx.CPrinterJob"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="user.name" value="jamesanderson"/>
+    <property name="java.class.path" value="/Development/Applications/apache-maven-3.2.5/boot/plexus-classworlds-2.5.2.jar"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher test"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.language" value="en"/>
+    <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.8.0_25"/>
+    <property name="java.ext.dirs" value="/Users/jamesanderson/Library/Java/Extensions:/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java"/>
+    <property name="sun.boot.class.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/classes"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="maven.home" value="/Development/Applications/apache-maven-3.2.5"/>
+    <property name="file.separator" value="/"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="sun.cpu.isalist" value=""/>
+  </properties>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testAddMalformedLiteralsStrictConfig" time="0">
+    <skipped message="See SES-1833"/>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testAddMalformedLiteralsDefaultConfig" time="0.031">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testAddMalformedLiteralsDefaultConfig" time="0.031">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testSizeRollback" time="0.031">
+    <skipped message="temporarily disabled for HTTPRepository"/>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testAutoCommit" time="0.031">
+    <skipped message="temporarily disabled for HTTPRepository"/>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testEmptyRollback" time="0.031">
+    <skipped message="temporarily disabled for HTTPRepository"/>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testInferencerTransactionIsolation" time="0.031">
+    <skipped message="temporarily disabled for HTTPRepository"/>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testEmptyCommit" time="0.031">
+    <skipped message="temporarily disabled for HTTPRepository"/>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testRollback" time="0.031">
+    <skipped message="temporarily disabled for HTTPRepository"/>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testInferencerQueryDuringTransaction" time="0.031">
+    <skipped message="temporarily disabled for HTTPRepository"/>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testSizeCommit" time="0.031">
+    <skipped message="temporarily disabled for HTTPRepository"/>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testOrderByQueriesAreInterruptable" time="0.031">
+    <skipped message="temporarily disabled for HTTPRepository"/>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testTransactionIsolation" time="0.031">
+    <skipped message="temporarily disabled for HTTPRepository"/>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testGetContextIDs" time="0.031">
+    <skipped message="temporarily disabled for HTTPRepository"/>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testExclusiveNullContext" time="0.031">
+    <skipped/>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testDefaultInsertContext" time="0.031">
+    <skipped/>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testMakeExplicit" time="0.011">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testMakeExplicit" time="0.012">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testSubClassInference" time="0.003">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testSubClassInference" time="0.003">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testInferencerUpdates" time="0.006">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testInferencerUpdates" time="0.006">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testDomainInference" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testDomainInference" time="0.003">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testExplicitFlag" time="0.001">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testExplicitFlag" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testDefaultContext" time="0.002">
+    <skipped/>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testSimpleBooleanQuery" time="0.006">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testSimpleBooleanQuery" time="0.007">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testGetNamespace" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testGetNamespace" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testGraphSerialization" time="0.003">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testGraphSerialization" time="0.003">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testGetStatementsMalformedTypedLiteral" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testGetStatementsMalformedTypedLiteral" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testClear" time="0.003">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testClear" time="0.003">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testAddStatement" time="0.011">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testAddStatement" time="0.011">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testOpen" time="0.001">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testOpen" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testAddGzipInputStream" time="0.001">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testAddGzipInputStream" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testAddInputStream" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testAddInputStream" time="0.003">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testLiteralSerialization" time="0.001">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testLiteralSerialization" time="0.001">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testPreparedGraphQuery" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testPreparedGraphQuery" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testQueryDefaultGraph" time="0.003">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testQueryDefaultGraph" time="0.003">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testSimpleTupleQuery" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testSimpleTupleQuery" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testBNodeSerialization" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testBNodeSerialization" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testGetStatementsMalformedLanguageLiteral" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testGetStatementsMalformedLanguageLiteral" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testRecoverFromParseError" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testRecoverFromParseError" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testAddLiteralWithNewline" time="0.003">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testAddLiteralWithNewline" time="0.003">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testRemoveStatementIteration" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testRemoveStatementIteration" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testRemoveStatements" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testRemoveStatements" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testGetStatementsInMultipleContexts" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testGetStatementsInMultipleContexts" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testPreparedBooleanQuery" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testPreparedBooleanQuery" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testGetStatementsInSingleContext" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testGetStatementsInSingleContext" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testPreparedTupleQuery2" time="0.003">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testPreparedTupleQuery2" time="0.003">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testUpdateBaseURI" time="0.005">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testUpdateBaseURI" time="0.005">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testDuplicateFilter" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testDuplicateFilter" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testSimpleTupleQueryUnicode" time="0.006">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testSimpleTupleQueryUnicode" time="0.007">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testAddReader" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testAddReader" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testAddRemove" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testAddRemove" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testDeleteDefaultGraph" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testDeleteDefaultGraph" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testPreparedTupleQuery" time="0.029">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testPreparedTupleQuery" time="0.029">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testAddZipFile" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testAddZipFile" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testDataset" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testDataset" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testPrepareSeRQLQuery" time="0.001">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testPrepareSeRQLQuery" time="0.001">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testInferredStatementCount" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testInferredStatementCount" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testRemoveStatementCollection" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testRemoveStatementCollection" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testGetStatements" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testGetStatements" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testOrPredicate" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testOrPredicate" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testOptionalFilter" time="0.001">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testOptionalFilter" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testStatementSerialization" time="0.001">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testStatementSerialization" time="0.001">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testPreparedTupleQueryUnicode" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testPreparedTupleQueryUnicode" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testSES713" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testSES713" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testGetNamespaces" time="0.001">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testGetNamespaces" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testURISerialization" time="0.001">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testURISerialization" time="0.001">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testSimpleGraphQuery" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testSimpleGraphQuery" time="0.003">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testPrepareSPARQLQuery" time="0.001">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testPrepareSPARQLQuery" time="0.001">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testXmlCalendarZ" time="0.002">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testXmlCalendarZ" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testQueryBaseURI" time="0.003">
+    <error message="org/mortbay/jetty/Connector" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: org/mortbay/jetty/Connector
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.setUp(RDFSchemaHTTPRepositoryConnectionTest.java:38)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+Caused by: java.lang.ClassNotFoundException: org.mortbay.jetty.Connector
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 10 more
+</error>
+  </testcase>
+  <testcase classname="org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest" name="testQueryBaseURI" time="0.003">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at org.openrdf.repository.RepositoryConnectionTest.tearDown(RepositoryConnectionTest.java:233)
+	at org.openrdf.repository.http.RDFSchemaHTTPRepositoryConnectionTest.tearDown(RDFSchemaHTTPRepositoryConnectionTest.java:53)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:33)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+</error>
+  </testcase>
+</testsuite>

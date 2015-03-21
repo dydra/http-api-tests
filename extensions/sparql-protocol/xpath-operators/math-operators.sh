@@ -3,7 +3,7 @@
 # exercise the math operators
 
 # require non-null values to be present for all functions
-curl_sparql_request "Accept: application/sparql-results+json" <<EOF \
+curl_sparql_request <<EOF \
  | jq '.results.bindings[] | [.acos, .asin, .atan, .atan2, .cos, .exp, .exp10, .log, .log10, .pi, .pow, .sin, .sqrt, .tan] | map(.value)' \
  | fgrep '"' | fgrep -v null | wc -l | fgrep -q '14'
 
@@ -27,7 +27,7 @@ EOF
 
 
 # check that each signals a condition for invalid arguments
-curl_sparql_request "Accept: application/sparql-results+json" <<EOF \
+curl_sparql_request  <<EOF \
  | jq '.results.bindings[] | [.acos, .asin, .atan, .atan2, .cos, .exp, .exp10, .log, .log10, .pi, .pow, .sin, .sqrt, .tan] | map(.value)' \
  | fgrep null | wc -l | fgrep -q '13'
 

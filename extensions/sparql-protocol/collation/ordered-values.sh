@@ -2,7 +2,7 @@
 
 set_sparql_url "openrdf-sesame" "collation"
 
-curl_sparql_request "Accept: application/sparql-results+json" <<EOF \
+curl_sparql_request <<EOF \
  | jq '.results.bindings[] | .value.value' | diff - ordered-values.txt 
 select distinct ?s ?value
  where {

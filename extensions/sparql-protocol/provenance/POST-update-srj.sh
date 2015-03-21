@@ -3,14 +3,14 @@ set -v
 OBJECT_ID=provenance
 
 set_sparql_url "${STORE_ACCOUNT}" "${STORE_REPOSITORY}-provenance"
-curl_sparql_update "Accept: application/sparql-results+json" <<EOF \
+curl_sparql_update  <<EOF \
  | jq '.boolean' | fgrep -q 'true'
 
 DROP ALL
 EOF
 
 set_sparql_url "${STORE_ACCOUNT}" "${STORE_REPOSITORY}-write"
-curl_sparql_update "Accept: application/sparql-results+json" <<EOF \
+curl_sparql_update <<EOF \
  | jq '.boolean' | fgrep -q 'true'
 
 PREFIX provenanceRepositoryID: <${STORE_ACCOUNT}/${STORE_REPOSITORY}-provenance>

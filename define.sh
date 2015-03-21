@@ -26,6 +26,12 @@ export STORE_DGRAPH="sesame"
 export STORE_IGRAPH="http://example.org"
 export STORE_NAMED_GRAPH="http://${STORE_SITE}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/graph-name"
 export STORE_NAMED_GRAPH_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/graph-name"
+# accept json by default for use with jq
+export STORE_ACCEPT="Accept: application/sparql-results+json"
+export STORE_ACCEPT_GRAPH="Accept: application/n-triples"
+export STORE_QUERY_CONTENT_TYPE="Content-Type: application/sparql-query"
+export STORE_UPDATE_CONTENT_TYPE="Content-Type: application/sparql-update"
+export STORE_GRAPH_CONTENT_TYPE="Content-Type: application/turtle"
 export STORE_IS_LOCAL=false
 fgrep 127.0.0.1 /etc/hosts | fgrep -q ${STORE_HOST} &&  export STORE_IS_LOCAL=true
 
@@ -289,33 +295,112 @@ function run_tests() {
   done
 }
 
+
+# curl_sparql_get { $accept-header-argument } $url-encoded-query
+function curl_sparql_get () {
+  local accept="$STORE_ACCEPT"
+  local query=""
+  local curl_url=""
+  case "$1" in
+    Accept*) accept= "$1"; shift;;
+    *) ;;
+  esac
+  if [[ "$#" = 0 ]]
+  then
+    echo "curl_sparql_get: query is required"
+    return 1
+  else
+    query="$1"
+  fi
+  curl_url="${SPARQL_URL}?query=${query}"
+
+  ${CURL} -f -s -S -X GET \
+     -H "$accept" \
+     -u "${STORE_TOKEN}:" \
+     "${curl_url}"
+}
+
+# curl_sparql_request { $accept-header-argument } { $content-type-header-argument } { $url }
 function curl_sparql_request () {
-  if [[ "$#" == "1" ]] ; then curl_url="${SPARQL_URL}" ; else curl_url="${2}" ; fi ;
+  local accept="$STORE_ACCEPT"
+  local content_type="$STORE_QUERY_CONTENT_TYPE"
+  local curl_url=""
+  while [[ "$#" > 0 ]] ; do
+    case "$1" in
+      Accept*) accept="$1"; shift;;
+      Content_Type*) content_type="$1"; shift;;
+      *) break ;;
+    esac
+  done
+  if [[ "$#" > 0 ]]
+  then curl_url="${1}"
+  else curl_url="${SPARQL_URL}"
+  fi
+
   ${CURL} -f -s -S -X POST \
-     -H "Content-Type: application/sparql-query" \
-     -H "${1}" \
-     --data-binary @- \
+     -H "$accept" \
+     -H "$content_type" \
      -u "${STORE_TOKEN}:" \
+     --data-binary @- \
      "${curl_url}"
 }
 
-function curl_sparql_update () {
-  if [[ "$#" == "1" ]] ; then curl_url="${SPARQL_URL}" ; else curl_url="${2}" ; fi ;
+# curl_sparql_update { $accept-header-argument } { $content-type-header-argument } { $url }
+function curl_sparql_request () {
+  local accept="$STORE_ACCEPT"
+  local content_type="$STORE_UPDATE_CONTENT_TYPE"
+  local curl_url=""
+  while [[ "$#" > 0 ]] ; do
+    case "$1" in
+      Accept*) accept="$1"; shift;;
+      Content_Type*) content_type="$1"; shift;;
+      *) break ;;
+    esac
+  done
+  if [[ "$#" > 0 ]]
+  then curl_url="${1}"
+  else curl_url="${SPARQL_URL}"
+  fi
+
   ${CURL} -f -s -S -X POST \
-     -H "Content-Type: application/sparql-update" \
-     -H "${1}" \
-     --data-binary @- \
+     -H "$accept" \
+     -H "$content_type" \
      -u "${STORE_TOKEN}:" \
+     --data-binary @- \
      "${curl_url}"
 }
 
+# curl_graph_store_get { $accept-header-argument } { graph }
 function curl_graph_store_get () {
-  if [[ "$#" == "1" ]] ; then graph="default" ; else graph="${2}" ; fi ;
+  local accept="$STORE_ACCEPT_GRAPH"
+  local graph="default"
+  case "$1" in
+    Accept*) accept= "$1"; shift;;
+    *) ;;
+  esac
+  if [[ "$#" > 0 ]] ; then graph="${1}" ; fi ;
   ${CURL} -f -s -X GET \
-     -H "${1}" \
+     -H "$accept" \
      -u "${STORE_TOKEN}:" \
      ${GRAPH_STORE_URL}?${graph}
 }
+
+# curl_graph_store_put { $accept-header-argument } { graph }
+function curl_graph_store_put () {
+  local content_type="$STORE_GRAPH_CONTENT_TYPE"
+  local graph="default"
+  case "$1" in
+    Content_Type*) content_type="$1"; shift;;
+    *) ;;
+  esac
+  if [[ !(-z "$1") ]] ; then graph="${1}" ; fi ;
+  ${CURL} -w "%{http_code}\n" -f -s -S -X PUT \
+     -H "$content_type" \
+     -u "${STORE_TOKEN}:" \
+     --data-binary @- \
+     "${GRAPH_STORE_URL}?${graph}"
+}
+
 
 function curl_download () {
   ${CURL} -f -s -S -X GET \
@@ -333,6 +418,7 @@ export -f set_download_url
 export -f curl_sparql_request
 export -f curl_sparql_update
 export -f curl_graph_store_get
+export -f curl_graph_store_put
 export -f curl_download
 
 export -f initialize_account

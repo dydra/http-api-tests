@@ -2,7 +2,7 @@
 
 # exercise the query state functions
 
-curl_sparql_request "Accept: application/sparql-results+json" <<EOF \
+curl_sparql_request <<EOF \
  | jq '.results.bindings[] | .[].value' | fgrep -q "\"${STORE_ACCOUNT}\""
 
 PREFIX dydra: <http://dydra.com#> 
@@ -11,7 +11,7 @@ WHERE {}
 EOF
 
 
-curl_sparql_request "Accept: application/sparql-results+json" <<EOF \
+curl_sparql_request <<EOF \
  | jq '.results.bindings[] | .[].value' | egrep -q '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+'
 
 PREFIX dydra: <http://dydra.com#> 
@@ -20,7 +20,7 @@ WHERE {}
 EOF
 
 
-curl_sparql_request "Accept: application/sparql-results+json" <<EOF \
+curl_sparql_request <<EOF \
  | jq '.results.bindings[] | .[].value' | fgrep -q "\"${STORE_REPOSITORY}\""
 
 PREFIX dydra: <http://dydra.com#> 
@@ -29,7 +29,7 @@ WHERE {}
 EOF
 
 
-curl_sparql_request "Accept: application/sparql-results+json" <<EOF \
+curl_sparql_request <<EOF \
  | jq '.results.bindings[] | .[].value' | fgrep -q "${STORE_ACCOUNT}/${STORE_REPOSITORY}"
 
 PREFIX dydra: <http://dydra.com#> 
@@ -38,7 +38,7 @@ WHERE {}
 EOF
 
 
-curl_sparql_request "Accept: application/sparql-results+json" "${SPARQL_URL}?user_id=test" <<EOF \
+curl_sparql_request "${SPARQL_URL}?user_id=test" <<EOF \
  | jq '.results.bindings[] | .[].value' | fgrep -q "\"test\""
 
 PREFIX dydra: <http://dydra.com#> 

@@ -18,7 +18,7 @@
 # xs:yearMonthDuration
 # xs:gYear
 
-curl_sparql_request "Accept: application/sparql-results+json" <<EOF \
+curl_sparql_request <<EOF \
   | jq '.results.bindings[] | .[].value' | fgrep -q 'true'
 
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>

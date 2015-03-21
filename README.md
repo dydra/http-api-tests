@@ -12,7 +12,7 @@ This repository comprises tests for the DYDRA RDF cloud service:
 
 ---
 
-The tests implemented as a collection of shell scripts and arranged in a directory hierarchy according to topic.
+These tests are implemented as a collection of shell scripts and arranged in a directory hierarchy according to topic.
 The root directory contains several utility scripts which establish the test environment,
 administer the target repositories and execute tests.
 

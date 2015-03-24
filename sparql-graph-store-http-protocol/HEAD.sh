@@ -1,8 +1,6 @@
 #! /bin/bash
 
 
-curl -w "%{http_code}\n" -f -s --head\
-     -H "Accept: application/n-quads" \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} \
-   | fgrep -q "${STATUS_OK}"
+curl_graph_store_get -w "%{http_code}\n" --head \
+   | test_ok_success
 

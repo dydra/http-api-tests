@@ -25,8 +25,8 @@ INSERT DATA {
 EOF
 
 
-set_graph_store_url "${STORE_ACCOUNT}" "${STORE_REPOSITORY}-write"
-curl_graph_store_get "Accept: application/n-quads" "graph=http://example.org/uri1/${OBJECT_ID}" \
+curl_graph_store_get -H "Accept: application/n-quads" "graph=http://example.org/uri1/${OBJECT_ID}" \
+    --repository "${STORE_REPOSITORY}-write" \
   | rapper -q --input nquads --output nquads /dev/stdin - \
   | fgrep -q "object-${OBJECT_ID}"
 
@@ -35,7 +35,6 @@ curl_graph_store_get "Accept: application/n-quads" "graph=http://example.org/uri
 # for now, search the entire repository. the approach is necessary until some aspect of the the response
 # provides information on the transaction to be used to determine the graph which was added to the provenance repository
 
-set_download_url "${STORE_ACCOUNT}" "${STORE_REPOSITORY}-provenance"
-curl_download "Accept: application/n-quads" 'nq' \
-  | rapper -q --input nquads --output nquads /dev/stdin -  \
-  | fgrep "${OBJECT_ID}" | fgrep -q '<urn:dydra:Graph>'
+curl_download -H "Accept: application/n-quads" 'nq' --repository "${STORE_REPOSITORY}-provenance \
+  | cat # rapper -q --input nquads --output nquads /dev/stdin -  \
+  #| fgrep "${OBJECT_ID}" | fgrep -q '<urn:dydra:Graph>'

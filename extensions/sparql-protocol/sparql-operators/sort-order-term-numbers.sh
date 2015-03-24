@@ -4,7 +4,7 @@
 # this exercises the path which interns the values and sorts the internal identifiers
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -18,7 +18,7 @@ EOF
 
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -31,7 +31,7 @@ order by desc(?value)
 EOF
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -45,7 +45,7 @@ EOF
 
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -59,7 +59,7 @@ EOF
 
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"1"."2"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"1"."2"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -72,7 +72,7 @@ EOF
 
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"2"."1"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"2"."1"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -85,7 +85,7 @@ EOF
 
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -99,7 +99,7 @@ EOF
 
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -113,7 +113,7 @@ EOF
 
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -127,7 +127,7 @@ EOF
 
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -141,7 +141,7 @@ EOF
 
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -155,7 +155,7 @@ EOF
 
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -169,7 +169,7 @@ EOF
 
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -183,7 +183,7 @@ EOF
 
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -197,7 +197,7 @@ EOF
 
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -211,7 +211,7 @@ EOF
 
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -225,7 +225,7 @@ EOF
 
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -239,7 +239,7 @@ EOF
 
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -253,7 +253,7 @@ EOF
 
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -267,7 +267,7 @@ EOF
 
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -281,7 +281,7 @@ EOF
 
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -295,7 +295,7 @@ EOF
 
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -309,7 +309,7 @@ EOF
 
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -323,7 +323,7 @@ EOF
 
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
+ | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {

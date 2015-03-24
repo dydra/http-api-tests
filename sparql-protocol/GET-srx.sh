@@ -1,9 +1,6 @@
 #! /bin/bash
 
-curl -f -s -S -X GET\
-     -H "Accept: application/sparql-results+xml" \
-     -u "${STORE_TOKEN}:" \
-     "${SPARQL_URL}"'?query=select%20(count(*)%20as%20%3Fcount1)%20where%20%7B%3Fs%20%3Fp%20%3Fo%7D' \
+curl_sparql_request -H "Accept: application/sparql-results+xml" 'query=select%20count(*)%20where%20%7b?s%20?p%20?o%7d' \
    | xmllint  --c14n11 - \
    | tr -s '\t\n\r\f' ' ' | sed 's/ +/ /g' \
    | fgrep 'variable name="count1"' \

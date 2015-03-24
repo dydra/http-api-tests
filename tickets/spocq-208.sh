@@ -18,13 +18,13 @@ ${CURL} -w "%{http_code}\n" -L -f -s -X PATCH \
 <http://subject3> <http://predicate3> <http://subject1> <http://context1> .
 EOF
 
-curl_sparql_request "Accept: application/sparql-results+json" <<EOF \
+curl_sparql_request -H "Accept: application/sparql-results+json" <<EOF \
    # | wc -l # | fgrep -q 4
 select * where { graph ?graph1 { ?subject1 ?predicate ?object1 } }
 EOF
 
 
-curl_sparql_request "Accept: application/sparql-results+xml" <<EOF \
+curl_sparql_request -H "Accept: application/sparql-results+xml" <<EOF \
   | fgrep -q 'http://subject2'
 select *
 WHERE {
@@ -40,7 +40,7 @@ WHERE {
 }
 EOF
 
-curl_sparql_request  "Accept: application/sparql-results+xml" <<EOF \
+curl_sparql_request -H "Accept: application/sparql-results+xml" <<EOF \
   | fgrep -q 'http://subject2'
 select *
 WHERE {
@@ -56,7 +56,7 @@ WHERE {
 }
 EOF
 
-curl_sparql_request  "Accept: application/sparql-results+xml" <<EOF \
+curl_sparql_request -H "Accept: application/sparql-results+xml" <<EOF \
   | fgrep -q 'http://subject2'
 select *
 WHERE {
@@ -73,7 +73,7 @@ WHERE {
 }
 EOF
 
-curl_sparql_request "Accept: application/sparql-results+xml"  <<EOF \
+curl_sparql_request -H "Accept: application/sparql-results+xml"  <<EOF \
  | fgrep -v -q 'http://subject2'
 select *
 WHERE {
@@ -89,7 +89,7 @@ WHERE {
 }
 EOF
 
-curl_sparql_request "Accept: application/sparql-results+xml" <<EOF \
+curl_sparql_request -H "Accept: application/sparql-results+xml" <<EOF \
   | fgrep -q 'http://subject3'
 select *
 WHERE {
@@ -105,7 +105,7 @@ WHERE {
 }
 EOF
 
-curl_sparql_request "Accept: application/sparql-results+xml" <<EOF \
+curl_sparql_request -H "Accept: application/sparql-results+xml" <<EOF \
  | fgrep -q 'http://subject3'
 select *
 WHERE {

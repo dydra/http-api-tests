@@ -89,10 +89,10 @@ do
     echo "${ENTRY}" >> failed.txt
     echo "${EXPECTED}"
     echo "${script_filename}" | egrep -q -e '^.*GET.*sh$' # allow bash 2.0
-    if [[ $? != 0 ]]
-    then
-      initialize_repository | egrep -q "${STATUS_UPDATED}"
-    fi
+    #if [[ $? != 0 ]]
+    #then
+    #  initialize_repository | egrep -q "${STATUS_UPDATED}"
+    #fi
   fi
 done
 

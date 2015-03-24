@@ -27,8 +27,11 @@ export STORE_IGRAPH="http://example.org"
 export STORE_NAMED_GRAPH="http://${STORE_SITE}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/graph-name"
 export STORE_NAMED_GRAPH_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/graph-name"
 # accept json by default for use with jq
+export STORE_SPARQL_RESULTS_MEDIA_TYPE="application/sparql-results+json"
+export STORE_GRAPH_MEDIA_TYPE="application/n-quads"
 export STORE_ACCEPT="Accept: application/sparql-results+json"
 export STORE_ACCEPT_GRAPH="Accept: application/n-triples"
+
 export STORE_QUERY_CONTENT_TYPE="Content-Type: application/sparql-query"
 export STORE_UPDATE_CONTENT_TYPE="Content-Type: application/sparql-update"
 export STORE_GRAPH_CONTENT_TYPE="Content-Type: application/turtle"
@@ -36,16 +39,16 @@ export STORE_IS_LOCAL=false
 fgrep 127.0.0.1 /etc/hosts | fgrep -q ${STORE_HOST} &&  export STORE_IS_LOCAL=true
 
 export STATUS_OK=200
-export STATUS_DELETE_SUCCESS=204
-export STATUS_PATCH_SUCCESS="201|204"
-export POST_SUCCESS="201|204"
-export STATUS_POST_SUCCESS="201|204"
-export PUT_SUCCESS="201|204"
-export STATUS_PUT_SUCCESS="201|204"
+export STATUS_DELETE_SUCCESS='200|204'
+export STATUS_PATCH_SUCCESS='201|204'
+export POST_SUCCESS='201|204'
+export STATUS_POST_SUCCESS='201|204'
+export PUT_SUCCESS='201|204'
+export STATUS_PUT_SUCCESS='201|204'
 export PATCH_SUCCESS=201
 export STATUS_CREATED=201
 export STATUS_NO_CONTENT=204
-export STATUS_UPDATED="201|204"
+export STATUS_UPDATED='201|204'
 export DELETE_SUCCESS=204
 export STATUS_BAD_REQUEST=400
 export STATUS_UNAUTHORIZED=401
@@ -119,17 +122,39 @@ fi
 export QUAD_DISPOSITION_BY_REQUEST=false
 STORE_ERRORS=0
 
-function grep_patch_success () {
+function test_delete_success () {
+  egrep -q "${STATUS_DELETE_SUCCESS=}"
+}
+
+function test_not_acceptable_success () {
+  egrep -q "${STATUS_NOT_ACCEPTABLE}"
+}
+
+function test_unauthorized_success () {
+  egrep -q "${STATUS_UNAUTHORIZED}"
+}
+
+function test_not_found_success () {
+  egrep -q "${STATUS_NOT_FOUND}"
+}
+
+function test_ok_success () {
+  egrep -q "${STATUS-OK}"
+}
+
+function test_patch_success () {
   egrep -q "${STATUS_PATCH_SUCCESS}"
 }
 
-function grep_post_success () {
+function test_post_success () {
   egrep -q "${STATUS_POST_SUCCESS}"
 }
 
-function grep_put_success () {
+function test_put_success () {
   egrep -q "${STATUS_PUT_SUCCESS}"
 }
+
+
 
 # provide operators to restore aspects of the store to a known state
 # they presumes, that the various PUT operators work
@@ -166,36 +191,38 @@ ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
 EOF
 }
 
+# initialize_repository_content { --repository $repository-name } { --url $url }
 function initialize_repository_content () {
-# content
-${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
+  local curl_url="${GRAPH_STORE_URL}"
+  while [[ "$#" > 0 ]] ; do
+    case "$1" in
+      --url) curl_url="${2}"; shift 2;;
+      --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/service"; shift 2;;
+      *) echo "initialize_repository_content: invalid argument: '${1}'"; return 1;;
+    esac
+  done
+  ${CURL} -L -f -s -X PUT \
      -H "Accept: application/n-quads" \
      -H "Content-Type: application/n-quads" --data-binary @- \
      -u "${STORE_TOKEN}:" \
-     ${GRAPH_STORE_URL}?default <<EOF
+     "${curl_url}?default" <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
 EOF
-${CURL} -w "%{http_code}\n" -L -f -s -X POST \
+  ${CURL} -L -f -s -X POST \
      -H "Accept: application/n-quads" \
      -H "Content-Type: application/n-quads" --data-binary @- \
      -u "${STORE_TOKEN}:" \
-     "${GRAPH_STORE_URL}?graph=${STORE_NAMED_GRAPH}" <<EOF
+     "${curl_url}?graph=${STORE_NAMED_GRAPH}" <<EOF
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
 }
 
 function initialize_repository () {
-  initialize_repository_content;
+  initialize_repository_content $*;
 }
 
 function initialize_repository_public () {
-${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
-     -H "Content-Type: application/n-quads" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
-     ${GRAPH_STORE_URL} <<EOF
-<http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
-<http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
-EOF
+  initialize_repository_content --repository "${STORE_REPOSITORY_PUBLIC}"
 }
 
 function initialize_repository_rdf_graphs () {
@@ -298,11 +325,11 @@ function run_tests() {
 
 # curl_sparql_get { $accept-header-argument } $url-encoded-query
 function curl_sparql_get () {
-  local accept="$STORE_ACCEPT"
+  local accept_media_type="$STORE_SPARQL_RESULTS_MEDIA_TYPE"
   local query=""
   local curl_url=""
   case "$1" in
-    Accept*) accept= "$1"; shift;;
+    Accept*) accept="$1"; shift;;
     *) ;;
   esac
   if [[ "$#" = 0 ]]
@@ -322,31 +349,43 @@ function curl_sparql_get () {
 
 # curl_sparql_request { $accept-header-argument } { $content-type-header-argument } { $url }
 function curl_sparql_request () {
-  local accept="$STORE_ACCEPT"
-  local content_type="$STORE_QUERY_CONTENT_TYPE"
-  local curl_url=""
+  local -a curl_args=()
+  local -a accept_media_type=("-H" "Accept: $STORE_SPARQL_RESULTS_MEDIA_TYPE")
+  local -a content_media_type=("-H" "Content_Type: $STORE_QUERY_CONTENT_TYPE")
+  local -a method=("-X" "POST")
+  local -a data=("--data-binary" "@-")
+  local -a user=(-u "${STORE_TOKEN}:")
+  local curl_url="${SPARQL_URL}"
   while [[ "$#" > 0 ]] ; do
     case "$1" in
-      Accept*) accept="$1"; shift;;
-      Content_Type*) content_type="$1"; shift;;
-      *) break ;;
+      -H) case "$2" in
+          Accept*) accept_media_type[1]="${2}"; shift 2;;
+          Content_Type*) content_media_type="${2}"; shift 2;;
+          *) curl_args+=("${1}" "${2}"); shift 2;;
+          esac ;;
+      -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
+      -X) method[1]="${2}"; shift 2;;
+      --data) data[1]="${2}"; shift 2;;
+      --head) method=(); curl_args+=("${1}"); shift 1;;
+      query=*) data=(); content_media_type=(); curl_url="${curl_url}?${1}"; method=("-X" "GET"); shift 1;;
+      --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/sparql"; shift 2;;
+      *) curl_args+=("${1}"); shift 1;;
     esac
   done
-  if [[ "$#" > 0 ]]
-  then curl_url="${1}"
-  else curl_url="${SPARQL_URL}"
-  fi
 
-  ${CURL} -f -s -S -X POST \
-     -H "$accept" \
-     -H "$content_type" \
-     -u "${STORE_TOKEN}:" \
-     --data-binary @- \
-     "${curl_url}"
+  # where an empty array is possible, must be conditional due to unset variable constraint
+  curl_args+=("${accept_media_type[@]}");
+  if [[ ${#content_media_type[*]} > 0 ]] ; then curl_args+=("${content_media_type[@]}"); fi
+  if [[ ${#data[*]} > 0 ]] ; then curl_args+=("${data[@]}"); fi
+  if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
+  if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
+
+  ${CURL} -f -s "${curl_args[@]}" ${curl_url}
 }
 
+
 # curl_sparql_update { $accept-header-argument } { $content-type-header-argument } { $url }
-function curl_sparql_request () {
+function curl_sparql_update () {
   local accept="$STORE_ACCEPT"
   local content_type="$STORE_UPDATE_CONTENT_TYPE"
   local curl_url=""
@@ -370,29 +409,59 @@ function curl_sparql_request () {
      "${curl_url}"
 }
 
-# curl_graph_store_get { $accept-header-argument } { graph }
+
+# curl_graph_store_delete { -H $accept-header-argument } { graph }
+function curl_graph_store_delete () {
+  curl_graph_store_get -X DELETE $*
+}
+
+# curl_graph_store_get { -H $accept-header-argument } {--repository $repository} { graph }
 function curl_graph_store_get () {
-  local accept="$STORE_ACCEPT_GRAPH"
-  local graph="default"
-  case "$1" in
-    Accept*) accept= "$1"; shift;;
-    *) ;;
-  esac
-  if [[ "$#" > 0 ]] ; then graph="${1}" ; fi ;
-  ${CURL} -f -s -X GET \
-     -H "$accept" \
-     -u "${STORE_TOKEN}:" \
-     ${GRAPH_STORE_URL}?${graph}
+  local -a curl_args=()
+  local -a accept_media_type=("-H" "Accept: $STORE_GRAPH_MEDIA_TYPE")
+  local -a method=("-X" "GET")
+  local -a user=(-u "${STORE_TOKEN}:")
+  local graph=""  #  the default is no graph
+  local curl_url="${GRAPH_STORE_URL}"
+  while [[ "$#" > 0 ]] ; do
+    case "$1" in
+      -H) accept_media_type[1]="${2}"; shift 2;;
+      -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
+      -X) method[1]="${2}"; shift 2;;
+      --head) method=(); curl_args+=("${1}"); shift 1;;
+      --url) curl_url="${2}"; shift 2;;
+      graph=*) if [[ "graph=" == "${1}" ]]; then graph=""; else graph="${1}"; fi; shift 1;;
+      default) graph="default"; shift 1;;
+      --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/service"; shift 2;;
+      *) curl_args+=("${1}"); shift 1;;
+    esac
+  done
+
+  # where an empty array is possible, must be conditional due to unset variable constraint
+  curl_args+=("${accept_media_type[@]}");
+  if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
+  if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
+  if [[ "${graph}" ]] ; then curl_url="${curl_url}?${graph}"; fi
+
+  ${CURL} -f -s "${curl_args[@]}" ${curl_url}
+}
+
+# curl_graph_store_get_code { $accept-header-argument } { graph }
+function curl_graph_store_get_code () {
+  curl_graph_store_get -w "%{http_code}\n" $*
 }
 
 # curl_graph_store_put { $accept-header-argument } { graph }
 function curl_graph_store_put () {
   local content_type="$STORE_GRAPH_CONTENT_TYPE"
-  local graph="default"
-  case "$1" in
-    Content_Type*) content_type="$1"; shift;;
-    *) ;;
-  esac
+  local graph=""
+  if [[ "$#" > 0 ]]
+  then
+    case "$1" in
+      Content_Type*) content_type="$1"; shift;;
+      *) ;;
+    esac
+  fi
   if [[ !(-z "$1") ]] ; then graph="${1}" ; fi ;
   ${CURL} -w "%{http_code}\n" -f -s -S -X PUT \
      -H "$content_type" \
@@ -401,7 +470,6 @@ function curl_graph_store_put () {
      "${GRAPH_STORE_URL}?${graph}"
 }
 
-
 function curl_download () {
   ${CURL} -f -s -S -X GET \
      -H "${1}" \
@@ -409,17 +477,27 @@ function curl_download () {
      ${DOWNLOAD_URL}.${2}
 }
 
-export -f grep_patch_success
-export -f grep_post_success
-export -f grep_put_success
+
+export -f curl_sparql_get
+export -f curl_sparql_request
+export -f curl_sparql_update
+export -f curl_graph_store_delete
+export -f curl_graph_store_get
+export -f curl_graph_store_get_code
+export -f curl_graph_store_put
+export -f curl_download
 export -f set_sparql_url
 export -f set_graph_store_url
 export -f set_download_url
-export -f curl_sparql_request
-export -f curl_sparql_update
-export -f curl_graph_store_get
-export -f curl_graph_store_put
-export -f curl_download
+export -f test_delete_success
+export -f test_not_found_success
+export -f test_not_acceptable_success
+export -f test_ok_success
+export -f test_patch_success
+export -f test_post_success
+export -f test_put_success
+export -f test_unauthorized_success
+
 
 export -f initialize_account
 export -f initialize_repository

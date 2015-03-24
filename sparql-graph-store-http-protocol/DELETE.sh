@@ -1,16 +1,9 @@
 #! /bin/bash
-set -o errexit
 
 # test that delete leaves an empty repository
+initialize_repository --repository "${STORE_REPOSITORY}-write"
 
-$CURL -w "%{http_code}\n" -f -s -X DELETE\
-     -H "Accept: application/n-quads" \
-     $STORE_URL/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} \
- | egrep -q "$STATUS_DELETE_SUCCESS"
+curl_graph_store_delete --repository "${STORE_REPOSITORY}-write" graph=
 
-$CURL -w "%{http_code}\n" -f -s -X GET\
-     -H "Accept: application/n-quads" \
-     $STORE_URL/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} \
-  | fgrep -q "${STATUS_NOT_FOUND}"
-
-initialize_repository | egrep -q "$STATUS_PUT_SUCCESS"
+curl_graph_store_get -w "%{http_code}\n" --repository "${STORE_REPOSITORY}-write" graph= \
+   | test_not_found_success

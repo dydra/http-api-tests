@@ -6,13 +6,15 @@ This repository comprises tests for the DYDRA RDF cloud service:
 - The SPARQL graph store HTTP protocol,
 - The SPARQL query protocol,
 - The DYDRA account administration HTTP API
-- DYDRA extension tests
+- DYDRA extension tests for
+-- provenance
+-- temporal operators
 
 [![Build Status](https://travis-ci.org/dydra/http-api-tests.svg?branch=master)](https://travis-ci.org/dydra/http-api-tests)
 
 ---
 
-These tests are implemented as a collection of shell scripts and arranged in a directory hierarchy according to topic.
+These tests are implemented shell scripts and arranged in a directory hierarchy according to topic.
 The root directory contains several utility scripts which establish the test environment,
 administer the target repositories and execute tests.
 
@@ -34,7 +36,7 @@ for the sesame protocol tests, the openrdf documentation examples should
 apply, as given in its documentation.
 
 
-In order to execute simple scripts manually:
+In order to execute scripts manually:
 
 - Establish values for the shell variables
   - `STORE_URL` : the HTTP URI to specify the remote host.
@@ -52,6 +54,17 @@ For example
     export STORE_TOKEN="1234567890"
     source define.sh
     bash run.sh extensions/sparql-protocol/temporal-data
+
+Note that numerous scripts modify the shell variable bindings to correspond to particular variations
+in repository, graph, or user and, as such, must be run in a distinct shell in order that the
+modification not be pervasive.
+
+The test environment includes a range of repositories and users, as described in the `initialize.sh`
+script, in order to account for variations in access and authorization. As a rule, the default
+repository, that is "${STORE_ACCOUNT}/${STORE_REPOSITORY}" is treated as read-only, in order that
+most tests need to no set-up and/or tear-down.
+Any modification is restricted to "${STORE_ACCOUNT}/${STORE_REPOSITORY}-write" and every tests which
+modifies that repository also initializes it to the required state.
 
 ---
 

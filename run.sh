@@ -14,8 +14,14 @@
 
 set -e
 source ./define.sh
-# set -v
-# export CURL="${CURL} -v"
+VERBOSE=""
+
+while [[ "$#" > 0 ]] ; do
+  case "$1" in
+    -v) VERBOSE=-v; CURL="$CURL -v"; shift;;
+     *) break ;;
+  esac
+done
 
 SCRIPT_PATTERN='*.sh' 
 SCRIPT_ROOT='.'
@@ -24,14 +30,7 @@ if [[ "$#" == "0" ]] ; then
 elif [[ "$#" == "1" ]] ; then
   SCRIPTS=`find $1 -name "${SCRIPT_PATTERN}"`
 else
-  SCRIPT_ROOT="$1";
-  shift;
-  SCRIPTS="";
-  for SCRIPT_PATTERN in "$@" ; do
-    echo finding ${SCRIPT_ROOT} "${SCRIPT_PATTERN}"
-    expanded_pattern=`find ${SCRIPT_ROOT} -name "${SCRIPT_PATTERN}"`
-    SCRIPTS="${SCRIPTS} ${expanded_pattern}"
-  done
+  SCRIPTS=$@
 fi
 
 ## osx lacks truncate
@@ -71,6 +70,7 @@ do
   script_filename=`basename $script_pathname`
   script_directory=`dirname $script_pathname`
   script_tag=`basename $script_directory`"/${script_filename}"
+
   ( cd $script_directory;
     bash -e -u $script_filename;
   )

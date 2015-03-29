@@ -32,8 +32,9 @@ export STORE_GRAPH_MEDIA_TYPE="application/n-quads"
 export STORE_ACCEPT="Accept: application/sparql-results+json"
 export STORE_ACCEPT_GRAPH="Accept: application/n-triples"
 
-export STORE_QUERY_CONTENT_TYPE="Content-Type: application/sparql-query"
-export STORE_UPDATE_CONTENT_TYPE="Content-Type: application/sparql-update"
+export STORE_SPARQL_QUERY_MEDIA_TYPE="application/sparql-query"
+export STORE_SPARQL_UPDATE_MEDIA_TYPE="application/sparql-update"
+
 export STORE_GRAPH_CONTENT_TYPE="Content-Type: application/turtle"
 export STORE_IS_LOCAL=false
 fgrep 127.0.0.1 /etc/hosts | fgrep -q ${STORE_HOST} &&  export STORE_IS_LOCAL=true
@@ -60,6 +61,7 @@ if [[ "" == "${CURL}" ]]
 then
   export CURL="curl --ipv4"
 fi
+export ECHO_OUTPUT=/dev/null # /dev/tty
 
 # define operators to export sparql and graph store url variables of the appropriate pattern
 # and define the values for the default repository. these will be overridden by scripts which expect to use a
@@ -191,39 +193,6 @@ ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
 EOF
 }
 
-# initialize_repository_content { --repository $repository-name } { --url $url }
-function initialize_repository_content () {
-  local curl_url="${GRAPH_STORE_URL}"
-  while [[ "$#" > 0 ]] ; do
-    case "$1" in
-      --url) curl_url="${2}"; shift 2;;
-      --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/service"; shift 2;;
-      *) echo "initialize_repository_content: invalid argument: '${1}'"; return 1;;
-    esac
-  done
-  ${CURL} -L -f -s -X PUT \
-     -H "Accept: application/n-quads" \
-     -H "Content-Type: application/n-quads" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
-     "${curl_url}?default" <<EOF
-<http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
-EOF
-  ${CURL} -L -f -s -X POST \
-     -H "Accept: application/n-quads" \
-     -H "Content-Type: application/n-quads" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
-     "${curl_url}?graph=${STORE_NAMED_GRAPH}" <<EOF
-<http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
-EOF
-}
-
-function initialize_repository () {
-  initialize_repository_content $*;
-}
-
-function initialize_repository_public () {
-  initialize_repository_content --repository "${STORE_REPOSITORY_PUBLIC}"
-}
 
 function initialize_repository_rdf_graphs () {
 ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
@@ -301,7 +270,7 @@ function run_test() {
 }
 
 function run_tests() {
-  for file in $*; do
+  for file in $@; do
     case "$file" in
     *.sh )
       bash -e $file
@@ -351,7 +320,7 @@ function curl_sparql_get () {
 function curl_sparql_request () {
   local -a curl_args=()
   local -a accept_media_type=("-H" "Accept: $STORE_SPARQL_RESULTS_MEDIA_TYPE")
-  local -a content_media_type=("-H" "Content_Type: $STORE_QUERY_CONTENT_TYPE")
+  local -a content_media_type=("-H" "Content-Type: $STORE_QUERY_CONTENT_TYPE")
   local -a method=("-X" "POST")
   local -a data=("--data-binary" "@-")
   local -a user=(-u "${STORE_TOKEN}:")
@@ -360,12 +329,12 @@ function curl_sparql_request () {
     case "$1" in
       -H) case "$2" in
           Accept*) accept_media_type[1]="${2}"; shift 2;;
-          Content_Type*) content_media_type="${2}"; shift 2;;
+          Content-Type*) content_media_type[1]="${2}"; shift 2;;
           *) curl_args+=("${1}" "${2}"); shift 2;;
           esac ;;
       -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
       -X) method[1]="${2}"; shift 2;;
-      --data) data[1]="${2}"; shift 2;;
+      --data*) data[0]="${1}";  data[1]="${2}"; shift 2;;
       --head) method=(); curl_args+=("${1}"); shift 1;;
       query=*) data=(); content_media_type=(); curl_url="${curl_url}?${1}"; method=("-X" "GET"); shift 1;;
       --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/sparql"; shift 2;;
@@ -384,35 +353,18 @@ function curl_sparql_request () {
 }
 
 
-# curl_sparql_update { $accept-header-argument } { $content-type-header-argument } { $url }
-function curl_sparql_update () {
-  local accept="$STORE_ACCEPT"
-  local content_type="$STORE_UPDATE_CONTENT_TYPE"
-  local curl_url=""
-  while [[ "$#" > 0 ]] ; do
-    case "$1" in
-      Accept*) accept="$1"; shift;;
-      Content_Type*) content_type="$1"; shift;;
-      *) break ;;
-    esac
-  done
-  if [[ "$#" > 0 ]]
-  then curl_url="${1}"
-  else curl_url="${SPARQL_URL}"
-  fi
 
-  ${CURL} -f -s -S -X POST \
-     -H "$accept" \
-     -H "$content_type" \
-     -u "${STORE_TOKEN}:" \
-     --data-binary @- \
-     "${curl_url}"
+function curl_sparql_query () {
+  curl_sparql_request -H "Content-Type:application/sparql-query" $@
 }
 
+function curl_sparql_update () {
+  curl_sparql_request -H "Content-Type:application/sparql-update" $@
+}
 
 # curl_graph_store_delete { -H $accept-header-argument } { graph }
 function curl_graph_store_delete () {
-  curl_graph_store_get -X DELETE $*
+  curl_graph_store_get -X DELETE $@
 }
 
 # curl_graph_store_get { -H $accept-header-argument } {--repository $repository} { graph }
@@ -421,18 +373,19 @@ function curl_graph_store_get () {
   local -a accept_media_type=("-H" "Accept: $STORE_GRAPH_MEDIA_TYPE")
   local -a method=("-X" "GET")
   local -a user=(-u "${STORE_TOKEN}:")
-  local graph=""  #  the default is no graph
+  local graph="ALL"  #  the default is all graphs
   local curl_url="${GRAPH_STORE_URL}"
   while [[ "$#" > 0 ]] ; do
     case "$1" in
+      all|ALL) graph="all"; shift 1;;
+      default|DEFAULT) graph="default"; shift 1;;
+      graph=*) graph="${1}"; shift 1;;
       -H) accept_media_type[1]="${2}"; shift 2;;
+      --head) method=(); curl_args+=("${1}"); shift 1;;
+      --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/service"; shift 2;;
+      --url) curl_url="${2}"; shift 2;;
       -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
       -X) method[1]="${2}"; shift 2;;
-      --head) method=(); curl_args+=("${1}"); shift 1;;
-      --url) curl_url="${2}"; shift 2;;
-      graph=*) if [[ "graph=" == "${1}" ]]; then graph=""; else graph="${1}"; fi; shift 1;;
-      default) graph="default"; shift 1;;
-      --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/service"; shift 2;;
       *) curl_args+=("${1}"); shift 1;;
     esac
   done
@@ -440,35 +393,80 @@ function curl_graph_store_get () {
   # where an empty array is possible, must be conditional due to unset variable constraint
   curl_args+=("${accept_media_type[@]}");
   if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
-  if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
   if [[ "${graph}" ]] ; then curl_url="${curl_url}?${graph}"; fi
+  if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
 
+  echo ${CURL} -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
   ${CURL} -f -s "${curl_args[@]}" ${curl_url}
 }
 
 # curl_graph_store_get_code { $accept-header-argument } { graph }
 function curl_graph_store_get_code () {
-  curl_graph_store_get -w "%{http_code}\n" $*
+  curl_graph_store_get -w "%{http_code}\n" $@
 }
 
-# curl_graph_store_put { $accept-header-argument } { graph }
-function curl_graph_store_put () {
-  local content_type="$STORE_GRAPH_CONTENT_TYPE"
-  local graph=""
-  if [[ "$#" > 0 ]]
-  then
+function curl_graph_store_update () {
+  local -a curl_args=()
+  local -a accept_media_type=()
+  local -a content_media_type=("-H" "Content-Type: $STORE_GRAPH_MEDIA_TYPE")
+  local -a data=("--data-binary" "@-")
+  local -a method=("-X" "POST")
+  local -a user=(-u "${STORE_TOKEN}:")
+  local graph="ALL"  #  the default is all graphs
+  local curl_url="${GRAPH_STORE_URL}"
+  while [[ "$#" > 0 ]] ; do
     case "$1" in
-      Content_Type*) content_type="$1"; shift;;
-      *) ;;
+      all|ALL) graph="all"; shift 1;;
+      --data*) data[0]="${1}";  data[1]="${2}"; shift 2;;
+      default|DEFAULT) graph="default"; shift 1;;
+      graph=*) if [[ "graph=" == "${1}" ]] ; then graph=""; else graph="${1}"; fi;  shift 1;;
+     -H) case "$2" in
+          Accept*) accept_media_type[1]="${2}"; shift 2;;
+          Content-Type*) content_media_type[1]="${2}"; shift 2;;
+          *) curl_args+=("${1}" "${2}"); shift 2;;
+          esac ;;
+      --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/service"; shift 2;;
+      --url) curl_url="${2}"; shift 2;;
+      -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
+      -X) method[1]="${2}"; shift 2;;
+      *) curl_args+=("${1}"); shift 1;;
     esac
-  fi
-  if [[ !(-z "$1") ]] ; then graph="${1}" ; fi ;
-  ${CURL} -w "%{http_code}\n" -f -s -S -X PUT \
-     -H "$content_type" \
-     -u "${STORE_TOKEN}:" \
-     --data-binary @- \
-     "${GRAPH_STORE_URL}?${graph}"
+  done
+  if [[ ${#accept_media_type[*]} > 0 ]] ; then curl_args+=("${accept_media_type[@]}"); fi
+  if [[ ${#content_media_type[*]} > 0 ]] ; then curl_args+=("${content_media_type[@]}"); fi
+  if [[ ${#data[*]} > 0 ]] ; then curl_args+=("${data[@]}"); fi
+  if [[ "${graph}" ]] ; then curl_url="${curl_url}?${graph}"; fi
+  if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
+  if [[ ${#user[*]} > 0 ]] ; then curl_args+=("${user[@]}"); fi
+
+  echo  ${CURL} -f -s -S "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
+  ${CURL}  -f -s "${curl_args[@]}" ${curl_url}
 }
+
+function clear_repository_content () {
+  curl_graph_store_update -X PUT $@ <<EOF
+EOF
+}
+
+# initialize_repository_content { --repository $repository-name } { --url $url }
+# clear everything, insert one statement each in the default and the named graphs
+function initialize_repository_content () {
+  curl_graph_store_update -X PUT ALL $@ <<EOF
+<http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
+EOF
+  curl_graph_store_update -X POST graph=${STORE_NAMED_GRAPH} $@ <<EOF
+<http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
+EOF
+}
+
+function initialize_repository () {
+  initialize_repository_content $@
+}
+
+function initialize_repository_public () {
+  initialize_repository_content --repository "${STORE_REPOSITORY_PUBLIC}"
+}
+
 
 function curl_download () {
   ${CURL} -f -s -S -X GET \
@@ -481,10 +479,11 @@ function curl_download () {
 export -f curl_sparql_get
 export -f curl_sparql_request
 export -f curl_sparql_update
+export -f curl_sparql_query
 export -f curl_graph_store_delete
 export -f curl_graph_store_get
 export -f curl_graph_store_get_code
-export -f curl_graph_store_put
+export -f curl_graph_store_update
 export -f curl_download
 export -f set_sparql_url
 export -f set_graph_store_url
@@ -499,6 +498,7 @@ export -f test_put_success
 export -f test_unauthorized_success
 
 
+export -f clear_repository_content
 export -f initialize_account
 export -f initialize_repository
 export -f initialize_repository_configuration

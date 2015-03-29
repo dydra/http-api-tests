@@ -5,25 +5,20 @@
 # - quads are added to the document graph. ?
 # - each operation first clears the repository
 
-curl -w "%{http_code}\n" -f -s -S -X PUT \
+initialize_repository --repository "${STORE_REPOSITORY}-write"
+
+curl_graph_store_update -X PUT \
      -H "Content-Type: application/turtle" \
-     --data-binary @- \
-     $STORE_URL/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} <<EOF \
-  | egrep -q "$STATUS_PUT_SUCCESS"
+     --repository "${STORE_REPOSITORY}-write" all <<EOF
 <http://example.com/default-subject>
     <http://example.com/default-predicate> "default object PUT1" .
-
-<http://example.com/named-subject>
-    <http://example.com/named-predicate> "named object PUT1" .
 EOF
 
 
-curl -f -s -S -X GET\
-     -H "Accept: application/n-quads" \
-     $STORE_URL/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} \
+curl_graph_store_get \
+     --repository "${STORE_REPOSITORY}-write" \
    | tr -s '\n' '\t' \
-   | fgrep '"default object PUT1"' | fgrep '"named object PUT1"' | fgrep -v "<${STORE_NAMED_GRAPH}-two>" \
-   | tr -s '\t' '\n' | wc -l | fgrep -q 2
+   | fgrep -v '"default object"' | fgrep -v '"named object"' | fgrep -v "<${STORE_NAMED_GRAPH}>" \
+   | fgrep '"default object PUT1"' \
+   | tr -s '\t' '\n' | wc -l | fgrep -q 1
 
-
-initialize_repository | egrep -q "$STATUS_PUT_SUCCESS"

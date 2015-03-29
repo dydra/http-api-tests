@@ -30,6 +30,7 @@ script:
   -  bash  ./run.sh extensions/sparql-protocol/provenance
   -  bash  ./run.sh extensions/sparql-protocol/xpath-operators
   -  bash  ./run.sh sparql-protocol
+  -  bash  ./run.sh sparql-graph-store-http-protocol
 
 notifications:
   email:

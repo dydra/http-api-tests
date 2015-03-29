@@ -18,11 +18,9 @@
 #
 # thus the namespace specified in the import must be "http://www.w3.org/2001/XMLSchema#"
 
-set_sparql_url "${STORE_ACCOUNT}" "${STORE_REPOSITORY}-write"
-set_graph_store_url "${STORE_ACCOUNT}" "${STORE_REPOSITORY}-write"
-
-curl_graph_store_put default <<EOF \
-    | egrep -q "$STATUS_PUT_SUCCESS"
+curl_graph_store_update -X PUT \
+      -H "Content-Type: application/turtle" \
+      --repository "${STORE_REPOSITORY}-write" default <<EOF
 @prefix ex: <http://example.com/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
@@ -48,8 +46,10 @@ _:d ex:dateEq "2012-07-01T00:00:00Z"^^xsd:dateTime ;
 EOF
 
 
-curl_sparql_request <<EOF \
-  | jq '.results.bindings[] | .[].value' | fgrep 'true' | wc -l | fgrep -q '4'
+curl_sparql_request \
+     -H "Accept: application/sparql-results+json" \
+     --repository "${STORE_REPOSITORY}-write" <<EOF \
+   | jq '.results.bindings[] | .[].value' | fgrep 'true' | wc -l | fgrep -q '4'
 
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
 prefix ex: <http://example.com/>

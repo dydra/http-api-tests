@@ -292,30 +292,6 @@ function run_tests() {
 }
 
 
-# curl_sparql_get { $accept-header-argument } $url-encoded-query
-function curl_sparql_get () {
-  local accept_media_type="$STORE_SPARQL_RESULTS_MEDIA_TYPE"
-  local query=""
-  local curl_url=""
-  case "$1" in
-    Accept*) accept="$1"; shift;;
-    *) ;;
-  esac
-  if [[ "$#" = 0 ]]
-  then
-    echo "curl_sparql_get: query is required"
-    return 1
-  else
-    query="$1"
-  fi
-  curl_url="${SPARQL_URL}?query=${query}"
-
-  ${CURL} -f -s -S -X GET \
-     -H "$accept" \
-     -u "${STORE_TOKEN}:" \
-     "${curl_url}"
-}
-
 # curl_sparql_request { $accept-header-argument } { $content-type-header-argument } { $url }
 function curl_sparql_request () {
   local -a curl_args=()

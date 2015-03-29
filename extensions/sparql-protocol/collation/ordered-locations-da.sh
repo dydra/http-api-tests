@@ -2,9 +2,8 @@
 
 # test collation for the location strings
 
-set_sparql_url "openrdf-sesame" "collation"
-
-curl_sparql_request <<EOF \
+curl_sparql_request  \
+     --repository "collation" <<EOF \
  | jq '.results.bindings[] | .location.value' | diff - ordered-locations-da.txt
 select distinct ?s ?location
  where {

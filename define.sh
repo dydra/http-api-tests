@@ -61,7 +61,7 @@ if [[ "" == "${CURL}" ]]
 then
   export CURL="curl --ipv4"
 fi
-export ECHO_OUTPUT=/dev/null # /dev/tty
+export ECHO_OUTPUT=/dev/tty # /dev/null # 
 
 # define operators to export sparql and graph store url variables of the appropriate pattern
 # and define the values for the default repository. these will be overridden by scripts which expect to use a
@@ -320,7 +320,7 @@ function curl_sparql_get () {
 function curl_sparql_request () {
   local -a curl_args=()
   local -a accept_media_type=("-H" "Accept: $STORE_SPARQL_RESULTS_MEDIA_TYPE")
-  local -a content_media_type=("-H" "Content-Type: $STORE_SPARQL_RESULTS_MEDIA_TYPE")
+  local -a content_media_type=("-H" "Content-Type: $STORE_SPARQL_QUERY_MEDIA_TYPE")
   local -a method=("-X" "POST")
   local -a data=("--data-binary" "@-")
   local -a user=(-u "${STORE_TOKEN}:")
@@ -348,6 +348,8 @@ function curl_sparql_request () {
   if [[ ${#data[*]} > 0 ]] ; then curl_args+=("${data[@]}"); fi
   if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
   if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
+
+  echo ${CURL} -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
 
   ${CURL} -f -s "${curl_args[@]}" ${curl_url}
 }

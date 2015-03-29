@@ -454,7 +454,6 @@ function curl_download () {
 }
 
 
-export -f curl_sparql_get
 export -f curl_sparql_request
 export -f curl_sparql_update
 export -f curl_sparql_query

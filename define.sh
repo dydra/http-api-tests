@@ -61,7 +61,7 @@ if [[ "" == "${CURL}" ]]
 then
   export CURL="curl --ipv4"
 fi
-export ECHO_OUTPUT=/dev/tty # /dev/null # 
+export ECHO_OUTPUT=/dev/null # /dev/tty # 
 
 # define operators to export sparql and graph store url variables of the appropriate pattern
 # and define the values for the default repository. these will be overridden by scripts which expect to use a

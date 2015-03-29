@@ -320,7 +320,7 @@ function curl_sparql_get () {
 function curl_sparql_request () {
   local -a curl_args=()
   local -a accept_media_type=("-H" "Accept: $STORE_SPARQL_RESULTS_MEDIA_TYPE")
-  local -a content_media_type=("-H" "Content-Type: $STORE_QUERY_CONTENT_TYPE")
+  local -a content_media_type=("-H" "Content-Type: $STORE_SPARQL_RESULTS_MEDIA_TYPE")
   local -a method=("-X" "POST")
   local -a data=("--data-binary" "@-")
   local -a user=(-u "${STORE_TOKEN}:")

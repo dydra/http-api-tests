@@ -1,17 +1,17 @@
 #! /bin/bash
 #
 # test the ordering based on in-line values
-# nb. decimal values canoncalize to integers.
+# nb. decimal values are reduced to integers.
 
 curl_sparql_request  \
      --repository "collation" <<EOF \
    | jq '.results.bindings[] | .ok.value' | fgrep -q true 
 
-select ((?values = '1,1,2,2,3,3,4,4,5,6,7,8,9.0,10.0,11') as ?ok)
+select ((?values = '1,1,2,2,3,3,4,4,5,6,7,8,9,10,11') as ?ok)
 where {
-  select (group_concat(?value; separator=',') as ?values)
+  select (group_concat(?tag; separator=',') as ?values)
   where {
-    select ?value ?location
+    select (floor(?value) as ?tag) ?location (datatype(?value) as ?type)
     where {
       values (?location ?value) {
         ( 'Allinge'@da 11.0 )
@@ -30,7 +30,7 @@ where {
         ( 'New York' 2 )
         ( 'Paris'^^xsd:string  1 )
       }
-    } order by (?value)
+    } order by (?tag)
   }  
 }
 EOF

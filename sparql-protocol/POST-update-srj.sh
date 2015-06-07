@@ -1,6 +1,6 @@
 #! /bin/bash
 
-curl_sparql_request \
+curl_sparql_update \
      -H "Accept: application/sparql-results+json" \
      -H "Content-Type: $STORE_SPARQL_UPDATE_MEDIA_TYPE" \
      --repository "${STORE_REPOSITORY}-write" <<EOF \

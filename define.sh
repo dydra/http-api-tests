@@ -124,8 +124,12 @@ fi
 export QUAD_DISPOSITION_BY_REQUEST=false
 STORE_ERRORS=0
 
+function test_bad_request () {
+  egrep -q "${STATUS_BAD_REQUEST}"
+}
+
 function test_delete_success () {
-  egrep -q "${STATUS_DELETE_SUCCESS=}"
+  egrep -q "${STATUS_DELETE_SUCCESS}"
 }
 
 function test_not_acceptable_success () {
@@ -258,6 +262,9 @@ ${CURL} -w "%{http_code}\n" -f -s -X PUT \
 EOF
 }
 
+## conveni<e operators,
+## but note, some require presence in the respective directory
+
 function run_test() {
   bash -e $1
   if [[ "0" == "$?" ]]
@@ -265,7 +272,6 @@ function run_test() {
     echo $1 succeeded
   else
     echo $1 failed
-    initialize_repository > /dev/null
   fi
 }
 
@@ -279,7 +285,6 @@ function run_tests() {
         echo $file succeeded
       else
         echo $file failed
-        initialize_repository > /dev/null
       fi
       ;;
     * )
@@ -351,7 +356,7 @@ function curl_graph_store_get () {
   local -a accept_media_type=("-H" "Accept: $STORE_GRAPH_MEDIA_TYPE")
   local -a method=("-X" "GET")
   local -a user=(-u "${STORE_TOKEN}:")
-  local graph="ALL"  #  the default is all graphs
+  local graph=""  #  the default is all graphs
   local curl_url="${GRAPH_STORE_URL}"
   while [[ "$#" > 0 ]] ; do
     case "$1" in
@@ -390,7 +395,7 @@ function curl_graph_store_update () {
   local -a data=("--data-binary" "@-")
   local -a method=("-X" "POST")
   local -a user=(-u "${STORE_TOKEN}:")
-  local graph="ALL"  #  the default is all graphs
+  local graph=""  #  the default is all graphs
   local curl_url="${GRAPH_STORE_URL}"
   while [[ "$#" > 0 ]] ; do
     case "$1" in

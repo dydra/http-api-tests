@@ -1,4 +1,3 @@
-
 # HTTP API tests
 
 This repository comprises tests for the DYDRA RDF cloud service:

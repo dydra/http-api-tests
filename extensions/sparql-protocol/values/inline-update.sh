@@ -2,19 +2,23 @@
 
 # exercise the values extension for a query in-line with the request
 
-curl_sparql_update "--data-urlencode" "@-" <<EOF \
+curl_sparql_update "--data-urlencode" "update@/dev/fd/3" "values@/dev/fd/4" \
+     -H "Content-Type: $STORE_SPARQL_UPDATE_MEDIA_TYPE" \
+   --repository "${STORE_REPOSITORY}-write" 3<<EOF3 4<<EOF4
  | jq '.boolean' | fgrep -q 'true'
-update=insert { ?name <http://example.org/code> ?code }
-where {
-  }
-&values=($name $code)
+DROP  SILENT  ALL;
+insert { ?name <http://example.org/code> ?code }
+where { values (?name  ?code) {} }
+EOF3
+($name $code)
         { ("BUK7Y98-80E" "one")
           ("PH3330L" "two")
           ("BSS84" "three") }
-EOF
+EOF4
 
-curl_sparql_request "--data-urlencode" "@-" <<EOF \
+curl_sparql_request "--data-binary" "@-" \
+   --repository "${STORE_REPOSITORY}-write" <<EOF \
  | jq '.results.bindings[] | .[].value' | fgrep -q "BSS84"
-query=select ?name
+select ?name
 where { ?name ?p ?o }
 EOF

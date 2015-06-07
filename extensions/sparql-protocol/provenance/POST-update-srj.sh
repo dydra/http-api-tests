@@ -6,8 +6,10 @@ curl_sparql_update  \
  --repository "${STORE_REPOSITORY}-provenance" <<EOF \
  | jq '.boolean' | fgrep -q 'true'
 
-DROP ALL
+DROP  SILENT  ALL
 EOF
+
+# (run-sparql "DROP SILENT ALL" :repository-id "openrdf-sesame/mem-rdf-provenance")
 
 
 curl_sparql_update \
@@ -16,7 +18,7 @@ curl_sparql_update \
 
 PREFIX provenanceRepositoryID: <${STORE_ACCOUNT}/${STORE_REPOSITORY}-provenance>
 
-DROP ALL ;
+DROP SILENT ALL ;
 INSERT DATA {
  GRAPH <http://example.org/uri1/${OBJECT_ID}> {
   <http://example.org/uri1/one> <foaf:name> "object-${OBJECT_ID}" .

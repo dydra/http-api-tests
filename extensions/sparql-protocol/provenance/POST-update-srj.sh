@@ -43,5 +43,6 @@ curl_graph_store_get \
 curl_graph_store_get \
      -H "Accept: application/n-quads"  \
      --repository "${STORE_REPOSITORY}-provenance" \
+   | tee /dev/tty \
    | rapper -q --input nquads --output nquads /dev/stdin -  \
    | fgrep "${OBJECT_ID}" | fgrep -q '<urn:dydra:Graph>'

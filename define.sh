@@ -262,16 +262,17 @@ ${CURL} -w "%{http_code}\n" -f -s -X PUT \
 EOF
 }
 
-## conveni<e operators,
+## convenience operators,
 ## but note, some require presence in the respective directory
 
 function run_test() {
-  bash -e $1
+  (cd `dirname $1`; bash -e `basename $1`)
   if [[ "0" == "$?" ]]
   then
     echo $1 succeeded
   else
     echo $1 failed
+    initialize_repository > /dev/null
   fi
 }
 
@@ -279,7 +280,7 @@ function run_tests() {
   for file in $@; do
     case "$file" in
     *.sh )
-      bash -e $file
+      (cd `dirname $file`; bash -e `basename $file`)
       if [[ "0" == "$?" ]]
       then
         echo $file succeeded
@@ -303,7 +304,7 @@ function curl_sparql_request () {
   local -a accept_media_type=("-H" "Accept: $STORE_SPARQL_RESULTS_MEDIA_TYPE")
   local -a content_media_type=("-H" "Content-Type: $STORE_SPARQL_QUERY_MEDIA_TYPE")
   local -a method=("-X" "POST")
-  local -a data=("--data-binary" "@-")
+  local -a data=()
   local -a user=(-u "${STORE_TOKEN}:")
   local curl_url="${SPARQL_URL}"
   while [[ "$#" > 0 ]] ; do
@@ -315,7 +316,7 @@ function curl_sparql_request () {
           esac ;;
       -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
       -X) method[1]="${2}"; shift 2;;
-      --data*) data[0]="${1}";  data[1]="${2}"; shift 2;;
+      --data*) data+=("${1}" "${2}"); shift 2;;
       --head) method=(); curl_args+=("${1}"); shift 1;;
       query=*) data=(); content_media_type=(); curl_url="${curl_url}?${1}"; method=("-X" "GET"); shift 1;;
       --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/sparql"; shift 2;;
@@ -326,7 +327,7 @@ function curl_sparql_request () {
   # where an empty array is possible, must be conditional due to unset variable constraint
   curl_args+=("${accept_media_type[@]}");
   if [[ ${#content_media_type[*]} > 0 ]] ; then curl_args+=("${content_media_type[@]}"); fi
-  if [[ ${#data[*]} > 0 ]] ; then curl_args+=("${data[@]}"); fi
+  if [[ ${#data[*]} > 0 ]] ; then curl_args+=("${data[@]}"); else curl_args+=("--data-binary" "@-"); fi
   if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
   if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
 
@@ -470,6 +471,7 @@ export -f curl_download
 export -f set_sparql_url
 export -f set_graph_store_url
 export -f set_download_url
+export -f test_bad_request
 export -f test_delete_success
 export -f test_not_found_success
 export -f test_not_acceptable_success

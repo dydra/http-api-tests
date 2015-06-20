@@ -1,8 +1,7 @@
 #! /bin/bash
 
 # exercise the values extension for a query in-line with the request
-# note the distinct input redirections
-# should yield a 400 as there is no match for the values argument
+# should yield a 400 as there is no match for the values argument dimensions
 
 curl_sparql_request -w '%{http_code}\n' \
   "--data-urlencode" "query@/dev/fd/3" \

@@ -324,10 +324,11 @@ function curl_sparql_request () {
     esac
   done
 
+  if [[ ${#data[*]} == 0 && ${method[1]} == "POST" ]] ; then data=("--data-binary" "@-"); fi
   # where an empty array is possible, must be conditional due to unset variable constraint
   curl_args+=("${accept_media_type[@]}");
   if [[ ${#content_media_type[*]} > 0 ]] ; then curl_args+=("${content_media_type[@]}"); fi
-  if [[ ${#data[*]} > 0 ]] ; then curl_args+=("${data[@]}"); else curl_args+=("--data-binary" "@-"); fi
+  if [[ ${#data[*]} > 0 ]] ; then curl_args+=("${data[@]}"); fi
   if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
   if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
 

@@ -4,7 +4,7 @@
 
 curl_sparql_request  \
      --repository "collation" <<EOF \
- | jq '.results.bindings[] | .location.value' | diff - ordered-locations-da.txt
+  | jq '.results.bindings[] | .location.value' | diff - ordered-locations-da.txt
 select  ?location #?lang
  where {
   { ?s <http://example.org/location> ?location }.

@@ -2,7 +2,9 @@
 
 OBJECT_ID=provenance
 
-curl_sparql_update  \
+curl_sparql_request \
+     -H "Accept: application/sparql-results+json" \
+     -H "Content-Type: application/sparql-update" \
  --repository "${STORE_REPOSITORY}-provenance" <<EOF \
  | jq '.boolean' | fgrep -q 'true'
 
@@ -12,7 +14,9 @@ EOF
 # (run-sparql "DROP SILENT ALL" :repository-id "openrdf-sesame/mem-rdf-provenance")
 
 
-curl_sparql_update \
+curl_sparql_request \
+     -H "Accept: application/sparql-results+json" \
+     -H "Content-Type: application/sparql-update" \
      --repository "${STORE_REPOSITORY}-write" <<EOF \
    | jq '.boolean' | fgrep -q 'true'
 
@@ -43,6 +47,5 @@ curl_graph_store_get \
 curl_graph_store_get \
      -H "Accept: application/n-quads"  \
      --repository "${STORE_REPOSITORY}-provenance" \
-   | tee /dev/tty \
    | rapper -q --input nquads --output nquads /dev/stdin -  \
    | fgrep "${OBJECT_ID}" | fgrep -q '<urn:dydra:Graph>'

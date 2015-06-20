@@ -1,8 +1,8 @@
 #! /bin/bash
 
-curl_sparql_update \
+curl_sparql_request \
      -H "Accept: application/sparql-results+json" \
-     -H "Content-Type: $STORE_SPARQL_UPDATE_MEDIA_TYPE" \
+     -H "Content-Type: application/sparql-update" \
      --repository "${STORE_REPOSITORY}-write" <<EOF \
    | jq '.boolean' | fgrep -q 'true'
 PREFIX     : <http://example.org/> 

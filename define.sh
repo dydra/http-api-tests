@@ -344,7 +344,7 @@ function curl_sparql_query () {
 }
 
 function curl_sparql_update () {
-  curl_sparql_request -H "Content-Type:application/sparql-update" $@
+  curl_sparql_request -H "Content-Type:application/sparql-update" $*
 }
 
 # curl_graph_store_delete { -H $accept-header-argument } { graph }

@@ -21,7 +21,7 @@ EOF4
 
 curl_sparql_request <<EOF  \
   --repository "${STORE_REPOSITORY}-write" \
- | jq '.results.bindings[] | .value.value' | tee /dev/tty | diff - sort-precedence.txt 
+ | jq '.results.bindings[] | .value.value' | diff - sort-precedence.txt 
 
 select ?value
 where { ?s <http://example.org/value> ?value }

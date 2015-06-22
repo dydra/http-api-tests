@@ -1,5 +1,5 @@
 #! /bin/bash
-
+# a place-marker for tests to be implemented when more complex access variations are supported
 # verify NO write access for user with read access only
 
 curl_graph_store_update -X PUT -w "%{http_code}\n" \

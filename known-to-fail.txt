@@ -5,16 +5,17 @@ respond w/ 400
 
 http-communication-protocol-for-sesame/repositories/mem-ref/rdf-graphs/service/POST-default-ntriples.sh # the quad should have been placed in the default graph
 http-communication-protocol-for-sesame/repositories/mem-ref/rdf-graphs/service/PUT-default-ntriples.sh  # the quad should have been placed in the default graph
-sparql-graph-store-http-protocol/GET-direct-nquads.sh # NYI
-sparql-graph-store-http-protocol/GET-direct-ntriples.sh # NYI
+sparql-graph-store-http-protocol/GET-direct-nquads.sh # NYI : restricted to the /service suffix
+sparql-graph-store-http-protocol/GET-direct-ntriples.sh # NYI : restricted to the /service suffix
 sparql-graph-store-http-protocol/GET-graph-service-description.sh # NYI
 sparql-graph-store-http-protocol/GET-rj.sh       # NYI
-sparql-graph-store-http-protocol/GET-plain.sh    # still returns term numbers
+sparql-graph-store-http-protocol/GET-ntriples.sh    # returns quads
+sparql-graph-store-http-protocol/GET-graph-ntriples.sh    # still returns term numbers
 sparql-graph-store-http-protocol/GET-trix.sh     # NYI
 sparql-graph-store-http-protocol/HEAD-direct.sh # NYI
 sparql-graph-store-http-protocol/PATCH-trix-all.sh # NYI
 sparql-graph-store-http-protocol/POST-ntriples+nquads-direct.sh # direct graph specification yields a 404
 sparql-graph-store-http-protocol/PUT-ntriples+nquads-direct.sh # direct graph specification yields a 404
 sparql-graph-store-http-protocol/PUT-ntriples+nquads-none.sh # direct graph specification yields a 404
-sparql-graph-store-http-protocol/PUT-trix-all.sh     # NYI
+sparql-graph-store-http-protocol/PUT-trix.sh     # NYI
 sparql-protocol/GET-construct-srx-406.sh # no content : dydra-query: Caught exception ... unknown content type: application/sparql-results+xml

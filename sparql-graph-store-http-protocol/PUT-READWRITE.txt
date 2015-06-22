@@ -1,12 +1,12 @@
 #! /bin/bash
-
-# verify write access for user with write access only
+# a place-marker for tests to be implemented when more complex access variations are supported
+# verify write access for user with read/write access
 
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
 curl_graph_store_update -X PUT \
      -H "Content-Type: application/n-quads"  \
-     -u "${STORE_TOKEN}-write:" \
+     -u "${STORE_TOKEN}-readwrite:" \
      --repository "${STORE_REPOSITORY}-write" all <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT1" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT1" <${STORE_NAMED_GRAPH}-two> .

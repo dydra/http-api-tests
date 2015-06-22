@@ -4,7 +4,7 @@ initialize_repository --repository "${STORE_REPOSITORY}-write"
 
 curl_graph_store_update -X PUT \
      -H "Content-Type: application/rdf+xml" \
-     --repository "${STORE_REPOSITORY}-write" all <<EOF
+     --repository "${STORE_REPOSITORY}-write" <<EOF
 <?xml version="1.0" encoding="utf-8"?>
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about="http://example.com/default-subject">

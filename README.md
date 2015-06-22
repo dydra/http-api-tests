@@ -6,8 +6,13 @@ This repository comprises tests for the DYDRA RDF cloud service:
 - The SPARQL query protocol,
 - The DYDRA account administration HTTP API
 - DYDRA extension tests for
+-- language-specific collation
+-- request meta-data
 -- provenance
+-- sort precedence
 -- temporal operators
+-- values request parameter
+-- xpath operators
 
 [![Build Status](https://travis-ci.org/dydra/http-api-tests.svg?branch=master)](https://travis-ci.org/dydra/http-api-tests)
 
@@ -37,13 +42,15 @@ apply, as given in its documentation.
 
 In order to execute scripts manually:
 
-- Establish values for the shell variables
+- Establish values for the shell variables:
   - `STORE_URL` : the HTTP URI to specify the remote host.
   - `STORE_ACCOUNT` : the account name.
   - `STORE_REPOSITORY` : the repository name eg.
   - `STORE_TOKEN` : an authentication if authentication is required.
-- Define the shell environment
-- Run the desired script(s)
+- Define the shell environment: `source define.sh`
+- Run the desired script(s) :
+  - `run_tests <pathnames>`
+  - `run.sh <directory`
 
 For example
 
@@ -55,7 +62,7 @@ For example
     bash run.sh extensions/sparql-protocol/temporal-data
 
 Note that numerous scripts modify the shell variable bindings to correspond to particular variations
-in repository, graph, or user and, as such, must be run in a distinct shell in order that the
+in repository, graph, or user and, as such, must be run in a distinct sub-shell in order that the
 modification not be pervasive.
 
 The test environment includes a range of repositories and users, as described in the `initialize.sh`
@@ -198,19 +205,20 @@ designate exactly that named graph in the store.
 ## SPARQL graph store protocol
 
 The "SPARQL 1.1 Graph Store HTTP Protocol", is supported as per the W3C
-[recommendation](http://www.w3.org/TR/sparql11-http-rdf-update/).
-For a repository on a DYDRA host, the native request patterns comprise just the host authority, the
+[recommendation](http://www.w3.org/TR/sparql11-http-rdf-update/), with the addition that,
+a request which omits a graph designator is understood to apply to the entire repository.
+For a repository on a Dydra host, the native request patterns comprise just the host authority, the
 user account and the repository name
 
-    <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>
+    <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>/service
 
 with respect to which, the default graph is designated as
 
-    <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>?default
+    <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>/service?default
 
 and an indirect graph reference takes the form
 
-    <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>?graph=<graph>
+    <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>/service?graph=<graph>
 
 ## Linked data designators
 
@@ -237,53 +245,44 @@ The graph store management operations which involve an RDF payload - `PATCH`, `P
 permit a request to target a specific graph as described above, as well as to transfer graph content
 as TriX or N-Quads in order to stipulate the target graph for statements in the payload document itself.
 The protocol and document specifications are not exclusive.
-When both appear, the graph encoded in the document supersedes that specified in the protocol request
-with respect to the destination graph, while the protocol graph specifies which graph is to be cleared by a put.
+
+When both appear,
+the protocol graph specifies which graph is to be cleared by a put and
+thAT graph supersedes any specified in the document content
+with respect to the destination graph.
 Where no protocol graph is specified for a `POST` request, a new graph is generated.
-The combinations yield the following effects:
+Where none is specified for opther methods, the entire repository is the target.
+
+With the following possible values for a graph:
+- `default` : the default graph
+- _post_ : a unique UUID generated for a POST request
+- _statement_ : the graph specified in the statement, or _default_ for triples.
+The combinations yield the following effects for `PATCH`, `POST` and `PUT`:
+
 
 <table  border=0 cellpadding=2px cellspacing=0 >
 
-<td class=hd>
-<td >protocol graph designator<td  >content type<td  >statement graph designator<td  >effective graph</tr>
 <tr >
-<td class=hd>
-<td >-<td>n-triple, rdf<td >-<td >-/&lt;post&gt;</tr>
+<th >protocol graph designator<th  >content type<th  >effective graph</tr>
 <tr >
-<td class=hd>
-<td >-<td>n-quad, trix<td >-<td >-/&lt;post&gt;</tr>
+<td >-<td>n-triple, rdf <td > `PATCH`: `default` <br /> `POST`: _post_ <br /> `PUT`: `default` </tr>
 <tr >
-<td class=hd>
-<td >-<td>n-triple, rdf<td>&lt;statement&gt; : invalid<td><i>skipped</i></tr>
+<td >-<td>n-quad, trix <td > _statement_ </tr>
+
+<td  >`default`<td>n-triple, rdf<td >**default**</tr>
 <tr >
-<td class=hd>
-<td >-<td>n-quad, trix<td>&lt;statement&gt;<td>&lt;statement&gt;</tr>
+<td  >`default`<td>n-quad, trix<td >**default**</tr>
+
 <tr >
-<td class=hd>
-<td  >default, null<td>n-triple, rdf<td >-<td >-</tr>
+<td  >`graph=`_protocol_<td>n-triple, rdf <td>_protocol_</tr>
 <tr >
-<td class=hd>
-<td  >default, null<td>n-quad, trix<td >-<td >-</tr>
-<tr >
-<td class=hd>
-<td  >default, null<td>n-triple, rdf<td>&lt;statement&gt; : invalid<td><i>skipped</i></tr>
-<tr >
-<td class=hd>
-<td  >default, null<td>n-quad, trix<td>&lt;statement&gt;<td>&lt;statement&gt;</tr>
-<tr >
-<td class=hd>
-<td  >graph=&lt;protocol&gt;<td>n-triple, rdf<td >-<td>&lt;protocol&gt;</tr>
-<tr >
-<td class=hd>
-<td  >graph=&lt;protocol&gt;<td>n-quad, trix<td >-<td>&lt;statement&gt;</tr>
-<tr >
-<td class=hd>
-<td  >graph=&lt;protocol&gt;<td>n-triple, rdf<td>&lt;statement&gt; : invalid<td><i>skipped</i></tr>
-<tr >
-<td class=hd>
-<td  >graph=&lt;protocol&gt;<td>n-quad, trix<td>&lt;statement&gt;<td>&lt;statement&gt;</tr>
+<td  >`graph`_protocol_<td>n-quad, trix <td>_protocol_</tr>
+
 </table>
 
+The results for `DELETE` and `GET` operations are analogous to `PUT` with respect to repository modifications
+or response content.
+A `PATCH` operation, in distinction to a `PUT`, clears just the graphs present in the content.
 
 In order to validate the results, one script exists for the PUT operations for
 each of the combinations, named according to the pattern

@@ -248,10 +248,10 @@ The protocol and document specifications are not exclusive.
 
 When both appear,
 the protocol graph specifies which graph is to be cleared by a put and
-thAT graph supersedes any specified in the document content
+that graph supersedes any specified in the document content
 with respect to the destination graph.
 Where no protocol graph is specified for a `POST` request, a new graph is generated.
-Where none is specified for opther methods, the entire repository is the target.
+Where none is specified for other methods, the entire repository is the target.
 
 With the following possible values for a graph:
 - <code><i>default</i></code> : the default graph
@@ -266,24 +266,24 @@ The combinations yield the following effects for <code><b>PATCH</b></code>, <cod
 <th >protocol graph designator<th  >content type<th  >effective graph</tr>
 <tr >
   <td rowspan="2">-
-  <td>n-triple, rdf 
-  <td > <code><b>PATCH</b></code>: <code><i>default</i></code> <br /> <code><b>POST</b></code>: <code><i>post</i></code><br /> <code><b>PUT</b></code>: <code><i>default</i></code> </tr>
+  <td>n-triples, rdf+xml 
+  <td > <code><b>PATCH</b></code>: <code><i>default</i></code> <br /> <code><b>POST</b></code>: <code><i>default</i></code><br /> <code><b>PUT</b></code>: <code><i>default</i></code> </tr>
 <tr >
 <td >n-quad, trix <td > <code><i>statement</i></code> </tr>
 
 <td  rowspan="2"><code><b>default</b></code>
-  <td>n-triple, rdf
+  <td>n-triples, rdf+xml
   <td ><code><i>default</i></code></tr>
 <tr >
-  <td  >n-quad, trix
+  <td  >n-quads, trix
   <td ><code><i>default</i></code></tr>
 
 <tr >
 <td  rowspan="2" ><code><b>graph=</b><i>protocol</i></code>
-  <td>n-triple, rdf
+  <td>n-triples, rdf+xml
   <td><code><i>protocol</i></code></tr>
 <tr >
-  <td  >n-quad, trix 
+  <td  >n-quads, trix 
   <td><code><i>protocol</i></code></tr>
 
 </table>
@@ -297,17 +297,17 @@ each of the combinations, named according to the pattern
 
     PUT-<protocolGraph>-<contentType>.sh
 
-which performs a PUT request of the respective graph and content type combination
+which performs a <code><b>PUT</b></code> request of the respective graph and content type combination
 and validates the content of a subsequent <code><b>GET</b></code>
 against the expected store content. The combination features are indicated as
 
  - protocolGraph : direct, default, graph (indirect)
- - contentType : n-triples, n-quads, rdf, turtle, trix
+ - contentType : n-triples, n-quads, rdf+xml, turtle, trix
 
 whereby, just the combinations for `PUT-direct` validate the full content type complement and,
 among these, the cases like `PUT-default-nquads` intend to demonstrate the
 effect when the payload or request content type does not correspond to the protocol target graph.
-In addition, for ntriples and nguads content types, the acutual document contains both triples and quads
+In addition, for n-triples and n-quads content types, the acutual document contains both triples and quads
 in order to demonstrate the consequence of the statement's given content on its destination.
 
 nb. This table is, for the moment, out of sync with the intentions expressed above....

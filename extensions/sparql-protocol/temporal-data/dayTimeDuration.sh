@@ -2,7 +2,7 @@
 
 # exercise the query state functions
 
-curl_sparql_request "Accept: application/sparql-results+json" <<EOF \
+curl_sparql_request <<EOF \
  | jq '.results.bindings[] | .[].value' | fgrep -q 'true'
 
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
@@ -23,7 +23,7 @@ EOF
 
 # excercise the dayTimeDuration comparison operators
 
-curl_sparql_request "Accept: application/sparql-results+json" <<EOF \
+curl_sparql_request  <<EOF \
  | jq '.results.bindings[] | .[].value' | fgrep -q 'true'
 
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>

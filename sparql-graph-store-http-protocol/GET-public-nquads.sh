@@ -1,9 +1,8 @@
 #! /bin/bash
 
+initialize_repository --repository "${STORE_REPOSITORY}-public"
 
-curl -f -s -S -X GET\
-     -H "Accept: application/n-quads" \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY_PUBLIC} \
+curl_graph_store_get -u "" -H "Accept: application/n-quads" --repository "${STORE_REPOSITORY}-public" \
    | rapper -q --input nquads --output nquads /dev/stdin - | tr -s '\n' '\t' \
    | fgrep "<${STORE_NAMED_GRAPH}>" \
    | fgrep '"default object"' | fgrep -q '"named object"' 

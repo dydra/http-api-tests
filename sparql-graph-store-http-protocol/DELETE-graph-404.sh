@@ -2,8 +2,7 @@
 
 # test that a non-existent named graph yields a 404
 
+initialize_repository  --repository "${STORE_REPOSITORY}-write"
 
-curl -w "%{http_code}\n" -f -s -X DELETE\
-     -H "Accept: application/n-quads" \
-     $STORE_URL/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN}\&graph=${STORE_NAMED_GRAPH}-not \
-  | fgrep -q "${STATUS_NOT_FOUND}"
+curl_graph_store_delete  -w "%{http_code}\n" --repository "${STORE_REPOSITORY}-write" "graph=${STORE_NAMED_GRAPH}-not" \
+  | test_not_found_success

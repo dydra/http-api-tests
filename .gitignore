@@ -1,9 +1,13 @@
 .DS_Store
-.gz
+*.gz
 *.cfsl
+*.class
+*.jar
 .tmp
+*.war
 .yardoc
 pkg
+target
 tmp
 *~
 #*#

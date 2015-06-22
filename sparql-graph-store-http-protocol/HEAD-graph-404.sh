@@ -1,6 +1,6 @@
 #! /bin/bash
 
 
-curl -w "%{http_code}\n" -f -s --head\
-     $STORE_URL/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN}\&graph=${STORE_NAMED_GRAPH}-not \
-   | fgrep -q "${STATUS_NOT_FOUND}"
+curl_graph_store_get -w "%{http_code}\n" --head \
+     graph=${STORE_NAMED_GRAPH}-not \
+   | test_not_found_success

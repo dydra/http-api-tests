@@ -1,18 +1,18 @@
 #! /bin/bash
 
+initialize_repository --repository "${STORE_REPOSITORY}-write"
 
-$CURL -w "%{http_code}\n" -f -s -S -X PUT \
+curl_graph_store_update -X PUT \
      -H "Content-Type: application/rdf+xml" \
-     --data-binary @- \
-     $STORE_URL/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} <<EOF\
-   | egrep -q "$STATUS_PUT_SUCCESS"
+     --repository "${STORE_REPOSITORY}-write" all <<EOF
 <?xml version="1.0" encoding="utf-8"?>
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about="http://example.com/default-subject">
-    <ns0:default-predicate xmlns:ns0="http://example.com/">default object . PUT.nt</ns0:default-predicate>
+    <ns0:default-predicate xmlns:ns0="http://example.com/">default object . PUT-rdfxml</ns0:default-predicate>
   </rdf:Description>
 </rdf:RDF>
 EOF
 
-
-initialize_repository | egrep -q "$STATUS_PUT_SUCCESS"
+curl_graph_store_get \
+     -H "Accept: application/n-quads" --repository "${STORE_REPOSITORY}-write" \
+   | fgrep -q 'default object . PUT-rdfxml'

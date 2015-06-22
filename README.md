@@ -1,4 +1,3 @@
-
 # HTTP API tests
 
 This repository comprises tests for the DYDRA RDF cloud service:
@@ -6,13 +5,20 @@ This repository comprises tests for the DYDRA RDF cloud service:
 - The SPARQL graph store HTTP protocol,
 - The SPARQL query protocol,
 - The DYDRA account administration HTTP API
-- DYDRA extension tests
+- DYDRA extension tests for
+-- language-specific collation
+-- request meta-data
+-- provenance
+-- sort precedence
+-- temporal operators
+-- values request parameter
+-- xpath operators
 
 [![Build Status](https://travis-ci.org/dydra/http-api-tests.svg?branch=master)](https://travis-ci.org/dydra/http-api-tests)
 
 ---
 
-The tests implemented as a collection of shell scripts and arranged in a directory hierarchy according to topic.
+These tests are implemented shell scripts and arranged in a directory hierarchy according to topic.
 The root directory contains several utility scripts which establish the test environment,
 administer the target repositories and execute tests.
 
@@ -34,15 +40,17 @@ for the sesame protocol tests, the openrdf documentation examples should
 apply, as given in its documentation.
 
 
-In order to execute simple scripts manually:
+In order to execute scripts manually:
 
-- Establish values for the shell variables
+- Establish values for the shell variables:
   - `STORE_URL` : the HTTP URI to specify the remote host.
   - `STORE_ACCOUNT` : the account name.
   - `STORE_REPOSITORY` : the repository name eg.
   - `STORE_TOKEN` : an authentication if authentication is required.
-- Define the shell environment
-- Run the desired script(s)
+- Define the shell environment: `source define.sh`
+- Run the desired script(s) :
+  - `run_tests <pathnames>`
+  - `run.sh <directory`
 
 For example
 
@@ -52,6 +60,17 @@ For example
     export STORE_TOKEN="1234567890"
     source define.sh
     bash run.sh extensions/sparql-protocol/temporal-data
+
+Note that numerous scripts modify the shell variable bindings to correspond to particular variations
+in repository, graph, or user and, as such, must be run in a distinct sub-shell in order that the
+modification not be pervasive.
+
+The test environment includes a range of repositories and users, as described in the `initialize.sh`
+script, in order to account for variations in access and authorization. As a rule, the default
+repository, that is "${STORE_ACCOUNT}/${STORE_REPOSITORY}" is treated as read-only, in order that
+most tests need to no set-up and/or tear-down.
+Any modification is restricted to "${STORE_ACCOUNT}/${STORE_REPOSITORY}-write" and every tests which
+modifies that repository also initializes it to the required state.
 
 ---
 
@@ -186,19 +205,20 @@ designate exactly that named graph in the store.
 ## SPARQL graph store protocol
 
 The "SPARQL 1.1 Graph Store HTTP Protocol", is supported as per the W3C
-[recommendation](http://www.w3.org/TR/sparql11-http-rdf-update/).
-For a repository on a DYDRA host, the native request patterns comprise just the host authority, the
+[recommendation](http://www.w3.org/TR/sparql11-http-rdf-update/), with the addition that,
+a request which omits a graph designator is understood to apply to the entire repository.
+For a repository on a Dydra host, the native request patterns comprise just the host authority, the
 user account and the repository name
 
-    <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>
+    <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>/service
 
 with respect to which, the default graph is designated as
 
-    <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>?default
+    <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>/service?default
 
 and an indirect graph reference takes the form
 
-    <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>?graph=<graph>
+    <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>/service?graph=<graph>
 
 ## Linked data designators
 
@@ -225,61 +245,60 @@ The graph store management operations which involve an RDF payload - `PATCH`, `P
 permit a request to target a specific graph as described above, as well as to transfer graph content
 as TriX or N-Quads in order to stipulate the target graph for statements in the payload document itself.
 The protocol and document specifications are not exclusive.
-When both appear, the graph encoded in the document supersedes that specified in the protocol request
-with respect to the destination graph, while the protocol graph specifies which graph is to be cleared by a put.
+
+When both appear,
+the protocol graph specifies which graph is to be cleared by a put and
+thAT graph supersedes any specified in the document content
+with respect to the destination graph.
 Where no protocol graph is specified for a `POST` request, a new graph is generated.
-The combinations yield the following effects:
+Where none is specified for opther methods, the entire repository is the target.
+
+With the following possible values for a graph:
+- <code><i>default</i></code> : the default graph
+- <code><i>post</i></code> : a unique UUID generated for a POST request
+- <code><i>statement</i></code> : the graph specified in the statement, or _default_ for triples.
+The combinations yield the following effects for <code><b>PATCH</b></code>, <code><b>POST</b></code> and <code><b>PUT</b></code>:
+
 
 <table  border=0 cellpadding=2px cellspacing=0 >
 
-<td class=hd>
-<td >protocol graph designator<td  >content type<td  >statement graph designator<td  >effective graph</tr>
 <tr >
-<td class=hd>
-<td >-<td>n-triple, rdf<td >-<td >-/&lt;post&gt;</tr>
+<th >protocol graph designator<th  >content type<th  >effective graph</tr>
 <tr >
-<td class=hd>
-<td >-<td>n-quad, trix<td >-<td >-/&lt;post&gt;</tr>
+  <td rowspan="2">-
+  <td>n-triple, rdf 
+  <td > <code><b>PATCH</b></code>: <code><i>default</i></code> <br /> <code><b>POST</b></code>: <code><i>post</i></code><br /> <code><b>PUT</b></code>: <code><i>default</i></code> </tr>
 <tr >
-<td class=hd>
-<td >-<td>n-triple, rdf<td>&lt;statement&gt; : invalid<td><i>skipped</i></tr>
+<td >n-quad, trix <td > <code><i>statement</i></code> </tr>
+
+<td  rowspan="2"><code><b>default</b></code>
+  <td>n-triple, rdf
+  <td ><code><i>default</i></code></tr>
 <tr >
-<td class=hd>
-<td >-<td>n-quad, trix<td>&lt;statement&gt;<td>&lt;statement&gt;</tr>
+  <td  >n-quad, trix
+  <td ><code><i>default</i></code></tr>
+
 <tr >
-<td class=hd>
-<td  >default, null<td>n-triple, rdf<td >-<td >-</tr>
+<td  rowspan="2" ><code><b>graph=</b><i>protocol</i></code>
+  <td>n-triple, rdf
+  <td><code><i>protocol</i></code></tr>
 <tr >
-<td class=hd>
-<td  >default, null<td>n-quad, trix<td >-<td >-</tr>
-<tr >
-<td class=hd>
-<td  >default, null<td>n-triple, rdf<td>&lt;statement&gt; : invalid<td><i>skipped</i></tr>
-<tr >
-<td class=hd>
-<td  >default, null<td>n-quad, trix<td>&lt;statement&gt;<td>&lt;statement&gt;</tr>
-<tr >
-<td class=hd>
-<td  >graph=&lt;protocol&gt;<td>n-triple, rdf<td >-<td>&lt;protocol&gt;</tr>
-<tr >
-<td class=hd>
-<td  >graph=&lt;protocol&gt;<td>n-quad, trix<td >-<td>&lt;statement&gt;</tr>
-<tr >
-<td class=hd>
-<td  >graph=&lt;protocol&gt;<td>n-triple, rdf<td>&lt;statement&gt; : invalid<td><i>skipped</i></tr>
-<tr >
-<td class=hd>
-<td  >graph=&lt;protocol&gt;<td>n-quad, trix<td>&lt;statement&gt;<td>&lt;statement&gt;</tr>
+  <td  >n-quad, trix 
+  <td><code><i>protocol</i></code></tr>
+
 </table>
 
+The results for <code><b>DELETE</b></code> and <code><b>GET</b></code> operations are analogous to <code><b>PUT</b></code> with respect to repository modifications
+or response content.
+A <code><b>PATCH</b></code> operation, in distinction to a <code><b>PUT</b></code>, clears just the graphs present in the content.
 
-In order to validate the results, one script exists for the PUT operations for
+In order to validate the results, one script exists for the <code><b>PUT</b></code> operations for
 each of the combinations, named according to the pattern
 
     PUT-<protocolGraph>-<contentType>.sh
 
 which performs a PUT request of the respective graph and content type combination
-and validates the content of a subsequent GET
+and validates the content of a subsequent <code><b>GET</b></code>
 against the expected store content. The combination features are indicated as
 
  - protocolGraph : direct, default, graph (indirect)
@@ -291,7 +310,8 @@ effect when the payload or request content type does not correspond to the proto
 In addition, for ntriples and nguads content types, the acutual document contains both triples and quads
 in order to demonstrate the consequence of the statement's given content on its destination.
 
-<table>
+nb. This table is, for the moment, out of sync with the intentions expressed above....
+<table style="background-color: red">
 <tr><th>script</th><th>result</th><th>test</th></tr>
 
 <tr><td>POST-default-nquads.sh</td>

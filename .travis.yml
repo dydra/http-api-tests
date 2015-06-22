@@ -24,12 +24,14 @@ env:
     - secure: "ICDCVRrtGS4GNoe3h74D1LfB3DmLjO4pWkxhB7GIs4lrRMY1UlKqqtldMv+ODldwHJHIIle0dvvnCv+yeNRGNBtdn4uE/0LgqQp7dIag0dUuLLy8KE1JIWiEezekxyOWVoaxQeRBZ9uc9zHQpXOSv9f0GkapyJ/sujEUxklMKCc="
 
 script:
-  -  bash  ./run.sh extensions/sparql-protocol/meta-data
   -  bash  ./run.sh extensions/sparql-protocol/temporal-data
   -  bash  ./run.sh extensions/sparql-protocol/collation
   -  bash  ./run.sh extensions/sparql-protocol/provenance
   -  bash  ./run.sh extensions/sparql-protocol/xpath-operators
+  -  bash  ./run.sh extensions/sparql-protocol/values
   -  bash  ./run.sh sparql-protocol
+#  -  bash  ./run.sh sparql-graph-store-http-protocol
+#  -  bash  ./run.sh extensions/sparql-protocol/meta-data
 
 notifications:
   email:

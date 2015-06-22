@@ -2,11 +2,11 @@
 
 # verify NO write access for user with read access only
 
-$CURL -w "%{http_code}\n" -f -s -X PUT \
-     -H "Content-Type: application/n-quads" \
-     --data-binary @- \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-byuser?auth_token=${STORE_TOKEN}_READ <<EOF \
-  | fgrep -q "${STATUS_UNAUTHORIZED}"
+curl_graph_store_update -X PUT -w "%{http_code}\n" \
+     -H "Content-Type: application/n-quads"  \
+     -u "${STORE_TOKEN}-read:" \
+     --repository "${STORE_REPOSITORY}-write" all <<EOF\
+  | test_unauthorized_success
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT1" .
 EOF
 

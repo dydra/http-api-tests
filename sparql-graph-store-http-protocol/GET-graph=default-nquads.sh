@@ -1,8 +1,6 @@
 #! /bin/bash
 
 
-curl -f -s -S -X GET\
-     -H "Accept: application/n-quads" \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}?graph=default\&auth_token=${STORE_TOKEN} \
+curl_graph_store_get -H "Accept: application/n-quads" "default" \
    | rapper -q --input nquads --output nquads /dev/stdin - | tr -s '\n' '\t' \
    | fgrep '"default object"' | fgrep -v -q '"named object"' 

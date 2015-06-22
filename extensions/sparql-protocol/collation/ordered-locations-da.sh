@@ -2,14 +2,15 @@
 
 # test collation for the location strings
 
-set_sparql_url "openrdf-sesame" "collation"
-
-curl_sparql_request "Accept: application/sparql-results+json" <<EOF \
- | jq '.results.bindings[] | .location.value' | diff - ordered-locations-da.txt
-select distinct ?s ?location
+curl_sparql_request  \
+     --repository "collation" <<EOF \
+  | jq '.results.bindings[] | .location.value' | diff - ordered-locations-da.txt
+select  ?location #?lang
  where {
-  ?s <http://example.org/location> ?location .
-  filter (lang(?location) = "da") }
-order by (?location)
+  { ?s <http://example.org/location> ?location }.
+  #bind (lang(?location) as ?lang)
+  filter ("da" = lang(?location))
+ }
+#order by (?location)
 EOF
 

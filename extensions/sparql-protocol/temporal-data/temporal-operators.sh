@@ -2,7 +2,7 @@
 
 # exercise the query state functions
 
-curl_sparql_request "Accept: application/sparql-results+json" <<EOF \
+curl_sparql_request <<EOF \
  | jq '.results.bindings[] | .[].type' | fgrep literal | wc -l | fgrep -q '21'
 
 prefix math: <http://www.w3.org/2005/xpath-functions/math#>

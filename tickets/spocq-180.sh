@@ -4,18 +4,15 @@
 # with the context, the expeced statement pattern variables are bound.
 # absent the context, no variable is bound and the match succeeds where it is not intended to
 
-${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
-     -H "Content-Type: application/n-quads" --data-binary @- \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY_PUBLIC}?auth_token=${STORE_TOKEN} <<EOF
+curl_graph_store_update -X PUT \
+     -H "Content-Type: application/n-quads" --repository ${STORE_REPOSITORY}-write <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate-too> "default object" .
 EOF
 
 
-curl -f -s -S -X POST \
+curl_sparql_request \
      -H "Accept: application/sparql-results+json" \
-     -H "Content-Type:application/sparql-query" \
-     --data-binary @- \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} <<EOF \
+     -H "Content-Type:application/sparql-query" <<EOF \
  | json_reformat -m \
  | egrep -q -s '"bindings".*"noNamed".*"value":false'
 select ?subject ?noNamed
@@ -25,11 +22,9 @@ where {
 }
 EOF
 
-curl -f -s -S -X POST \
+curl_sparql_request \
      -H "Accept: application/sparql-results+json" \
-     -H "Content-Type:application/sparql-query" \
-     --data-binary @- \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} <<EOF \
+     -H "Content-Type:application/sparql-query"  <<EOF \
  | json_reformat -m \
  | egrep -q -s '"bindings".*"yesToo".*"value":true'
 select ?subject ?noNamed

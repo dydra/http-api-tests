@@ -1,8 +1,5 @@
 #! /bin/bash
 
-
-curl -w "%{http_code}\n" -f -s -X GET\
-     -H "Accept: application/n-quads" \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-not?auth_token=${STORE_TOKEN} \
-   | fgrep -q "${STATUS_NOT_FOUND}"
+curl_graph_store_get -w '%{http_code}\n' --repository "${STORE_REPOSITORY}-not" \
+   | test_not_found_success
 

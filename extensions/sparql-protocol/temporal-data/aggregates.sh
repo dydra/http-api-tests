@@ -2,15 +2,9 @@
 
 # exercise aggregation over temporal data
 
-set_sparql_url "${STORE_ACCOUNT}" "${STORE_REPOSITORY}-write"
-set_graph_store_url "${STORE_ACCOUNT}" "${STORE_REPOSITORY}-write"
-
-$CURL -w "%{http_code}\n" -f -s -S -X PUT \
-     -H "Content-Type: application/turtle" \
-     --data-binary @- \
-     -u "${STORE_TOKEN}:" \
-     "${GRAPH_STORE_URL}?default" <<EOF \
-    | egrep -q "$STATUS_PUT_SUCCESS"
+curl_graph_store_update -X PUT \
+      -H "Content-Type: application/turtle" \
+      --repository "${STORE_REPOSITORY}-write" default <<EOF
 @prefix ex: <http://example.com/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes#> .
 
@@ -27,9 +21,10 @@ _:d ex:start "2014-01-01T00:00:00Z"^^xsd:dateTime ;
   ex:end "2015-01-01T00:00:00Z"^^xsd:dateTime .
 EOF
 
-
-curl_sparql_request "Accept: application/sparql-results+json" <<EOF \
- | jq '.results.bindings[] | .[].value' | fgrep -q 'true'
+curl_sparql_request \
+     -H "Accept: application/sparql-results+json" \
+     --repository "${STORE_REPOSITORY}-write" <<EOF \
+   | jq '.results.bindings[] | .[].value'  | fgrep -q 'true'
 
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
 prefix ex: <http://example.com/>

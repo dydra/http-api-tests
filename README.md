@@ -281,10 +281,10 @@ The combinations yield the following effects for <code><b>PATCH</b></code>, <cod
 <tr >
 <td  rowspan="2" ><code><b>graph=</b><i>protocol</i></code>
   <td>n-triple, rdf
-  <td>_protocol_</tr>
+  <td><code><i>protocol</i></code></tr>
 <tr >
   <td  >n-quad, trix 
-  <td>_protocol_</tr>
+  <td><code><i>protocol</i></code></tr>
 
 </table>
 
@@ -310,7 +310,8 @@ effect when the payload or request content type does not correspond to the proto
 In addition, for ntriples and nguads content types, the acutual document contains both triples and quads
 in order to demonstrate the consequence of the statement's given content on its destination.
 
-<table>
+nb. This table is, for the moment, out of sync with the intentions expressed above....
+<table style="background-color: red">
 <tr><th>script</th><th>result</th><th>test</th></tr>
 
 <tr><td>POST-default-nquads.sh</td>

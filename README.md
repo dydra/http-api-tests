@@ -257,7 +257,7 @@ With the following possible values for a graph:
 - <code><i>default</i></code> : the default graph
 - <code><i>post</i></code> : a unique UUID generated for a POST request
 - <code><i>statement</i></code> : the graph specified in the statement, or _default_ for triples.
-The combinations yield the following effects for `PATCH`, `POST` and `PUT`:
+The combinations yield the following effects for <code><b>PATCH</b></code>, <code><b>POST</b></code> and <code><b>PUT</b></code>:
 
 
 <table  border=0 cellpadding=2px cellspacing=0 >
@@ -288,9 +288,9 @@ The combinations yield the following effects for `PATCH`, `POST` and `PUT`:
 
 </table>
 
-The results for `DELETE` and `GET` operations are analogous to `PUT` with respect to repository modifications
+The results for <code><b>DELETE</b></code> and <code><b>GET</b></code> operations are analogous to <code><b>PUT</b></code> with respect to repository modifications
 or response content.
-A `PATCH` operation, in distinction to a `PUT`, clears just the graphs present in the content.
+A <code><b>PATCH</b></code> operation, in distinction to a <code><b>PUT</b></code>, clears just the graphs present in the content.
 
 In order to validate the results, one script exists for the PUT operations for
 each of the combinations, named according to the pattern

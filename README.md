@@ -267,14 +267,14 @@ The combinations yield the following effects for `PATCH`, `POST` and `PUT`:
 <tr >
 <td rowspan="2">-<td>n-triple, rdf <td > `PATCH`: <cde><it>default</it></code> <br /> <code>POST</code>: _post_ <br /> <code>PUT</code>: `default` </tr>
 <tr >
-<td >n-quad, trix <td > <it>statement</it> </tr>
+<td >n-quad, trix <td > <i>statement</i> </tr>
 
 <td  rowspan="2"><code><b>default</b></code><td>n-triple, rdf<td >**default**</tr>
 <tr >
 <td  ><code><b>default</b></code><td>n-quad, trix<td >**default**</tr>
 
 <tr >
-<td  rowspan="2" ><code><b>graph=</b><it>protocol</it></code><td>n-triple, rdf <td>_protocol_</tr>
+<td  rowspan="2" ><code><b>graph=</b><i>protocol</i></code><td>n-triple, rdf <td>_protocol_</tr>
 <tr >
 <td  >n-quad, trix <td>_protocol_</tr>
 

@@ -265,7 +265,7 @@ The combinations yield the following effects for `PATCH`, `POST` and `PUT`:
 <tr >
 <th >protocol graph designator<th  >content type<th  >effective graph</tr>
 <tr >
-<td >-<td>n-triple, rdf <td > `PATCH`: `default` <br /> `POST`: _post_ <br /> `PUT`: `default` </tr>
+<td >-<td>n-triple, rdf <td > `PATCH`: `default` <br /> <code>POST</code>: _post_ <br /> <tt>PUT</tt>: `default` </tr>
 <tr >
 <td >-<td>n-quad, trix <td > _statement_ </tr>
 

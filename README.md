@@ -254,9 +254,9 @@ Where no protocol graph is specified for a `POST` request, a new graph is genera
 Where none is specified for opther methods, the entire repository is the target.
 
 With the following possible values for a graph:
-- `default` : the default graph
-- _post_ : a unique UUID generated for a POST request
-- _statement_ : the graph specified in the statement, or _default_ for triples.
+- <code><i>default</i></code> : the default graph
+- <code><i>post</i></code> : a unique UUID generated for a POST request
+- <code><i>statement</i></code> : the graph specified in the statement, or _default_ for triples.
 The combinations yield the following effects for `PATCH`, `POST` and `PUT`:
 
 
@@ -265,18 +265,26 @@ The combinations yield the following effects for `PATCH`, `POST` and `PUT`:
 <tr >
 <th >protocol graph designator<th  >content type<th  >effective graph</tr>
 <tr >
-<td rowspan="2">-<td>n-triple, rdf <td > `PATCH`: <cde><it>default</it></code> <br /> <code>POST</code>: _post_ <br /> <code>PUT</code>: `default` </tr>
+  <td rowspan="2">-
+  <td>n-triple, rdf 
+  <td > <code><b>PATCH</b></code>: <code><i>default</i></code> <br /> <code><b>POST</b></code>: <code><i>post</i></code><br /> <code><b>PUT</b></code>: <code><i>default</i></code> </tr>
 <tr >
-<td >n-quad, trix <td > <i>statement</i> </tr>
+<td >n-quad, trix <td > <code><i>statement</i></code> </tr>
 
-<td  rowspan="2"><code><b>default</b></code><td>n-triple, rdf<td >**default**</tr>
+<td  rowspan="2"><code><b>default</b></code>
+  <td>n-triple, rdf
+  <td ><code><i>default</i></code></tr>
 <tr >
-<td  ><code><b>default</b></code><td>n-quad, trix<td >**default**</tr>
+  <td  >n-quad, trix
+  <td ><code><i>default</i></code></tr>
 
 <tr >
-<td  rowspan="2" ><code><b>graph=</b><i>protocol</i></code><td>n-triple, rdf <td>_protocol_</tr>
+<td  rowspan="2" ><code><b>graph=</b><i>protocol</i></code>
+  <td>n-triple, rdf
+  <td>_protocol_</tr>
 <tr >
-<td  >n-quad, trix <td>_protocol_</tr>
+  <td  >n-quad, trix 
+  <td>_protocol_</tr>
 
 </table>
 

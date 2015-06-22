@@ -290,7 +290,7 @@ The combinations yield the following effects for <code><b>PATCH</b></code>, <cod
 
 The results for <code><b>DELETE</b></code> and <code><b>GET</b></code> operations are analogous to <code><b>PUT</b></code> with respect to repository modifications
 or response content.
-A <code><b>PATCH</b></code> operation, in distinction to a <code><b>PUT</b></code>, clears just the graphs present in the content.
+A <code><b>PATCH</b></code> operation without a protocol graph, in distinction to a <code><b>PUT</b></code>, clears just the graphs present in the content.
 
 In order to validate the results, one script exists for the <code><b>PUT</b></code> operations for
 each of the combinations, named according to the pattern

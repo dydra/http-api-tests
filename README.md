@@ -292,13 +292,13 @@ The results for <code><b>DELETE</b></code> and <code><b>GET</b></code> operation
 or response content.
 A <code><b>PATCH</b></code> operation, in distinction to a <code><b>PUT</b></code>, clears just the graphs present in the content.
 
-In order to validate the results, one script exists for the PUT operations for
+In order to validate the results, one script exists for the <code><b>PUT</b></code> operations for
 each of the combinations, named according to the pattern
 
     PUT-<protocolGraph>-<contentType>.sh
 
 which performs a PUT request of the respective graph and content type combination
-and validates the content of a subsequent GET
+and validates the content of a subsequent <code><b>GET</b></code>
 against the expected store content. The combination features are indicated as
 
  - protocolGraph : direct, default, graph (indirect)

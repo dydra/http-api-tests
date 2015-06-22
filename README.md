@@ -267,7 +267,7 @@ The combinations yield the following effects for <code><b>PATCH</b></code>, <cod
 <tr >
   <td rowspan="2">-
   <td>n-triples, rdf+xml 
-  <td > <code><b>PATCH</b></code>: <code><i>default</i></code> <br /> <code><b>POST</b></code>: <code><i>default</i></code><br /> <code><b>PUT</b></code>: <code><i>default</i></code> </tr>
+  <td > <code><b>PATCH</b></code>: <code><i>default</i></code> <br /> <code><b>POST</b></code>: <code><i>post</i></code><br /> <code><b>PUT</b></code>: <code><i>default</i></code> </tr>
 <tr >
 <td >n-quad, trix <td > <code><i>statement</i></code> </tr>
 

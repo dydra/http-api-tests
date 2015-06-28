@@ -13,7 +13,7 @@ then
   export STORE_URL="http://localhost"
 fi
 # strip the protocol and possible user authentication to yield the actual host
-export STORE_HOST=${STORE_URL#*http://} 
+export STORE_HOST=${STORE_URL#*https://} 
 # strip a possible port
 export STORE_HOST=${STORE_HOST%:*}
 export STORE_SITE="dydra.com"           # the abstract site name

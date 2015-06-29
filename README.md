@@ -18,7 +18,7 @@ This repository comprises tests for the DYDRA RDF cloud service:
 
 ---
 
-These tests are implemented shell scripts and arranged in a directory hierarchy according to topic.
+These tests are implemented as shell scripts and arranged according to topic.
 The root directory contains several utility scripts which establish the test environment,
 administer the target repositories and execute tests.
 
@@ -205,11 +205,11 @@ designate exactly that named graph in the store.
 ## SPARQL graph store protocol
 
 The "SPARQL 1.1 Graph Store HTTP Protocol", is supported as per the W3C
-[recommendation](http://www.w3.org/TR/sparql11-http-rdf-update/), with the addition that,
+[recommendation](http://www.w3.org/TR/sparql11-http-rdf-update/), with the several additions and restrictions.
 
 ### Graph store request Content type
 
-A graph store request may include as content specify as its response any of the following RDF document encodings
+A graph store request may include as content or specify as its response any of the following RDF document encodings
 - application/n-triples
 - application/n-quads
 - application/turtle
@@ -222,16 +222,19 @@ Several forms are restricted
 
 Several forms are no longer supported, as they have been supplanted by registered media types
 
-- text/ntriples
-- text/nquads
+- text/plain
+- application/rdf-triples
+- text/x-nquads
+- application/x-turtle
 
 The `multipart/form-data` request media type described in the graph store
 [protocol](http://www.w3.org/TR/2013/REC-sparql11-http-rdf-update-20130321/#graph-management)
 is not supported. Each request must comprise a single document.
 
-The `application/x-www-form-url-encoded` request type is supported for `GET` requests only, as described in the SPARQL
+The `application/x-www-form-url-encoded` request type is not supported by the graph store protocol.
+It applies to SPARQL ˚POST˚ requests only, as described in the SPARQL
 protocol for [query](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/#query-via-post-urlencoded)
- and [update](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/#update-via-post-urlencoded) operations. 
+and [update](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/#update-via-post-urlencoded) operations. 
 
 
 
@@ -299,140 +302,82 @@ The combinations yield the following effects for <code><b>PATCH</b></code>, <cod
   <td ><code><i>default</i></code></tr>
 
 <tr >
-<td  rowspan="2" ><code><b>graph=</b><i>protocol</i></code>
+  <td  rowspan="2" ><code><b>graph=</b><i>protocol</i></code>
   <td>n-triples, rdf+xml
   <td><code><i>protocol</i></code></tr>
 <tr >
   <td  >n-quads, trix 
   <td><code><i>protocol</i></code></tr>
 
+<tr>
+  <td><code><i>protocol</i></code></td>
+  <td colspan="2">not supported</td></tr>
 </table>
 
 The results for <code><b>DELETE</b></code> and <code><b>GET</b></code> operations are analogous to <code><b>PUT</b></code> with respect to repository modifications
 or response content.
 A <code><b>PATCH</b></code> operation without a protocol graph, in distinction to a <code><b>PUT</b></code>, clears just the graphs present in the content.
 
-In order to validate the results, one script exists for the <code><b>PUT</b></code> operations for
+In order to validate the results, one script exists for the <code><b>POST</b></code> and <code><b>PUT</b></code> operations for
 each of the combinations, named according to the pattern
 
-    PUT-<protocolGraph>-<contentType>.sh
+    <method>-<contentTypes>-<protocolGraph>.sh
 
-which performs a <code><b>PUT</b></code> request of the respective graph and content type combination
+which performs a <code><b>PUT</b></code> request of the respective content type and graph combination
 and validates the content of a subsequent <code><b>GET</b></code>
-against the expected store content. The combination features are indicated as
+as a reflections of the expected store content.
+The combination features are indicated as
 
- - protocolGraph : direct, default, graph (indirect)
+ - method : code><b>POST</b></code> <code><b>PUT</b></code>
+ - protocolGraph : <i>none</>, direct, default, graph (indirect)
  - contentType : n-triples, n-quads, rdf+xml, turtle, trix
 
-whereby, just the combinations for `PUT-direct` validate the full content type complement and,
-among these, the cases like `PUT-default-nquads` intend to demonstrate the
-effect when the payload or request content type does not correspond to the protocol target graph.
+whereby, just the combinations for `PUT-ntriples+nquads` validate the full target graph complement and,
+among these, the cases like `PUT-ntriples+nquads-default` intend to demonstrate the
+effect when the payload or request content type differs from the protocol target graph.
 In addition, for n-triples and n-quads content types, the acutual document contains both triples and quads
 in order to demonstrate the consequence of the statement's given content on its destination.
 
-nb. This table is, for the moment, out of sync with the intentions expressed above....
 <table style="background-color: red">
-<tr><th>script</th><th>result</th><th>test</th></tr>
+<tr><th>script</th><th>requirement</th></tr>
 
-<tr><td>POST-default-nquads.sh</td>
-    <td>PUT-default-nquads-GET-response.nq</td>
-    <td>each statement (default and context) is added to its respective statement context.
-        </td>
-    </tr>
-<tr><td>POST-default-ntriples.sh</td>
-    <td>POST-default-ntriples-GET-response.nt</td>
-    <td>the default statement is added to the default graph.</td>
-    </tr>
-<tr><td>POST-direct-nquads.sh</td>
-    <td>PUT-direct-nquads-GET-response.nq</td>
-    <td>each statement (default and context) is added to its respective statement context.
-        </td>
-    </tr>
-<tr><td>POST-direct-ntriples.sh</td>
-    <td>POST-direct-triples-GET-response.nq</td>
-    <td>the default statement is added to the default graph.</td>
-    </tr>
-<tr><td>POST-graph-nquads.sh</td>
-    <td>POST-graph-nquads-GET-response.nq</td>
-    <td>each statement (default and context) is added to its respective statement context.
-        that is, <span style='color: red'>the default statement is not added to the protocol graph</span>.</td>
-    </tr>
-<tr><td>POST-graph-ntriples.sh</td>
-    <td>POST-graph-ntriples-GET-response.nq</td>
-    <td>the default statement is added to the named (indirectly specified) graph.</td>
+<tr><td>POST-ntriples+nquads-default.sh</td>
+    <td>Each statement is added to the default graph. Graph terms in content are suppressed.</td>
     </tr>
 
-<tr><td>PUT-default-nquads.sh</td>
-    <td>PUT-default-nquads-GET-response.nq</td>
-    <td>each statement (default and context) is added to its respective statement context.
-        </td>
-    </tr>
-<tr><td>PUT-default-nquads-as-ntriples</td>
-    <td>PUT-default-nquads-GET-response.nq</td>
-    <td>the default graph only is cleared, which means the extant named graph remains.
-        the default statement is added to the default (indirectly specified) graph.
-        the context statement is added to its respective graph.</td>
-    </tr>
-<tr><td>PUT-default-ntriples.sh</td>
-    <td>PUT.nt</td>
-    <td>the default graph only is cleared, which means the extant named graph remains.
-        the default statement is added to the default graph.</td>
+<tr><td>POST-ntriples+nquads-direct.sh</td>
+    <td>not supported</td>
     </tr>
 
-<tr><td>PUT-direct-json.sh</td>
-    <td>PUT.rj</td>
-    <td><span style="color: red">400: bad request</span></td>
-    </tr>
-<tr><td>PUT-direct-nquads.sh</td>
-    <td>PUT.nq</td>
-    <td>the repository is cleared.
-        each statement (default and context) is added to its respective statement context.</td>
-    </tr>
-<tr><td>PUT-direct-nquads-as-ntriples</td>
-    <td>PUT-graph-nquads-as-ntriples-GET-response.nq</td>
-    <td>the repository is cleared.
-        each statement (default and context) is added to its respective statement context</td>
-    </tr>
-<tr><td>PUT-direct-trig.sh</td>
-    <td>PUT.trig</td>
-    <td><span style="color: red">400: bad request</span></td>
-    </tr>
-<tr><td>PUT-direct-triples.sh</td>
-    <td>PUT.nt</td>
-    <td>the repository is cleared.
-        the default statement is added to the default graph.</td>
-    </tr>
-<tr><td>PUT-direct-trix.sh</td>
-    <td>PUT.trix</td>
-    <td><span style="color: red">400: bad request</span></td>
-    </tr>
-<tr><td>PUT-direct-turtle.sh</td>
-    <td>PUT.nt</td>
-    <td>the repository is cleared.
-        the default statement is added to the default graph.</td>
+<tr><td>POST-ntriples+nquads-graph.sh</td>
+    <td>Each statement is added to the target graph. Graph terms in content are supplanted.</td>
     </tr>
 
-<tr><td>PUT-graph-nquads.sh</td>
-    <td>PUT-graph-nquads-GET-response.nq</td>
-    <td>the named (indirectly specified) graph is cleared, which means the extant default and named graphs remain.
-        each statement (default and context) is added to its respective statement context.
-        that is, <span style='color: red'>the default statement is not added to the protocol graph</span>.</td>
+<tr><td>POST-ntriples+nquads.sh</td>
+    <td>When no protocol graph is specified, for declared triple media, each statement is added to
+        a new, generated, graph and for declared quad content, each statement is added to
+        its respective graph.</td>
     </tr>
-<tr><td>PUT-graph-triples.sh</td>
-    <td>PUT-graph-ntriples-GET-response.nq</td>
-    <td>the named (indirectly specified) graph is cleared, which means the extant default and named graphs remain.
-        the default statement is added to named (indirectly specified) graph.</td>
+
+<tr><td>PUT-ntriples+nquads-default.sh</td>
+    <td>The default graph is cleared.
+        Each statement is added to the default graph. Graph terms in content are suppressed.</td>
     </tr>
-<tr><td>PUT-graph=direct-nquads.sh</td>
-    <td>PUT.nq</td>
-    <td>the repository is cleared.
-        each statement (default and context) is added to its respective statement context</td>
+
+<tr><td>PUT-ntriples+nquads-direct.sh</td>
+    <td>not supported</td>
     </tr>
-<tr><td>PUT-graph-nquads-as-ntriples</td>
-    <td>PUT-graph-nquads-as-ntriples-GET-response.nq</td>
-    <td>the named (indirectly specified) graph is cleared, which means the extant default and named graphs remain.
-        all statements (default and context) go into the named (indirectly specified) graph.</td>
+
+<tr><td>PUT-ntriples+nquads-graph.sh</td>
+    <td>The protocol graph is cleared.
+        Each statement is added to the target graph. Graph terms in content are supplanted.</td>
     </tr>
+
+<tr><td>PUT-ntriples+nquads.sh</td>
+    <td>The entire repository is cleared.
+        Each statement is added to the target graph. Graph terms in content are supplanted.</td>
+    </tr>
+
 </table>
 
 ## SPARQL query protocol

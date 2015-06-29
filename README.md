@@ -6,13 +6,13 @@ This repository comprises tests for the DYDRA RDF cloud service:
 - The SPARQL query protocol,
 - The DYDRA account administration HTTP API
 - DYDRA extension tests for
--- language-specific collation
--- request meta-data
--- provenance
--- sort precedence
--- temporal operators
--- values request parameter
--- xpath operators
+ - language-specific collation
+ - request meta-data
+ - provenance
+ - sort precedence
+ - temporal operators
+ - values request parameter
+ - xpath operators
 
 [![Build Status](https://travis-ci.org/dydra/http-api-tests.svg?branch=master)](https://travis-ci.org/dydra/http-api-tests)
 
@@ -54,7 +54,7 @@ In order to execute scripts manually:
 
 For example
 
-    export STORE_URL="http://dydra.com"
+    export STORE_URL="https://dydra.com"
     export STORE_ACCOUNT="openrdf-sesame"
     export STORE_REPOSITORY="mem-rdf"
     export STORE_TOKEN="1234567890"
@@ -206,9 +206,39 @@ designate exactly that named graph in the store.
 
 The "SPARQL 1.1 Graph Store HTTP Protocol", is supported as per the W3C
 [recommendation](http://www.w3.org/TR/sparql11-http-rdf-update/), with the addition that,
+
+### Graph store request Content type
+
+A graph store request may include as content specify as its response any of the following RDF document encodings
+- application/n-triples
+- application/n-quads
+- application/turtle
+- application/rdf+xml
+
+Several forms are restricted
+
+- application/rdf+json : supported for responses only
+- application/trix : supported for responses only
+
+Several forms are no longer supported, as they have been supplanted by registered media types
+
+- text/ntriples
+- text/nquads
+
+The `multipart/form-data` request media type described in the graph store
+[protocol](http://www.w3.org/TR/2013/REC-sparql11-http-rdf-update-20130321/#graph-management)
+is not supported. Each request must comprise a single document.
+
+The `application/x-www-form-url-encoded` request type is supported for `GET` requests only, as described in the SPARQL
+protocol for [query](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/#query-via-post-urlencoded)
+ and [update](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/#update-via-post-urlencoded) operations. 
+
+
+
+### Graph Specification
 a request which omits a graph designator is understood to apply to the entire repository.
 For a repository on a Dydra host, the native request patterns comprise just the host authority, the
-user account and the repository name
+user account and the repository name, with the `service` path extension.
 
     <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>/service
 
@@ -220,23 +250,13 @@ and an indirect graph reference takes the form
 
     <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>/service?graph=<graph>
 
+
 ## Linked data designators
 
 In addition to the root repository graph, it is also possible to link directly to
 an arbitrary directly designated graph which extends beyon the root
 
     <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>/<FURTHER>/<PATH>/<STEPS>
-
-
-### Graph store content types
-
-The `multipart/form-data` request content type described in the graph store
-[protocol](http://www.w3.org/TR/2013/REC-sparql11-http-rdf-update-20130321/#graph-management)
-is not supported. Each request must target an individual graph.
-
-The `application/x-www-form-url-encoded` request type is supported for `GET` requests only, as described in the SPARQL
-protocol for [query](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/#query-via-post-urlencoded)
- and [update](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/#update-via-post-urlencoded) operations. 
 
 
 ## Triples, quads and named graphs in import requests

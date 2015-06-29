@@ -30,8 +30,8 @@ script:
   -  bash  ./run.sh extensions/sparql-protocol/xpath-operators
   -  bash  ./run.sh extensions/sparql-protocol/values
   -  bash  ./run.sh sparql-protocol
-#  -  bash  ./run.sh sparql-graph-store-http-protocol
-#  -  bash  ./run.sh extensions/sparql-protocol/meta-data
+  -  bash  ./run.sh sparql-graph-store-http-protocol
+  -  bash  ./run.sh extensions/sparql-protocol/meta-data
 
 notifications:
   email:

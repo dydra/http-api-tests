@@ -329,7 +329,7 @@ as a reflections of the expected store content.
 The combination features are indicated as
 
  - method : code><b>POST</b></code> <code><b>PUT</b></code>
- - protocolGraph : <i>none</>, direct, default, graph (indirect)
+ - protocolGraph : <i>none</i>, direct, default, graph (indirect)
  - contentType : n-triples, n-quads, rdf+xml, turtle, trix
 
 whereby, just the combinations for `PUT-ntriples+nquads` validate the full target graph complement and,

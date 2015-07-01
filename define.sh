@@ -19,7 +19,7 @@ export STORE_HOST=${STORE_HOST%:*}
 export STORE_SITE="dydra.com"           # the abstract site name
 export STORE_ACCOUNT="openrdf-sesame"
 export STORE_REPOSITORY="mem-rdf"
-export STORE_REPOSITORY_PUBLIC="public"
+export STORE_REPOSITORY_PUBLIC="${STORE_REPOSITORY}-public"
 export STORE_CLIENT_IP="127.0.0.1"
 export STORE_PREFIX="rdf"
 export STORE_DGRAPH="sesame"
@@ -288,7 +288,6 @@ function run_test() {
     echo $1 succeeded
   else
     echo $1 failed
-    initialize_repository > /dev/null
   fi
 }
 

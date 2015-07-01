@@ -93,6 +93,7 @@ EOF
 
 initialize_repository_configuration ;
 initialize_repository_content ;
+initialize_repository_public ;
 
 ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
      -u "${STORE_TOKEN}:" \

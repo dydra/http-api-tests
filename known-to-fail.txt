@@ -1,4 +1,6 @@
 # NYI & such
+extensions/sparql-protocol/values/inline-query-multiple.sh # NIY : multiple values arguments are still reduced to one
+
 http-communication-protocol-for-sesame/repositories/mem-ref/statements/GET-rj.sh # NYI
 http-communication-protocol-for-sesame/repositories/mem-ref/statements/GET-trix.sh # NYI
 http-communication-protocol-for-sesame/repositories/mem-ref/statements/POST-context=bnode-ntriples.sh  # support blank node graphs?

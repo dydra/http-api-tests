@@ -14,21 +14,27 @@ ex:subject2 ex:p4 "depth 1 by uri" .
 _:blank ex:p5 "depth 1 by blank node" . 
 EOF
 
-curl_sparql_request  --repository "${STORE_REPOSITORY}-write" <<EOF \
- | jq '.results.bindings[] | .[].value' \
- | fgrep "\"depth 0\"" \
- | fgrep "\"depth 1 by uri\"" | fgrep -q "\"depth 1 by blank node\""
+curl_sparql_request  \
+ --repository "${STORE_REPOSITORY}-write" \
+ -H "Accept: application/rdf+json" <<EOF \
+ jq '.[]|.[]|.[].value'  | tr -s '\n' '\t' \
+ | fgrep '"depth 0"' \
+ | fgrep '"depth 1 by uri"' | fgrep -q '"depth 1 by blank node"'
 
-PREFIX DescribeProperties: <urn:dydra:true> 
-DESCRIBE <http://example.com/subject>
+PREFIX describeProperties: <urn:dydra:true> 
+PREFIX describeSubjectDepth: <http://www.w3.org/1999/02/22-rdf-syntax-ns#_2>
+DESCRIBE <http://example.com/subject1>
 EOF
 
-curl_sparql_request  --repository "${STORE_REPOSITORY}-write" <<EOF \
- | jq '.results.bindings[] | .[].value' \
- | fgrep "\"depth 0\"" \
- | fgrep -v "\"depth 1 by uri\"" | fgrep -q "\"depth 1 by blank node\""
+curl_sparql_request \
+ --repository "${STORE_REPOSITORY}-write" \
+ -H "Accept: application/rdf+json" <<EOF \
+ jq '.[]|.[]|.[].value'  | tr -s '\n' '\t'  \
+ | fgrep '"depth 0"' \
+ | fgrep -v '"depth 1 by uri"' | fgrep -q '"depth 1 by blank node"'
 
-PREFIX DescribeProperties: <urn:dydra:false> 
-DESCRIBE <http://example.com/subject>
+PREFIX describeProperties: <urn:dydra:false> 
+PREFIX describeSubjectDepth: <http://www.w3.org/1999/02/22-rdf-syntax-ns#_2>
+DESCRIBE <http://example.com/subject1>
 EOF
 

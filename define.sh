@@ -61,6 +61,8 @@ if [[ "" == "${CURL}" ]]
 then
   export CURL="curl --ipv4"
 fi
+# export CURL="curl -v --ipv4"
+# export CURL="curl --ipv4 --trace-ascii /dev/tty"
 export ECHO_OUTPUT=/dev/null # /dev/tty # 
 
 # define operators to export sparql and graph store url variables of the appropriate pattern

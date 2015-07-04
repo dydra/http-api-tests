@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# test sort precedence for full complement of datatypes
+# test update with a values argument
 
 curl_sparql_request \
    "--data-urlencode" "update@/dev/fd/3" \

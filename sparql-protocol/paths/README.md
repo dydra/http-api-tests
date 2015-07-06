@@ -104,8 +104,8 @@ as combinations of
 
 <tr style="background-color: #f0f0f0">
     <td style="width: 24em; white-space: pre">graph ?g {?s :p1/:p2 ?o}</td>
-    <td>... a pattern within an abstract graph clause matches statements within each individual named graph,
-     but not amomg them.</td></tr>
+    <td>... a pattern outside of a graph clause matches statements
+        in and among all named graphs - and retains each respective graph in the solution.</td></tr>
 
 <tr style="background-color: #f0f0f0">
     <td style="width: 24em; white-space: pre; border-bottom: 1px solid black;">graph :g1 {?s :p1/:p2 ?o}</td>

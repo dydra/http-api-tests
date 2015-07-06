@@ -38,7 +38,7 @@ as combinations of
 <tr style=" background-color: #f0f0f0">
     <td style="border-bottom: 1px solid black; width: 24em; white-space: pre">graph :g1 {?s :p1/:p2 ?o}</td>
     <td style="border-bottom: 1px solid black; width: auto">
-        ... a pattern within given graph clause matches statements in the respective individual named graph
+        ... a pattern within a specific graph clause matches statements in the respective individual named graph
         in the default dataset only.</td></tr>
 
 
@@ -62,7 +62,8 @@ as combinations of
 
 <tr style="background-color: #f0f0f0">
     <td style="width: 24em; white-space: pre; border-bottom: 1px solid black;">graph :g1 {?s :p1/:p2 ?o}</td>
-    <td style="border-bottom: 1px solid black;">... a pattern in given graph clause matches no statement,
+    <td style="border-bottom: 1px solid black;">
+     ... a pattern within a specific graph clause matches no statement,
      as the concrete dataset has no named graphs.</td></tr>
 
 
@@ -81,7 +82,8 @@ as combinations of
     <td  style="border-top: 1px solid black; padding-top: 10px" colspan="3">paths-from-constant.sh</td></tr>
 
 <tr style="background-color: #f0f0f0;">
-    <td style=" border-bottom: 1px solid black;"><div>FROM &lt;urn:dydra:named&gt;</div></td>
+    <td style=" border-bottom: 1px solid black;"><div>FROM :g1</dIv><br />
+        <dIv>FROM :g2</div></td>
     <td colspan="2" style="border-bottom: 1px solid black;">A dataset definition
         which combines specific graphs into the default graph,
         has an effect analogous to &lt;urn:dydra:all&gt;, but includes just those specific graphs.</td></tr>
@@ -108,8 +110,8 @@ as combinations of
 <tr style="background-color: #f0f0f0">
     <td style="width: 24em; white-space: pre; border-bottom: 1px solid black;">graph :g1 {?s :p1/:p2 ?o}</td>
     <td style="border-bottom: 1px solid black;">
-        ... a pattern within given graph clause matches statements in the respective specific named graph
-        in the default dataset only.</td></tr>
+        ... a pattern within a specific graph clause matches statements in the respective specific named graph
+        only.</td></tr>
 
 
 <tr style="">
@@ -143,33 +145,10 @@ as combinations of
 
 <tr style="background-color: #f0f0f0">
     <td style="border-bottom: 1px solid black; width: 24em; white-space: pre">graph :g1 {?s :p1/:p2 ?o}</td>
-    <td style="border-bottom: 1px solid black;">... a pattern within constant graph clause matches statements
-        in that individual named graph only.</td></tr>
-
-
-<tr style="">
-    <td  style="border-top: 1px solid black; padding-top: 10px" colspan="3">paths-from-and from -named.sh</td></tr>
-
-<tr style="background-color: #f0f0f0">
-    <td style="border-bottom: 1px solid black;" rowspan="4">FROM :g1<br />
-        FROM :g2</td>
-    <td colspan="2">Given a dataset definition which combines specific graphs into the default,
-     but declares no named graphs ...</td></tr>
-
-<tr style="background-color: #f0f0f0">
-    <td style="width: 24em; white-space: pre">{?s :p1/:p2 ?o}</td>
-    <td>... a pattern outside of a graph clause matches statements
-        in and across those graphs only.</td></tr>
-
-<tr style="background-color: #f0f0f0">
-    <td style="width: 24em; white-space: pre">graph ?g {?s :p1/:p2 ?o}</td>
-    <td>... a pattern within a graph clause matches statements in individual named graphs
-        from the default dataset only.</td></tr>
-
-<tr style="background-color: #f0f0f0">
-    <td style="border-bottom: 1px solid black; width: 24em; white-space: pre">graph :g1 {?s :p1/:p2 ?o}</td>
-    <td style="border-bottom: 1px solid black;">... a pattern in constant graph clause matches statements
-        in that individual named graph only.</td></tr>
+    <td style="border-bottom: 1px solid black;">... a pattern within constant graph clause,
+        which is among those declared, matches statements
+        in that individual named graph only.
+        If the graph was not declared, it is not part of the dataset.</td></tr>
 
 </table>
 

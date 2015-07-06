@@ -7,7 +7,7 @@ dataset and query patterns:
 
 <table border="0" width="100%">
 <tr><th style="width: 16em">dataset definition</th>
-    <th style="width: 16em">patterns</th>
+    <th style="width: 24em">patterns</th>
     <th>behaviour</th></tr>
 
 
@@ -19,17 +19,17 @@ dataset and query patterns:
     <td colspan="2">Absent a dataset definition, ...</td></tr>
 
 <tr style="background-color: #f0f0f0">
-    <td style="width: 16em; white-space: pre">{?s :p1/:p2 ?o}</td>
+    <td style="width: 24em; white-space: pre">{?s :p1/:p2 ?o}</td>
     <td style="width: auto">... a pattern outside of a graph clause matches statements
         in the default graph only.</td></tr>
 
-<tr style=" background-color: #f0f0f0"><!-- <td style="width: 16em">none</td>-->
-    <td style="width: 16em; white-space: pre">graph ?g {?s :p1/:p2 ?o}</td>
+<tr style=" background-color: #f0f0f0">
+    <td style="width: 24em; white-space: pre">graph ?g {?s :p1/:p2 ?o}</td>
     <td style="width: auto">... a pattern in a graph clause matches statements
         in individual named graphs only.</td></tr>
 
-<tr style=" background-color: #f0f0f0"><!-- <td style="width: 16em">none</td>-->
-    <td style="border-bottom: 1px solid black; width: 16em; white-space: pre">graph :g1 {?s :p1/:p2 ?o}</td>
+<tr style=" background-color: #f0f0f0">
+    <td style="border-bottom: 1px solid black; width: 24em; white-space: pre">graph :g1 {?s :p1/:p2 ?o}</td>
     <td style="border-bottom: 1px solid black; width: auto">
         ... a pattern within given graph clause matches statements in individual named graphs
         from the default dataset only.</td></tr>
@@ -43,17 +43,17 @@ dataset and query patterns:
     <td colspan="2">Given a dataset definition which combines all graphs into the default, ...</td></tr>
 
 <tr style="background-color: #f0f0f0">
-    <td style="width: 16em; white-space: pre">{?s :p1/:p2 ?o}</td>
+    <td style="width: 24em; white-space: pre">{?s :p1/:p2 ?o}</td>
     <td>... a pattern outside of a graph clause matches statements
         in and across all graphs.</td></tr>
 
 <tr style="background-color: #f0f0f0">
-    <td style="width: 16em; white-space: pre">graph ?g {?s :p1/:p2 ?o}</td>
+    <td style="width: 24em; white-space: pre">graph ?g {?s :p1/:p2 ?o}</td>
     <td>... a pattern within a graph clause matches statements in individual named graphs
         from the default dataset only.</td></tr>
 
 <tr style="background-color: #f0f0f0">
-    <td style="width: 16em; white-space: pre; border-bottom: 1px solid black;">graph :g1 {?s :p1/:p2 ?o}</td>
+    <td style="width: 24em; white-space: pre; border-bottom: 1px solid black;">graph :g1 {?s :p1/:p2 ?o}</td>
     <td style="border-bottom: 1px solid black;">... a pattern in given graph clause matches statements
         in that individual named graph only.</td></tr>
 
@@ -77,17 +77,17 @@ dataset and query patterns:
     <td colspan="2">Given a dataset definition which combines specific graphs into the default, ...</td></tr>
 
 <tr style="background-color: #f0f0f0">
-    <td style="width: 16em; white-space: pre">{?s :p1/:p2 ?o}</td>
+    <td style="width: 24em; white-space: pre">{?s :p1/:p2 ?o}</td>
     <td>... a pattern outside of a graph clause matches statements
         in and across those graphs only.</td></tr>
 
 <tr style="background-color: #f0f0f0">
-    <td style="width: 16em; white-space: pre">graph ?g {?s :p1/:p2 ?o}</td>
+    <td style="width: 24em; white-space: pre">graph ?g {?s :p1/:p2 ?o}</td>
     <td>... a pattern within a graph clause matches statements in individual named graphs
         from the default dataset only.</td></tr>
 
 <tr style="background-color: #f0f0f0">
-    <td style="border-bottom: 1px solid black; width: 16em; white-space: pre">graph :g1 {?s :p1/:p2 ?o}</td>
+    <td style="border-bottom: 1px solid black; width: 24em; white-space: pre">graph :g1 {?s :p1/:p2 ?o}</td>
     <td style="border-bottom: 1px solid black;">... a pattern in constant graph clause matches statements
         in that individual named graph only.</td></tr>
 
@@ -101,17 +101,17 @@ dataset and query patterns:
     <td colspan="2">Given a dataset definition which limits the named graphs to a specific set, ...</td></tr>
 
 <tr style="background-color: #f0f0f0">
-    <td style="width: 16em; white-space: pre">{?s :p1/:p2 ?o}</td>
+    <td style="width: 24em; white-space: pre">{?s :p1/:p2 ?o}</td>
     <td >... a pattern outside of a graph clause matches nothing, as the default
         graph is empty.</td></tr>
 
 <tr style="background-color: #f0f0f0">
-    <td style="width: 16em; white-space: pre">graph ?g {?s :p1/:p2 ?o}</td>
+    <td style="width: 24em; white-space: pre">graph ?g {?s :p1/:p2 ?o}</td>
     <td >... a pattern within an abstract graph clause matches statements in individual named graphs
         from the named only.</td></tr>
 
 <tr style="background-color: #f0f0f0">
-    <td style="border-bottom: 1px solid black; width: 16em; white-space: pre">graph :g1 {?s :p1/:p2 ?o}</td>
+    <td style="border-bottom: 1px solid black; width: 24em; white-space: pre">graph :g1 {?s :p1/:p2 ?o}</td>
     <td style="border-bottom: 1px solid black;">... a pattern within constant graph clause matches statements
         in that individual named graph only.</td></tr>
 

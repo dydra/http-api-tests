@@ -18,12 +18,11 @@ curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep 'example' | wc -l | fgrep -q "0"
+   | jq '.results.bindings[] | .[].value' | fgrep -q '"0"'
 prefix    : <http://example.com/> 
-select ?o
+select (count (?o) as ?count)
 from named <urn:dydra:named>
 where {?s :p ?o}
-order by ?o
 EOF
 
 # should yield all present paths, as all graphs are in the datasset
@@ -31,7 +30,7 @@ curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep -q "3"
+   | jq '.results.bindings[] | .[].value' | fgrep -q '"3"'
 prefix : <http://example.com/>
 select (count (?o) as ?count)
 from named <urn:dydra:named>
@@ -62,7 +61,7 @@ curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep -q '2'
+   | jq '.results.bindings[] | .[].value' | fgrep -q '"2"'
 prefix    : <http://example.com/> 
 select (count (?s) as ?count)
 from named <urn:dydra:named>
@@ -82,7 +81,7 @@ curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep -q '2'
+   | jq '.results.bindings[] | .[].value' | fgrep -q '"2"'
 prefix    : <http://example.com/> 
 select (count (*) as ?count)
 from named <urn:dydra:named>

@@ -162,10 +162,9 @@ curl_sparql_request \
      -H "Accept: application/sparql-results+json" <<EOF \
    | jq '.results.bindings[] | .[].value' | fgrep -q '1'
 prefix    : <http://example.com/> 
-select ?s ?o
+select ?s (count(?s) as ?count)
 from <urn:dydra:all>
 where {?s :p/:p/:p/:p ?o}
-order by ?s ?o
 EOF
 
 curl_sparql_request \
@@ -174,10 +173,9 @@ curl_sparql_request \
      -H "Accept: application/sparql-results+json" <<EOF \
    | jq '.results.bindings[] | .[].value' | fgrep -q '0'
 prefix    : <http://example.com/> 
-select ?s ?o
+select ?s (count(?s) as ?count)
 from <urn:dydra:all>
 where {?s :p/:p/:p/:p/:p ?o}
-order by ?s ?o
 EOF
 
 

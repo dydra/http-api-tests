@@ -1,6 +1,7 @@
 #! /bin/bash
 
 initialize_repository --repository "${STORE_REPOSITORY}-write"
+# curl_graph_store_get --repository "${STORE_REPOSITORY}-write"
 
 
 curl_sparql_request \

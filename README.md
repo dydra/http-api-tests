@@ -328,7 +328,7 @@ and validates the content of a subsequent <code><b>GET</b></code>
 as a reflections of the expected store content.
 The combination features are indicated as
 
- - method : code><b>POST</b></code> <code><b>PUT</b></code>
+ - method : <code><b>POST</b></code> <code><b>PUT</b></code>
  - protocolGraph : <i>none</i>, direct, default, graph (indirect)
  - contentType : n-triples, n-quads, rdf+xml, turtle, trix
 

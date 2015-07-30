@@ -262,7 +262,7 @@ an arbitrary directly designated graph which extends beyon the root
     <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>/<FURTHER>/<PATH>/<STEPS>
 
 
-## Triples, quads and named graphs in import requests
+## Triples, quads and named graphs in graph store import and update requests
 
 The graph store management operations which involve an RDF payload - `PATCH`, `POST`, and `PUT`,
 permit a request to target a specific graph as described above, as well as to transfer graph content

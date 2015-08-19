@@ -1,5 +1,6 @@
 #! /bin/bash
 date
+initialize_repository
 bash  ./run.sh extensions/sparql-protocol/temporal-data
 bash  ./run.sh extensions/sparql-protocol/collation
 bash  ./run.sh extensions/sparql-protocol/provenance

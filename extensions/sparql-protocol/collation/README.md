@@ -17,8 +17,8 @@ SPOCQ chooses to augment the standard definitions with the following:
   applies to the = and < operators in general, not just in the context of a sort operation.
 
 This directory comprises tests which demonstrate this ordering.
-The target repository is the "collation" repository of the test account, in which, the tests expect to
-the content which is present here as "collation.ttl"
+The target repository is the "collation" repository of the test account.
+The tests expect it to contain the content which is present here as "collation.ttl"
 The repository combines statements about the location city for several nodes with an arbitrary numeric value.
 The scripts validate the results of queries which specify variaous order combinations agains the
 respective expected results.

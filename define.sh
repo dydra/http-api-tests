@@ -478,6 +478,14 @@ function initialize_repository_public () {
   initialize_repository_content --repository "${STORE_REPOSITORY_PUBLIC}"
 }
 
+# to setup for tests, this must be done once the repositories have been created
+function initialize_all_repositories () {
+  curl_graph_store_update -X PUT --repository collation \
+  -H "Content-Type: text/turtle" \
+  --data-binary @extensions/sparql-protocol/collation/collation.ttl
+
+  initialize_repository
+}
 
 function curl_download () {
   ${CURL} -f -s -S -X GET \
@@ -516,6 +524,7 @@ export -f test_unsupported_media
 export -f clear_repository_content
 export -f initialize_account
 export -f initialize_repository
+export -f initialize_all_repositories
 export -f initialize_repository_configuration
 export -f initialize_repository_content
 export -f initialize_repository_public

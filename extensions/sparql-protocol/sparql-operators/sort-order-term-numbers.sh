@@ -2,6 +2,8 @@
 
 # test sort order for ascending/descending options for commensurable types
 # this exercises the path which interns the values and sorts the internal identifiers
+#
+# no tests are present for gregprian values as those have no order.
 
 curl_sparql_request <<EOF  \
  | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
@@ -31,7 +33,7 @@ order by desc(?value)
 EOF
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
+  | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
@@ -229,7 +231,7 @@ curl_sparql_request <<EOF  \
 select ?ordinal ?value
 where {
   values (?ordinal ?value) {
-    ( 1 '-2014-01-02T10:11:12Z'^^<http://www.w3.org/2001/XMLSchema#dateTime> )
+    ( 1 '-2014-01-01T10:11:12Z'^^<http://www.w3.org/2001/XMLSchema#dateTime> )
     ( 3 '2014-01-02T10:11:12Z'^^<http://www.w3.org/2001/XMLSchema#dateTime> )
     ( 2 '2013-01-02T10:11:12Z'^^<http://www.w3.org/2001/XMLSchema#dateTime> )
   }
@@ -302,34 +304,6 @@ where {
     ( 1 '10:11:12'^^<http://www.w3.org/2001/XMLSchema#time> )
     ( 3 '12:11:12'^^<http://www.w3.org/2001/XMLSchema#time> )
     ( 2 '11:11:12'^^<http://www.w3.org/2001/XMLSchema#time> )
-  }
-}
-order by desc(?value)
-EOF
-
-
-curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"1"."2"."3"' 
-select ?ordinal ?value
-where {
-  values (?ordinal ?value) {
-    ( 1 '2011'^^<http://www.w3.org/2001/XMLSchema#gYear> )
-    ( 3 '2013'^^<http://www.w3.org/2001/XMLSchema#gYear> )
-    ( 2 '2012'^^<http://www.w3.org/2001/XMLSchema#gYear> )
-  }
-}
-order by ?value
-EOF
-
-
-curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .ordinal.value' | tr '\n' '.' | fgrep -q '"3"."2"."1"' 
-select ?ordinal ?value
-where {
-  values (?ordinal ?value) {
-    ( 1 '2011'^^<http://www.w3.org/2001/XMLSchema#gYear> )
-    ( 3 '2013'^^<http://www.w3.org/2001/XMLSchema#gYear> )
-    ( 2 '2012'^^<http://www.w3.org/2001/XMLSchema#gYear> )
   }
 }
 order by desc(?value)

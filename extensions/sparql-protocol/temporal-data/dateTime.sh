@@ -13,7 +13,7 @@ select (((year(?dateTime) = 2014) &&
          (day(?dateTime) = 31) &&
          (hours(?dateTime) = 23) &&
          (minutes(?dateTime) = 59) &&
-         (seconds(?dateTime) = 58) &&
+         (seconds(?dateTime) = 58.123) &&
          (TZ(?dateTime) = 'Z') &&
          (fn:year-from-dateTime(?dateTime) = 2014) &&
          (fn:month-from-dateTime(?dateTime) = 12) &&
@@ -26,6 +26,6 @@ select (((year(?dateTime) = 2014) &&
          (datatype(fn:timezone-from-dateTime(?dateTime)) = xsd:dayTimeDuration))
         as ?ok)
 where {
- bind(xsd:dateTime('2014-12-31T23:59:58Z') as ?dateTime) .
+ bind(xsd:dateTime('2014-12-31T23:59:58.123Z') as ?dateTime) .
  }
 EOF

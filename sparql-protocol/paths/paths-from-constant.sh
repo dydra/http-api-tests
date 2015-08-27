@@ -108,6 +108,18 @@ from :g2
 where {?s :p/:p ?o}
 EOF
 
+curl_sparql_request \
+     --repository "${STORE_REPOSITORY}-write" \
+     -H "Content-Type: application/sparql-query" \
+     -H "Accept: application/sparql-results+json" <<EOF \
+   | jq '.results.bindings[] | .[].value' | fgrep -q '1'
+prefix    : <http://example.com/> 
+select (count (?s) as ?count)
+from :g1
+from :g2
+where {?s :p ?x . ?x :p ?o}
+EOF
+
 
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \

@@ -77,11 +77,12 @@ where {
 EOF
 
 
+# no such path among the two graphs given "from named"
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep -q '"2"'
+   | jq '.results.bindings[] | .[].value' | fgrep -q '"0"'
 prefix    : <http://example.com/> 
 select (count (*) as ?count)
 from named <urn:dydra:named>
@@ -94,13 +95,31 @@ where {
 }
 EOF
 
-
-# possible sequence paths
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep -q '2'
+   | jq '.results.bindings[] | .[].value' | fgrep -q '"0"'
+prefix    : <http://example.com/> 
+select (count (*) as ?count)
+from named <urn:dydra:named>
+where { 
+ graph ?g { 
+  { <http://example.com/s2> :p ?x . ?x :p ?o . }
+  union
+  { ?s :p ?y . ?y :p <http://example.com/s4> . }
+ }
+}
+EOF
+
+
+
+# no such path among the named graphs given "from named"
+curl_sparql_request \
+     --repository "${STORE_REPOSITORY}-write" \
+     -H "Content-Type: application/sparql-query" \
+     -H "Accept: application/sparql-results+json" <<EOF \
+   | jq '.results.bindings[] | .[].value' | fgrep -q '0'
 prefix    : <http://example.com/> 
 select (count (?s) as ?count)
 from named <urn:dydra:named>
@@ -111,7 +130,18 @@ curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep -q '1'
+   | jq '.results.bindings[] | .[].value' | fgrep -q '0'
+prefix    : <http://example.com/> 
+select (count (?s) as ?count)
+from named <urn:dydra:named>
+where { graph ?g {?s :p ?x . ?x :p ?o} }
+EOF
+
+curl_sparql_request \
+     --repository "${STORE_REPOSITORY}-write" \
+     -H "Content-Type: application/sparql-query" \
+     -H "Accept: application/sparql-results+json" <<EOF \
+   | jq '.results.bindings[] | .[].value' | fgrep -q '0'
 prefix    : <http://example.com/> 
 select (count (?s) as ?count)
 from named <urn:dydra:named>

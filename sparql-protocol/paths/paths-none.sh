@@ -79,7 +79,7 @@ curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep -q '"2"'
+   | jq '.results.bindings[] | .[].value' | fgrep -q '"0"'
 prefix    : <http://example.com/> 
 select (count (*) as ?count)
 where { 
@@ -92,12 +92,12 @@ where {
 EOF
 
 
-# possible sequence paths
+# no such path among the named graphs given "from named"
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep -q '"2"'
+   | jq '.results.bindings[] | .[].value' | fgrep -q '"0"'
 prefix    : <http://example.com/> 
 select (count (?s) as ?count)
 where { graph ?g {?s :p/:p ?o} }
@@ -107,7 +107,7 @@ curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep -q '"1"'
+   | jq '.results.bindings[] | .[].value' | fgrep -q '"0"'
 prefix    : <http://example.com/> 
 select (count (?s) as ?count)
 where { graph ?g { ?s :p/:p/:p ?o} }

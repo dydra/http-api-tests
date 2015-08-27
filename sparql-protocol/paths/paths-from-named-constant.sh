@@ -1,4 +1,5 @@
 #! /bin/bash
+
 # test path queries which specify constant named graphs
 # see the paths README
 
@@ -11,6 +12,7 @@ curl_graph_store_update -X PUT \
 <http://example.com/s4> <http://example.com/p> <http://example.com/s5> <http://example.com/g3> .
 EOF
 
+# curl_graph_store_get --repository "${STORE_REPOSITORY}-write"
 
 # simple enumeration of all statements merged into the default graph
 # should yield no result, as no named graph is in the dataset
@@ -81,12 +83,12 @@ where {
 }
 EOF
 
-
+# no such path within the two graphs given "from named"
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep -q '2'
+   | jq '.results.bindings[] | .[].value' | fgrep -q '0'
 prefix    : <http://example.com/> 
 select (count (*) as ?count)
 from named :g1
@@ -101,12 +103,12 @@ where {
 EOF
 
 
-# possible sequence paths
+# no such path among the two graphs given "from named"
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep -q '1'
+   | jq '.results.bindings[] | .[].value' | fgrep -q '0'
 prefix    : <http://example.com/> 
 select (count (?s) as ?count)
 from named :g1
@@ -114,7 +116,7 @@ from named :g2
 where { graph ?g {?s :p/:p ?o} }
 EOF
 
-# no such path within the two graphs
+# no such path among the two graphs given "from named"
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \

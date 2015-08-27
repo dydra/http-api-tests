@@ -93,7 +93,7 @@ as combinations of
     <td  style="border-top: 1px solid black; padding-top: 10px" colspan="3">paths-from-named-named.sh</td></tr>
 
 <tr style="background-color: #f0f0f0">
-    <td rowspan="4" style="border-bottom: 1px solid black;">FROM &lt;urn:dydra:named&gt;</td>
+    <td rowspan="4" style="border-bottom: 1px solid black;">FROM NAMED &lt;urn:dydra:named&gt;</td>
     <td colspan="2">Given a dataset definition which permits all graphs as named graphs,
       but declares no default graphs, ...</td></tr>
 
@@ -104,13 +104,16 @@ as combinations of
 
 <tr style="background-color: #f0f0f0">
     <td style="width: 24em; white-space: pre">graph ?g {?s :p1/:p2 ?o}</td>
-    <td>... a path outside of a graph clause matches statements
-        in and among all named graphs - and retains each respective graph in the solution.</td></tr>
+    <td>... a path inside of a variable graph clause matches statements
+        in and among all named graphs - and _retains_ each respective graph in the solution.
+        as a consequence of this,
+        "... evaluation is carried out by matching the active graph at that point in the overall query evaluation,"[3]
+        and the paths do not cross among graphs:</td></tr>
 
 <tr style="background-color: #f0f0f0">
     <td style="width: 24em; white-space: pre; border-bottom: 1px solid black;">graph :g1 {?s :p1/:p2 ?o}</td>
     <td style="border-bottom: 1px solid black;">
-        ... a path within a specific graph clause matches statements in the respective specific named graph
+        ... a path within a constant graph clause matches statements in the respective specific named graph
         only.</td></tr>
 
 
@@ -155,3 +158,4 @@ as combinations of
 ---
 1: http://www.w3.org/TR/2013/REC-sparql11-query-20130321/#rdfDataset   
 2: http://www.w3.org/TR/2013/REC-sparql11-query-20130321/#sparqlDataset   
+3: http://www.w3.org/TR/2013/REC-sparql11-query-20130321/#PropertyPathPatterns

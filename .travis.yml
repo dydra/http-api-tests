@@ -34,6 +34,7 @@ script:
   -  bash  ./run.sh extensions/sparql-protocol/meta-data
   -  bash  ./run.sh extensions/sparql-protocol/sparql-operators
   -  bash  ./run.sh extensions/sparql-protocol/describe
+  -  bash  ./run.sh extensions/sparql-protocol/revisions
 
 notifications:
   email:

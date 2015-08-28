@@ -14,7 +14,7 @@
 curl_sparql_request \
    -H "Accept: application/sparql-results+json" \
    -H "Content-Type: application/x-www-form-urlencoded" \
-   "--data-urlencode" "query@/dev/fd/3" "script@/dev/fd/4" \
+   "--data-urlencode" "sparql@/dev/fd/3" "query@/dev/fd/4" \
    3<<EOF3 4<<EOF4 \
  | jq '.results.bindings[] | .[].value' | fgrep -q "BSS84"
 INSERT DATA {
@@ -27,14 +27,12 @@ EOF3
 [ a :Update ;
   :name 'Update under Constraint';
   :steps  ( [ a :Decode ;
-              :location _:requestContent ;
-              :media-type _:requestContentType  ]
+              :location _:sparql ;
+              :media-type "application/sparql-query" ]
             [ a :Bind ;
               :dataset [ a :Dataset ;
                           :location _:requestRepository ] ]
-            [ a :Project ;
-              :method [ a :GraphMatcher ;
-                         :method <urn:dydra:RIFCore> ] ]
+            [ a :Project ]
             [ a :Constrain ;
               :dataset [ a :Dataset ;
                          :location _:requestRepository ; ] ;

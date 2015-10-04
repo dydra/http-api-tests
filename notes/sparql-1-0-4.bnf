@@ -1,0 +1,267 @@
+// this grammar evolved from the 1.0 grammar [http://www.w3.org/TR/rdf-sparql-query/] thorugh versions
+// which added aggregation expressions and select bindings (1.0.1), groups and related forms (1.0.2),
+// property paths (1.0.3), and finally all forms but service (1.0.4).
+//
+// the productions are modified for several circumstances
+// - to introduce sub-productions in order to group grouped terms
+// - to introduce productions for terminals which would otherwise not appear in results
+// - to add explicit ( ) grouping
+// - to add extensions
+//   - for construct
+//   - for count
+//   - for a less redundant path bnf
+
+[[1]] Sparql ::= Prologue * ( Query | Update )
+[[2]] Query ::=  ( SelectQuery | ConstructQuery | DescribeQuery | AskQuery ) FieldClause?
+[[4]] Prologue ::= ( BaseDecl | PrefixDecl | Pragma )
+[[5]] BaseDecl ::= 'BASE' IRIref   // permit a prefixed name
+[[6]] PrefixDecl ::= 'PREFIX' PNAME_NS NAMESPACE_REF
+[[6a]] Pragma        ::= 'PRAGMA' VARNAME PragmaArgList
+[[6b]] PragmaArgList ::= NILLIST | ( '(' PragmaArg ( ',' PragmaArg )* ')' ) 
+[[6c]] PragmaArg     ::= Expression | VARNAME
+// [[6a]] Pragma ::= 'PRAGMA' (BaseDecl | PrefixDecl | DatasetClause | RepositoryDecl | APIKeyDecl | EntailmentDecl )
+// [[6b]] APIKeyDecl ::= 'API-KEY' String
+// [[6c]] RepositoryDecl ::= 'REPOSITORY' String
+// [[6d]] EntailmentDecl ::= 'RULES' IRI_REF
+[[7]] SelectQuery ::= SelectClause  DatasetClause* WhereClause SolutionModifier 
+[[8]] SubSelect             ::= SelectClause WhereClause SolutionModifier FieldClause?
+[[9]] SelectClause ::= 'SELECT' Distinctness? ( ( VariableOrBindingOrAggregate )+ | Wild )
+[[9a]] Distinctness ::= 'DISTINCT' | 'REDUCED'
+// VariableOrBinding is extended to permit simple aggregates
+[[9b]] VariableOrBindingOrAggregate  ::=  Var | ( '(' Expression 'AS' Var ')' ) | Aggregate
+[[9c]] Wild  ::=  '*'
+// ConstructQuery is modified to permit a triples template
+[[10]] ConstructQuery ::= 'CONSTRUCT' ( ( (ConstructTemplate | Wild | Var+) DatasetClause* WhereClause SolutionModifier ) |
+                                        ( DatasetClause* 'WHERE' '{' TriplesTemplate? '}' SolutionModifier ) )
+[[11]] DescribeQuery ::= 'DESCRIBE' ( VarOrIRIref+ | '*' ) DatasetClause* WhereClause? SolutionModifier
+[[12]] AskQuery ::= 'ASK' DatasetClause* WhereClause SolutionModifier
+[[13]] DatasetClause ::= 'FROM' ( DefaultGraphClause | NamedGraphClause )
+[[14]] DefaultGraphClause ::= SourceSelector
+[[15]] NamedGraphClause ::= 'NAMED' SourceSelector
+[[16]] SourceSelector ::= IRIref | GraphRefKeyword
+[[17]] WhereClause ::= 'WHERE'? GroupGraphPattern
+[[18]] SolutionModifier ::= GroupClause? HavingClause? OrderClause? LimitOffsetClauses?
+[[19]] GroupClause                   ::= 'GROUP' 'BY' GroupCondition+
+[[20]] GroupCondition                ::= BuiltInCall | FunctionCall | VariableOrBindingOrExpression
+[[20a]] VariableOrBindingOrExpression ::= ( '(' Expression ( 'AS' Var )? ')' ) | Var
+[[21]] HavingClause                  ::= 'HAVING' HavingCondition+
+[[22]] HavingCondition               ::= Constraint
+[[23]] OrderClause ::= 'ORDER' 'BY' OrderCondition+
+[[24]] OrderCondition ::= ( OrderDirection BrackettedExpression ) | Constraint | Var
+[[24a]] OrderDirection ::= 'ASC' | 'DESC'
+[[25]] LimitOffsetClauses ::= ( ( LimitClause OffsetClause?) | (OffsetClause LimitClause?) )
+[[26]] LimitClause ::= 'LIMIT' INTEGER
+[[27]] OffsetClause ::= 'OFFSET' INTEGER
+[[28pre]] FieldClause ::= BindingsClause | ValuesClause
+[[28]] BindingsClause ::= 'BINDINGS' Var* '{' BindingList* '}'
+[[28a]] BindingList ::= '(' BindingValue* ')'
+[[29]] BindingValue ::= IRIref | RDFLiteral | NumericLiteral | BooleanLiteral | Undef
+[[29b]] Undef ::= 'UNDEF'
+[[28x]] ValuesClause ::= 'VALUES' ValuesData
+[[28y]] ValuesData   ::= ( '(' VarList ')' '{' BindingList* '}' ) | ( Var '{' BindingValue* '}' )
+[[28z]] VarList      ::= Var*
+[[30]]  Update       ::= Update1 ( ';' Update? )?
+[[31]]  Update1      ::= Load | Clear | Drop | Add | Move | Copy | Create | InsertData | DeleteData | DeleteWhere | Modify
+[[32]]  Load         ::= 'LOAD' Silence? IRIref ( 'INTO' GraphRef )?
+[[33]]  Clear        ::= 'CLEAR' Silence? GraphRefAll
+[[33a]]  Silence  ::= 'SILENT'
+[[34]]  Drop         ::= 'DROP' Silence? GraphRefAll
+[[35]]  Create       ::= 'CREATE' Silence? GraphRef
+[[36]]  Add          ::= 'ADD' Silence? GraphOrDefault 'TO' GraphOrDefault
+[[37]]  Move         ::= 'MOVE' Silence? GraphOrDefault 'TO' GraphOrDefault
+[[38]]  Copy         ::= 'COPY' Silence? GraphOrDefault 'TO' GraphOrDefault
+[[39]]  InsertData   ::=   'INSERT' 'DATA' QuadData
+[[40]]  DeleteData   ::=   'DELETE' 'DATA' QuadData
+[[41]]  DeleteWhere   ::=   'DELETE' 'WHERE' QuadPattern
+[[42]]  Modify   ::=   ( 'WITH' IRIref )? ( ( DeleteClause InsertClause? ) | InsertClause ) UsingClause* 'WHERE' GroupGraphPattern
+[[43]]  DeleteClause   ::=   'DELETE' QuadPattern
+[[44]]  InsertClause   ::=   'INSERT' QuadPattern
+[[45]]  UsingClause   ::=   'USING' ( IRIref | NamedIRIref )
+[[45a]]  NamedIRIref ::= 'NAMED' IRIref
+[[46]]  GraphOrDefault ::= 'DEFAULT' | ('GRAPH'? IRIref)
+[[47]]  GraphRef   ::=   'GRAPH' IRIref
+[[48]]  GraphRefAll   ::=   GraphRef | GraphRefKeyword
+[[48a]]  GraphRefKeyword  ::=  'DEFAULT' | 'NAMED' | 'ALL'
+
+//[[49]]  QuadPattern   ::=   '{' Quads '}'
+//[[50]]  QuadData   ::=   '{' Quads '}'
+// [[51]]  Quads   ::=   TriplesTemplate? RestQuads*
+//[[51a]]  RestQuads ::= QuadsNotTriples '.'? TriplesTemplate?
+//[[52]]  QuadsNotTriples   ::=   'GRAPH' VarOrIRIref '{' TriplesTemplate? '}'
+//[[53]]  TriplesTemplate   ::=   TriplesSameSubject TriplesTemplateRest* '.'?
+//[[53a]] TriplesTemplateRest ::= '.' TriplesSameSubject
+
+[[49]]  QuadPattern   ::=   '{' Quads? '}'
+[[50]]  QuadData   ::=   '{' Quads? '}'
+[[51]]  Quads   ::=   TriplesOrQuads Quads?
+[[51a]] TriplesOrQuads ::= TriplesTemplate | (QuadsNotTriples '.'?)
+[[52]]  QuadsNotTriples   ::=   'GRAPH' VarOrIRIref '{' TriplesTemplate? '}'
+[[53]]  TriplesTemplate   ::=   TriplesSameSubject ( '.' TriplesTemplate)? '.'?
+
+
+[[54]] GroupGraphPattern     ::= '{' ( SubSelect | GroupGraphPatternSub ) '}'
+[[55]] GroupGraphPatternSub  ::= TriplesBlock? GroupGraphPatternRest*
+// [[55a]] GroupGraphPatternRest ::= ( GraphPatternNotTriples | Filter | Bind ) '.'? TriplesBlock?
+// AD/AH/1 : 
+[[55a]] GroupGraphPatternRest ::= ( GraphPatternNotTriples | Filter | Bind | FieldClause) '.'? TriplesBlock?
+[[56]] TriplesBlock ::= TriplesSameSubject TriplesBlockRest* '.'?
+[[56a]] TriplesBlockRest ::= '.' TriplesSameSubject
+[[57]] GraphPatternNotTriples ::= OptionalGraphPattern | GroupOrUnionGraphPattern | MinusGraphPattern | GraphGraphPattern |
+                                  ServiceGraphPattern
+[[58]] OptionalGraphPattern ::= 'OPTIONAL' GroupGraphPattern
+[[59]] GraphGraphPattern ::= 'GRAPH' VarOrIRIref GroupGraphPattern
+[[60]] ServiceGraphPattern	  ::=  	'SERVICE' Silence? VarOrIRIref GroupGraphPattern
+[[61]] Bind                  ::= 'BIND' '(' ( ( Lambda 'AS' IRI ) | ( Expression 'AS' Var ) ) ')'
+// [[61]] Bind                  ::= 'BIND' '(' ( ( Lambda 'AS' IRI ) | ( Expression 'AS' Var ) ) ')'
+[[61a]] Lambda             ::=   '(' 'LAMBDA' '(' Var* ')' Expression* ')'
+[[62]] MinusGraphPattern   ::=   'MINUS' GroupGraphPattern // 1.1
+[[63]] GroupOrUnionGraphPattern ::= GroupGraphPattern ( 'UNION' GroupGraphPattern )*
+[[64]] Filter ::= 'FILTER' Constraint
+[[65]] Constraint ::= BrackettedExpression | BuiltInCall | FunctionCall
+[[66]] FunctionCall ::= IRIref ArgList
+[[67]] ArgList        ::= NILLIST | ( '(' Expression ( ',' Expression )* ')' )  // will get distinct
+[[68]] ExpressionList ::= NILLIST | ( '(' Expression ( ',' Expression )* ')' )
+[[69]] ConstructTemplate ::= '{' ConstructTriples? '}'
+[[70]] ConstructTriples ::= TriplesSameSubject ( '.' ConstructTriples? )?
+[[71]] TriplesSameSubject ::= ( VarOrTerm PropertyListNotEmpty ) | ( TriplesNode PropertyList )
+[[72]] PropertyListNotEmpty ::= VerbObjectList ( ';' VerbObjectList? )* 
+[[72a]] VerbObjectList ::= Verb ObjectList
+[[73]] PropertyList ::= PropertyListNotEmpty?
+[[74]] ObjectList ::= Object ( ',' Object )*
+[[75]] Object ::= GraphNode
+// property paths, based on an earlier bnf
+[[76]] Verb ::=  VarOrIRIref | Path | 'a' | ConstrainedBlankNode
+[[76a]] ConstrainedBlankNode ::= BlankNode
+// 77 -- 81 are handled by the effect of the change to 76
+// [77]  	TriplesSameSubjectPath	  ::=  	VarOrTerm PropertyListNotEmptyPath |	TriplesNode PropertyListPath
+// [78]  	PropertyListNotEmptyPath	  ::=  	( VerbPath | VerbSimple ) ObjectList ( ';' ( ( VerbPath | VerbSimple ) ObjectList )? )*
+// [79]  	PropertyListPath	  ::=  	PropertyListNotEmpty?
+// [80]  	VerbPath	  ::=  	Path
+// [81]  	VerbSimple	  ::=  	Var
+[[82]] Path	  ::=  	PathAlternative
+[[83]] PathAlternative	  ::=  	PathSequence ( '|' PathSequence )*
+[[84]] PathSequence	  ::=  	PathEltOrInverse ( '/' PathEltOrInverse )*
+[[85]] PathElt	  ::=  	PathPrimary PathMod?
+[[86]] PathEltOrInverse	  ::=  	PathElt | ( '^' InvertedPathElt )
+[[86a]] InvertedPathElt ::= PathElt
+[[87]] PathMod	  ::=  	PathCardinality | PathRange
+[[87a]] PathCardinality ::= '*' | '?' | '+'
+[[87b]] PathRange ::=  '{' ( ( PathRangeStart ',' ) |
+                             ( PathRangeStart ',' PathRangeEnd ) |
+                             ( ',' PathRangeEnd ) |
+                             PathRangeCount ) '}'
+[[87c]] PathRangeStart ::= INTEGER
+[[87d]] PathRangeEnd ::= INTEGER
+[[87e]] PathRangeCount ::= INTEGER
+[[88]] PathPrimary	  ::=  	 PathVerb | ( '!' PathNegatedPropertySet )  | ( '(' Path ')' )
+[[88a]] PathVerb ::= IRIref | 'a'
+[[89]] PathNegatedPropertySet	  ::=  	PathOneInPropertySet | ( '(' ( PathOneInPropertySet ( '|' PathOneInPropertySet )* )? ')' )
+[[90]] PathOneInPropertySet	  ::=  	PathVerb | ( PathInvertOp PathVerb )
+[[90a]] PathInvertOp ::= '^'
+// [91] Integer	  ::=  	INTEGER
+[[92]] TriplesNode ::= Collection | BlankNodePropertyList
+[[93]] BlankNodePropertyList ::= '[' PropertyListNotEmpty ']'
+[[94]] Collection ::= '(' GraphNode+ ( '.' DottedNode )? ')'
+[[95]] GraphNode ::= VarOrTerm | TriplesNode
+[[95a]] DottedNode ::= GraphNode
+[[96]] VarOrTerm ::= Var | GraphTerm
+[[97]] VarOrIRIref ::= Var | IRIref
+// [98] Var ::= VAR1 | VAR2
+[[99]] GraphTerm ::= IRIref | RDFLiteral | NumericLiteral | BooleanLiteral | BlankNode | NILLIST
+[[100]] Expression ::= ConditionalOrExpression
+[[101]] ConditionalOrExpression ::= ConditionalAndExpression ( '||' ConditionalAndExpression )*
+[[102]] ConditionalAndExpression ::= ValueLogical ( '&&' ValueLogical )*
+[[103]] ValueLogical ::= RelationalExpression
+[[104]] RelationalExpression ::= NumericExpression RelatedNumeric ?
+[[104a]] RelationalOperator ::= '=' | '!=' | '<' | '>' | '<=' | '>=' 
+[[104b]] RelatedNumeric ::= (RelationalOperator NumericExpression) | (MemberOperator ExpressionList)
+[[104c]] MemberOperator ::= 'IN' | NotIn
+[[104d]] NotIn ::= 'NOT' 'IN'
+[[105]] NumericExpression ::= AdditiveExpression
+[[106]] AdditiveExpression ::= MultiplicativeExpression AddedMultiplicative*
+[[106a]] AdditiveOperator ::= '+' | '-'
+[[106b]] AddedMultiplicative ::= ( AdditiveOperator MultiplicativeExpression ) | NumericLiteralPositive | NumericLiteralNegative
+[[107]] MultiplicativeExpression ::= UnaryExpression MultipliedUnary*
+[[107a]] MultiplicativeOperator ::= '*' | '/'
+[[107b]] MultipliedUnary ::= MultiplicativeOperator UnaryExpression
+[[108]] UnaryExpression ::= ( UnaryOperator PrimaryExpression ) | PrimaryExpression
+[[108a]] UnaryOperator ::= '!' | '+' | '-'
+[[109]] PrimaryExpression ::= BrackettedExpression | BuiltInCall | IRIrefOrFunction | RDFLiteral | NumericLiteral | BooleanLiteral | Var  | Aggregate
+[[110]] BrackettedExpression ::= '(' Expression ')'
+[[111]] BuiltInCall ::= BuiltinNullCall | BuiltinNullOrUnaryCall | BuiltinBinaryCall | BuiltinUnaryCall | BuiltinListCall |
+         RegexExpression | ReplaceExpression | IfExpression | SubstringExpression | ExistsFunc | NotExistsFunc
+[[111a]] BuiltinNullCall ::= NullOperator '(' ')'
+[[111b]] NullOperator ::= 'RAND' | 'NOW' | 'UUID' | 'STRUUID'
+[[111c]] BuiltinNullOrUnaryCall ::= NullOrUnaryOperator '(' Expression? ')'
+[[111d]] NullOrUnaryOperator ::= 'BNODE'
+[[111e]] BuiltinUnaryCall ::= BuiltinUnaryOperator '(' Expression ')'
+[[111f]] BuiltinUnaryOperator ::= 'STR' | 'LANG' | 'DATATYPE' | 'BOUND' | 'IRI' | 'URI' | 'ABS' | 'CEIL' | 'FLOOR' | 'ROUND' |
+         'STRLEN' | 'UCASE' | 'LCASE' | 'ENCODE_FOR_URI' | 
+         'YEAR' | 'MONTH' | 'DAY' | 'HOURS' | 'MINUTES' | 'SECONDS' | 'TIMEZONE' | 'TZ' |
+         'MD5' | 'SHA1' | 'SHA224' | 'SHA256' | 'SHA384' | 'SHA512' |
+         'isIRI' | 'isURI' | 'isBlank' | 'isLiteral' | 'isNumeric'
+[[111g]] BuiltinBinaryCall ::= BuiltinBinaryOperator '(' Expression ',' Expression ')'
+[[111h]] BuiltinBinaryOperator ::= 'LANGMATCHES' | 'CONTAINS' |
+         'STRSTARTS' | 'STRENDS' | 'STRBEFORE' | 'STRAFTER' | 'STRLANG' | 'STRDT' |
+         'sameTerm'
+[[111i]] IfExpression ::= 'IF' '(' Expression ',' Expression ',' Expression ')'
+[[111j]] BuiltinListCall ::= BuiltinListOperator ExpressionList
+[[111k]] BuiltinListOperator ::= 'CONCAT' | 'COALESCE'
+[[112]] RegexExpression ::= 'REGEX' '(' Expression ',' Expression ( ',' Expression )? ')'
+[[113]] ReplaceExpression ::= 'REPLACE' '(' Expression ',' Expression ',' Expression ( ',' Expression )? ')'
+[[113]] SubstringExpression ::= 'SUBSTR' '(' Expression ',' Expression ( ',' Expression )? ')'
+[[114]] ExistsFunc ::= 'EXISTS' GroupGraphPattern
+[[115]] NotExistsFunc ::= 'NOT' 'EXISTS' GroupGraphPattern
+[[116]]  Aggregate   ::=  CountAggregate | ArithmeticAggregate | ConcatAggregate
+[[116a]]  CountAggregate ::= 'COUNT' '(' Distinctness? ( Wild | Expression ) ')'
+[[116b]]  ArithmeticAggregate ::= ArithmeticAggregateOperator '(' Distinctness? Expression ')'
+[[116c]]  ArithmeticAggregateOperator ::= 'MIN' | 'MAX' | 'AVG' | 'SAMPLE' | 'SUM'
+[[116d]]  ConcatAggregate ::= 'GROUP_CONCAT' '(' Distinctness? Expression ( ';' 'SEPARATOR' '=' String )? ')'
+// [[117]] IRIrefOrFunction ::= IRIref ArgList?
+// need a clear indication, that the arglist is present, otherwise it reduces to just the iri
+[[117]] IRIrefOrFunction ::= FunctionCall | IRIref
+[[118]] RDFLiteral ::= String ( LANGTAG | ( '^^' IRIref ) )?
+[[119]] NumericLiteral ::= NumericLiteralUnsigned | NumericLiteralPositive | NumericLiteralNegative
+[[120]] NumericLiteralUnsigned ::= INTEGER | DECIMAL | DOUBLE
+[[121]] NumericLiteralPositive ::= INTEGER_POSITIVE | DECIMAL_POSITIVE | DOUBLE_POSITIVE
+[[122]] NumericLiteralNegative ::= INTEGER_NEGATIVE | DECIMAL_NEGATIVE | DOUBLE_NEGATIVE
+[[123]] BooleanLiteral ::= 'true' | 'false'
+[[124]] String ::= STRING_LITERAL1 | STRING_LITERAL2 | STRING_LITERAL_LONG1 | STRING_LITERAL_LONG2
+[[125]] IRIref ::= IRI_REF | PrefixedName
+[[126]] PrefixedName ::= PNAME_LN | PNAME_NS
+[[127]] BlankNode ::= ( '_:' BLANK_NODE_LABEL) | ANON
+// various terminals are implemented as syntactic classes based on regular expressions
+// [[128]] IRI_REF ::= '<' ([^<>"{}|^`\]-[#x00-#x20])* '>'
+[[128]] IRI_REF ::= '<' IRI_NAMESTRING? '>'
+[[128a]] NAMESPACE_REF ::= '<' IRI_NAMESTRING? '>'
+// [[129]] PNAME_NS ::= PN_PREFIX? ':'
+// [[130]] PNAME_LN ::= PNAME_NS PN_LOCAL
+// [[131]] BLANK_NODE_LABEL ::= '_:' PN_LOCAL as of 1.1 the label syntax is its own
+// [[132]] VAR1 ::= '?' VARNAME
+// [[133]] VAR2 ::= '$' VARNAME
+// [[134]] LANGTAG ::= '@' [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
+// [[135]] INTEGER ::= [0-9]+
+// [[136]] DECIMAL ::= [0-9]+ '.' [0-9]* | '.' [0-9]+
+// [[137]] DOUBLE ::= [0-9]+ '.' [0-9]* EXPONENT | '.' ([0-9])+ EXPONENT | ([0-9])+ EXPONENT
+// [[138]] INTEGER_POSITIVE ::= '+' INTEGER
+// [[139]] DECIMAL_POSITIVE ::= '+' DECIMAL
+// [[140]] DOUBLE_POSITIVE ::= '+' DOUBLE
+// [[141]] INTEGER_NEGATIVE ::= '-' INTEGER
+// [[142]] DECIMAL_NEGATIVE ::= '-' DECIMAL
+// [[143]] DOUBLE_NEGATIVE ::= '-' DOUBLE
+// [[145]] EXPONENT ::= [eE] [+-]? [0-9]+
+// [[146]] STRING_LITERAL1 ::= "'" ( ([^#x27#x5C#xA#xD]) | ECHAR )* "'"
+// [[147]] STRING_LITERAL2 ::= '"' ( ([^#x22#x5C#xA#xD]) | ECHAR )* '"'
+// [[148]] STRING_LITERAL_LONG1 ::= "'''" ( ( "'" | "''" )? ( [^'\] | ECHAR ) )* "'''"
+// [[149]] STRING_LITERAL_LONG2 ::= '"""' ( ( '"' | '""' )? ( [^"\] | ECHAR ) )* '"""'
+// [[150]] ECHAR ::= '\' [tbnrf\"']
+[[151]] NILLIST ::= '('  ')'
+// [[151]] WS ::= #x20 | #x9 | #xD | #xA
+[[152]] ANON ::= '['  ']'
+// [[153]] PN_CHARS_BASE ::= [A-Z] | [a-z] | [#x00C0-#x00D6] | [#x00D8-#x00F6] | [#x00F8-#x02FF] | [#x0370-#x037D] | [#x037F-#x1FFF] | [#x200C-#x200D] | [#x2070-#x218F] | [#x2C00-#x2FEF] | [#x3001-#xD7FF] | [#xF900-#xFDCF] | [#xFDF0-#xFFFD] | [#x10000-#xEFFFF]
+// [[154]] PN_CHARS_U ::= PN_CHARS_BASE | '_'
+// [[155]] VARNAME ::= ( PN_CHARS_U | [0-9] ) ( PN_CHARS_U | [0-9] | #x00B7 | [#x0300-#x036F] | [#x203F-#x2040] )*
+// [[156]] PN_CHARS ::= PN_CHARS_U | '-' | [0-9] | #x00B7 | [#x0300-#x036F] | [#x203F-#x2040]
+// [[157]] PN_PREFIX ::= PN_CHARS_BASE ((PN_CHARS|'.')* PN_CHARS)?
+// [[158]] PN_LOCAL ::= ( PN_CHARS_U | [0-9] ) ((PN_CHARS|'.')* PN_CHARS)?
+

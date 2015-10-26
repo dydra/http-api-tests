@@ -1,0 +1,14 @@
+<http://example.org/subject1> <http://example.org/predicate1> "subject1.object1" .
+<http://example.org/subject1> <http://example.org/predicate2> "subject1.object2" .
+<http://example.org/subject1> <http://example.org/predicate3> "subject1.object3" .
+<http://example.org/subject1> <http://example.org/predicate4> "subject1.object4" .
+
+<http://example.org/subject2> <http://example.org/predicate1> "subject2.object1" .
+<http://example.org/subject2> <http://example.org/predicate2> "subject2.object2" .
+<http://example.org/subject2> <http://example.org/predicate3> "subject2.object3" .
+<http://example.org/subject2> <http://example.org/predicate4> "subject2.object4" .
+
+<http://example.org/subject3> <http://example.org/predicate1> "subject3.object1" <http://example.org/graph1> .
+<http://example.org/subject3> <http://example.org/predicate2> "subject3.object2" <http://example.org/graph1> .
+<http://example.org/subject3> <http://example.org/predicate3> "subject3.object3" <http://example.org/graph2> .
+<http://example.org/subject3> <http://example.org/predicate4> "subject3.object4" <http://example.org/graph2> .

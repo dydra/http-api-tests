@@ -1,0 +1,5 @@
+#! /bin/bash
+
+# initialize the tpf repository
+
+curl_graph_store_update -X PUT --repository tpf --data-binary @tpf.nq

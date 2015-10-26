@@ -21,6 +21,11 @@ export STORE_TOKEN_ADMIN=`cat ~/.dydra/token-admin@${STORE_HOST}`
 #  $ACCOUNT/$REPOSITORY-readbyip  : owner plus read for $STORE_CLIENT_IP for any agent
 #  $ACCOUNT/$REPOSITORY-writebyip : owner plus write for $STORE_CLIENT_IP for any user (not just agent)
 #
+# create repositories to test extensions
+#
+# $ACCOUNT/tpf
+# $ACCOUNT/collation
+#
 # n.b. creation requires admin priviledges
 
 

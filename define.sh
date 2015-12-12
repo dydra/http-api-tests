@@ -13,7 +13,11 @@ then
   export STORE_URL="http://localhost"
 fi
 # strip the protocol and possible user authentication to yield the actual host
-export STORE_HOST=${STORE_URL#*https://} 
+case ${STORE_URL} in
+  http:*)   export STORE_HOST=${STORE_URL#*http://}  ;;
+  https:*)  export STORE_HOST=${STORE_URL#*https://} ;;
+  *) echo "invalid store url: '${STORE_URL}'"; exit 1;;
+esac
 # strip a possible port
 export STORE_HOST=${STORE_HOST%:*}
 export STORE_SITE="dydra.com"           # the abstract site name
@@ -323,6 +327,7 @@ function curl_sparql_request () {
   local -a method=("-X" "POST")
   local -a data=()
   local -a user=(-u "${STORE_TOKEN}:")
+  local -a user_id=("user_id=$0")
   local curl_url="${SPARQL_URL}"
   local url_args=()
   while [[ "$#" > 0 ]] ; do
@@ -338,11 +343,13 @@ function curl_sparql_request () {
       --data*) data+=("${1}" "${2}"); shift 2;;
       --head) method=(); curl_args+=("${1}"); shift 1;;
       query=*) data=(); content_media_type=(); url_args+=("${1}"); method=("-X" "GET"); shift 1;;
+      user_id=*) user_id=("${1}"); shift 1;;
       *=*) url_args+=("${1}"); shift 1;;
       *) curl_args+=("${1}"); shift 1;;
     esac
   done
 
+  url_args+=(${user_id[@]})
   if [[ ${#url_args[*]} > 0 ]] ; then curl_url=$(IFS='&' ; echo "${curl_url}?${url_args[*]}") ; fi
   if [[ ${#data[*]} == 0 && ${method[1]} == "POST" ]] ; then data=("--data-binary" "@-"); fi
   # where an empty array is possible, must be conditional due to unset variable constraint

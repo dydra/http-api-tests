@@ -13,6 +13,7 @@ select (((year(?dateTime) = 2014) &&
          (day(?dateTime) = 31) &&
          (hours(?dateTime) = 23) &&
          (minutes(?dateTime) = 59) &&
+         # read rationals do not match with fractional seconds, which are float
          (seconds(?dateTime) = xsd:float(58.123)) &&
          (TZ(?dateTime) = 'Z') &&
          (fn:year-from-dateTime(?dateTime) = 2014) &&

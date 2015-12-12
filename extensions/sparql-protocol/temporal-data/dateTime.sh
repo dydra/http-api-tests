@@ -13,14 +13,14 @@ select (((year(?dateTime) = 2014) &&
          (day(?dateTime) = 31) &&
          (hours(?dateTime) = 23) &&
          (minutes(?dateTime) = 59) &&
-         (seconds(?dateTime) = 58.123) &&
+         (seconds(?dateTime) = xsd:float(58.123)) &&
          (TZ(?dateTime) = 'Z') &&
          (fn:year-from-dateTime(?dateTime) = 2014) &&
          (fn:month-from-dateTime(?dateTime) = 12) &&
          (fn:day-from-dateTime(?dateTime) = 31) &&
          (fn:hours-from-dateTime(?dateTime) = 23) &&
          (fn:minutes-from-dateTime(?dateTime) = 59) &&
-         (fn:seconds-from-dateTime(?dateTime) = 58) &&
+         (fn:seconds-from-dateTime(?dateTime) = xsd:float(58.123)) &&
          
          (datatype(TIMEZONE(?dateTime)) = xsd:dayTimeDuration) &&
          (datatype(fn:timezone-from-dateTime(?dateTime)) = xsd:dayTimeDuration))

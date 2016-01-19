@@ -71,28 +71,33 @@ do
   script_directory=`dirname $script_pathname`
   script_tag=`basename $script_directory`"/${script_filename}"
 
-  ( cd $script_directory;
-    bash -e -u $script_filename;
-  )
-  if [[ $? == "0" ]]
+  fgrep -v '##'  known-to-fail.txt | fgrep -q "${script_pathname}"
+  if [ $? -eq 0 ]
   then
-    echo "   ok"
-  else
-    fgrep -q "${script_pathname}" known-to-fail.txt
-    if [ $? -eq 0 ]
-    then EXPECTED=" KNOWN TO FAIL"; EXPECTED_FAILURES="${EXPECTED_FAILURES} ${script_tag}";
-    else
-      EXPECTED=" FAILED"; UNEXPECTED_FAILURES="${UNEXPECTED_FAILURES} ${script_tag}"
-      (( STORE_ERRORS = $STORE_ERRORS + 1))
-    fi
+    EXPECTED=" KNOWN TO FAIL"; EXPECTED_FAILURES="${EXPECTED_FAILURES} ${script_tag}";
     ENTRY="${script_pathname}  : ${EXPECTED}"
     echo "${ENTRY}" >> failed.txt
     echo "${EXPECTED}"
-    echo "${script_filename}" | egrep -q -e '^.*GET.*sh$' # allow bash 2.0
-    #if [[ $? != 0 ]]
-    #then
-    #  initialize_repository | egrep -q "${STATUS_UPDATED}"
-    #fi
+  else
+    ( cd $script_directory;
+      bash -e -u $script_filename;
+    )
+    if [[ $? == "0" ]]
+    then
+      echo "   ok"
+    else
+      EXPECTED=" FAILED"; UNEXPECTED_FAILURES="${UNEXPECTED_FAILURES} ${script_tag}"
+      (( STORE_ERRORS = $STORE_ERRORS + 1))
+      ENTRY="${script_pathname}  : ${EXPECTED}"
+      echo "${ENTRY}" >> failed.txt
+      echo "${EXPECTED}"
+      # if need to reinitialize by type
+      # echo "${script_filename}" | egrep -q -e '^.*GET.*sh$' # allow bash 2.0
+      #if [[ $? != 0 ]]
+      #then
+      #  initialize_repository | egrep -q "${STATUS_UPDATED}"
+      #fi
+    fi
   fi
 done
 

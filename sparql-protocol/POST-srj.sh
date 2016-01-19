@@ -17,16 +17,16 @@ select * where { ?s ?p ?o }
 EOF
 
 
-curl_sparql_request  default-graph-uri=urn:dydra:all --repository plm\
+curl_sparql_request  default-graph-uri=urn:dydra:all \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | cat # jq '.results.bindings[] | .[].value' | fgrep -q 'named'
+   | cat  # jq '.results.bindings[] | .[].value' | fgrep -q 'named'
 select * where { ?s ?p ?o }
 EOF
 
 curl_sparql_request  default-graph-uri=urn:dydra:named\
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep -q -v 'default'
+   | cat # jq '.results.bindings[] | .[].value' | fgrep -q -v 'default'
 select * where { ?s ?p ?o }
 EOF

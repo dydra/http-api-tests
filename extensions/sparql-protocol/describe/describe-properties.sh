@@ -3,7 +3,7 @@
 # test pragma to specify describe traversal properties
 
 curl_graph_store_update -X PUT \
-      -H "Content-Type: application/turtle" \
+      -H "Content-Type: text/turtle" \
       --repository "${STORE_REPOSITORY}-write" default <<EOF
 @prefix ex: <http://example.com/> .
 

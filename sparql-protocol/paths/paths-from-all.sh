@@ -130,7 +130,6 @@ where {
 }
 EOF
 
-
 # possible sequence paths
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
@@ -178,7 +177,6 @@ from <urn:dydra:all>
 where {?s :p/:p/:p/:p/:p ?o}
 EOF
 
-
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
@@ -205,5 +203,4 @@ where {?s :p+ ?o}
 group by ?s
 order by ?s
 EOF
-
 

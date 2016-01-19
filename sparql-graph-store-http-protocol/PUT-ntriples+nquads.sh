@@ -13,19 +13,19 @@ initialize_repository --repository "${STORE_REPOSITORY}-write"
 curl_graph_store_update -X PUT  -w "%{http_code}\n" \
      -H "Content-Type: application/n-triples" \
      --repository "${STORE_REPOSITORY}-write"  <<EOF  \
-   | test_not_found_success
+   | test_put_success
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT1" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT1" <${STORE_NAMED_GRAPH}-two> .
 EOF
 
 
-curl_graph_store_update -X PUT \
+curl_graph_store_update -X PUT   -w "%{http_code}\n" \
      -H "Content-Type: application/n-quads" \
-     --repository "${STORE_REPOSITORY}-write"  <<EOF 
+     --repository "${STORE_REPOSITORY}-write"  <<EOF \
+   | test_put_success
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT2" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT2" <${STORE_NAMED_GRAPH}-two> .
 EOF
-
 
 curl_graph_store_get \
      -H "Accept: application/n-quads" --repository "${STORE_REPOSITORY}-write" \

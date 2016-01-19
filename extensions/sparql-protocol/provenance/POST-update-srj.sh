@@ -2,14 +2,14 @@
 
 OBJECT_ID=provenance
 
-curl_sparql_request \
-     -H "Accept: application/sparql-results+json" \
-     -H "Content-Type: application/sparql-update" \
- --repository "${STORE_REPOSITORY}-provenance" <<EOF \
- | jq '.boolean' | fgrep -q 'true'
-
-DROP  SILENT  ALL
-EOF
+#curl_sparql_request \
+#     -H "Accept: application/sparql-results+json" \
+#     -H "Content-Type: application/sparql-update" \
+# --repository "${STORE_REPOSITORY}-provenance" <<EOF \
+# | jq '.boolean' | fgrep -q 'true'
+#
+#DROP  SILENT  ALL
+#EOF
 
 # (run-sparql "DROP SILENT ALL" :repository-id "openrdf-sesame/mem-rdf-provenance")
 
@@ -20,7 +20,7 @@ curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" <<EOF \
    | jq '.boolean' | fgrep -q 'true'
 
-PREFIX provenanceRepositoryID: <${STORE_ACCOUNT}/${STORE_REPOSITORY}-provenance>
+PREFIX provenanceRepositoryId: <${STORE_ACCOUNT}/${STORE_REPOSITORY}-provenance>
 
 DROP SILENT ALL ;
 INSERT DATA {

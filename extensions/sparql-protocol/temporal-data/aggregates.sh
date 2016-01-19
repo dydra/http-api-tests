@@ -3,7 +3,7 @@
 # exercise aggregation over temporal data
 
 curl_graph_store_update -X PUT \
-      -H "Content-Type: application/turtle" \
+      -H "Content-Type: text/turtle" \
       --repository "${STORE_REPOSITORY}-write" default <<EOF
 @prefix ex: <http://example.com/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes#> .
@@ -29,14 +29,14 @@ curl_sparql_request \
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
 prefix ex: <http://example.com/>
 
-select (((min(?endDate) = '2014-01-01T06:00:00Z'^^xsd:dateTime) &&
-         (max(?endDate) = '2015-01-01T00:00:00Z'^^xsd:dateTime) &&
-         # not possible to add dates
-         # (avg(?startDate) = '2014-01-01T00:00:00Z'^^xsd:dateTime) &&
-         (sum(?duration) = xsd:dayTimeDuration('P397DT6H')) &&
-         (min(?duration) = xsd:dayTimeDuration('PT6H'))  &&
-         (max(?duration) = xsd:dayTimeDuration('P365D')) &&
-         (avg(?duration) = xsd:dayTimeDuration('P99DT7H30M'))
+select (( (min(?endDate) = '2014-01-01T06:00:00Z'^^xsd:dateTime)
+       && (max(?endDate) = '2015-01-01T00:00:00Z'^^xsd:dateTime)
+       #  not possible to add dates
+       ## && (avg(?startDate) = '2014-01-01T00:00:00Z'^^xsd:dateTime) 
+       && (sum(?duration) = xsd:dayTimeDuration('P397DT6H'))
+       && (min(?duration) = xsd:dayTimeDuration('PT6H')) 
+       && (max(?duration) = xsd:dayTimeDuration('P365D'))
+       && (avg(?duration) = xsd:dayTimeDuration('P99DT7H30M'))
          )
         as ?ok)
 where {

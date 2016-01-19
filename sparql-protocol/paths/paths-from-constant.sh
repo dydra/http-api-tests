@@ -133,7 +133,7 @@ from :g2
 where {?s :p/:p/:p ?o}
 EOF
 
-
+# test traversal from merged default graph
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \

@@ -149,7 +149,7 @@ curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .count | .value' | tr -s '\n' ',' | cat # fgrep -q '"1","1"'
+   | jq '.results.bindings[] | .count | .value' | tr -s '\n' ',' | fgrep -q '"1","1"'
 prefix    : <http://example.com/> 
 select ?s (count(?s) as ?count)
 from named :g1

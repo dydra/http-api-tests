@@ -13,7 +13,7 @@ as combinations of
 
 <table border="0" width="100%">
 <tr><th style="width: 16em">dataset definition</th>
-    <th style="width: 24em">patterns</th>
+    <th style="width: 48em">patterns</th>
     <th>behaviour</th></tr>
 
 
@@ -26,17 +26,17 @@ as combinations of
       default graph and all named graphs, for which, ...</td></tr>
 
 <tr style="background-color: #f0f0f0">
-    <td style="width: 24em; white-space: pre">{?s :p1/:p2 ?o}</td>
+    <td style="width: 48em; white-space: pre">{?s :p1/:p2 ?o}</td>
     <td style="width: auto">... a path outside of a graph clause matches statements
         in the default graph only.</td></tr>
 
 <tr style=" background-color: #f0f0f0">
-    <td style="width: 24em; white-space: pre">graph ?g {?s :p1/:p2 ?o}</td>
+    <td style="width: 48em; white-space: pre">graph ?g {?s :p1/:p2 ?o}</td>
     <td style="width: auto">... a path in an abstract graph clause matches statements
         in individual named graphs only.</td></tr>
 
 <tr style=" background-color: #f0f0f0">
-    <td style="border-bottom: 1px solid black; width: 24em; white-space: pre">graph :g1 {?s :p1/:p2 ?o}</td>
+    <td style="border-bottom: 1px solid black; width: 48em; white-space: pre">graph :g1 {?s :p1/:p2 ?o}</td>
     <td style="border-bottom: 1px solid black; width: auto">
         ... a path within a specific graph clause matches statements in the respective individual named graph
         in the default dataset only.</td></tr>
@@ -51,17 +51,17 @@ as combinations of
       but declares no named graphs[1], ...</td></tr>
 
 <tr style="background-color: #f0f0f0">
-    <td style="width: 24em; white-space: pre">{?s :p1/:p2 ?o}</td>
+    <td style="width: 48em; white-space: pre">{?s :p1/:p2 ?o}</td>
     <td>... a path outside of a graph clause matches statements
         in and among all graphs.</td></tr>
 
 <tr style="background-color: #f0f0f0">
-    <td style="width: 24em; white-space: pre">graph ?g {?s :p1/:p2 ?o}</td>
+    <td style="width: 48em; white-space: pre">graph ?g {?s :p1/:p2 ?o}</td>
     <td>... a path within an abstract graph clause matches no statement,
      as the concrete dataset has no named graphs.</td></tr>
 
 <tr style="background-color: #f0f0f0">
-    <td style="width: 24em; white-space: pre; border-bottom: 1px solid black;">graph :g1 {?s :p1/:p2 ?o}</td>
+    <td style="width: 48em; white-space: pre; border-bottom: 1px solid black;">graph :g1 {?s :p1/:p2 ?o}</td>
     <td style="border-bottom: 1px solid black;">
      ... a path within a specific graph clause matches no statement,
      as the concrete dataset has no named graphs.</td></tr>
@@ -98,12 +98,12 @@ as combinations of
       but declares no default graphs, ...</td></tr>
 
 <tr style="background-color: #f0f0f0">
-    <td style="width: 24em; white-space: pre">{?s :p1/:p2 ?o}</td>
+    <td style="width: 48em; white-space: pre">{?s :p1/:p2 ?o}</td>
     <td>... a path outside of a graph clause matches no statement,
         as the default graph is empty.</td></tr>
 
 <tr style="background-color: #f0f0f0">
-    <td style="width: 24em; white-space: pre">graph ?g {?s :p1/:p2 ?o}</td>
+    <td style="width: 48em; white-space: pre">graph ?g {?s :p1/:p2 ?o}</td>
     <td>... a path inside of a variable graph clause matches statements
         in and among all named graphs - and _retains_ each respective graph in the solution.
         as a consequence of this,
@@ -111,7 +111,7 @@ as combinations of
         and the paths do not cross among graphs:</td></tr>
 
 <tr style="background-color: #f0f0f0">
-    <td style="width: 24em; white-space: pre; border-bottom: 1px solid black;">graph :g1 {?s :p1/:p2 ?o}</td>
+    <td style="width: 48em; white-space: pre; border-bottom: 1px solid black;">graph :g1 {?s :p1/:p2 ?o}</td>
     <td style="border-bottom: 1px solid black;">
         ... a path within a constant graph clause matches statements in the respective specific named graph
         only.</td></tr>
@@ -137,17 +137,17 @@ as combinations of
     <td colspan="2">Given a dataset definition which limits the named graphs to a specific set, ...</td></tr>
 
 <tr style="background-color: #f0f0f0">
-    <td style="width: 24em; white-space: pre">{?s :p1/:p2 ?o}</td>
+    <td style="width: 48em; white-space: pre">{?s :p1/:p2 ?o}</td>
     <td >... a path outside of a graph clause matches nothing, as the default
         graph is empty.</td></tr>
 
 <tr style="background-color: #f0f0f0">
-    <td style="width: 24em; white-space: pre">graph ?g {?s :p1/:p2 ?o}</td>
+    <td style="width: 48em; white-space: pre">graph ?g {?s :p1/:p2 ?o}</td>
     <td >... a path within an abstract graph clause matches statements in individual named graphs
         from the named only.</td></tr>
 
 <tr style="background-color: #f0f0f0">
-    <td style="border-bottom: 1px solid black; width: 24em; white-space: pre">graph :g1 {?s :p1/:p2 ?o}</td>
+    <td style="border-bottom: 1px solid black; width: 48em; white-space: pre">graph :g1 {?s :p1/:p2 ?o}</td>
     <td style="border-bottom: 1px solid black;">... a path within constant graph clause,
         which is among those declared, matches statements
         in that individual named graph only.

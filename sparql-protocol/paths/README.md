@@ -9,11 +9,11 @@ the dataset declarations combine "FROM" and "FROM NAMED" clauses to declare the 
 as combinations of
 - none (no declaration clause)
 - a constant graph (here :g1, :g2 or :g3)
-- a graph group ( <urn:dydra:default>, <urn:dydra:named> or <urn:dydra:all>)
+- a graph group ( <urn:dydra:default>, <urn:dydra:named> or <urn:dydra:all> )
 
 <table border="0" width="100%">
 <tr><th style="width: 16em">dataset definition</th>
-    <th ><div style="width: 200px">patterns ?</div></th>
+    <th ><div style="width: 200px">patterns &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></th>
     <th><div style="width: 200px">behaviour</div></th></tr>
 
 

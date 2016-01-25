@@ -13,7 +13,7 @@ as combinations of
 
 <table border="0" width="100%">
 <tr><th style="width: 16em">dataset definition</th>
-    <th style="width: 1.5in">patterns</th>
+    <th ><div style="width: 1.5in">patterns</div></th>
     <th>behaviour</th></tr>
 
 

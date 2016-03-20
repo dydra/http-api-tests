@@ -1,0 +1,196 @@
+#! /bin/bash
+
+# define simple curl/http utilities for sparql queries and graph store opertions
+#
+# environment :
+# DYDRA_HOST : host name
+# DYDRA_REPOSITORY : the repository identifer in the form <account>/<repository>
+# DYDRA_TOKEN : the authentication token
+
+if [[ "" == "${DYDRA_HOST}" ]]
+then
+  echo -n "dydra host name: "
+  read DYDRA_HOST
+  export DYDRA_URL="https://${DYDRA_HOST}"
+fi
+if [[ "" == "${DYDRA_TOKEN}" ]]
+then
+  echo -n "dydra authentication token: "
+  read DYDRA_TOKEN
+  export DYDRA_TOKEN
+fi
+if [[ "" == "${DYDRA_REPOSITORY}" ]]
+then
+  echo -n "dydra repository: "
+  read DYDRA_REPOSITORY
+  export DYDRA_REPOSITORY
+fi
+
+export DYDRA_SPARQL_RESULTS_MEDIA_TYPE="application/sparql-results+json"
+export DYDRA_GRAPH_MEDIA_TYPE="application/n-quads"
+export DYDRA_SPARQL_QUERY_MEDIA_TYPE="application/sparql-query"
+if [[ "" == "${CURL}" ]]
+then
+  export CURL="curl --ipv4"
+fi
+# export CURL="curl -v --ipv4"
+# export CURL="curl --ipv4 --trace-ascii /dev/tty"
+export ECHO_OUTPUT=/dev/null # /dev/tty # 
+
+# curl_sparql_request { $accept-header-argument } { $content-type-header-argument } { $url }
+function curl_sparql_request () {
+  local -a curl_args=()
+  local -a accept_media_type=("-H" "Accept: $STORE_SPARQL_RESULTS_MEDIA_TYPE")
+  local -a content_media_type=("-H" "Content-Type: $DYDRA_SPARQL_QUERY_MEDIA_TYPE")
+  local -a method=("-X" "POST")
+  local -a data=()
+  local -a user=(-u "${DYDRA_TOKEN}:")
+  local curl_url="${DYDRA_URL}/${DYDRA_REPOSITORY}/sparql"
+  local url_args=()
+  while [[ "$#" > 0 ]] ; do
+    case "$1" in
+      -H) case "$2" in
+          Accept*) accept_media_type[1]="${2}"; shift 2;;
+          Content-Type*) content_media_type[1]="${2}"; shift 2;;
+          *) curl_args+=("${1}" "${2}"); shift 2;;
+          esac ;;
+      --repository) curl_url="${DYDRA_URL}/${2}/sparql"; shift 2;;
+      -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
+      -X) method[1]="${2}"; shift 2;;
+      --data*) data+=("${1}" "${2}"); shift 2;;
+      --head) method=(); curl_args+=("${1}"); shift 1;;
+      query=*) data=(); content_media_type=(); url_args+=("${1}"); method=("-X" "GET"); shift 1;;
+      *=*) url_args+=("${1}"); shift 1;;
+      *) curl_args+=("${1}"); shift 1;;
+    esac
+  done
+
+  url_args+=("user-id=$0")
+  if [[ ${#url_args[*]} > 0 ]] ; then curl_url=$(IFS='&' ; echo "${curl_url}?${url_args[*]}") ; fi
+  if [[ ${#data[*]} == 0 && ${method[1]} == "POST" ]] ; then data=("--data-binary" "@-"); fi
+  # where an empty array is possible, must be conditional due to unset variable constraint
+  curl_args+=("${accept_media_type[@]}");
+  if [[ ${#content_media_type[*]} > 0 ]] ; then curl_args+=("${content_media_type[@]}"); fi
+  if [[ ${#data[*]} > 0 ]] ; then curl_args+=("${data[@]}"); fi
+  if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
+  if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
+
+  echo ${CURL} -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
+
+  ${CURL} -f -s "${curl_args[@]}" ${curl_url}
+}
+
+
+
+function curl_sparql_query () {
+  curl_sparql_request -H "Content-Type:application/sparql-query" $@
+}
+
+function curl_sparql_update () {
+  curl_sparql_request -H "Content-Type:application/sparql-update" $*
+}
+
+# curl_graph_store_delete { -H $accept-header-argument } { graph }
+function curl_graph_store_delete () {
+  curl_graph_store_get -X DELETE $@
+}
+
+# curl_graph_store_get { -H $accept-header-argument } {--repository $repository} { graph }
+function curl_graph_store_get () {
+  local -a curl_args=()
+  local -a accept_media_type=("-H" "Accept: $DYDRA_GRAPH_MEDIA_TYPE")
+  local -a content_media_type=()
+  local -a method=("-X" "GET")
+  local -a user=(-u "${DYDRA_TOKEN}:")
+  local graph=""  #  the default is all graphs
+  local curl_url="${DYDRA_URL}/${DYDRA_REPOSITORY}/service"
+  while [[ "$#" > 0 ]] ; do
+    case "$1" in
+      all|ALL) graph="all"; shift 1;;
+      default|DEFAULT) graph="default"; shift 1;;
+      graph=*) graph="${1}"; shift 1;;
+      -H) case "$2" in
+          Accept*) accept_media_type[1]="${2}"; shift 2;;
+          Content-Type*) content_media_type[1]="${2}"; shift 2;;
+          *) curl_args+=("${1}" "${2}"); shift 2;;
+          esac ;;
+      --head) method=(); curl_args+=("${1}"); shift 1;;
+      --repository) curl_url="${DYDRA_URL}/${2}/service"; shift 2;;
+      --url) curl_url="${2}"; shift 2;;
+      -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
+      -X) method[1]="${2}"; shift 2;;
+      *) curl_args+=("${1}"); shift 1;;
+    esac
+  done
+
+  # where an empty array is possible, must be conditional due to unset variable constraint
+  curl_args+=("${accept_media_type[@]}");
+  if [[ ${#content_media_type[*]} > 0 ]] ; then curl_args+=(${content_media_type[@]}); fi
+  if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
+  if [[ "${graph}" ]] ; then curl_url="${curl_url}?${graph}"; fi
+  if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
+
+  echo ${CURL} -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
+  ${CURL} -f -s "${curl_args[@]}" ${curl_url}
+}
+
+function curl_graph_store_update () {
+  local -a curl_args=()
+  local -a accept_media_type=()
+  local -a content_media_type=("-H" "Content-Type: $DYDRA_GRAPH_MEDIA_TYPE")
+  local -a data=("--data-binary" "@-")
+  local -a method=("-X" "POST")
+  local -a user=(-u "${DYDRA_TOKEN}:")
+  local graph=""  #  the default is all graphs
+  local curl_url="${DYDRA_URL}/${DYDRA_REPOSITORY}/service"
+  while [[ "$#" > 0 ]] ; do
+    case "$1" in
+      all|ALL) graph="all"; shift 1;;
+      --data*) data[0]="${1}";  data[1]="${2}"; shift 2;;
+      default|DEFAULT) graph="default"; shift 1;;
+      graph=*) if [[ "graph=" == "${1}" ]] ; then graph=""; else graph="${1}"; fi;  shift 1;;
+     -H) case "$2" in
+          Accept*) accept_media_type[1]="${2}"; shift 2;;
+          Content-Type*) content_media_type[1]="${2}"; shift 2;;
+          *) curl_args+=("${1}" "${2}"); shift 2;;
+          esac ;;
+      --repository) curl_url="${DYDRA_URL}/${2}/service"; shift 2;;
+      --url) curl_url="${2}"; shift 2;;
+      -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
+      -X) method[1]="${2}"; shift 2;;
+      *) curl_args+=("${1}"); shift 1;;
+    esac
+  done
+  if [[ ${#accept_media_type[*]} > 0 ]] ; then curl_args+=("${accept_media_type[@]}"); fi
+  if [[ ${#content_media_type[*]} > 0 ]] ; then curl_args+=("${content_media_type[@]}"); fi
+  if [[ ${#data[*]} > 0 ]] ; then curl_args+=("${data[@]}"); fi
+  if [[ "${graph}" ]] ; then curl_url="${curl_url}?${graph}"; fi
+  if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
+  if [[ ${#user[*]} > 0 ]] ; then curl_args+=("${user[@]}"); fi
+
+  echo  ${CURL} -f -s -S "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
+  ${CURL}  -f -s "${curl_args[@]}" ${curl_url}
+}
+
+function curl_clear_repository_content () {
+  curl_graph_store_update -X PUT $@ <<EOF
+EOF
+}
+
+function curl_download () {
+  ${CURL} -f -s -S -X GET \
+     -H "${1}" \
+     -u "${DYDRA_TOKEN}:" \
+     "${DYDRA_URL}/${DYDRA_REPOSITORY}".${2}
+}
+
+
+export -f curl_sparql_request
+export -f curl_sparql_update
+export -f curl_sparql_query
+export -f curl_graph_store_delete
+export -f curl_graph_store_get
+export -f curl_graph_store_update
+export -f curl_download
+export -f curl_clear_repository_content
+

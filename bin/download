@@ -1,0 +1,18 @@
+#! /bin/bash
+
+# download a repository
+#
+# $1 : name.encoding
+repositoryName="${1}"
+encoding='application/n-quads'
+if [[ "" != "$2" ]]
+then encoding="${2}"
+fi
+
+${CURL} -f -s -S -X GET  \
+     -H "Accept: ${encoding}" \
+     -u "${STORE_TOKEN}:" \
+     ${STORE_URL}/${STORE_ACCOUNT}/${repositoryName}/service
+
+
+

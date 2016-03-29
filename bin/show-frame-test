@@ -1,0 +1,19 @@
+#! /bin/bash
+
+# retrieve and output the compnents of a frame test
+#
+# $1 : test number
+test="${1}"
+
+echo "# frame test ${test}"
+echo "# input"
+curl http://json-ld.org/test-suite/tests/frame-${test}-in.jsonld
+echo ""
+echo ""
+echo "# frame"
+curl http://json-ld.org/test-suite/tests/frame-${test}-frame.jsonld
+echo ""
+echo ""
+echo "# output"
+curl http://json-ld.org/test-suite/tests/frame-${test}-out.jsonld
+

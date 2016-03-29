@@ -8,6 +8,7 @@
 # STORE_REPOSITORY : individual repository
 # STORE_TOKEN : the authentication token
 
+export PATH=`pwd`/bin:${PATH}
 if [[ "" == "${STORE_URL}" ]]
 then
   export STORE_URL="http://localhost"

@@ -40,18 +40,17 @@ export STORE_ACCEPT_GRAPH="Accept: application/n-triples"
 export STORE_SPARQL_QUERY_MEDIA_TYPE="application/sparql-query"
 export STORE_SPARQL_UPDATE_MEDIA_TYPE="application/sparql-update"
 
-export STORE_GRAPH_CONTENT_TYPE="Content-Type: application/turtle"
+export STORE_GRAPH_CONTENT_TYPE="Content-Type: text/turtle"
 export STORE_IS_LOCAL=false
 fgrep 127.0.0.1 /etc/hosts | fgrep -q ${STORE_HOST} &&  export STORE_IS_LOCAL=true
 
 export STATUS_OK=200
 export STATUS_DELETE_SUCCESS='200|204'
-export STATUS_PATCH_SUCCESS='201|204'
-export POST_SUCCESS='201|204'
-export STATUS_POST_SUCCESS='201|204'
+export STATUS_PATCH_SUCCESS='200|201|204'
+export POST_SUCCESS='20201|204'
+export STATUS_POST_SUCCESS='200|201|204'
 export PUT_SUCCESS='201|204'
 export STATUS_PUT_SUCCESS='201|204'
-export PATCH_SUCCESS=201
 export STATUS_CREATED=201
 export STATUS_NO_CONTENT=204
 export STATUS_UPDATED='201|204'
@@ -161,7 +160,7 @@ function test_not_found_success () {
 }
 
 function test_ok () {
-  egrep -q "${STATUS_OK}"
+  egrep -q "${STATUS_OK}|${STATUS_NO_CONTENT}"
 }
 function test_ok_success () {
   egrep -q "${STATUS_OK}"

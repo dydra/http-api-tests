@@ -8,7 +8,7 @@
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
 curl_graph_store_update -X PATCH \
-     -H "Content-Type: application/turtle" \
+     -H "Content-Type: text/turtle" \
      --repository "${STORE_REPOSITORY}-write" default <<EOF
 <http://example.com/default-subject>
     <http://example.com/default-predicate> "default object PATCH1" .

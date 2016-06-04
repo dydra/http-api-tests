@@ -19,7 +19,7 @@
 # thus the namespace specified in the import must be "http://www.w3.org/2001/XMLSchema#"
 
 curl_graph_store_update -X PUT \
-      -H "Content-Type: application/turtle" \
+      -H "Content-Type: text/turtle" \
       --repository "${STORE_REPOSITORY}-write" default <<EOF
 @prefix ex: <http://example.com/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -47,9 +47,9 @@ EOF
 
 
 curl_sparql_request \
-     -H "Accept: application/sparql-results+json" \
-     --repository "${STORE_REPOSITORY}-write" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep 'true' | wc -l | fgrep -q '4'
+  -H "Accept: application/sparql-results+json" \
+  --repository "${STORE_REPOSITORY}-write" <<EOF \
+  | jq '.results.bindings[] | .[].value' | fgrep 'true' | wc -l | fgrep -q '4'
 
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
 prefix ex: <http://example.com/>

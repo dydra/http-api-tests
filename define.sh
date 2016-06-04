@@ -348,7 +348,6 @@ function curl_sparql_request () {
       *) curl_args+=("${1}"); shift 1;;
     esac
   done
-
   url_args+=(${user_id[@]})
   if [[ ${#url_args[*]} > 0 ]] ; then curl_url=$(IFS='&' ; echo "${curl_url}?${url_args[*]}") ; fi
   if [[ ${#data[*]} == 0 && ${method[1]} == "POST" ]] ; then data=("--data-binary" "@-"); fi
@@ -360,7 +359,6 @@ function curl_sparql_request () {
   if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
 
   echo ${CURL} -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
-
   ${CURL} -f -s "${curl_args[@]}" ${curl_url}
 }
 

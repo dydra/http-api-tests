@@ -1,44 +1,57 @@
 #! /bin/bash
 
 # verify slice arguments for sparql views
-# as long as the respone limit is under that from the query text, it will reduce the response count
-
-query="all-no-limit"
-
-$CURL -u "${STORE_TOKEN}:" "http://dydra.com/openrdf-sesame/mem-rdf/all-no-limit.tsv?limit=1" \
-  | wc -l | fgrep -q -s '2'
-
-$CURL -u "${STORE_TOKEN}:" \
-  "http://dydra.com/openrdf-sesame/mem-rdf/all-no-limit.tsv?limit=1&offset=1" \
-  | wc -l | fgrep -q -s '2'
-
-$CURL -u "${STORE_TOKEN}:" "http://dydra.com/openrdf-sesame/mem-rdf/all.tsv?limit=1" \
-  | wc -l | fgrep -q -s '2'
+# as long as the response limit is under that from the query text, it will reduce the response count
+# requires that the account have the "all" and "all-paged" views
 
 
-$CURL -u "${STORE_TOKEN}:" \
-  "http://dydra.com/openrdf-sesame/mem-rdf/all-no-limit.csv?limit=1"\
-  | wc -l | fgrep -q -s '2'
+if ( SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.tsv" curl_sparql_request -X GET -w "%{http_code}\n" | fgrep -q -s '404' )
+then
+  echo "must define the view 'all'"
+  exit 1
+fi
 
-$CURL -u "${STORE_TOKEN}:" \
-  "http://dydra.com/openrdf-sesame/mem-rdf/all.csv?limit=1" \
-  | wc -l | fgrep -q -s '2'
+if ( SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all-paged.tsv" curl_sparql_request -X GET -w "%{http_code}\n" | fgrep -q -s '404' )
+then
+  echo "must define the view 'all'"
+  exit 1
+fi
 
-$CURL -u "${STORE_TOKEN}:" \
-  "http://dydra.com/openrdf-sesame/mem-rdf/all-no-limit.srj?limit=1" \
-  | fgrep -c '"o":' | fgrep -q -s '1'
+SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.tsv"
+curl_sparql_request 'limit=1' -X GET  | wc -l | fgrep -q -s '2' 
+curl_sparql_request 'limit=1' 'offset=1' -X GET | wc -l | fgrep -q -s '2'
 
-$CURL -u "${STORE_TOKEN}:" \
-  "http://dydra.com/openrdf-sesame/mem-rdf/all.srj?limit=1"\
-  | fgrep -c '"o":' | fgrep -q -s '1'
+SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all-paged.tsv"
+curl_sparql_request 'limit=1' -X GET  | wc -l | fgrep -q -s '2' 
+curl_sparql_request 'limit=1' 'offset=1' -X GET | wc -l | fgrep -q -s '2'
 
-$CURL -u "${STORE_TOKEN}:" \
-  "http://dydra.com/openrdf-sesame/mem-rdf/all-no-limit.srx?limit=1" \
-  | fgrep -c 'binding name="g"' | fgrep -q -s '1'
 
-$CURL -u "${STORE_TOKEN}:" \
-  "http://dydra.com/openrdf-sesame/mem-rdf/all.srx?limit=1" \
-  | fgrep -c 'binding name="g"' | fgrep -q -s '1'
+SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.csv"
+curl_sparql_request 'limit=1' -X GET  | wc -l | fgrep -q -s '2' 
+curl_sparql_request 'limit=1' 'offset=1' -X GET | wc -l | fgrep -q -s '2'
+
+SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all-paged.csv"
+curl_sparql_request 'limit=1' -X GET  | wc -l | fgrep -q -s '2' 
+curl_sparql_request 'limit=1' 'offset=1' -X GET | wc -l | fgrep -q -s '2'
+
+
+SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.srj"
+curl_sparql_request 'limit=1' -X GET | fgrep '"s":' | wc -l  | fgrep -q -s '1' 
+curl_sparql_request 'limit=1' 'offset=1' -X GET | fgrep '"s":' | wc -l | fgrep -q -s '1' 
+
+SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all-paged.srj"
+curl_sparql_request 'limit=1' -X GET | fgrep '"s":'  | wc -l | fgrep -q -s '1' 
+curl_sparql_request 'limit=1' 'offset=1' -X GET | fgrep '"s":' | wc -l | fgrep -q -s '1' 
+
+
+SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.srx"
+curl_sparql_request 'limit=1' -X GET  | tidy -xml -q | fgrep '<result>' | wc -l | fgrep -q -s '1' 
+curl_sparql_request 'limit=1' 'offset=1' -X GET | tidy -xml -q | fgrep '<result>' | wc -l | fgrep -q -s '1' 
+
+SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all-paged.srx"
+curl_sparql_request 'limit=1' -X GET  | tidy -xml -q | fgrep '<result>' | wc -l | fgrep -q -s '1' 
+curl_sparql_request 'limit=1' 'offset=1' -X GET | tidy -xml -q | fgrep '<result>' | wc -l | fgrep -q -s '1' 
+
 
 # NTF
 # $CURL -u "${STORE_TOKEN}:" "http://dydra.com/openrdf-sesame/mem-rdf/${query}.jsonp?limit=1" | fgrep -q -s-v "],["

@@ -1,8 +1,6 @@
 #! /bin/bash
 
-subject=''
-predicate=''
-object='o=%22subject1.object1%22'
-$CURL -f -s -X GET "${STORE_URL}/${STORE_ACCOUNT}/tpf/ldf?$subject&$predicate&$object" > result.nq
+curl_tpf_get "o=%22named%20object%22" > result.nq
 
-fgrep -c subject1.object1 result.nq | fgrep -q 1
+fgrep -c named-subject result.nq | fgrep -q 1
+fgrep -c default-subject result.nq | fgrep -q 0

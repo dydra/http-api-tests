@@ -1,10 +1,7 @@
 #! /bin/bash
 
-subject='s=%3chttp://example.org/subject1%3e'
-predicate=''
-object='o=%22subject1.object1%22'
-$CURL -f -s -X GET "${STORE_URL}/${STORE_ACCOUNT}/tpf/ldf?$subject&$predicate&$object" > result.nq
+curl_tpf_get "s=http%3A%2F%2Fexample.com%2Fnamed-subject&o=%22named%20object%22" > result.nq
 
-fgrep example.org/subject1 result.nq \
- | fgrep -c "subject1.object1" \
- | fgrep -q 1
+fgrep -c named-subject result.nq | fgrep -q 1
+fgrep -c default-subject result.nq | fgrep -q 0
+

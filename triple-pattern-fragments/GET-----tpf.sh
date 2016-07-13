@@ -4,12 +4,11 @@
 # - statement count
 # - existence of 
 
-subject=''
-predicate=''
-object=''
-$CURL -f -s -X GET "${STORE_URL}/${STORE_ACCOUNT}/tpf/ldf?$subject&$predicate&$object" > result.nq
+curl_tpf_get > result.nq
 
-fgrep -c example.org/subject result.nq | fgrep -q 12
+fgrep -q example.com/named-subject result.nq 
+fgrep -q example.com/default-subject result.nq 
+fgrep -c //example.com/ result.nq | fgrep -q 2
 
 fgrep -c http://www.w3.org/ns/hydra/core#variable result.nq | fgrep -q 3
 fgrep -c http://www.w3.org/ns/hydra/core#property result.nq | fgrep -q 3

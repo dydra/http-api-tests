@@ -11,8 +11,7 @@ ${CURL} -s -X POST -u "${STORE_TOKEN}:" \
 l=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"" \
   -H "Content-Type: application/sparql-query" \
   --data-binary @- \
-  ${STORE_URL}/json-ld/frame-${test}-in/jsonld <<EOF \
-  | cat # json_reformat 
+  ${STORE_URL}/json-ld/frame-${test}-in/jsonld <<EOF 
 construct {?s ?p ?o} where {?s ?p ?o}
 EOF
 

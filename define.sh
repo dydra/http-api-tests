@@ -68,6 +68,7 @@ fi
 # export CURL="curl -v --ipv4"
 # export CURL="curl --ipv4 --trace-ascii /dev/tty"
 export ECHO_OUTPUT=/dev/null # /dev/tty # 
+export RESULT_OUTPUT=
 
 # define operators to export sparql and graph store url variables of the appropriate pattern
 # and define the values for the default repository. these will be overridden by scripts which expect to use a
@@ -459,6 +460,37 @@ function curl_graph_store_update () {
   ${CURL}  -f -s "${curl_args[@]}" ${curl_url}
 }
 
+
+# curl_tpf_get { -H $header-argument } {--repository $repository} { query }
+function curl_tpf_get () {
+  local -a curl_args=()
+  local -a method=("-X" "GET")
+  local -a user=(-u "${STORE_TOKEN}:")
+  local query=""  #  the default no query args
+  local curl_url="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/tpf"
+  while [[ "$#" > 0 ]] ; do
+    case "$1" in
+      -H) case "$2" in
+          Accept*) curl_args+=("${1}" "${2}"); shift 2;;
+          esac ;;
+      --head) method=(); curl_args+=("${1}"); shift 1;;
+      --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/tpf"; shift 2;;
+      --revision) curl_args+=("${1}" "${2}"); shift 2;;
+      -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
+      *) query="${1}"; shift 1;;
+    esac
+  done
+
+  # where an empty array is possible, must be conditional due to unset variable constraint
+  # curl_args+=("${accept_media_type[@]}");
+  if [[ "${query}" ]] ; then curl_url="${curl_url}?${query}"; fi
+  if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
+  if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
+
+  echo ${CURL} -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
+  ${CURL} -f -s "${curl_args[@]}" ${curl_url}
+}
+
 function clear_repository_content () {
   curl_graph_store_update -X PUT $@ <<EOF
 EOF
@@ -508,6 +540,7 @@ export -f curl_graph_store_get
 export -f curl_graph_store_get_code
 export -f curl_graph_store_update
 export -f curl_download
+export -f curl_tpf_get
 export -f set_sparql_url
 export -f set_graph_store_url
 export -f set_download_url

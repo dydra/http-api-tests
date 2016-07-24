@@ -1,6 +1,8 @@
 #! /bin/bash
 
 # exercise the values extension for a query in-line with the request
+#
+# !nb. this require that the server handle the multiple query arguments
 
 curl_sparql_request \
    "--data-urlencode" "update@/dev/fd/3" \

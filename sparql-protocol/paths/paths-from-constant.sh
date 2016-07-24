@@ -1,6 +1,7 @@
 #! /bin/bash
 # test path queries which enumerate constant default graphs
 # see the paths README
+# 20160311: spocq#240: kleene star paths need to test both directions
 
 curl_graph_store_update -X PUT \
       -H "Content-Type: application/n-quads" \

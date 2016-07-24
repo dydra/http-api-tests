@@ -17,12 +17,12 @@ curl_sparql_request \
 curl_sparql_request \
       'response-limit=1' \
       -H "Accept: application/sparql-results+xml" "query=${query}" \
-   | fgrep -c 'binding name="o"' | fgrep -q -s '1'
+   | tidy -xml -q | fgrep -c '<result>' | fgrep -q -s '1'
 
 curl_sparql_request \
       'limit=1' 'offset=1' \
       -H "Accept: application/sparql-results+xml" "query=${query}" \
-   | fgrep -c 'binding name="o"' | fgrep -q -s '1'
+   | tidy -xml -q | fgrep -c '<result>' | fgrep -q -s '1'
 
 curl_sparql_request \
       'response-limit=1' \

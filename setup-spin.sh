@@ -39,7 +39,7 @@ $CURL -w "%{http_code}\n" -f -s -S -X PUT \
 
 # load the library repository
 $CURL -w "%{http_code}\n" -f -s -S -X PUT \
-     -H "Content-Type: application/turtle" \
+     -H "Content-Type: text/turtle" \
      --data-binary @- \
      ${STORE_URL}/${STORE_ACCOUNT}/spin-data?auth_token=${STORE_TOKEN} <<EOF \
   | egrep -q "$STATUS_PUT_SUCCESS"

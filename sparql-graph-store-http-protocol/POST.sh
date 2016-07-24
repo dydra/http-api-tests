@@ -18,6 +18,7 @@ curl_graph_store_update -X POST  -w "%{http_code}\n" \
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object POST-triples-none" <${STORE_NAMED_GRAPH}-two> .
 EOF
 # echo "post quads w/ none"
+# this will fail if the quad graph is replaced with a new UUID
 curl_graph_store_update -X POST   -w "%{http_code}\n" \
      -H "Content-Type: application/n-quads" \
      --repository "${STORE_REPOSITORY}-write"  <<EOF \

@@ -48,7 +48,7 @@ EOF
 
 #
 # the exists pattern requires some tailoring in order to allow for the
-# select aggragate's effect on the scope of the outer variables
+# select aggregate's effect on the scope of the outer variables
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
@@ -63,7 +63,6 @@ where {
     { select ?s1 { ?s1 :p ?o2 } group by ?s1 having(count(?o2) > 1) }
   }
 }
-
 EOF
 
 curl_sparql_request \
@@ -73,6 +72,5 @@ curl_sparql_request \
    | jq '.results.bindings[] | .[].value' | fgrep -q 's2' 
 prefix    : <http://example.com/> 
 select ?s1 { ?s1 :p ?o2 } group by ?s1 having(count(?o2) > 1)
-
 EOF
 

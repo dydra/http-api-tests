@@ -5,9 +5,9 @@
 # create local content (views and rdf), push them to the remote, check that
 # they are present, modify/push/test, delete the remote and local repositories
 
-# to run autonomously
-# export AUTH_TOKEN="..."
-# export STORE_URL="http://host"
+## to run autonomously
+# export STORE_TOKEN="..."
+# export STORE_URL="http://<host>"
 # source ../../../define.sh
 
 set -e

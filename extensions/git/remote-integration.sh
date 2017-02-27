@@ -4,6 +4,8 @@
 # start with a known dydra repository, create remote and local repositories,
 # create local content (views and rdf), push them to the remote, check that
 # they are present, modify/push/test, delete the remote and local repositories
+#
+# nb. the (--push-option | -o) requirs git 2.10 or later
 
 ## to run autonomously
 # export STORE_TOKEN="..."

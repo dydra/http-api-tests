@@ -24,6 +24,7 @@ export STORE_HOST=${STORE_HOST%:*}
 export STORE_SITE="dydra.com"           # the abstract site name
 export STORE_ACCOUNT="openrdf-sesame"
 export STORE_REPOSITORY="mem-rdf"
+export STORE_REPOSITORY_WRITABLE="mem-rdf-write"
 export STORE_REPOSITORY_PUBLIC="${STORE_REPOSITORY}-public"
 export STORE_CLIENT_IP="127.0.0.1"
 export STORE_PREFIX="rdf"
@@ -69,6 +70,19 @@ fi
 # export CURL="curl --ipv4 --trace-ascii /dev/tty"
 export ECHO_OUTPUT=/dev/null # /dev/tty # 
 export RESULT_OUTPUT=
+
+function 1cpl () {
+ sed 's/[[:space:]]*//g' | sed 's/\(.\)/\1\
+/g'
+}
+export -f 1cpl
+
+if ! [ -x "$(command -v md5sum)" ]; then
+  function md5sum () {
+    md5
+  }
+  export -f md5sum
+fi
 
 # define operators to export sparql and graph store url variables of the appropriate pattern
 # and define the values for the default repository. these will be overridden by scripts which expect to use a
@@ -359,8 +373,8 @@ function curl_sparql_request () {
   if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
   if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
 
-  echo ${CURL} -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
-  ${CURL} -f -s "${curl_args[@]}" ${curl_url}
+  echo ${CURL} -L -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
+  ${CURL} -L -f -s "${curl_args[@]}" ${curl_url}
 }
 
 

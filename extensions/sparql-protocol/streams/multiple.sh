@@ -30,10 +30,10 @@ while IFS='' read -r -u 3 line || [[ -n "$line" ]]; do
 
 # Setup query
 QUERY=''
-for ((i=0; i<SENSOR_COUNT * 2; i=i+2))
-do
-  QUERY=${QUERY}'INSERT DATA { GRAPH  <ex:'${SENSORS[${i}]}'>  {'${arrIN[${i}]}' dc:time '${arrIN[$(($i+1 ))]}';}};'
-done
+   for ((i=0; i<SENSOR_COUNT * 2; i=i+2))
+       do
+          QUERY=${QUERY}'INSERT DATA { GRAPH  <ex:'${SENSORS[${i}]}'>  {'${arrIN[${i}]}' dc:time '${arrIN[$(($i+1 ))]}';}};'
+       done
 
 # Make cURL requet with standard sparql query
 ${CURL} -f -s -S -X POST \
@@ -44,7 +44,6 @@ ${CURL} -f -s -S -X POST \
      https://dydra.com/skorkmaz/http_test/sparql <<EOF
      $QUERY
 EOF
-
 
 # TODO: Websocket request
 #python /home/semih/semih-dydra-test/http-api-tests/libraries/webSocketCurl/WebSocket_cURL.py localhost 1337 / -s "$QUERY"

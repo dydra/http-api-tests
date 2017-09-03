@@ -1,10 +1,11 @@
 # Initialization of variables
-SENSOR_COUNT=5
+SENSOR_COUNT=10
 SENSOR_NAME_PRECEDENCE='sensor_'
+INPUT="./data/sensor_10.dat"
 
 ## Prepare repository
 # Create graphs and sparql-queries for instance
-for ((i=1; i<=SENSOR_COUNT; i++))
+for ((i=0; i<SENSOR_COUNT; i++))
 do
    SENSORS[${i}]=$SENSOR_NAME_PRECEDENCE${i}
 
@@ -16,9 +17,7 @@ do
         https://dydra.com/skorkmaz/http_test/sparql <<EOF
         CREATE GRAPH <ex:${SENSORS[${i}]}>;
 EOF
-
 done
-
 
 # Read input file, value - time pairs are in x,t format,
 # multiple sensors x,t,x,t.x,t ... \n, where each line is a record
@@ -26,12 +25,17 @@ done
 exec 3<"$INPUT"
 while IFS='' read -r -u 3 line || [[ -n "$line" ]]; do
     arrIN=(${line//,/ })
-    read -p "> $line (Press Enter to continue)"
+    # Interactive upload, uncomment to use it
+    # read -p "> $line (Press Enter to continue)"
+
+# Setup query
 QUERY=''
-for ((i=1; i<=SENSOR_COUNT; i++))
+for ((i=0; i<SENSOR_COUNT * 2; i=i+2))
 do
-  QUERY=${QUERY}'INSERT DATA { GRAPH  <ex:'${SENSORS[${i}]}'>  {'${arrIN[0]}' dc:time '${arrIN[1]}';}};'
+  QUERY=${QUERY}'INSERT DATA { GRAPH  <ex:'${SENSORS[${i}]}'>  {'${arrIN[${i}]}' dc:time '${arrIN[$(($i+1 ))]}';}};'
 done
+
+# Make cURL requet with standard sparql query
 ${CURL} -f -s -S -X POST \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" \
@@ -40,5 +44,9 @@ ${CURL} -f -s -S -X POST \
      https://dydra.com/skorkmaz/http_test/sparql <<EOF
      $QUERY
 EOF
+
+
+# TODO: Websocket request
+#python /home/semih/semih-dydra-test/http-api-tests/libraries/webSocketCurl/WebSocket_cURL.py localhost 1337 / -s "$QUERY"
 
 done

@@ -1,9 +1,13 @@
-SENSOR_ID='sensor_1'
+#!/bin/bash
+
+
+SENSOR_ID='sensor_0'
 INPUT="./data/sensor_1.dat"
 SENSOR_DATA=''
 SENSOR_TIME=''
 DELIMITER=','
 
+#Create one graph
 ${CURL} -f -s -S -X POST \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" \
@@ -13,13 +17,12 @@ ${CURL} -f -s -S -X POST \
      CREATE GRAPH <ex:${SENSOR_ID}>;
 EOF
 
-
-
+# Push data via SPARQL endpoint
 exec 3<"$INPUT"
 while IFS='' read -r -u 3 line || [[ -n "$line" ]]; do
     arrIN=(${line//,/ })
-    read -p "> $line (Press Enter to continue)"
-
+    # Comment out for disabling command line based interaction before push
+    #read -p "> $line (Press Enter to continue)"
 ${CURL} -f -s -S -X POST \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" \

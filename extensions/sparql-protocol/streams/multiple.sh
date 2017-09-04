@@ -1,7 +1,9 @@
+#!/bin/bash
+
 # Initialization of variables
-SENSOR_COUNT=10
+SENSOR_COUNT=100
 SENSOR_NAME_PRECEDENCE='sensor_'
-INPUT="./data/sensor_10.dat"
+INPUT="./data/sensor_100.dat"
 
 ## Prepare repository
 # Create graphs and sparql-queries for instance
@@ -45,7 +47,5 @@ ${CURL} -f -s -S -X POST \
      $QUERY
 EOF
 
-# TODO: Websocket request
-#python /home/semih/semih-dydra-test/http-api-tests/libraries/webSocketCurl/WebSocket_cURL.py localhost 1337 / -s "$QUERY"
 
 done

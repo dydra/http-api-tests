@@ -4,7 +4,8 @@
 SENSOR_COUNT=100
 SENSOR_NAME_PRECEDENCE='sensor_'
 INPUT="./data/sensor_100.dat"
-
+# Wait SLEEP_AMOUNT seconds between making next request
+SLEEP_AMOUNT=1
 ## Prepare repository
 # Create graphs and sparql-queries for instance
 for ((i=0; i<SENSOR_COUNT; i++))
@@ -19,6 +20,7 @@ do
         https://dydra.com/skorkmaz/http_test/sparql <<EOF
         CREATE GRAPH <ex:${SENSORS[${i}]}>;
 EOF
+sleep $SLEEP_AMOUNT
 done
 
 # Read input file, value - time pairs are in x,t format,
@@ -34,7 +36,8 @@ while IFS='' read -r -u 3 line || [[ -n "$line" ]]; do
 QUERY=''
    for ((i=0; i<SENSOR_COUNT * 2; i=i+2))
        do
-          QUERY=${QUERY}'INSERT DATA { GRAPH  <ex:'${SENSORS[${i}]}'>  {'${arrIN[${i}]}' dc:time '${arrIN[$(($i+1 ))]}';}};'
+          GRAPH_INDEX=($i/2)
+          QUERY=${QUERY}'INSERT DATA { GRAPH  <ex:'${SENSORS[${GRAPH_INDEX}]}'>  {'${arrIN[${i}]}' dc:time '${arrIN[$(($i+1 ))]}';}};'
        done
 
 # Make cURL requet with standard sparql query
@@ -46,6 +49,5 @@ ${CURL} -f -s -S -X POST \
      https://dydra.com/skorkmaz/http_test/sparql <<EOF
      $QUERY
 EOF
-
-
+sleep $SLEEP_AMOUNT
 done

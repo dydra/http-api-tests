@@ -12,16 +12,12 @@ INPUT="./data/sensor_100.dat"
 OUTPUT=~/data.dat
 
 rm -f $OUTPUT
-## Prepare repository
-# Create graphs and sparql-queries for instance
+
 cat $OUTPUT
 for ((i=0; i<SENSOR_COUNT; i++))
 do
    SENSORS[${i}]=$SENSOR_NAME_PRECEDENCE${i}
-   echo 'CREATE GRAPH <ex:'${SENSORS[${i}]}'>;' >> $OUTPUT
-   QUERY_DATA=${QUERY_DATA}'CREATE GRAPH <ex:'${SENSORS[${i}]}'>;'
 done
-
 
 # Read input file, value - time pairs are in x,t format,
 # multiple sensors x,t,x,t.x,t ... \n where each line is a record
@@ -31,13 +27,16 @@ while IFS='' read -r -u 3 line || [[ -n "$line" ]]; do
     arrIN=(${line//,/ })
     # Interactive upload, uncomment to use it
     # read -p "> $line (Press Enter to continue)"
+
 # Setup query
-QUERY=''
+QUAD=''
    for ((i=0; i<SENSOR_COUNT * 2; i=i+2))
        do
           GRAPH_INDEX=($i/2)
-          QUERY=${QUERY}'INSERT DATA { GRAPH  <ex:'${SENSORS[${GRAPH_INDEX}]}'>  {'${arrIN[${i}]}' dc:time '${arrIN[$(($i+1 ))]}';}};'
-          echo $QUERY >> $OUTPUT
+          # Quad instance
+          QUAD=${arrIN[${i}]}' <dc:time> '${arrIN[$(($i+1 ))]}' <ex:'${SENSORS[${GRAPH_INDEX}]}'>'
+          echo $QUAD >> $OUTPUT
+
        done
 done
 

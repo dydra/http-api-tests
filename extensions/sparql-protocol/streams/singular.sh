@@ -1,6 +1,4 @@
 #!/bin/bash
-
-
 SENSOR_ID='sensor_0'
 INPUT="./data/sensor_1.dat"
 SENSOR_DATA=''

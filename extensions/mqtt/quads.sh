@@ -34,7 +34,7 @@ QUAD=''
        do
           GRAPH_INDEX=($i/2)
           # Quad instance
-          QUAD=${arrIN[${i}]}' <dc:time> '${arrIN[$(($i+1 ))]}' <ex:'${SENSORS[${GRAPH_INDEX}]}'>'
+          QUAD='<http://example.com/'${SENSORS[${GRAPH_INDEX}]}'> <http://www.w3.org/ns/ssn/observedProperty> "'${arrIN[${i}]}'" <g_:'${arrIN[$(($i+1 ))]}'> .'
           echo $QUAD >> $OUTPUT
 
        done

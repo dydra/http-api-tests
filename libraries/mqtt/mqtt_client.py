@@ -1,5 +1,7 @@
 import paho.mqtt.client as paho
 import threading
+import random
+import time
 import sys
 
 
@@ -12,14 +14,11 @@ def publish_agent(client,topic, f_loc):
         print q
     client.loop_stop()
 
-def publish_MLP(client,topic, f_loc):
-    print "publishing data"
-    f = open(f_loc, "r")
-    lst_queries =  f.readlines()
-    for q in lst_queries:
-        client.publish(topic, q)
-        print q
-    client.loop_stop()
+def publish_MLP(client,topic):
+    # Publishes random prediction
+    # N-Quads format
+    query = "<http://example.com/model_1> <http://www.w3.org/ns/sosa/Result> " + str(random.random()) + " <g_:"+str(int(time.time()))+"> ."
+    client.publish(topic, query)
 
 def subscribe(client, topic):
     print "subscribing to topic"
@@ -35,6 +34,7 @@ def on_message(client, userdata, msg):
     print(msg.topic+" "+str(msg.qos)+" "+str(msg.payload))
 
 def on_message_MLP(client, userdata, msg):
+    print "MLP got data, publishing prediction ..:"
     print(msg.topic+" "+str(msg.qos)+" "+str(msg.payload))
 
 
@@ -62,7 +62,7 @@ client.connect(url, port)
 client.loop_start()
 
 if agent_type == 'MLP':
-    thread_mqtt = threading.Thread(target=publish_MLP, args=(client,request_topic, f_loc))
+    thread_mqtt = threading.Thread(target=publish_MLP, args=(client,request_topic))
 
 else:
     thread_mqtt = threading.Thread(target=publish_agent, args=(client,request_topic, f_loc))

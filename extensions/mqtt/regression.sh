@@ -10,4 +10,4 @@ SENSOR_NAME_PRECEDENCE='sensor_'
 # Machine Learning Provider (MLP)
 AGENT_TYPE='MLP'
 
-python libraries/mqtt/mqtt_client_ML.py $URL $PORT $STORE_TOKEN $REQUEST_ENDPOINT $RESPONSE_ENDPOINT $OUTPUT $AGENT_TYPE
+python libraries/mqtt/mqtt_client.py $URL $PORT $STORE_TOKEN $REQUEST_ENDPOINT $RESPONSE_ENDPOINT $OUTPUT $AGENT_TYPE

@@ -10,6 +10,7 @@ SENSOR_NAME_PRECEDENCE='sensor_'
 INPUT="./data/sensor_100.dat"
 # Temporary file for queries
 OUTPUT=~/data.dat
+AGENT_TYPE='AGENT'
 
 rm -f $OUTPUT
 
@@ -40,4 +41,4 @@ QUAD=''
        done
 done
 
-python libraries/mqtt/mqtt_client.py $URL $PORT $STORE_TOKEN $REQUEST_ENDPOINT $RESPONSE_ENDPOINT $OUTPUT
+python libraries/mqtt/mqtt_client.py $URL $PORT $STORE_TOKEN $REQUEST_ENDPOINT $RESPONSE_ENDPOINT $OUTPUT $AGENT_TYPE

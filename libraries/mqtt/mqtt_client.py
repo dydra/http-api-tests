@@ -30,12 +30,17 @@ def on_subscribe(client, userdata, mid, granted_qos):
 def on_connect(client, userdata, flags, rc):
     print "CONNACK received with code "  + str(rc)
 
+def on_connect_MLP(client, userdata, flags, rc):
+    client.subscribe(request_topic)
+    print "CONNACK received with code "  + str(rc)
+
 def on_message(client, userdata, msg):
     print(msg.topic+" "+str(msg.qos)+" "+str(msg.payload))
 
 def on_message_MLP(client, userdata, msg):
-    print "MLP got data, publishing prediction ..:"
+    print "MLP got data, publishing prediction to response topic ..:"
     print(msg.topic+" "+str(msg.qos)+" "+str(msg.payload))
+    publish_MLP(client,response_topic)
 
 
 url            = sys.argv[1]
@@ -51,20 +56,19 @@ client = paho.Client(token)
 
 if agent_type == 'MLP':
     client.on_message = on_message_MLP
-
+    client.on_connect = on_connect_MLP
 else:
     client.on_message = on_message
+    client.on_connect = on_connect
 
-client.on_connect = on_connect
 client.on_subscribe = on_subscribe
 client.on_message = on_message
 client.connect(url, port)
 client.loop_start()
 
 if agent_type == 'MLP':
-    thread_mqtt = threading.Thread(target=publish_MLP, args=(client,request_topic))
+    client.loop_forever()
 
 else:
     thread_mqtt = threading.Thread(target=publish_agent, args=(client,request_topic, f_loc))
-
-thread_mqtt.start()
+    thread_mqtt.start()

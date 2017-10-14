@@ -5,8 +5,7 @@ URL='localhost'
 PORT='1883'
 REQUEST_ENDPOINT='/request'
 RESPONSE_ENDPOINT='/response'
-SENSOR_COUNT=5
-SENSOR_NAME_PRECEDENCE='sensor_'
+OUTPUT='_'
 # Machine Learning Provider (MLP)
 AGENT_TYPE='MLP'
 

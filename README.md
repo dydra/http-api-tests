@@ -50,7 +50,7 @@ In order to execute scripts manually:
 - Define the shell environment: `source define.sh`
 - Run the desired script(s) :
   - `run_tests <pathnames>`
-  - `run.sh <directory`
+  - `run.sh <directory>`
 
 For example
 
@@ -95,16 +95,16 @@ the described overview:
         ${STORE_URL}/${STORE_ACCOUNT}
           /protocol              : protocol version (GET)
           /repositories          : overview of available repositories (GET)
-          /${STORE_REPOSITORY}   : query evaluation and administration tasks on 
+          /${STORE_REPOSITORY}   : query evaluation and administration tasks on
                                    a repository (GET/POST/DELETE)
             /statements          : repository statements (GET/POST/PUT/DELETE)
             /contexts            : context overview (GET)
             /size                : #statements in repository (GET)
             /rdf-graphs          : named graphs overview (GET)
-                /service         : Graph Store operations on indirectly referenced named graphs 
+                /service         : Graph Store operations on indirectly referenced named graphs
                                    in repository (GET/PUT/POST/DELETE)
                                    includes the query argument graph=${STORE_IGRAPH}
-                /${STORE_RGRAPH} : Graph Store operations on directly referenced named graphs 
+                /${STORE_RGRAPH} : Graph Store operations on directly referenced named graphs
                                    in repository (GET/PUT/POST/DELETE)
             /namespaces          : overview of namespace definitions (GET/DELETE)
                 /${STORE_PREFIX} : namespace-prefix definition (GET/PUT/DELETE)
@@ -152,7 +152,7 @@ The scripts test a subset of the accept formats:
     - JSON :      `application/sparql-results+json`
 
 The scripts cover variations of access privileges, content- and accept-type,
-and resource existence. 
+and resource existence.
 Test successes are judged against either against the HTTP status code, or, for
 requests with response content, against result prototypes as canonicalized per xmllint
 and json_reformat. Test failures match against the HTTP status code.
@@ -161,7 +161,7 @@ and json_reformat. Test failures match against the HTTP status code.
 ### Graph store support through the Sesame HTTP protocol
 
 The graph store support under [sesame](http://www.openrdf.org/doc/sesame2/system/ch08.html#d0e659)
-provides two resource patterns. 
+provides two resource patterns.
 
     <SESAME_URL>/repositories/<ID>/rdf-graphs/service
     <SESAME_URL>/repositories/<ID>/rdf-graphs/<NAME>
@@ -174,10 +174,10 @@ Note that, given the [discussion](http://www.openrdf.org/issues/browse/SES-895)
 on the openrdf topic, the designator for a directly referenced named graph in a
 sesame request URI is the literal URL. That is, it includes the "/repositories" text.
 
-> The SPARQL 1.1 Graph Store HTTP Protocol is supported on a per-repository basis. 
-> The functionality is accessible at <SESAME_URL>/repositories/<ID>/rdf-graphs/service 
-> (for indirectly referenced named graphs), and <SESAME_URL>/repositories/<ID>/rdf-graphs/<NAME> 
-> (for directly referenced named graphs). 
+> The SPARQL 1.1 Graph Store HTTP Protocol is supported on a per-repository basis.
+> The functionality is accessible at <SESAME_URL>/repositories/<ID>/rdf-graphs/service
+> (for indirectly referenced named graphs), and <SESAME_URL>/repositories/<ID>/rdf-graphs/<NAME>
+> (for directly referenced named graphs).
 > A request on a directly referenced named graph entails that the request URL itself is used
 > as the named graph identifier in the repository.
 
@@ -235,7 +235,7 @@ is not supported. Each request must comprise a single document.
 The `application/x-www-form-url-encoded` request type is not supported by the graph store protocol.
 It applies to SPARQL ˚POST˚ requests only, as described in the SPARQL
 protocol for [query](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/#query-via-post-urlencoded)
-and [update](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/#update-via-post-urlencoded) operations. 
+and [update](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/#update-via-post-urlencoded) operations.
 
 
 
@@ -290,7 +290,7 @@ The combinations yield the following effects for <code><b>PATCH</b></code>, <cod
 <th >protocol graph designator<th  >content type<th  >effective graph</tr>
 <tr >
   <td rowspan="2">-
-  <td>n-triples, rdf+xml 
+  <td>n-triples, rdf+xml
   <td > <code><b>PATCH</b></code>: <code><i>default</i></code> <br /> <code><b>POST</b></code>: <code><i>post</i></code><br /> <code><b>PUT</b></code>: <code><i>default</i></code> </tr>
 <tr >
 <td >n-quad, trix <td > <code><i>statement</i></code> </tr>
@@ -307,7 +307,7 @@ The combinations yield the following effects for <code><b>PATCH</b></code>, <cod
   <td>n-triples, rdf+xml
   <td><code><i>protocol</i></code></tr>
 <tr >
-  <td  >n-quads, trix 
+  <td  >n-quads, trix
   <td><code><i>protocol</i></code></tr>
 
 <tr>
@@ -389,7 +389,7 @@ Each DYDRA repository constitutes a SPARQL endpoint which is identified by the r
 
 Requests which conform to the terms of a SPARQL request described in the
 "SPARQL 1.1 Protocol" [recommendation](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321)
-are processed as SPARQL requests. 
+are processed as SPARQL requests.
 The tests for this facility are present in the directory `
 
 ## DYDRA account administration HTTP API
@@ -402,7 +402,7 @@ Test scripts for account and repository management operations are present under 
 The DYDRA service provides several extensions to standard SPARQL facilities:
 - It implements the temporal datatypes `xsd:date`, `xsd:dayTimeDuration`,
 `xsd:time`, `xsd:yearMonthDuration`and the atomic Gregorian datatypes and implements the
-respective constuctor, accessor and combination operators as described in 
+respective constuctor, accessor and combination operators as described in
 ["XPath and XQuery Functions and Operators 3.0"](http://www.w3.org/TR/xpath-functions-30).
 - It implements the math operators from the
 XPath [recommendation](http://www.w3.org/TR/xpath-functions-30/#trigonometry).

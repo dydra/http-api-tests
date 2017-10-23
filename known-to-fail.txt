@@ -1,6 +1,9 @@
 # NYI & such
 # extensions/sparql-protocol/values/inline-query-multiple.sh # NIY : multiple values arguments are still reduced to one
 
+extensions/sparql-protocol/values/stored-query.sh # need a way to define the views
+extensions/sparql-protocol/values/stored-update.sh
+
 http-communication-protocol-for-sesame/repositories/mem-ref/statements/GET-rj.sh # NYI
 http-communication-protocol-for-sesame/repositories/mem-ref/statements/GET-trix.sh # NYI
 http-communication-protocol-for-sesame/repositories/mem-ref/statements/POST-context=bnode-ntriples.sh  # support blank node graphs?
@@ -13,6 +16,12 @@ sparql-graph-store-http-protocol/GET-direct-ntriples.sh # NYI : restricted to th
 sparql-graph-store-http-protocol/GET-graph-service-description.sh # NYI
 # sparql-graph-store-http-protocol/GET-trix.sh       # NYI
 # sparql-graph-store-http-protocol/HEAD-direct.sh    # NYI
+sparql-protocol/paths/paths-from-named-named.sh # anomalous!!!!
+sparql-protocol/paths/paths-from-named.sh # anomalous!!!!
+sparql-protocol/paths/paths-none.sh  # anomalous!!!!
+sparql-protocol/slice/GET-sparql-view-html.sh # need to define the view
+sparql-protocol/slice/GET-sparql-view.sh # need to define the view
+
 sparql-graph-store-http-protocol/PATCH-sparql-update.sh # not supported
 sparql-graph-store-http-protocol/PATCH-trix-all.sh # NYI
 sparql-graph-store-http-protocol/POST-ntriples+nquads-direct.sh # direct graph specification yields a 404

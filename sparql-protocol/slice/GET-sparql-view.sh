@@ -1,55 +1,37 @@
 #! /bin/bash
 
 # verify slice arguments for sparql views
-# as long as the response limit is under that from the query text, it will reduce the response count
-# requires that the account have the "all" and "all-paged" views
+# uses the built-in "all" and "default" views.
+# nb. an earlier version of the test combined request parameters with a query slice.
 
 
-if ( SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.tsv" curl_sparql_request -X GET -w "%{http_code}\n" | fgrep -q -s '404' )
-then
-  echo "must define the view 'all'"
-  exit 1
-fi
+SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.tsv" \
+  curl_sparql_request -X GET -I -w "%{http_code}\n" | fgrep -q -s '200'
 
-if ( SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all-paged.tsv" curl_sparql_request -X GET -w "%{http_code}\n" | fgrep -q -s '404' )
-then
-  echo "must define the view 'all'"
-  exit 1
-fi
 
-SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.tsv"
+SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.tsv" \
+curl_sparql_request -X GET  | wc -l | fgrep -q -s '3'
+SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.tsv" \
 curl_sparql_request 'limit=1' -X GET  | wc -l | fgrep -q -s '2' 
+SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.tsv" \
 curl_sparql_request 'limit=1' 'offset=1' -X GET | wc -l | fgrep -q -s '2'
-
-SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all-paged.tsv"
-curl_sparql_request 'limit=1' -X GET  | wc -l | fgrep -q -s '2' 
-curl_sparql_request 'limit=1' 'offset=1' -X GET | wc -l | fgrep -q -s '2'
+SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.tsv" \
+curl_sparql_request 'limit=1' 'offset=2' -X GET | wc -l | fgrep -q -s '1'
 
 
-SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.csv"
-curl_sparql_request 'limit=1' -X GET  | wc -l | fgrep -q -s '2' 
-curl_sparql_request 'limit=1' 'offset=1' -X GET | wc -l | fgrep -q -s '2'
-
-SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all-paged.csv"
-curl_sparql_request 'limit=1' -X GET  | wc -l | fgrep -q -s '2' 
-curl_sparql_request 'limit=1' 'offset=1' -X GET | wc -l | fgrep -q -s '2'
+SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.csv" \
+curl_sparql_request -X GET  | wc -l | fgrep -q -s '3'
 
 
-SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.srj"
-curl_sparql_request 'limit=1' -X GET | fgrep '"s":' | wc -l  | fgrep -q -s '1' 
-curl_sparql_request 'limit=1' 'offset=1' -X GET | fgrep '"s":' | wc -l | fgrep -q -s '1' 
-
-SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all-paged.srj"
-curl_sparql_request 'limit=1' -X GET | fgrep '"s":'  | wc -l | fgrep -q -s '1' 
+SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.srj" \
+curl_sparql_request -X GET | fgrep '"s":' | wc -l  | fgrep -q -s '2' 
+SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.srj" \
 curl_sparql_request 'limit=1' 'offset=1' -X GET | fgrep '"s":' | wc -l | fgrep -q -s '1' 
 
 
-SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.srx"
-curl_sparql_request 'limit=1' -X GET  | tidy -xml -q | fgrep '<result>' | wc -l | fgrep -q -s '1' 
-curl_sparql_request 'limit=1' 'offset=1' -X GET | tidy -xml -q | fgrep '<result>' | wc -l | fgrep -q -s '1' 
-
-SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all-paged.srx"
-curl_sparql_request 'limit=1' -X GET  | tidy -xml -q | fgrep '<result>' | wc -l | fgrep -q -s '1' 
+SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.srx" \
+curl_sparql_request -X GET  | tidy -xml -q | fgrep '<result>' | wc -l | fgrep -q -s '2' 
+SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.srx" \
 curl_sparql_request 'limit=1' 'offset=1' -X GET | tidy -xml -q | fgrep '<result>' | wc -l | fgrep -q -s '1' 
 
 

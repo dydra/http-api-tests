@@ -13,7 +13,7 @@ initialize_repository --repository "${STORE_REPOSITORY}-write"
 curl_graph_store_update -X PATCH  -w "%{http_code}\n" \
      -H "Content-Type: application/sparql-update" \
      --repository "${STORE_REPOSITORY}-write" default <<EOF  \
-   | test_unsupported_media
+   | test_ok
 PREFIX     : <http://example.org/> 
 INSERT { GRAPH :g2 { ?s ?p 'r' } } WHERE { ?s ?p ?o }
 EOF

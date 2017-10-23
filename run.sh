@@ -13,7 +13,9 @@
 # STORE_TOKEN : the authentication token
 
 set -e
-source ./define.sh
+if [[ "$STATUS_OK" == "" ]] ; then
+  source ./define.sh
+fi
 VERBOSE=""
 
 while [[ "$#" > 0 ]] ; do
@@ -23,15 +25,19 @@ while [[ "$#" > 0 ]] ; do
   esac
 done
 
+STORE_ERRORS="0"
 SCRIPT_PATTERN='*.sh' 
 SCRIPT_ROOT='.'
 if [[ "$#" == "0" ]] ; then
+  echo "test: "`pwd`
   SCRIPTS=`find . -mindepth 2 -name "${SCRIPT_PATTERN}"`
 elif [[ "$#" == "1" ]] ; then
+  echo "test: $1"
   SCRIPTS=`find $1 -name "${SCRIPT_PATTERN}"`
 else
   SCRIPTS=$@
 fi
+## echo $SCRIPTS
 
 ## osx lacks truncate
 cat /dev/null > failed.txt
@@ -54,6 +60,7 @@ cat /dev/null > failed.txt
 EXPECTED_FAILURES=""
 UNEXPECTED_FAILURES=""
 WD_PREFIX=`pwd`/
+
 set +e     # allow failure in order to record it
 for script_pathname in $SCRIPTS
 do
@@ -71,7 +78,7 @@ do
   script_directory=`dirname $script_pathname`
   script_tag=`basename $script_directory`"/${script_filename}"
 
-  fgrep -v '##'  known-to-fail.txt | fgrep -q "${script_pathname}"
+  egrep -v '^#'  known-to-fail.txt | fgrep -q "${script_pathname}"
   if [ $? -eq 0 ]
   then
     EXPECTED=" KNOWN TO FAIL"; EXPECTED_FAILURES="${EXPECTED_FAILURES} ${script_tag}";
@@ -91,12 +98,6 @@ do
       ENTRY="${script_pathname}  : ${EXPECTED}"
       echo "${ENTRY}" >> failed.txt
       echo "${EXPECTED}"
-      # if need to reinitialize by type
-      # echo "${script_filename}" | egrep -q -e '^.*GET.*sh$' # allow bash 2.0
-      #if [[ $? != 0 ]]
-      #then
-      #  initialize_repository | egrep -q "${STATUS_UPDATED}"
-      #fi
     fi
   fi
 done

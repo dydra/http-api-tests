@@ -119,18 +119,18 @@ initialize_repository --repository "${STORE_REPOSITORY}-write"
 
 
 
-# echo "put quads direct"
-curl_graph_store_update -X PUT \
-     -H "Content-Type: application/n-quads" \
-    --url "${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-write/graph-name" <<EOF
-<http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-quads-direct" .
-<http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-direct" <${STORE_NAMED_GRAPH}-two> .
-EOF
-curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
- | rapper -q -i nquads -o nquads /dev/stdin | sort | diff /dev/stdin /dev/fd/3 3<<EOF
-<http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-quads-direct" <http://dydra.com/openrdf-sesame/mem-rdf/graph-name> .
-<http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
-<http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-direct" <http://dydra.com/openrdf-sesame/mem-rdf/graph-name> .
-EOF
+# echo "put quads direct" NYI
+#curl_graph_store_update -X PUT   -w "%{http_code}\n" \
+#     -H "Content-Type: application/n-quads" \
+#    --url "${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-write/graph-name" <<EOF
+#<http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-quads-direct" .
+#<http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-direct" <${STORE_NAMED_GRAPH}-two> .
+#EOF
+#curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
+# | rapper -q -i nquads -o nquads /dev/stdin | sort | diff /dev/stdin /dev/fd/3 3<<EOF
+#<http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-quads-direct" <http://dydra.com/openrdf-sesame/mem-rdf/graph-name> .
+#<http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
+#<http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-direct" <http://dydra.com/openrdf-sesame/mem-rdf/graph-name> .
+#EOF
 
 

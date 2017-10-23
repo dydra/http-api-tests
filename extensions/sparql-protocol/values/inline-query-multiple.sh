@@ -3,12 +3,12 @@
 # exercise the values extension for a query in-line with the request
 # verify multiple arguments
 
-curl_sparql_request -w '%{http_code}\n' \
+curl_sparql_request \
   "--data-urlencode" "query@/dev/fd/3" \
   "--data-urlencode" "values@/dev/fd/4" \
   "--data-urlencode" "values@/dev/fd/5" \
   -H "Content-Type: application/x-www-form-urlencoded"  3<<EOF3  4<<EOF4 5<<EOF5 \
- | jq '.results.bindings[] | .[].value' | fgrep "blue" | fgrep -q "BSS84"
+ | jq '.results.bindings[] | .[].value' |  tr '\n' ' ' | fgrep "blue" | fgrep -q "BSS84"
 select ?value1 ?value2
 where { 
  values (?name ?value1) {} 

@@ -1,5 +1,5 @@
 # NYI & such
-extensions/sparql-protocol/values/inline-query-multiple.sh # NIY : multiple values arguments are still reduced to one
+# extensions/sparql-protocol/values/inline-query-multiple.sh # NIY : multiple values arguments are still reduced to one
 
 http-communication-protocol-for-sesame/repositories/mem-ref/statements/GET-rj.sh # NYI
 http-communication-protocol-for-sesame/repositories/mem-ref/statements/GET-trix.sh # NYI
@@ -11,24 +11,27 @@ http-communication-protocol-for-sesame/repositories/mem-ref/rdf-graphs/service/P
 sparql-graph-store-http-protocol/GET-direct-nquads.sh # NYI : restricted to the /service suffix
 sparql-graph-store-http-protocol/GET-direct-ntriples.sh # NYI : restricted to the /service suffix
 sparql-graph-store-http-protocol/GET-graph-service-description.sh # NYI
-sparql-graph-store-http-protocol/GET-trix.sh       # NYI
-sparql-graph-store-http-protocol/HEAD-direct.sh    # NYI
+# sparql-graph-store-http-protocol/GET-trix.sh       # NYI
+# sparql-graph-store-http-protocol/HEAD-direct.sh    # NYI
+sparql-graph-store-http-protocol/PATCH-sparql-update.sh # not supported
 sparql-graph-store-http-protocol/PATCH-trix-all.sh # NYI
 sparql-graph-store-http-protocol/POST-ntriples+nquads-direct.sh # direct graph specification yields a 404
 sparql-graph-store-http-protocol/PUT-ntriples+nquads-direct.sh # direct graph specification yields a 404
 sparql-graph-store-http-protocol/PUT-rj.sh        # NYI
-sparql-graph-store-http-protocol/PUT-trix.sh      # NYI
+# sparql-graph-store-http-protocol/PUT-trix.sh      # NYI
+# sparql-graph-store-http-protocol/GET-dot.sh       # official media type is not known to export program.
 
-sparql-protocol/GET-construct-srx-406.sh # no content : dydra-query: Caught exception ... unknown content type: application/sparql-results+xml
+# sparql-protocol/GET-construct-srx-406.sh # no content : dydra-query: Caught exception ... unknown content type: application/sparql-results+xml
+# sparql-protocol/OPTIONS.sh # php does not dispatch this
 
 # to be corrected
 ##sparql-graph-store-http-protocol/PUT-ntriples+nquads.sh # decide what should happen
 
-extensions/sparql-protocol/values/stored-query.sh # auth error
-extensions/sparql-protocol/values/stored-update.sh # auth error
+# extensions/sparql-protocol/values/stored-query.sh # auth error
+# extensions/sparql-protocol/values/stored-update.sh # auth error
 
 # to be determined
 extensions/sparql-protocol/ssl/POST-query.sh
 extensions/sparql-protocol/ssl/POST-update-constraint.sh
 extensions/sparql-protocol/ssl/POST-update-notification.sh
-extensions/sparql-protocol/values/inline-query-400-syntax.sh
+# extensions/sparql-protocol/values/inline-query-400-syntax.sh

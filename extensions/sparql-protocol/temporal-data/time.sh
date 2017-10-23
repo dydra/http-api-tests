@@ -15,7 +15,6 @@ select (((hours(?time) = 23) &&
          (fn:hours-from-time(?time) = 23) &&
          (fn:minutes-from-time(?time) = 59) &&
          (fn:seconds-from-time(?time) = 58) &&
-         
          (datatype(TIMEZONE(?time)) = xsd:dayTimeDuration) &&
          (datatype(fn:timezone-from-time(?time)) = xsd:dayTimeDuration)
          )

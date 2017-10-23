@@ -15,7 +15,7 @@ curl_graph_store_update -X PUT \
 <http://example.com/s3> <http://example.com/q> "second" .
 <http://example.com/s3> <http://example.com/r> "third" .
 EOF
-
+# curl_graph_store_get -H "Content-Type: application/n-quads" --repository "${STORE_REPOSITORY}-write"
 
 # simple exist constraint implemented as bgp sip
 curl_sparql_request \

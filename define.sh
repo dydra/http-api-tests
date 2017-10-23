@@ -13,6 +13,10 @@ if [[ "" == "${STORE_URL}" ]]
 then
   export STORE_URL="http://localhost"
 fi
+# export STORE_URL=https://dydra.com:81 # 20170705 server version is just http
+# export STORE_URL=http://dydra.com
+# export STORE_URL=http://stage.dydra.com
+
 # strip the protocol and possible user authentication to yield the actual host
 case ${STORE_URL} in
   http:*)   export STORE_HOST=${STORE_URL#*http://}  ;;
@@ -25,7 +29,7 @@ export STORE_SITE="dydra.com"           # the abstract site name
 export STORE_ACCOUNT="openrdf-sesame"
 export STORE_REPOSITORY="mem-rdf"
 export STORE_REPOSITORY_WRITABLE="mem-rdf-write"
-export STORE_REPOSITORY_PUBLIC="${STORE_REPOSITORY}-public"
+export STORE_REPOSITORY_PUBLIC="public"
 export STORE_CLIENT_IP="127.0.0.1"
 export STORE_PREFIX="rdf"
 export STORE_DGRAPH="sesame"
@@ -120,23 +124,30 @@ fi
 # define a token for the primary account
 if [[ "" == "${STORE_TOKEN}" ]]
 then
-  if [ -f ~/.dydra/token-${STORE_ACCOUNT}@${STORE_HOST} ]
+  if [ -f ~/.dydra/${STORE_HOST}.${STORE_ACCOUNT}.token ]
   then 
-    export STORE_TOKEN=`cat ~/.dydra/token-${STORE_ACCOUNT}@${STORE_HOST}`
-  elif [ -f ~/.dydra/token-${STORE_ACCOUNT} ]
+    export STORE_TOKEN=`cat ~/.dydra/${STORE_HOST}.${STORE_ACCOUNT}.token`
+  elif [ -f ~/.dydra/${STORE_ACCOUNT}.token ]
   then
-    export STORE_TOKEN=`cat ~/.dydra/token-${STORE_ACCOUNT}`
+    export STORE_TOKEN=`cat ~/.dydra/${STORE_ACCOUNT}.token`
+  elif [ -f ~/.dydra/${STORE_HOST}.token ]
+  then
+    export STORE_TOKEN=`cat ~/.dydra/${STORE_HOST}.token`
+  else
+    echo "no STORE_TOKEN"
+    exit 1
   fi
+  
 fi
 # and one for another registered user
 if [[ "" == "${STORE_TOKEN_JHACKER}" ]]
 then 
   if [ -f ~/.dydra/token-jhacker@${STORE_HOST} ]
   then 
-    export STORE_TOKEN_JHACKER=`cat ~/.dydra/token-jhacker@${STORE_HOST}`
-  elif [ -f ~/.dydra/token-jhacker ]
+    export STORE_TOKEN_JHACKER=`cat ~/.dydra/${STORE_HOST}.jhacker.token`
+  elif [ -f ~/.dydra/jhacker.token ]
   then
-    export STORE_TOKEN_JHACKER=`cat ~/.dydra/token-jhacker`
+    export STORE_TOKEN_JHACKER=`cat ~/.dydra/jhacker.token`
   fi
 fi
 
@@ -212,6 +223,19 @@ ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
 <http://dydra.com/accounts/openrdf-sesame> <urn:dydra:baseIRI> <http://dydra.com/accounts/openrdf-sesame> <http://dydra.com/accounts/openrdf-sesame> .
 EOF
 }
+
+## in all the following repositories must be present
+# openrdf-sesame/collation
+# openrdf-sesame/graphql
+# openrdf-sesame/ldp
+# openrdf-sesame/library
+# openrdf-sesame/mem-rdf
+# openrdf-sesame/mem-rdf-provenance
+# openrdf-sesame/mem-rdf-write
+# openrdf-sesame/mem-rdfs
+# openrdf-sesame/public # to test anonymus access
+# openrdf-sesame/system
+# openrdf-sesame/tpf
 
 function initialize_repository_configuration () {
 # metadata
@@ -302,6 +326,10 @@ EOF
 ## convenience operators,
 ## but note, some require presence in the respective directory
 
+function run_all_tests() {
+  bash run_all.sh > run_all.out
+}
+
 function run_test() {
   (cd `dirname $1`; bash -e `basename $1`)
   if [[ "0" == "$?" ]]
@@ -374,6 +402,7 @@ function curl_sparql_request () {
   if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
 
   echo ${CURL} -L -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
+  mkdir -p /tmp/test/
   ${CURL} -L -f -s "${curl_args[@]}" ${curl_url}
 }
 
@@ -445,6 +474,7 @@ function curl_graph_store_update () {
   local -a user=(-u "${STORE_TOKEN}:")
   local graph=""  #  the default is all graphs
   local curl_url="${GRAPH_STORE_URL}"
+  local output="/dev/null"
   while [[ "$#" > 0 ]] ; do
     case "$1" in
       all|ALL) graph="all"; shift 1;;
@@ -456,10 +486,12 @@ function curl_graph_store_update () {
           Content-Type*) content_media_type[1]="${2}"; shift 2;;
           *) curl_args+=("${1}" "${2}"); shift 2;;
           esac ;;
+      -o) output="${1}"; shift 1;;
       --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/service"; shift 2;;
       --url) curl_url="${2}"; shift 2;;
       -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
       -X) method[1]="${2}"; shift 2;;
+      -w) curl_args+=("${1}" "${2}"); output="/dev/stdout"; shift 2;;
       *) curl_args+=("${1}"); shift 1;;
     esac
   done
@@ -471,39 +503,9 @@ function curl_graph_store_update () {
   if [[ ${#user[*]} > 0 ]] ; then curl_args+=("${user[@]}"); fi
 
   echo  ${CURL} -f -s -S "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
-  ${CURL}  -f -s "${curl_args[@]}" ${curl_url}
+  ${CURL}  -f -s "${curl_args[@]}" ${curl_url} > $output
 }
 
-
-# curl_tpf_get { -H $header-argument } {--repository $repository} { query }
-function curl_tpf_get () {
-  local -a curl_args=()
-  local -a method=("-X" "GET")
-  local -a user=(-u "${STORE_TOKEN}:")
-  local query=""  #  the default no query args
-  local curl_url="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/tpf"
-  while [[ "$#" > 0 ]] ; do
-    case "$1" in
-      -H) case "$2" in
-          Accept*) curl_args+=("${1}" "${2}"); shift 2;;
-          esac ;;
-      --head) method=(); curl_args+=("${1}"); shift 1;;
-      --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/tpf"; shift 2;;
-      --revision) curl_args+=("${1}" "${2}"); shift 2;;
-      -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
-      *) query="${1}"; shift 1;;
-    esac
-  done
-
-  # where an empty array is possible, must be conditional due to unset variable constraint
-  # curl_args+=("${accept_media_type[@]}");
-  if [[ "${query}" ]] ; then curl_url="${curl_url}?${query}"; fi
-  if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
-  if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
-
-  echo ${CURL} -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
-  ${CURL} -f -s "${curl_args[@]}" ${curl_url}
-}
 
 function clear_repository_content () {
   curl_graph_store_update -X PUT $@ <<EOF
@@ -544,6 +546,92 @@ function curl_download () {
      -u "${STORE_TOKEN}:" \
      ${DOWNLOAD_URL}.${2}
 }
+
+
+# curl_tpf_get { -H $header-argument } {--repository $repository} { query }
+function curl_tpf_get () {
+  local -a curl_args=()
+  local -a method=("-X" "GET")
+  local -a user=(-u "${STORE_TOKEN}:")
+  local query=""  #  the default no query args
+  local revision=""
+  local curl_url="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/tpf"
+  while [[ "$#" > 0 ]] ; do
+    case "$1" in
+      -H) case "$2" in
+          Accept*) curl_args+=("${1}" "${2}"); shift 2;;
+          esac ;;
+      --head) method=(); curl_args+=("${1}"); shift 1;;
+      --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/tpf"; shift 2;;
+      --revision) revision="${2}"; shift 2;;
+      -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
+      *) query="${1}"; shift 1;;
+    esac
+  done
+
+  # where an empty array is possible, must be conditional due to unset variable constraint
+  # curl_args+=("${accept_media_type[@]}");
+  if [[ "${query}" ]]
+    then if [[ "${revision}" ]]
+      then curl_url="${curl_url}?${query}&revision=${revision}";
+      else curl_url="${curl_url}?${query}";
+      fi
+    else if [[ "${revision}" ]]
+      then curl_url="${curl_url}?revision=${revision}";
+      fi
+    fi
+  if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
+  if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
+
+  echo ${CURL} -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
+  ${CURL} -f -s "${curl_args[@]}" ${curl_url}
+}
+
+# curl_ldp_get { -H $header-argument } {--repository $repository} { --path $path }
+function curl_ldp_get () {
+  local -a curl_args=()
+  local -a method=("-X" "GET")
+  local -a user=(-u "${STORE_TOKEN}:")
+  local revision=""
+  local repository="${STORE_REPOSITORY}"
+  local path=""
+  local curl_url=""
+  while [[ "$#" > 0 ]] ; do
+    case "$1" in
+      -H) case "$2" in
+          Accept*) curl_args+=("${1}" "${2}"); shift 2;;
+          esac ;;
+      --head) method=(); curl_args+=("${1}"); shift 1;;
+      --repository) repository="${2}"; shift 2;;
+      --path) path="${2}"; shift 2;;
+      --revision) revision="${2}"; shift 2;;
+      -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
+      *) curl_args+=("${1}"); shift 1;;
+    esac
+  done
+
+  curl_url="http://ldp.${STORE_HOST}/${STORE_ACCOUNT}/${repository}"
+  if [[ "${path}" ]]
+  then curl_url="${curl_url}/${path}"
+  fi
+  # where an empty array is possible, must be conditional due to unset variable constraint
+  # curl_args+=("${accept_media_type[@]}");
+  if [[ "${query}" ]]
+    then if [[ "${revision}" ]]
+      then curl_url="${curl_url}?${query}&revision=${revision}";
+      else curl_url="${curl_url}?${query}";
+      fi
+    else if [[ "${revision}" ]]
+      then curl_url="${curl_url}?revision=${revision}";
+      fi
+    fi
+  if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
+  if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
+
+  echo ${CURL} -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
+  ${CURL} -f -s "${curl_args[@]}" ${curl_url}
+}
+
 
 
 export -f curl_sparql_request

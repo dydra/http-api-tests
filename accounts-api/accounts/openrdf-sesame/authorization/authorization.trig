@@ -1,0 +1,64 @@
+@prefix acl: <http://www.w3.org/ns/auth/acl#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# in additions to the intrinsic authorization, by which an agent which
+# is authenticated for a given account has access to any repository in that account,
+# is it possibel to define direct and indirect access paths, through
+# accounts, views, and repositories
+
+
+# account-repository
+# permit access to any agent authenticated for a given account
+<http://dydra.com/jhacker/request-repository> {
+  [] acl:accessTo <http://dydra.com/jhacker/request-repository> ;
+    acl:mode acl:Read ;
+    acl:agent <http://dydra.com/account/other> .
+}
+
+
+# agent-repository
+# this is the standard form, where a given agent 
+<http://dydra.com/jhacker/request-repository> {
+  [] acl:accessTo <http://dydra.com/jhacker/request-repository> ;
+    acl:mode acl:Read ;
+    acl:agent <http://dydra.com/user/authenticated> .
+}
+
+
+# anonymous-repository
+<http://dydra.com/jhacker/anonymous-repository> {
+  [] acl:accessTo <http://dydra.com/jhacker/anonymous-repository> ;
+    acl:mode acl:Read ;
+    acl:agent foaf:Agent .
+}
+
+
+# anonymous-view
+<http://dydra.com/jhacker/request-repository/anonview> {
+  [] acl:accessTo <http://dydra.com/jhacker/request-repository/anonview> ;
+    acl:mode acl:Execute ;
+    acl:agent foaf:Agent .
+}
+<http://dydra.com/jhacker/request-repository> {
+  [] acl:accessTo <http://dydra.com/jhacker/request-repository> ;
+    acl:mode acl:Read ;
+    acl:agent <http://dydra.com/jhacker/request-repository/anonview> .
+}
+
+
+# repository-repository
+<http://dydra.com/jhacker/request-repository> {
+  [] acl:accessTo <http://dydra.com/jhacker/request-repository> ;
+    acl:mode acl:Read ;
+    acl:agent <http://dydra.com/other/other> .
+}
+
+# view-repository
+<http://dydra.com/jhacker/request-repository> {
+  [] acl:accessTo <http://dydra.com/jhacker/request-repository> ;
+    acl:mode acl:Read ;
+    acl:agent <http://dydra.com/jhacker/request-repository/view> .
+}
+

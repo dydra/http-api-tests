@@ -15,7 +15,7 @@ export STORE_TOKEN_ADMIN=`cat ~/.dydra/token-admin@${STORE_HOST}`
 #  $ACCOUNT-readwrite             : granted read/write authorization to the -byuser repository
 #  $ACCOUNT/$REPOSITORY           : owner authorization for read/write - the normal case
 #  $ACCOUNT/$REPOSITORY-write     : owner authorization for read/write - the normal case (this one is modified)
-#  $ACCOUNT/$REPOSITORY-public    : owner plus anonymous (agent) read
+#  $STORE_ACCOUNT/$STORE_REPOSITORY_PUBLIC : owner plus anonymous (agent) read
 #  $ACCOUNT/$REPOSITORY-user      : owner plus authenticated (user) read
 #  $ACCOUNT/$REPOSITORY-byuser    : owner plus access specific to user
 #  $ACCOUNT/$REPOSITORY-readbyip  : owner plus read for $STORE_CLIENT_IP for any agent
@@ -108,15 +108,15 @@ ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --
 EOF
 
 
-#  $ACCOUNT/$REPOSITORY-public    : owner plus anonymous (agent) read
+#  ${STORE_ACCOUNT}/${STORE_REPOSITORY_PUBLIC}    : owner plus anonymous (agent) read
 
 ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
      -u "${STORE_TOKEN}:" \
      ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
-{"repository": {"name": "${STORE_REPOSITORY}-public"} }
+{"repository": {"name": "$STORE_REPOSITORY_PUBLIC"} }
 EOF
-# (initialize-repository-metadata (repository "openrdf-sesame/mem-rdf-public"))
+# (initialize-repository-metadata (repository "${STORE_ACCOUNT}/${STORE_REPOSITORY_PUBLIC}"))
 
 # metadata w/ anonymous read access
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
@@ -124,12 +124,12 @@ ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -u "${STORE_TOKEN}:" \
      ${STORE_URL}/${STORE_ACCOUNT}/system <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
-_:aclAnon <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-public> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-public> .
-_:aclAnon <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-public> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-public> .
-_:aclAnon <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-public> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-public> .
-_:aclAnon <http://www.w3.org/ns/auth/acl#mode> <http://www.w3.org/ns/auth/acl#Read> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-public> .
-_:aclAnon <http://www.w3.org/ns/auth/acl#agentClass> <http://xmlns.com/foaf/0.1/Agent> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-public> .
-<http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-public> <http://purl.org/dc/elements/1.1/description> "An account to test anonymous access to its content" <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-public> .
+_:aclAnon <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/${STORE_REPOSITORY_PUBLIC}> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY_PUBLIC}> .
+_:aclAnon <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY_PUBLIC}> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY_PUBLIC}> .
+_:aclAnon <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY_PUBLIC}> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY_PUBLIC}> .
+_:aclAnon <http://www.w3.org/ns/auth/acl#mode> <http://www.w3.org/ns/auth/acl#Read> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY_PUBLIC}> .
+_:aclAnon <http://www.w3.org/ns/auth/acl#agentClass> <http://xmlns.com/foaf/0.1/Agent> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY_PUBLIC}> .
+<http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY_PUBLIC}> <http://purl.org/dc/elements/1.1/description> "An account to test anonymous access to its content" <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY_PUBLIC}> .
 EOF
 
 # and minimal data
@@ -137,7 +137,7 @@ ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
      -H "Accept: application/n-quads" \
      -H "Content-Type: application/n-quads" --data-binary @- \
      -u "${STORE_TOKEN}:" \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-public <<EOF \
+     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY_PUBLIC} <<EOF \
   |  egrep -q "${STATUS_PUT_SUCCESS}"
 <http://example.com/subject> <http://example.com/predicate> "object" <${STORE_URL}>.
 EOF

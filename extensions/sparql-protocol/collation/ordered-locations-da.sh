@@ -11,6 +11,6 @@ select  ?location #?lang
   #bind (lang(?location) as ?lang)
   filter ("da" = lang(?location))
  }
-#order by (?location)
+order by (?location)
 EOF
 

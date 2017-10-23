@@ -15,7 +15,7 @@
 set -e
 
 ## create local and remote repositories
-mkdir "git-integration-test"
+mkdir -p "git-integration-test"
 cd "git-integration-test"
 git init
 git remote add dydra git@${STORE_HOST}:http-api-test.git

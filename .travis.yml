@@ -4,6 +4,8 @@ before_install:
  - sudo apt-get install -qq yajl-tools
  - sudo apt-get install -qq jq
  - sudo apt-get install -qq graphviz
+ - sudo apt-get install -qq tidy
+ - sudo apt-get install -qq libxml2-utils
 
 env:
 #   global:

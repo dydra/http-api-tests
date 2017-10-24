@@ -8,23 +8,6 @@ before_install:
  - sudo apt-get install -qq libxml2-utils
 
 env:
-#   global:
-#     # public site
-#     - secure: "ShsLbROq/GQ4HpXuuOgmbZO8vqGRDWIFWa+/ViBlBn+3zxBCUINdlQeAetIvoONmqWs5A2I5ecnuFcu3DU2l4aNxSDJudEUm2zeRlG1uBs43KlDsbDNc/vwAMFvrynJHLZcoco4uFG3BZpwiD2RYaFZ8loNtCueWlr2UPbRzXYI="
-#     #
-#     # development site
-#     # URL
-#     # - secure: "Bmh8NpoIaovnhI42ccQnotOGldiVmxHzfEgR1vWZGZCsm+hH7UK1ZCxb3IyIkoC7JEVqXIezn3gP9CBvfgyWZMvei7hSVaqow1oizgTXJsio4Bgl1Z7hhKb50F3sQG4DOcLBc1xFpSg+OVVOIH34LFy4p386KavgiOVCpKXU9JA="
-#     # TOKEN (openrdf-sesame)
-#     # - secure: "XjqQM5yPDyzlBCXY3kBq9Pm9NC6Mwv3jdXvFThBWXbTA6GFbxPjQyzi9Kl7z9xS8EOEWVFjnm0Rq4fB6ZnpMLF3fqhngA8fT9d5/xsDUvhTxSPkqJ2uk6x2e+D7y2RKgz82JIqAGMEky6iIQ8RtxTaF2HgasiSgotwBXNiynrd4="
-#     # STORE_TOKEN_JHACKER
-#     # - secure: "XvcP79q/f4AH5u9PwJPVk6tHjhKiCuz3UOKsENmFwhZHnQJdKJbbSOYzTsvDS72d2DHiqrc0GjcHovqoeU5auyNpbJ3H2BubOqOdZ/o973s5xWmUvjoQPglQih56TKNF+V1u/YCAdl3HUYf5SZKfZeuArWAk0M0ww7+KYvUKOq4="
-#     #
-#     # staging site
-#     # URL
-#     - secure: "JhX0xwyx2OuA2/qv2DbISqXfG/L9fgadeYGQ5jewtns5MV5yEQVWZBewpSIOaQ9MkUfRxTuh8+7k8QQo72Y5WgpSPU7bu/Ay19xORIJ7cUbyRx3kYv4XLx6h27x3MpuWFOzcpa9pHmw00kV3hO0KYRcQDN+MnHVYx9NqXMtygBM="
-#     # TOKEN (openrdf-sesame)
-#     - secure: "ICDCVRrtGS4GNoe3h74D1LfB3DmLjO4pWkxhB7GIs4lrRMY1UlKqqtldMv+ODldwHJHIIle0dvvnCv+yeNRGNBtdn4uE/0LgqQp7dIag0dUuLLy8KE1JIWiEezekxyOWVoaxQeRBZ9uc9zHQpXOSv9f0GkapyJ/sujEUxklMKCc="
 
 script:
   -  bash  ./run.sh accounts-api/accounts/openrdf-sesame/authorization/

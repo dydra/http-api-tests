@@ -142,7 +142,7 @@ fi
 # and one for another registered user
 if [[ "" == "${STORE_TOKEN_JHACKER}" ]]
 then 
-  if [ -f ~/.dydra/token-jhacker@${STORE_HOST} ]
+  if [ -f ~/.dydra/${STORE_HOST}.jhacker.token ]
   then 
     export STORE_TOKEN_JHACKER=`cat ~/.dydra/${STORE_HOST}.jhacker.token`
   elif [ -f ~/.dydra/jhacker.token ]

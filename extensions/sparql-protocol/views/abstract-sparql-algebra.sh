@@ -33,7 +33,7 @@ EOF
 curl_sparql_request \
   -H "Content-Type: application/sparql-query" \
   -H "Accept: TEXT/VND.DYDRA.SPARQL-RESULTS-EXECUTION+GRAPHVIZ" <<EOF \
-  |  fgrep -sq 'digraph'
+  | fgrep -sq 'digraph'
 select count(*) where {?s ?p ?o}
 EOF
 

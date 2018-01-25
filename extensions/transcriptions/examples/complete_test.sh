@@ -26,4 +26,4 @@ fi
 # Turn off the logging
 source transcribe_off.sh
 
-#rm tmp.lst
+rm tmp.lst

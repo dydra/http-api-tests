@@ -17,8 +17,8 @@ source transcribe_list.sh
 
 OUTPUT="$(wc -l tmp.lst | cut -f1 -d' ')"
 echo ${OUTPUT}
-# counts newlines, should be one less than lines
-if [ "$OUTPUT" == "2" ]; then
+# counts newlines, there should be an extra new line after last line
+if [ "$OUTPUT" == "3" ]; then
 	echo "Passed"
 else
 	echo "Failed"

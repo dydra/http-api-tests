@@ -32,21 +32,27 @@ $CURL -s -L -X POST -H "Accept: text/html" \
 # a sparql request with transcription enabled should generate a transcript
 
 # DELETE should remove all transcripts
-$CURL -L -X DELETE -H "Accept: text/html" \
+$CURL -s -L -X DELETE -H "Accept: text/html" \
   -u ":${AUTH_TOKEN}" \
   "http://${STORE_HOST}/admin/transcription" \
  | egrep -q -v '[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}'
 
 # use the endpoint which tests legacy transcription
-$CURL -v -L -X POST -H "Accept: application/sparql-results+json" \
+$CURL -s -L -X POST -H "Accept: application/sparql-results+json" \
   -H "Content-Type: application/sparql-query" \
   -u ":${AUTH_TOKEN}" \
    --data-binary @- \
-  "http://${STORE_HOST}/jhacker/foaf/dydra-query" <<EOF
+  "http://${STORE_HOST}/jhacker/foaf/dydra-query" <<EOF \
+ | fgrep -q results
 select count(*) where {?s ?p ?o}
 EOF
 
 # '/opt/dydra/bin/dydra-query' 'jhacker/foaf' '-U' `uuidgen` '-o' 'application/sparql-results+json' '-D' 'agent-id=james' '-D' 'agent-location=92.208.13.60' '-D' 'revision-id=32542502-5853-1c47-aff2-5a73703e0625' <<EOF
 # select count(*) where {?s ?p ?o}
 # EOF
+
+$CURL -s -L -X GET -H "Accept: text/html" \
+  -u ":${AUTH_TOKEN}" \
+  "http://${STORE_HOST}/admin/transcription" \
+ | egrep -q '[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}'
 

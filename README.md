@@ -403,7 +403,21 @@ The response content is a SPARQL result document which specifies
 
 ### Asynchronous Requests
 
+The standard processing mode for graph store requests involves a synchronous request/response exchange.
+This requires that the client serialize any requests in order to avoid conflicting write operations
+and any request which involves a large dataset introduces delays for unrelated requests.
+In order to avoid these limitations, a request can specify asynchronous processing.
+In order to invoke this mode, it should include the following headers
 
+<table>
+ <tr><th>Header</th><th>content</th></tr>
+ <tr><td>Accept-Asynchronous</td><td><code>notify</code></td><tr>
+ <tr><td>Asynchronous-Location</td><td>the url to which the response is to be sent upon completion</td><tr>
+ <tr><td>Asynchronous-Method</td><td>the url to which the response is to be sent upon completion</td><tr>
+ <tr><td>Asynchronous-Content-Type</td><td>the media type to be used to encode the  status message.
+  It must be a SPARQL result content type.
+  The default is <code>application/sparql-results+json<code></td><tr>
+</table>
 
 
 ## SPARQL query protocol

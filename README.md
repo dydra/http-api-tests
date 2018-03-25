@@ -410,7 +410,7 @@ In order to avoid these limitations, a request can specify asynchronous processi
 In order to invoke this mode, it should include the following headers
 
 <table>
- <tr><th>Header</th><th>content</th></tr>
+ <tr><th width='2in'>Header</th><th>content</th></tr>
  <tr><td>Accept-Asynchronous</td><td><code>notify</code></td><tr>
  <tr><td>Asynchronous-Location</td><td>the url to which the response is to be sent upon completion</td><tr>
  <tr><td>Asynchronous-Method</td><td>the url to which the response is to be sent upon completion</td><tr>

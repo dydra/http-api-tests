@@ -3,7 +3,7 @@
 # test that a graph properly augments a subselect - including the case where the sub-form
 # includes its own graph.
 
-curl_graph_store_update -X PUT \
+curl_graph_store_update -X PUT -o /dev/null \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/n-quads" <<EOF
 <http://subject1> <http://predicate1> <http://object1> <http://context1> .

@@ -1,6 +1,7 @@
 #! /bin/bash
 
 # http api tests : run-time environment initialization
+#   intended to be sourced
 #
 # environment :
 # STORE_URL : host http url
@@ -21,7 +22,7 @@ fi
 case ${STORE_URL} in
   http:*)   export STORE_HOST=${STORE_URL#*http://}  ;;
   https:*)  export STORE_HOST=${STORE_URL#*https://} ;;
-  *) echo "invalid store url: '${STORE_URL}'"; exit 1;;
+  *) echo "invalid store url: '${STORE_URL}'"; return 1;;
 esac
 # strip a possible port
 export STORE_HOST=${STORE_HOST%:*}
@@ -135,7 +136,7 @@ then
     export STORE_TOKEN=`cat ~/.dydra/${STORE_HOST}.token`
   else
     echo "no STORE_TOKEN"
-    exit 1
+    return 1
   fi
   
 fi
@@ -376,8 +377,8 @@ function curl_sparql_request () {
   while [[ "$#" > 0 ]] ; do
     case "$1" in
       -H) case "$2" in
-          Accept*) accept_media_type[1]="${2}"; shift 2;;
-          Content-Type*) content_media_type[1]="${2}"; shift 2;;
+          Accept:*) accept_media_type[1]="${2}"; shift 2;;
+          Content-Type:*) content_media_type[1]="${2}"; shift 2;;
           *) curl_args+=("${1}" "${2}"); shift 2;;
           esac ;;
       --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/sparql"; shift 2;;
@@ -436,8 +437,8 @@ function curl_graph_store_get () {
       default|DEFAULT) graph="default"; shift 1;;
       graph=*) graph="${1}"; shift 1;;
       -H) case "$2" in
-          Accept*) accept_media_type[1]="${2}"; shift 2;;
-          Content-Type*) content_media_type[1]="${2}"; shift 2;;
+          Accept:*) accept_media_type[1]="${2}"; shift 2;;
+          Content-Type:*) content_media_type=("-H" "${2}"); shift 2;;
           *) curl_args+=("${1}" "${2}"); shift 2;;
           esac ;;
       --head) method=(); curl_args+=("${1}"); shift 1;;
@@ -474,7 +475,7 @@ function curl_graph_store_update () {
   local -a user=(-u "${STORE_TOKEN}:")
   local graph=""  #  the default is all graphs
   local curl_url="${GRAPH_STORE_URL}"
-  local output="/dev/null"
+  local output="/dev/stdout"
   while [[ "$#" > 0 ]] ; do
     case "$1" in
       all|ALL) graph="all"; shift 1;;
@@ -482,11 +483,11 @@ function curl_graph_store_update () {
       default|DEFAULT) graph="default"; shift 1;;
       graph=*) if [[ "graph=" == "${1}" ]] ; then graph=""; else graph="${1}"; fi;  shift 1;;
      -H) case "$2" in
-          Accept*) accept_media_type[1]="${2}"; shift 2;;
-          Content-Type*) content_media_type[1]="${2}"; shift 2;;
+          Accept:*) accept_media_type=("-H" "${2}"); shift 2;;
+          Content-Type:*) content_media_type[1]="${2}"; shift 2;;
           *) curl_args+=("${1}" "${2}"); shift 2;;
           esac ;;
-      -o) output="${1}"; shift 1;;
+      -o) curl_args+=("-o" "${2}"); output="${2}"; shift 2;;
       --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/service"; shift 2;;
       --url) curl_url="${2}"; shift 2;;
       -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
@@ -502,9 +503,10 @@ function curl_graph_store_update () {
   if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
   if [[ ${#user[*]} > 0 ]] ; then curl_args+=("${user[@]}"); fi
 
-  echo  ${CURL} -f -s -S "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
-  ${CURL}  -f -s "${curl_args[@]}" ${curl_url} > $output
+  echo  ${CURL} -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
+  ${CURL}  -f -s "${curl_args[@]}" ${curl_url} # > $output
 }
+
 
 
 function clear_repository_content () {
@@ -515,10 +517,10 @@ EOF
 # initialize_repository_content { --repository $repository-name } { --url $url }
 # clear everything, insert one statement each in the default and the named graphs
 function initialize_repository_content () {
-  curl_graph_store_update -X PUT $@ <<EOF
+  curl_graph_store_update -X PUT $@ -o /dev/null <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
 EOF
-  curl_graph_store_update -X POST graph=${STORE_NAMED_GRAPH} $@ <<EOF
+  curl_graph_store_update -X POST graph=${STORE_NAMED_GRAPH} -o /dev/null $@ <<EOF
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
 }
@@ -559,7 +561,7 @@ function curl_tpf_get () {
   while [[ "$#" > 0 ]] ; do
     case "$1" in
       -H) case "$2" in
-          Accept*) curl_args+=("${1}" "${2}"); shift 2;;
+          Accept:*) curl_args+=("${1}" "${2}"); shift 2;;
           esac ;;
       --head) method=(); curl_args+=("${1}"); shift 1;;
       --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/tpf"; shift 2;;
@@ -599,7 +601,7 @@ function curl_ldp_get () {
   while [[ "$#" > 0 ]] ; do
     case "$1" in
       -H) case "$2" in
-          Accept*) curl_args+=("${1}" "${2}"); shift 2;;
+          Accept:*) curl_args+=("${1}" "${2}"); shift 2;;
           esac ;;
       --head) method=(); curl_args+=("${1}"); shift 1;;
       --repository) repository="${2}"; shift 2;;

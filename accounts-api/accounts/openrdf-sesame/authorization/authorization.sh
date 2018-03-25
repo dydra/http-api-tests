@@ -7,6 +7,7 @@
 # import the test authorization list.
 # check that the direct and indirect links are found
 
+set -e
 queryURL="${STORE_URL}/accounts/${STORE_ACCOUNT}/authorization"
 
 

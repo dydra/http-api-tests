@@ -14,6 +14,7 @@ echo "ui tests @${STORE_HOST}"
 
 function http_get () {
   echo -n "${STORE_URL}$1"
+  echo $CURL -w "%{http_code}\n" -s -L -u "${STORE_TOKEN}:" -o $OUTPUT ${STORE_URL}$1 > $ECHO_OUTPUT
   $CURL -w "%{http_code}\n" -s -L -u "${STORE_TOKEN}:" -o $OUTPUT ${STORE_URL}$1 | fgrep -q 200 
   if [ "$?" != "0" ]
   then

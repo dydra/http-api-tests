@@ -208,6 +208,10 @@ designate exactly that named graph in the store.
 The "SPARQL 1.1 Graph Store HTTP Protocol", is supported as per the W3C
 [recommendation](http://www.w3.org/TR/sparql11-http-rdf-update/), with the several additions and restrictions.
 
+The tests for this facility are present in the directories `sparql-graph-store-http-protocol`
+and
+`extensions/graph-store-protocol`.
+
 ### Graph store request Content type
 
 A graph store request may include as content or specify as its response any of the following RDF document encodings
@@ -255,7 +259,7 @@ and an indirect graph reference takes the form
     <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>/service?graph=<graph>
 
 
-## Linked data designators
+### Linked data designators
 
 In addition to the root repository graph, it is also possible to link directly to
 an arbitrary directly designated graph which extends beyon the root
@@ -263,7 +267,7 @@ an arbitrary directly designated graph which extends beyon the root
     <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>/<FURTHER>/<PATH>/<STEPS>
 
 
-## Triples, quads and named graphs in graph store import and update requests
+### Triples, quads and named graphs in graph store import and update requests
 
 The graph store management operations which involve an RDF payload - `PATCH`, `POST`, and `PUT`,
 permit a request to target a specific graph as described above, as well as to transfer graph content
@@ -381,6 +385,27 @@ in order to demonstrate the consequence of the statement's given content on its 
 
 </table>
 
+### Response Codes and Content
+
+In addition to the status code, each response includes several headers and a content body.
+
+<table>
+ <tr><th>Header</th><th>content</th></tr>
+ <tr><td>Request-Id</td><td>the service request UUID</td><tr>
+ <tr><td>Etag</td><td>the identifier for the new revision which resulted from the request operation</td><tr>
+</table>
+
+The response content is a SPARQL result document which specifies
+
+- the graph store endpoint url
+- the service request UUID
+- the client request id.
+
+### Asynchronous Requests
+
+
+
+
 ## SPARQL query protocol
 
 Each DYDRA repository constitutes a SPARQL endpoint which is identified by the resource
@@ -390,7 +415,10 @@ Each DYDRA repository constitutes a SPARQL endpoint which is identified by the r
 Requests which conform to the terms of a SPARQL request described in the
 "SPARQL 1.1 Protocol" [recommendation](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321)
 are processed as SPARQL requests.
-The tests for this facility are present in the directory `
+The tests for this facility are present in the directories `sparql-protocol`
+and
+`extensions/sparql-protocol`.
+
 
 ## DYDRA account administration HTTP API
 

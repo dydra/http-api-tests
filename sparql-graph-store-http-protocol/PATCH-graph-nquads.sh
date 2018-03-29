@@ -7,42 +7,38 @@ set -o errexit
 # - statements are removed from the target graph, but there are none
 # that is, the effect is the same as for POST
 
-$CURL -w "%{http_code}\n" -f -s -S -X PATCH \
+
+initialize_repository --repository "${STORE_REPOSITORY}-write"
+
+curl_graph_store_update -X PATCH -o /dev/null \
      -H "Content-Type: application/n-quads" \
-     --data-binary @- \
-     $STORE_URL/${STORE_ACCOUNT}/${STORE_REPOSITORY}?graph=${STORE_NAMED_GRAPH}-three\&auth_token=${STORE_TOKEN} <<EOF \
-   | egrep -q "$STATUS_PATCH_SUCCESS"
+     --repository "${STORE_REPOSITORY}-write" graph=${STORE_NAMED_GRAPH}-three \
+     --data-binary @- <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH1" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH1" <${STORE_NAMED_GRAPH}-two> .
 EOF
 
-
-$CURL -f -s -S -X GET\
-     -H "Accept: application/n-quads" \
-     $STORE_URL/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} \
+curl_graph_store_get \
+     --repository "${STORE_REPOSITORY}-write"  \
    | tr -s '\n' '\t' \
-   | fgrep '"default object"' | fgrep '"named object"' | fgrep  "<${STORE_NAMED_GRAPH}>" \
-   | fgrep '"default object PATCH1"' | fgrep '"named object PATCH1"' | fgrep  "<${STORE_NAMED_GRAPH}-two>" \
-   | tr -s '\t' '\n' | wc -l | fgrep -q 4
+   | fgrep -v '"default object"' | fgrep '"named object"' \
+   | fgrep '"default object PATCH1"' | fgrep '"named object PATCH1"' \
+   | tr -s '\t' '\n' | wc -l | fgrep -q 3
 
 
-$CURL -w "%{http_code}\n" -f -s -S -X PATCH \
+curl_graph_store_update -X PATCH -o /dev/null \
      -H "Content-Type: application/n-quads" \
-     --data-binary @- \
-     $STORE_URL/${STORE_ACCOUNT}/${STORE_REPOSITORY}?graph=${STORE_NAMED_GRAPH}-three\&auth_token=${STORE_TOKEN} <<EOF \
-   | egrep -q "$STATUS_PATCH_SUCCESS"
+     --repository "${STORE_REPOSITORY}-write" graph=${STORE_NAMED_GRAPH}-three \
+     --data-binary @- <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH2" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH2" <${STORE_NAMED_GRAPH}-two> .
 EOF
 
 
-$CURL -f -s -S -X GET\
-     -H "Accept: application/n-quads" \
-     $STORE_URL/${STORE_ACCOUNT}/${STORE_REPOSITORY}?auth_token=${STORE_TOKEN} \
+curl_graph_store_get \
+     --repository "${STORE_REPOSITORY}-write"  \
    | tr -s '\n' '\t' \
-   | fgrep '"default object"' | fgrep '"named object"' | fgrep  "<${STORE_NAMED_GRAPH}>" \
-   | fgrep '"default object PATCH1"' | fgrep '"named object PATCH1"' \
+   | fgrep -v '"default object"' | fgrep '"named object"' | fgrep "<${STORE_NAMED_GRAPH}>" \
+   | fgrep -v '"default object PATCH1"' | fgrep -v '"named object PATCH1"' \
    | fgrep '"default object PATCH2"' | fgrep '"named object PATCH2"' | fgrep  "<${STORE_NAMED_GRAPH}-two>" \
-   | tr -s '\t' '\n' | wc -l | fgrep -q 6
-
-initialize_repository | egrep -q "${STATUS_PUT_SUCCESS}"
+   | tr -s '\t' '\n' | wc -l | fgrep -q 3

@@ -18,7 +18,7 @@ set -e
 mkdir -p "git-integration-test"
 cd "git-integration-test"
 git init
-git remote add dydra git@${STORE_HOST}:http-api-test.git
+git remote add dydra git@${STORE_HOST}:http-api-test.git || true
 cat > README <<EOF
 DO NOT SAVE ANYTHING HERE.
 IT WILL BE DELETED WHEN THE TEST SUCCEEDS

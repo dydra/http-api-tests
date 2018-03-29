@@ -18,7 +18,7 @@
 #
 # thus the namespace specified in the import must be "http://www.w3.org/2001/XMLSchema#"
 
-curl_graph_store_update -X PUT \
+curl_graph_store_update -X PUT -o /dev/null \
       -H "Content-Type: text/turtle" \
       --repository "${STORE_REPOSITORY}-write" default <<EOF
 @prefix ex: <http://example.com/> .

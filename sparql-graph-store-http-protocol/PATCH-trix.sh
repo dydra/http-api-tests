@@ -2,7 +2,7 @@
 
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
-curl_graph_store_update -X PATCH \
+curl_graph_store_update -X PATCH -o /dev/null \
      -H "Content-Type: application/trix" \
      --repository "${STORE_REPOSITORY}-write" <<EOF
 <TriX>

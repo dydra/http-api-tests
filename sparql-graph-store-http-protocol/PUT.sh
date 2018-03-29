@@ -10,7 +10,7 @@
 # put quad content with no graph: store in the statement graph, or default if triple statement
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
-# echo "put triples w/ none"
+echo "put triples w/ none"
 # while, in theory, one coulr return a 400 and claim it is a protocol violatation, that leaves no
 # easy way to clear a repositiry with named graph content and import just the default graph.
 curl_graph_store_update -X PUT  -w "%{http_code}\n" \
@@ -29,7 +29,7 @@ EOF
 #<http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-triples-none" .
 #<http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-triples-none" .
 
-# echo "put quads w/ none"
+echo "put quads w/ none"
 curl_graph_store_update -X PUT   -w "%{http_code}\n" \
      -H "Content-Type: application/n-quads" \
      --repository "${STORE_REPOSITORY}-write"  <<EOF \

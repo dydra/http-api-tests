@@ -2,7 +2,7 @@
 # test exists implementation in combinations beyond w3c dawg
 
 #
-curl_graph_store_update -X PUT \
+curl_graph_store_update -X PUT -o /dev/null \
       -H "Content-Type: application/n-quads" \
       --repository "${STORE_REPOSITORY}-write" <<EOF
 <http://example.com/s1> <http://example.com/p> "first" .

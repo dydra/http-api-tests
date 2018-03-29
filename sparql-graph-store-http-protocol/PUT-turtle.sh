@@ -7,7 +7,7 @@
 
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
-curl_graph_store_update -X PUT \
+curl_graph_store_update -X PUT -o /dev/null \
      -H "Content-Type: text/turtle" \
      --repository "${STORE_REPOSITORY}-write" <<EOF
 <http://example.com/default-subject>

@@ -56,7 +56,7 @@ export STATUS_PATCH_SUCCESS='200|201|204'
 export POST_SUCCESS='20201|204'
 export STATUS_POST_SUCCESS='200|201|204'
 export PUT_SUCCESS='201|204'
-export STATUS_PUT_SUCCESS='201|204'
+export STATUS_PUT_SUCCESS='200|201|204'
 export STATUS_CREATED=201
 export STATUS_NO_CONTENT=204
 export STATUS_UPDATED='201|204'
@@ -475,7 +475,6 @@ function curl_graph_store_update () {
   local -a user=(-u "${STORE_TOKEN}:")
   local graph=""  #  the default is all graphs
   local curl_url="${GRAPH_STORE_URL}"
-  local output="/dev/stdout"
   while [[ "$#" > 0 ]] ; do
     case "$1" in
       all|ALL) graph="all"; shift 1;;
@@ -510,7 +509,7 @@ function curl_graph_store_update () {
 
 
 function clear_repository_content () {
-  curl_graph_store_update -X PUT $@ <<EOF
+  curl_graph_store_update -X PUT $@ -o /dev/null <<EOF
 EOF
 }
 
@@ -535,7 +534,7 @@ function initialize_repository_public () {
 
 # to setup for tests, this must be done once the repositories have been created
 function initialize_all_repositories () {
-  curl_graph_store_update -X PUT --repository collation \
+  curl_graph_store_update -X PUT --repository collation  -o /dev/null \
   -H "Content-Type: text/turtle" \
   --data-binary @extensions/sparql-protocol/collation/collation.ttl
 

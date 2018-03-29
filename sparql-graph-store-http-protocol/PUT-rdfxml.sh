@@ -2,7 +2,7 @@
 
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
-curl_graph_store_update -X PUT \
+curl_graph_store_update -X PUT -o /dev/null \
      -H "Content-Type: application/rdf+xml" \
      --repository "${STORE_REPOSITORY}-write" <<EOF
 <?xml version="1.0" encoding="utf-8"?>

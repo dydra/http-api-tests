@@ -25,7 +25,9 @@ case ${STORE_URL} in
   *) echo "invalid store url: '${STORE_URL}'"; return 1;;
 esac
 # strip a possible port
+#export STORE_HOST="de8.dydra.com"
 export STORE_HOST=${STORE_HOST%:*}
+
 export STORE_SITE="dydra.com"           # the abstract site name
 export STORE_ACCOUNT="openrdf-sesame"
 export STORE_REPOSITORY="mem-rdf"

@@ -1,0 +1,161 @@
+== Info:   Trying 148.251.232.21...
+== Info: TCP_NODELAY set
+== Info: Connected to test.dydra.com (148.251.232.21) port 443 (#0)
+== Info: ALPN, offering http/1.1
+== Info: Cipher selection: ALL:!EXPORT:!EXPORT40:!EXPORT56:!aNULL:!LOW:!RC4:@STRENGTH
+== Info: successfully set certificate verify locations:
+== Info:   CAfile: /home/vectorblanco/anaconda3/ssl/cacert.pem
+  CApath: none
+== Info: TLSv1.2 (OUT), TLS header, Certificate Status (22):
+=> Send SSL data, 5 bytes (0x5)
+0000: .....
+== Info: TLSv1.2 (OUT), TLS handshake, Client hello (1):
+=> Send SSL data, 512 bytes (0x200)
+0000: ..........*.._.&.%-6@Y..y....c...N.Gn.....0.,.(.$.............k.
+0040: j.i.h.9.8.7.6.........2...*.&.......=.5.../.+.'.#.............g.
+0080: @.?.>.3.2.1.0.........E.D.C.B.1.-.).%.......<./...A.............
+00c0: ............3.........test.dydra.com............................
+0100: ............... .....................................3t.........
+0140: http/1.1........................................................
+0180: ................................................................
+01c0: ................................................................
+<= Recv SSL data, 5 bytes (0x5)
+0000: ....q
+== Info: TLSv1.2 (IN), TLS handshake, Server hello (2):
+<= Recv SSL data, 113 bytes (0x71)
+0000: ...m......p.`MP..kS_G}.e.Yk...~..m5.QF $..x>..+.N,"d'r./.....Z.
+0040: ..-.l...0..%.............................http/1.1
+<= Recv SSL data, 5 bytes (0x5)
+0000: .....
+== Info: TLSv1.2 (IN), TLS handshake, Certificate (11):
+<= Recv SSL data, 1753 bytes (0x6d9)
+0000: ..........0...0..........`.......#.[...o.0...*.H........0..1.0..
+0040: .U....GB1.0...U....Greater Manchester1.0...U....Salford1.0...U..
+0080: ..COMODO CA Limited1604..U...-COMODO RSA Domain Validation Secur
+00c0: e Server CA0...180704000000Z..200712235959Z0X1!0...U....Domain C
+0100: ontrol Validated1.0...U....PositiveSSL Wildcard1.0...U....*.dydr
+0140: a.com0.."0...*.H.............0..........R..}....k.e.>]e.t.f...l.
+0180: .j....h...#.:..o..r..d.....X......@z..V..lU;,...../.).!O(mn..l..
+01c0: . ...g.).._.2...O.2A.f.jT.....u...fn.B..p"..n.......*....;s..)..
+0200: .s.w>..(5...IF...%.....1..... .a.!...Dc.U...mm.....N.QTB.!}.....
+0240: fcB..no..g.T..h....#...,...;.X.A@....;........V0..R0...U.#..0...
+0280: ..j:.Z.....Vs.C.:(..0...U......K.k..yVT..g..oE.j...0...U........
+02c0: ...0...U.......0.0...U.%..0...+.........+.......0O..U. .H0F0:..+
+0300: .....1....0+0)..+.........https://secure.comodo.com/CPS0...g....
+0340: .0T..U...M0K0I.G.E.Chttp://crl.comodoca.com/COMODORSADomainValid
+0380: ationSecureServerCA.crl0....+........y0w0O..+.....0..Chttp://crt
+03c0: .comodoca.com/COMODORSADomainValidationSecureServerCA.crt0$..+..
+0400: ...0...http://ocsp.comodoca.com0!..U....0...*.dydra.com..dydra.c
+0440: om0....+.....y......o...k.i.u..K..u.`..Bi....f..~_.r....{.z....
+0480: ..db........F0D. E(..G....]6v..8[.......HP...<a... ..0Eg.......8
+04c0: .x...m.(%|?..Wl.W.P.w.^.s..V...6H}.I.2z.........u..qEX...db.....
+0500: ...H0F.!....V..|.3Z.....bQ..C..(..k..#J..!..a9.!./.=.}......>@.
+0540: ...V.S...r.T.w.U.....6.J...W<S...8xp%../..........db........H0F.
+0580: !........[n......~.r.v./ .....i.OA.!..#...|..nI...J...`...j.....
+05c0: . .J]0...*.H.............S.qW..l]..../.+...S...q..:...R..I.)..Xl
+0600: .".@GvO.....#.n_......qh... 0Q.....a..o,....tn..I..R&H.Kl-...tg}
+0640: ...#..:...?....[.<.?...E.....M.J".K..(";.c..{3...pH.nK26.U.|...
+0680: ......=i...(.L..o`.!8|=..q..v.......`......G..........m>...'p...
+06c0: v.!`wX.......$..ZR.[5.`..
+<= Recv SSL data, 5 bytes (0x5)
+0000: ....M
+== Info: TLSv1.2 (IN), TLS handshake, Server key exchange (12):
+<= Recv SSL data, 333 bytes (0x14d)
+0000: ...I...A.t...0..0[.Z..eA.4.F'....u6....z..qKm..?.E....k.er.]Q..s
+0040: e...K*.......'..........)..W..Gk......*wW.ky..Xu.'.....O...K..z.
+0080: .{.B.D..%...M.^?5..y.....B..ZB.8z...X.L].'h.n..C......8^.d.j.:.
+00c0: Hi.X.kp8.g...W.'=Py........{.q..#.l...&..../w._..a.....t9.6...).
+0100: ../.*,.))..4..L..Rk..7.(..F........&.7..\aB.A...<@&.O..;...4.,.,
+0140: .............
+<= Recv SSL data, 5 bytes (0x5)
+0000: .....
+== Info: TLSv1.2 (IN), TLS handshake, Server finished (14):
+<= Recv SSL data, 4 bytes (0x4)
+0000: ....
+=> Send SSL data, 5 bytes (0x5)
+0000: ....F
+== Info: TLSv1.2 (OUT), TLS handshake, Client key exchange (16):
+=> Send SSL data, 70 bytes (0x46)
+0000: ...BA.(x.m.]....\.W....Z.(....V^.........(6.I......./.8<.-.r.UF.
+0040: /`!...
+=> Send SSL data, 5 bytes (0x5)
+0000: .....
+== Info: TLSv1.2 (OUT), TLS change cipher, Client hello (1):
+=> Send SSL data, 1 bytes (0x1)
+0000: .
+=> Send SSL data, 5 bytes (0x5)
+0000: ....(
+== Info: TLSv1.2 (OUT), TLS handshake, Finished (20):
+=> Send SSL data, 16 bytes (0x10)
+0000: .....Q.X.....ERF
+<= Recv SSL data, 5 bytes (0x5)
+0000: .....
+== Info: TLSv1.2 (IN), TLS change cipher, Client hello (1):
+<= Recv SSL data, 1 bytes (0x1)
+0000: .
+<= Recv SSL data, 5 bytes (0x5)
+0000: ....(
+== Info: TLSv1.2 (IN), TLS handshake, Finished (20):
+<= Recv SSL data, 16 bytes (0x10)
+0000: ....\PM...o^./.
+== Info: SSL connection using TLSv1.2 / ECDHE-RSA-AES256-GCM-SHA384
+== Info: ALPN, server accepted to use http/1.1
+== Info: Server certificate:
+== Info:  subject: OU=Domain Control Validated; OU=PositiveSSL Wildcard; CN=*.dydra.com
+== Info:  start date: Jul  4 00:00:00 2018 GMT
+== Info:  expire date: Jul 12 23:59:59 2020 GMT
+== Info:  issuer: C=GB; ST=Greater Manchester; L=Salford; O=COMODO CA Limited; CN=COMODO RSA Domain Validation Secure Server CA
+== Info:  SSL certificate verify result: unable to get local issuer certificate (20), continuing anyway.
+== Info: Server auth using Basic with user 'YtGwUWq1kY7nAL1ocIvl'
+=> Send SSL data, 5 bytes (0x5)
+0000: ....H
+=> Send header, 304 bytes (0x130)
+0000: GET /openrdf-sesame/mem-rdf/sparql?query=select%20(count(*)%20as
+0040: %20%3Fcount)%20where%20%7B%3Fs%20%3Fp%20%3Fo%7D&user_id=sparql-p
+0080: rotocol/GET-count-srj.sh HTTP/1.1
+00a3: Host: test.dydra.com
+00b9: Authorization: Basic WXRHd1VXcTFrWTduQUwxb2NJdmw6
+00ec: User-Agent: curl/7.61.0
+0105: Accept: application/sparql-results+json
+012e: 
+<= Recv SSL data, 5 bytes (0x5)
+0000: .....
+<= Recv header, 17 bytes (0x11)
+0000: HTTP/1.1 200 OK
+<= Recv header, 31 bytes (0x1f)
+0000: Server: nginx/1.10.3 (Ubuntu)
+<= Recv header, 37 bytes (0x25)
+0000: Date: Mon, 28 Jan 2019 13:27:58 GMT
+<= Recv header, 62 bytes (0x3e)
+0000: Content-Type: application/sparql-results+json; charset=UTF-8
+<= Recv header, 28 bytes (0x1c)
+0000: Transfer-Encoding: chunked
+<= Recv header, 24 bytes (0x18)
+0000: Connection: keep-alive
+<= Recv header, 46 bytes (0x2e)
+0000: Last-Modified: Mon, 14 May 2018 03:01:46 GMT
+<= Recv header, 44 bytes (0x2c)
+0000: Etag: d1aaa920-760b-2a40-aa57-d9db1ee4e7c3
+<= Recv header, 66 bytes (0x42)
+0000: Vary: Accept, Accept-Datetime, Accept-Encoding, Origin, Revision
+<= Recv header, 21 bytes (0x15)
+0000: Accept-Ranges: none
+<= Recv header, 24 bytes (0x18)
+0000: Cache-Control: private
+<= Recv header, 52 bytes (0x34)
+0000: X-Request-Id: 86e72b58-2300-11e9-a94e-0cc47a036f46
+<= Recv header, 40 bytes (0x28)
+0000: Access-Control-Allow-Credentials: true
+<= Recv header, 77 bytes (0x4d)
+0000: Access-Control-Allow-Headers: Authorization, Content-Type, X-Req
+0040: uested-With
+<= Recv header, 2 bytes (0x2)
+0000: 
+<= Recv data, 186 bytes (0xba)
+0000: af
+0004: { "head": { "vars": [ "count" ] },.   "results": {.   "bindings"
+0044: : [. { "count": {"type":"literal", "datatype":"http://www.w3.org
+0084: /2001/XMLSchema#integer", "value":"1"} } ] } }.
+00b5: 0
+00b8: 
+== Info: Connection #0 to host test.dydra.com left intact

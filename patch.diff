@@ -1,0 +1,47 @@
+From 3207c0078c262cf974820e75be1968e18fceb409 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jos=C3=A9=20R=2E=20Torregrosa=20Dur=C3=A1n?=
+ <jose@keepeyeonball.com>
+Date: Thu, 24 Jan 2019 15:39:16 +0100
+Subject: [PATCH] no message
+
+---
+ README.md            | 5 ++++-
+ dependencies_test.sh | 9 +++++++++
+ 2 files changed, 13 insertions(+), 1 deletion(-)
+ create mode 100644 dependencies_test.sh
+
+diff --git a/README.md b/README.md
+index e5d9da6..099bf74 100644
+--- a/README.md
++++ b/README.md
+@@ -80,8 +80,11 @@ The tests are coded as bash shell scripts. They depend on several utility progra
+ - `jq` : `apt-get install jq`
+ - `json_reformat` : `apt-get install yajl-tools`
+ - `rapper` : `apt-get install raptor2-utils`
+-- `tidy` : àpt-get install tidy`
++- `tidy` : `apt-get install tidy`
+ 
++To test and (if necessary) solve all dependencies you may simply run:
++
++`dependencies_test.sh`
+ ---
+ 
+ ## Sesame HTTP communication protocol
+diff --git a/dependencies_test.sh b/dependencies_test.sh
+new file mode 100644
+index 0000000..f75b02a
+--- /dev/null
++++ b/dependencies_test.sh
+@@ -0,0 +1,9 @@
++#!/bin/bash
++
++declare -A PACKBINMAP=( [jq]=jq [json_reformat]=yajl-tools [rapper]=raptor2-utils [tidy]=tidy)
++
++for BINARY in "${!PACKBINMAP[@]}"; do 
++	echo $BINARY "--->"  ${PACKBINMAP[$BINARY]}
++	which $BINARY > /dev/null; [ $? -eq 1 ] && echo "installing missing package ${PACKBINMAP[$BINARY]}" && sudo apt install -y ${PACKBINMAP[$BINARY]} ;
++done 
++
+-- 
+2.14.1.windows.1
+

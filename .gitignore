@@ -12,3 +12,5 @@ tmp
 *~
 #*#
 failed.txt
+.vs/slnx.sqlite
+.vs/ProjectSettings.json

@@ -123,7 +123,7 @@ then
 fi
 
 # define a token for the primary account
-if [[ "" == "${STORE_TOKEN}" ]]
+if [[ "" == ":${STORE_TOKEN}" ]]
 then
   if [ -f ~/.dydra/${STORE_HOST}.${STORE_ACCOUNT}.token ]
   then 
@@ -141,7 +141,7 @@ then
   
 fi
 # and one for another registered user
-if [[ "" == "${STORE_TOKEN_JHACKER}" ]]
+if [[ "" == "$:{STORE_TOKEN_JHACKER}" ]]
 then 
   if [ -f ~/.dydra/${STORE_HOST}.jhacker.token ]
   then 
@@ -219,7 +219,7 @@ function initialize_account () {
 # metadata
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
+     -u "$:{STORE_TOKEN}:" \
      ${STORE_URL}/${STORE_ACCOUNT}/system <<EOF
 <http://dydra.com/accounts/openrdf-sesame> <urn:dydra:baseIRI> <http://dydra.com/accounts/openrdf-sesame> <http://dydra.com/accounts/openrdf-sesame> .
 EOF
@@ -242,7 +242,7 @@ function initialize_repository_configuration () {
 # metadata
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
+     -u "$:{STORE_TOKEN}:" \
      ${STORE_URL}/${STORE_ACCOUNT}/system <<EOF
 <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:baseIRI> <http://www.openrdf.org/mem-rdf> <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> .
 <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:skolemize> "false"^^<http://www.w3.org/2001/XMLSchema#boolean> <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> .
@@ -264,7 +264,7 @@ function initialize_repository_rdf_graphs () {
 ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
      -H "Accept: application/n-quads" \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
+     -u "$:{STORE_TOKEN}:" \
      ${GRAPH_STORE_URL} <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
@@ -277,8 +277,8 @@ ${CURL} -w "%{http_code}\n" -f -s -X POST \
      -H "Content-Type: application/json" \
      -H "Accept: " \
      --data-binary @- \
-     -u "${STORE_TOKEN}:" \
-     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/profile?auth_token=${STORE_TOKEN} <<EOF 
+     -u "$:{STORE_TOKEN}:" \
+     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/profile <<EOF 
 {
     "name": "mem-rdf",
     "homepage": "http://example.org/test",
@@ -294,7 +294,7 @@ ${CURL} -w "%{http_code}\n" -f -s -X POST \
      -H "Content-Type: application/json" \
      -H "Accept: " \
      --data-binary @- \
-     -u "${STORE_TOKEN}:" \
+     -u ":${STORE_TOKEN}:" \
      ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/collaborations <<EOF
 {"collaborator": "jhacker",
  "read": true,
@@ -308,7 +308,7 @@ ${CURL} -w "%{http_code}\n" -f -s -X PUT \
      -H "Content-Type: application/json" \
      -H "Accept: " \
      --data-binary @- \
-     -u "${STORE_TOKEN}:" \
+     -u ":${STORE_TOKEN}:" \
      ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/configuration/prefixes <<EOF
 {"prefixes": "PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>" }
 EOF
@@ -318,7 +318,7 @@ function initialize_privacy () {
 ${CURL} -w "%{http_code}\n" -f -s -X PUT \
      -H "Content-Type: application/json" \
      --data-binary @- \
-     -u "${STORE_TOKEN}:" \
+     -u ":${STORE_TOKEN}:" \
      ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/authorization <<EOF
 {"permissable_ip_addresses":["192.168.1.1"],"privacy_setting":1}
 EOF
@@ -370,7 +370,7 @@ function curl_sparql_request () {
   local -a content_media_type=("-H" "Content-Type: $STORE_SPARQL_QUERY_MEDIA_TYPE")
   local -a method=("-X" "POST")
   local -a data=()
-  local -a user=(-u "${STORE_TOKEN}:")
+  local -a user=(-u ":${STORE_TOKEN}")
   local -a user_id=("user_id=$0")
   local curl_url="${SPARQL_URL}"
   local url_args=()
@@ -428,7 +428,7 @@ function curl_graph_store_get () {
   local -a accept_media_type=("-H" "Accept: $STORE_GRAPH_MEDIA_TYPE")
   local -a content_media_type=()
   local -a method=("-X" "GET")
-  local -a user=(-u "${STORE_TOKEN}:")
+  local -a user=(-u ":${STORE_TOKEN}")
   local graph=""  #  the default is all graphs
   local curl_url="${GRAPH_STORE_URL}"
   while [[ "$#" > 0 ]] ; do
@@ -472,7 +472,7 @@ function curl_graph_store_update () {
   local -a content_media_type=("-H" "Content-Type: $STORE_GRAPH_MEDIA_TYPE")
   local -a data=("--data-binary" "@-")
   local -a method=("-X" "POST")
-  local -a user=(-u "${STORE_TOKEN}:")
+  local -a user=(-u ":${STORE_TOKEN}")
   local graph=""  #  the default is all graphs
   local curl_url="${GRAPH_STORE_URL}"
   while [[ "$#" > 0 ]] ; do
@@ -544,7 +544,7 @@ function initialize_all_repositories () {
 function curl_download () {
   ${CURL} -f -s -S -X GET \
      -H "${1}" \
-     -u "${STORE_TOKEN}:" \
+     -u ":${STORE_TOKEN}:" \
      ${DOWNLOAD_URL}.${2}
 }
 
@@ -553,14 +553,16 @@ function curl_download () {
 function curl_tpf_get () {
   local -a curl_args=()
   local -a method=("-X" "GET")
-  local -a user=(-u "${STORE_TOKEN}:")
+  local -a user=(-u ":${STORE_TOKEN}")
   local query=""  #  the default no query args
   local revision=""
   local curl_url="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/tpf"
   while [[ "$#" > 0 ]] ; do
+    echo "$1"
     case "$1" in
       -H) case "$2" in
-          Accept:*) curl_args+=("${1}" "${2}"); shift 2;;
+          Accept*) curl_args+=("${1}" "${2}"); shift 2;;
+          *) curl_args+=("${1}" "${2}"); shift 2;;
           esac ;;
       --head) method=(); curl_args+=("${1}"); shift 1;;
       --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/tpf"; shift 2;;
@@ -592,7 +594,7 @@ function curl_tpf_get () {
 function curl_ldp_get () {
   local -a curl_args=()
   local -a method=("-X" "GET")
-  local -a user=(-u "${STORE_TOKEN}:")
+  local -a user=(-u ":${STORE_TOKEN}")
   local revision=""
   local repository="${STORE_REPOSITORY}"
   local path=""

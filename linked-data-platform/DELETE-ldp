@@ -1,0 +1,6 @@
+#! /bin/bash
+
+${CURL} -f -s -k -X DELETE \
+  --user ":${LDP_TOKEN}" \
+  "https://${LDP_HOST}/${LDP_REPOSITORY}/service" > result.nq
+

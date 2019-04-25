@@ -1,0 +1,8 @@
+#! /bin/bash
+
+${CURL} -s -k -X POST --user ":${LDP_TOKEN}" --data-binary @- \
+  -H "Content-Type: text/plain" \
+  -H "Slug: sometext" \
+  "https://${LDP_HOST}/${LDP_REPOSITORY}/ldp?resource=http://example.org/alice/" <<EOF > result.ttl
+here is an account of the history of the world.
+EOF

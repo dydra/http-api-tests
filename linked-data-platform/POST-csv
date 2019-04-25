@@ -1,0 +1,10 @@
+#! /bin/bash
+
+${CURL} -s -k -X POST --user ":${LDP_TOKEN}" --data-binary @- \
+  -H "Content-Type: text/csv" \
+  -H "Slug: csvdata1" \
+  "https://${LDP_HOST}/${LDP_REPOSITORY}/ldp?resource=http://example.org/alice/" <<EOF > result.ttl
+name, size
+logo1, "83 x 27"
+logo2, "98 x 98"
+EOF

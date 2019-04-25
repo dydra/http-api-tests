@@ -1,0 +1,8 @@
+#! /bin/bash
+
+${CURL} -k -f -s -X DELETE \
+  -H "Accept: application/n-triples" \
+  --user ":${LDP_TOKEN}"  \
+  "https://${LDP_HOST}/${LDP_REPOSITORY}/ldp?resource=http://example.org/alice/" > result.nq
+
+fgrep example.org/alice result.nq | fgrep -q "activitystreams#object"

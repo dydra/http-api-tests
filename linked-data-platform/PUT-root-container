@@ -1,0 +1,14 @@
+#! /bin/bash
+# load the initial ldp content
+
+${CURL} -s -k -X PUT --user ":${LDP_TOKEN}" --data-binary @- \
+  -H "Content-Type: application/trig" \
+  "https://${LDP_HOST}/${LDP_REPOSITORY}/service" <<EOF > result.ttl
+@prefix dcterms: <http://purl.org/dc/terms/>.
+@prefix ldp: <http://www.w3.org/ns/ldp#>.
+
+<http://example.org/alice/> {
+ <http://example.org/alice/> a ldp:Container, ldp:BasicContainer;
+  dcterms:title 'Alice’s data storage on the Web' .
+}
+EOF

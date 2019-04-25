@@ -1,0 +1,15 @@
+#! /bin/bash
+
+${CURL} -s -k -X POST --user ":${LDP_TOKEN}" --data-binary @- \
+  -H "Content-Type: text/turtle" \
+  -H "Link: <http://www.w3.org/ns/ldp#Container>; rel=type" \
+  -H "Link: <http://www.w3.org/ns/ldp#BasicContainer>; rel=type" \
+  -H "Slug: photos" \
+  "https://${LDP_HOST}/${LDP_REPOSITORY}/ldp?resource=http://example.org/alice/" <<EOF > result.ttl
+@prefix ldp: <http://www.w3.org/ns/ldp#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+ 
+<> a ldp:Container, ldp:BasicContainer;
+   dcterms:title "Photos of Alice" ; 
+   dcterms:description "This container is for photos of Alice." . 
+EOF

@@ -1,0 +1,8 @@
+#! /bin/bash
+# post a photo as content
+
+${CURL} -s -k -X POST --user ":${LDP_TOKEN}" --data-binary @dydra-logo-24pt.png \
+  -H "Content-Type: image/png" \
+  -H "Link: <http://www.w3.org/ns/ldp#NonRDFSource>; rel=type" \
+  -H "Slug: logo1" \
+  "https://${LDP_HOST}/${LDP_REPOSITORY}/ldp?resource=http://example.org/alice/photos/"  > result.ttl

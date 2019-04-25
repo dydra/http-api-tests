@@ -33,7 +33,7 @@ bash ./POST-csv
 
 # test foaf
 echo -n "" > tmp0.nt
-${CURL} -s -o tmp0.nt -k -H "Accept: application/n-triples" https://dev.dydra.com/openrdf-sesame/ldp/ldp?resource=http://example.org/alice/foaf
+${CURL} -s -o tmp0.nt -k -H "Accept: application/n-triples" https://${LDP_HOST}/${LDP_REPOSITORY}/ldp?resource=http://example.org/alice/foaf
 fgrep -q "FOAF file" tmp0.nt
 wc -l tmp0.nt | fgrep -q " 6 tmp0.nt"
 fgrep -c '#type' tmp0.nt | egrep -q '^3$'
@@ -41,25 +41,25 @@ fgrep -c '#me' tmp0.nt | egrep -q '^3$'
 
 # test the inline image
 echo -n "" > tmp1.png
-${CURL} -s -o tmp1.png -k https://dev.dydra.com/openrdf-sesame/ldp/ldp?resource=http://example.org/alice/photos/logo1
+${CURL} -s -o tmp1.png -k https://${LDP_HOST}/${LDP_REPOSITORY}/ldp/ldp?resource=http://example.org/alice/photos/logo1
 file tmp1.png | fgrep -q "PNG image data"
 cmp -s tmp1.png dydra-logo-24pt.png
 
 # test the linked image
 echo -n "" > tmp2.png
-${CURL} -s -L -o tmp2.png -k https://dev.dydra.com/openrdf-sesame/ldp/ldp?resource=http://example.org/alice/photos/logo2
+${CURL} -s -L -o tmp2.png -k https://${LDP_HOST}/${LDP_REPOSITORY}/ldp/ldp?resource=http://example.org/alice/photos/logo2
 file tmp2.png | fgrep -q "PNG image data"
 ${CURL} -s https://dydra.com/logo-98x98.png | cmp - tmp2.png
 
 # test text
 echo -n "" > tmp3.txt
-${CURL} -s -L -o tmp3.txt -k https://dev.dydra.com/openrdf-sesame/ldp/ldp?resource=http://example.org/alice/sometext
+${CURL} -s -L -o tmp3.txt -k https://${LDP_HOST}/${LDP_REPOSITORY}/ldp/ldp?resource=http://example.org/alice/sometext
 file tmp3.txt | fgrep -q "ASCII"
 fgrep -q 'history' tmp3.txt
 
 # test csv
 echo -n "" > tmp4.csv
-${CURL} -s -L -o tmp4.csv -k https://dev.dydra.com/openrdf-sesame/ldp/ldp?resource=http://example.org/alice/csvdata1
+${CURL} -s -L -o tmp4.csv -k https://${LDP_HOST}/${LDP_REPOSITORY}/ldp/ldp?resource=http://example.org/alice/csvdata1
 file tmp4.csv | fgrep -q "ASCII text"
 wc -l tmp4.csv | fgrep -q ' 3 tmp4.csv'
 fgrep -q "name, size" tmp4.csv

@@ -73,7 +73,6 @@ ${CURL} -f -s -k -H "Accept: application/n-quads" \
    "https://${LDP_HOST}/${LDP_REPOSITORY}/service" \
  | wc -c | egrep -q ' 0$'
 
-echo complete
 # if all succeeded
 rm tmp?.*
 

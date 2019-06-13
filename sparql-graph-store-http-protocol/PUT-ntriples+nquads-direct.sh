@@ -7,7 +7,7 @@
 
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
-curl_graph_store_update -X PUT \
+curl_graph_store_update -X PUT -o /dev/null \
      -H "Content-Type: application/n-quads" \
     --repository "${STORE_REPOSITORY}-write" \
     --url "${STORE_NAMED_GRAPH_URL}" <<EOF
@@ -16,7 +16,7 @@ curl_graph_store_update -X PUT \
 EOF
 
 
-curl_graph_store_update -X PUT \
+curl_graph_store_update -X PUT -o /dev/null \
      -H "Content-Type: application/n-triples" \
     --repository "${STORE_REPOSITORY}-write"\
     --url "${STORE_NAMED_GRAPH_URL}" <<EOF

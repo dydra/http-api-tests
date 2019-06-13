@@ -21,7 +21,7 @@ echo "post async triples" > $ECHO_OUTPUT
 function async_graph_store_update () {
   requestID=`date +%Y%m%dT%H%M%S`
   index=$1
-  curl_graph_store_update -X POST -w "%{http_code}\n" \
+  curl_graph_store_update -X POST -w "%{http_code}\n" -o /dev/null \
     -H "Accept-Asynchronous: notify" \
     -H "Asynchronous-Location: http://127.0.0.1:8000/post" \
     -H "Asynchronous-Method: POST" \
@@ -57,7 +57,7 @@ EOF
 
 
 echo "test async erroneous disposition" > $ECHO_OUTPUT
-curl_graph_store_update -X POST -w "%{http_code}\n" \
+curl_graph_store_update -X POST -w "%{http_code}\n" -o /dev/null \
   -H "Accept-Asynchronous: notify-not" \
   -H "Content-Type: application/n-triples" \
   --repository "${STORE_REPOSITORY}-write"  <<EOF  \

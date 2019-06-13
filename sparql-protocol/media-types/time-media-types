@@ -1,0 +1,97 @@
+#! /bin/bash
+
+# perform requests to generate sb-profile timing
+
+count=20
+
+
+   
+
+function test_media_type() {
+  local mime="$1";
+  local query="$2";
+
+  echo ""
+  echo "${mime}"
+  for ((i = 0; i < $count; i ++)) 
+  do
+    curl_sparql_request -H "Accept: ${mime}" --repository mem-rdf-write <<EOF > /dev/null
+$query
+EOF
+  done
+}
+
+
+ test_media_type application/n-quads "construct {?s ?p ?o} where { {graph ?g {?s ?p ?o}} union {?s ?p ?o} }"
+
+ test_media_type text/turtle "construct {?s ?p ?o} where { {graph ?g {?s ?p ?o}} union {?s ?p ?o} }"
+
+ test_media_type application/trig "construct {?s ?p ?o} where { {graph ?g {?s ?p ?o}} union {?s ?p ?o} }"
+
+ test_media_type application/trix "construct {?s ?p ?o} where { {graph ?g {?s ?p ?o}} union {?s ?p ?o} }"
+
+ test_media_type application/ld+json "construct {?s ?p ?o} where { {graph ?g {?s ?p ?o}} union {?s ?p ?o} }"
+
+ test_media_type application/rdf+xml "construct {?s ?p ?o} where { {graph ?g {?s ?p ?o}} union {?s ?p ?o} }"
+
+ test_media_type application/sparql-results+xml "select * where { {graph ?g {?s ?p ?o}} union {?s ?p ?o} }"
+
+ test_media_type application/sparql-results+json "select * where { {graph ?g {?s ?p ?o}} union {?s ?p ?o} }"
+
+ test_media_type text/csv "select * where { {graph ?g {?s ?p ?o}} union {?s ?p ?o} }"
+
+ test_media_type application/sparql-results+csv "select * where { {graph ?g {?s ?p ?o}} union {?s ?p ?o} }"
+
+ test_media_type application/sparql-results+json-columns-streaming "select * where { {graph ?g {?s ?p ?o}} union {?s ?p ?o} }"
+
+ test_media_type application/sparql-results+jsonp "select * where { {graph ?g {?s ?p ?o}} union {?s ?p ?o} }"
+
+ test_media_type text/tab-separated-values "select * where { {graph ?g {?s ?p ?o}} union {?s ?p ?o} }"
+
+ test_media_type application/json "select * where { {graph ?g {?s ?p ?o}} union {?s ?p ?o} }"
+
+cat <<EOF > /dev/null
+rdfcache-based
+  by message 1.744 
+  by term (+ .536 .105) = .641
+lmdb-based
+  by message 1.432 
+  by term .144
+
+the per term performance being more significant
+in addition to which, it does not require c++ thread guard locks
+
+
+# rdfcache-based implementation
+measuring PROFILE overhead..done
+
+  seconds  |     gc     |   consed   | calls |  sec/call  |  name  
+--------------------------------------------------------
+     1.744 |      0.000 | 83,865,680 |   240 |   0.007266 | ORG.DATAGRAPH.SPOCQ.IMPLEMENTATION::SEND-RESPONSE-MESSAGE
+--------------------------------------------------------
+     1.744 |      0.000 | 83,865,680 |   240 |            | Total
+  seconds  |     gc     |   consed   |  calls |  sec/call  |  name  
+---------------------------------------------------------
+     0.536 |      0.000 | 21,009,744 | 21,680 |   0.000025 | RDFCACHE-CALL-WITH-NUMBERED-TERM-ASPECTS
+     0.105 |      0.000 |  3,186,912 |  4,720 |   0.000022 | ENCODE-JSON-TERM-ASPECTS
+---------------------------------------------------------
+     0.640 |      0.000 | 24,196,656 | 26,400 |            | Total
+
+
+# lmdb-based implementation
+
+  seconds  |     gc     |   consed   | calls |  sec/call  |  name  
+--------------------------------------------------------
+     1.432 |      0.048 | 93,753,280 |   240 |   0.005965 | ORG.DATAGRAPH.SPOCQ.IMPLEMENTATION::SEND-RESPONSE-MESSAGE
+--------------------------------------------------------
+     1.432 |      0.048 | 93,753,280 |   240 |            | Total
+
+  seconds  |     gc     |   consed  | calls |  sec/call  |  name  
+-------------------------------------------------------
+     0.144 |      0.000 | 4,625,696 | 4,720 |   0.000031 | ENCODE-JSON-TERM-NUMBER
+-------------------------------------------------------
+     0.144 |      0.000 | 4,625,696 | 4,720 |            | Total
+
+
+
+EOF

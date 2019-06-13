@@ -123,7 +123,7 @@ then
 fi
 
 # define a token for the primary account
-if [[ "" == ":${STORE_TOKEN}" ]]
+if [[ "" == "${STORE_TOKEN}" ]]
 then
   if [ -f ~/.dydra/${STORE_HOST}.${STORE_ACCOUNT}.token ]
   then 

@@ -2,8 +2,8 @@
 
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
-curl_graph_store_update -X PUT \
-     -H "Content-Type: application/trix" -o /dev/null \
+curl_graph_store_update -X PUT -o /dev/null \
+     -H "Content-Type: application/trix" \
      --repository "${STORE_REPOSITORY}-write" graph=http://dydra.com/trix-graph-name <<EOF
 <TriX>
 <graph>

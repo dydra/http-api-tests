@@ -13,7 +13,7 @@ echo initialize repository > $ECHO_OUTPUT
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
 echo "post triples, no graph" > $ECHO_OUTPUT
-curl_graph_store_update -X POST  -w "%{http_code}\n" \
+curl_graph_store_update -X POST  -w "%{http_code}\n" -o /dev/null \
      -H "Content-Type: application/n-triples" \
      --repository "${STORE_REPOSITORY}-write"  <<EOF  \
    | test_post_success
@@ -22,7 +22,7 @@ curl_graph_store_update -X POST  -w "%{http_code}\n" \
 EOF
 echo "post quads, no graph"  > $ECHO_OUTPUT
 # this will fail if the quad graph is replaced with a new UUID
-curl_graph_store_update -X POST   -w "%{http_code}\n" \
+curl_graph_store_update -X POST -w "%{http_code}\n" -o /dev/null \
      -H "Content-Type: application/n-quads" \
      --repository "${STORE_REPOSITORY}-write"  <<EOF \
    | test_post_success
@@ -48,14 +48,14 @@ EOF
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
 echo "post triples to default" > $ECHO_OUTPUT
-curl_graph_store_update -X POST \
+curl_graph_store_update -X POST -o /dev/null \
      -H "Content-Type: application/n-triples" \
      --repository "${STORE_REPOSITORY}-write" default <<EOF 
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object POST-triples-default" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object POST-triples-default" <${STORE_NAMED_GRAPH}-two> .
 EOF
 echo "post quads to default" > $ECHO_OUTPUT
-curl_graph_store_update -X POST \
+curl_graph_store_update -X POST -o /dev/null \
      -H "Content-Type: application/n-quads" \
      --repository "${STORE_REPOSITORY}-write" default <<EOF 
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object POST-quads-default" .
@@ -80,14 +80,14 @@ EOF
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
 echo "post triples to graph" > $ECHO_OUTPUT
-curl_graph_store_update -X POST \
+curl_graph_store_update -X POST -o /dev/null \
      -H "Content-Type: application/n-triples" \
      --repository "${STORE_REPOSITORY}-write" graph=${STORE_NAMED_GRAPH}-three <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object POST-triples-graph" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object POST-triples-graph" <${STORE_NAMED_GRAPH}-two> .
 EOF
 echo "post quads to graph" > $ECHO_OUTPUT
-curl_graph_store_update -X POST \
+curl_graph_store_update -X POST -o /dev/null \
      -H "Content-Type: application/n-quads" \
      --repository "${STORE_REPOSITORY}-write" graph=${STORE_NAMED_GRAPH}-three <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object POST-quads-graph" .

@@ -2,7 +2,7 @@
 # test path queries which specify abstract default graphs
 # see the paths README
 
-curl_graph_store_update -X PUT \
+curl_graph_store_update -X PUT -o /dev/null \
       -H "Content-Type: application/n-quads" \
       --repository "${STORE_REPOSITORY}-write" <<EOF
 <http://example.com/s1> <http://example.com/p> <http://example.com/s2> .

@@ -4,7 +4,7 @@
 
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
-curl_graph_store_update -X POST   -w "%{http_code}\n" \
+curl_graph_store_update -X POST   -w "%{http_code}\n" -o /dev/null \
      -H "X-HTTP-Method-Override: PATCH" \
      -H "Content-Type: application/n-quads" \
      --repository "${STORE_REPOSITORY}-write"  <<EOF \
@@ -14,7 +14,7 @@ curl_graph_store_update -X POST   -w "%{http_code}\n" \
 EOF
 
 
-curl_graph_store_update -X POST   -w "%{http_code}\n" \
+curl_graph_store_update -X POST   -w "%{http_code}\n" -o /dev/null  \
      -H "X-HTTP-Method-Override: PATCH" \
      -H "Content-Type: application/n-quads" \
      --repository "${STORE_REPOSITORY}-write"  <<EOF \
@@ -24,7 +24,7 @@ curl_graph_store_update -X POST   -w "%{http_code}\n" \
 EOF
 
 
-curl_graph_store_update -X PATCH   -w "%{http_code}\n" \
+curl_graph_store_update -X PATCH   -w "%{http_code}\n" -o /dev/null \
      -H "X-HTTP-Method-Override: PATCH" \
      -H "Content-Type: application/n-quads" \
      --repository "${STORE_REPOSITORY}-write"  <<EOF \

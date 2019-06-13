@@ -1,0 +1,88 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/default> xsd:string "a string" .
+<http://example.org/default> xsd:boolean "true"^^xsd:boolean .
+<http://example.org/default> xsd:boolean "false"^^xsd:boolean .
+<http://example.org/default> xsd:decimal "1.1"^^xsd:decimal .
+<http://example.org/default> xsd:decimal "-1.1"^^xsd:decimal .
+<http://example.org/default> xsd:integer "1"^^xsd:integer .
+<http://example.org/default> xsd:integer "-1"^^xsd:integer .
+<http://example.org/default> xsd:integer "0"^^xsd:integer .
+<http://example.org/default> xsd:double "1.0"^^xsd:double .
+<http://example.org/default> xsd:double "-1.0"^^xsd:double .
+<http://example.org/default> xsd:double "0.0"^^xsd:double .
+<http://example.org/default> xsd:float "1.0"^^xsd:float .
+<http://example.org/default> xsd:float "-1.0"^^xsd:float .
+<http://example.org/default> xsd:float "0.0"^^xsd:float .
+<http://example.org/default> xsd:date "2014-01-01"^^xsd:date .
+<http://example.org/default> xsd:date "-2014-01-01"^^xsd:date .
+<http://example.org/default> xsd:dateTime "0001-00-00T00:00:00.001"^^xsd:dateTime .
+<http://example.org/default> xsd:dateTime "2099-12-31T23:23:59.999"^^xsd:dateTime .
+<http://example.org/default> xsd:dayTimeDuration "-P31DT23H59M59S"^^xsd:dayTimeDuration .
+<http://example.org/default> xsd:dayTimeDuration "P31DT23H59M59S"^^xsd:dayTimeDuration .
+<http://example.org/default> xsd:gDay "---01"^^xsd:gDay .
+<http://example.org/default> xsd:gDay "---31"^^xsd:gDay .
+<http://example.org/default> xsd:gMonth "--01"^^xsd:gMonth .
+<http://example.org/default> xsd:gMonth "--12"^^xsd:gMonth .
+<http://example.org/default> xsd:gMonthDay "--01-01"^^xsd:gMonthDay .
+<http://example.org/default> xsd:gMonthDay "--12-31"^^xsd:gMonthDay .
+<http://example.org/default> xsd:gYear "0001-00-00T00:00:00.001"^^xsd:gYear .
+<http://example.org/default> xsd:gYear "2099-12-31T23:23:59.999"^^xsd:gYear .
+<http://example.org/default> xsd:gYearMonth "0001-00"^^xsd:gYearMonth .
+<http://example.org/default> xsd:gYearMonth "2099-12"^^xsd:gYearMonth .
+<http://example.org/default> xsd:time "00:00:00.001"^^xsd:time .
+<http://example.org/default> xsd:time "23:23:59.999"^^xsd:time .
+<http://example.org/default> xsd:yearMonthDuration "P10Y1M"^^xsd:yearMonthDuration .
+<http://example.org/default> xsd:yearMonthDuration "-P10Y1M"^^xsd:yearMonthDuration .
+<http://example.org/default> xsd:byte "-128"^^xsd:byte .
+<http://example.org/default> xsd:byte "127"^^xsd:byte .
+<http://example.org/default> xsd:short "-32768"^^xsd:short .
+<http://example.org/default> xsd:short "32767"^^xsd:short .
+<http://example.org/default> xsd:int "-2147483648"^^xsd:int .
+<http://example.org/default> xsd:int "2147483647"^^xsd:int .
+<http://example.org/default> xsd:long "-9223372036854775808"^^xsd:long .
+<http://example.org/default> xsd:long "9223372036854775807"^^xsd:long .
+<http://example.org/default> xsd:unsignedByte "0"^^xsd:unsignedByte .
+<http://example.org/default> xsd:unsignedByte "255"^^xsd:unsignedByte .
+<http://example.org/default> xsd:unsignedShort "0"^^xsd:unsignedShort .
+<http://example.org/default> xsd:unsignedShort "65535"^^xsd:unsignedShort .
+<http://example.org/default> xsd:unsignedInt "0"^^xsd:unsignedInt .
+<http://example.org/default> xsd:unsignedInt "4294967295"^^xsd:unsignedInt .
+<http://example.org/default> xsd:unsignedLong "0"^^xsd:unsignedLong .
+<http://example.org/default> xsd:unsignedLong "18446744073709551615"^^xsd:unsignedLong .
+<http://example.org/default> xsd:positiveInteger "1"^^xsd:positiveInteger .
+<http://example.org/default> xsd:positiveInteger "36893488147419103230"^^xsd:positiveInteger .
+<http://example.org/default> xsd:nonNegativeInteger "0"^^xsd:nonNegativeInteger .
+<http://example.org/default> xsd:nonNegativeInteger "36893488147419103230"^^xsd:nonNegativeInteger .
+<http://example.org/default> xsd:negativeInteger "-1"^^xsd:negativeInteger .
+<http://example.org/default> xsd:negativeInteger "-36893488147419103230"^^xsd:negativeInteger .
+<http://example.org/default> xsd:nonPositiveInteger "0"^^xsd:nonPositiveInteger .
+<http://example.org/default> xsd:nonPositiveInteger "-36893488147419103230"^^xsd:nonPositiveInteger .
+<http://example.org/default> xsd:hexBinary "0123456789abcdef"^^xsd:hexBinary .
+<http://example.org/default> xsd:base64Binary "0F+40A=="^^xsd:base64Binary .
+<http://example.org/default> xsd:anyURI "http://www.w3.org/2001/XMLSchema#"^^xsd:anyURI .
+<http://example.org/default> xsd:language "en"^^xsd:language .
+<http://example.org/default> xsd:normalizedString "normalizedString"^^xsd:normalizedString .
+<http://example.org/default> xsd:token "token"^^xsd:token .
+<http://example.org/default> xsd:NMTOKEN "NMTOKEN"^^xsd:NMTOKEN .
+<http://example.org/default> xsd:Name "Name"^^xsd:Name .
+<http://example.org/default> xsd:NCName "NCName"^^xsd:NCName .
+
+
+_:subject <http://example.org/predicate> _:object .
+
+<http://example.org/graph> {
+  <http://example.org/subject> <http://example.org/predicate> "a string" .
+  <http://example.org/subject> <http://example.org/predicate> "1"^^xsd:integer .
+  <http://example.org/subject> <http://example.org/predicate> <http://example.org/object> .
+  <http://example.org/subject> <http://example.org/predicate> _:object .
+}
+# see http://bugs.librdf.org/mantis/view.php?id=599
+# _:graph {
+<http://example.org/graph> {
+  _:subject <http://example.org/predicate> "a string" .
+  _:subject <http://example.org/predicate> "1"^^xsd:integer .
+  _:subject <http://example.org/predicate> <http://example.org/object> .
+  _:subject <http://example.org/predicate> _:object .
+}
+

@@ -4,7 +4,7 @@
 
 # first, add the collaboration access
 
-curl_graph_store_update -X POST   -w "%{http_code}\n" \
+curl_graph_store_update -X POST   -w "%{http_code}\n" -o /dev/null \
      -H "Content-Type: application/n-quads" \
      --repository "system"  <<EOF \
    | test_post_success
@@ -17,7 +17,7 @@ EOF
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
 # put content as jhacker
-curl_graph_store_update -X PUT  -w "%{http_code}\n" \
+curl_graph_store_update -X PUT  -w "%{http_code}\n" -o /dev/null \
      -H "Content-Type: application/n-triples" \
      --user "${STORE_TOKEN_JHACKER}:" \
      --repository "${STORE_REPOSITORY}-write" <<EOF  \

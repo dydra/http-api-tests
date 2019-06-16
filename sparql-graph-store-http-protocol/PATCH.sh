@@ -25,12 +25,16 @@ curl_graph_store_update -X PATCH  -w "%{http_code}\n" -o /dev/null \
 EOF
  echo "test patch triples w/ none"
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
- | rapper -q -i nquads -o nquads /dev/stdin | sort | diff -w /dev/stdin /dev/fd/3 3<<EOF
+ | sort > PATCH-out.nq
+rapper -q -i nquads -o nquads PATCH-out.nq > /dev/null 
+sort <<EOF > PATCH-test.nq
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-triples-none" .
 <http://example.com/default-subject> <http://example.com/default-predicate> "extra object PATCH-triples-extra-graph" <${STORE_NAMED_GRAPH}-three> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-triples-none" <${STORE_NAMED_GRAPH}-two> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
+diff -w PATCH-out.nq PATCH-test.nq
+
 # known to fail. patch triples w/ none should strip any statement graph
 #<http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-triples-none" .
 #<http://example.com/default-subject> <http://example.com/default-predicate> "extra object PATCH-triples-extra-graph" <${STORE_NAMED_GRAPH}-three> .
@@ -47,12 +51,15 @@ curl_graph_store_update -X PATCH   -w "%{http_code}\n" -o /dev/null \
 EOF
  echo "test patch quads w/ none"
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
-| rapper -q -i nquads -o nquads /dev/stdin | sort | diff -w /dev/stdin /dev/fd/3 3<<EOF
+ | sort > PATCH-out.nq
+rapper -q -i nquads -o nquads PATCH-out.nq > /dev/null 
+sort <<EOF > PATCH-test.nq
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-quads-none" .
 <http://example.com/default-subject> <http://example.com/default-predicate> "extra object PATCH-triples-extra-graph" <${STORE_NAMED_GRAPH}-three> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-quads-none" <${STORE_NAMED_GRAPH}-two> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
+diff -w PATCH-out.nq PATCH-test.nq
 
 # patch with default: clear the default graph
 # patch triple content with default: store in the default graph. ignore any statement graph term (if permitted)
@@ -74,7 +81,9 @@ curl_graph_store_update -X PATCH -o /dev/null \
 EOF
  echo "test patch triples to default"
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
- | rapper -q -i nquads -o nquads /dev/stdin | sort | diff -w /dev/stdin /dev/fd/3 3<<EOF
+ | sort > PATCH-out.nq
+rapper -q -i nquads -o nquads PATCH-out.nq > /dev/null 
+sort <<EOF > PATCH-test.nq
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-triples-default" .
 <http://example.com/default-subject> <http://example.com/default-predicate> "extra object PATCH-triples-extra-graph" <${STORE_NAMED_GRAPH}-three> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-triples-default" <${STORE_NAMED_GRAPH}-two> .
@@ -96,12 +105,15 @@ curl_graph_store_update -X PATCH -o /dev/null \
 EOF
  echo "test patch quads to default"
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
- | rapper -q -i nquads -o nquads /dev/stdin | sort | diff -w /dev/stdin /dev/fd/3 3<<EOF
+ | sort > PATCH-out.nq
+rapper -q -i nquads -o nquads PATCH-out.nq > /dev/null 
+sort <<EOF > PATCH-test.nq
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-quads-default" .
 <http://example.com/default-subject> <http://example.com/default-predicate> "extra object PATCH-triples-extra-graph" <${STORE_NAMED_GRAPH}-three> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-quads-default" <${STORE_NAMED_GRAPH}-two> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
+diff -w PATCH-out.nq PATCH-test.nq
 # known to fail. patch quads to default should replace any statement graph
 #<http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-quads-default" .
 #<http://example.com/default-subject> <http://example.com/default-predicate> "extra object PATCH-triples-extra-graph" <${STORE_NAMED_GRAPH}-three> .
@@ -129,12 +141,15 @@ curl_graph_store_update -X PATCH -o /dev/null \
 EOF
  echo "test patch triples to graph"
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
- | rapper -q -i nquads -o nquads /dev/stdin | sort | diff -w /dev/stdin /dev/fd/3 3<<EOF
+ | sort > PATCH-out.nq
+rapper -q -i nquads -o nquads PATCH-out.nq > /dev/null 
+sort <<EOF > PATCH-test.nq
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-triples-graph" .
 <http://example.com/default-subject> <http://example.com/default-predicate> "extra object PATCH-triples-extra-graph" <${STORE_NAMED_GRAPH}-three> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-triples-graph" <${STORE_NAMED_GRAPH}-two> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
+diff -w PATCH-out.nq PATCH-test.nq
 # known to fail. patch triples to graph should replace any statement graph
 #<http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-triples-graph" <${STORE_NAMED_GRAPH}-three> .
 #<http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
@@ -151,12 +166,15 @@ curl_graph_store_update -X PATCH -o /dev/null \
 EOF
  echo "test patch quads to graph"
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
- | rapper -q -i nquads -o nquads /dev/stdin | sort | diff -w /dev/stdin /dev/fd/3 3<<EOF
+ | sort > PATCH-out.nq
+rapper -q -i nquads -o nquads PATCH-out.nq > /dev/null 
+sort <<EOF > PATCH-test.nq
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-quads-graph" .
 <http://example.com/default-subject> <http://example.com/default-predicate> "extra object PATCH-triples-extra-graph" <${STORE_NAMED_GRAPH}-three> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-quads-graph" <${STORE_NAMED_GRAPH}-two> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
+diff -w PATCH-out.nq PATCH-test.nq
 # known to fail : patch quads to graph should replace any statement graph
 #<http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-quads-graph" <${STORE_NAMED_GRAPH}-three> .
 #<http://example.com/default-subject> <http://example.com/default-predicate> "default object" .

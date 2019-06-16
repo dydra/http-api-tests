@@ -21,13 +21,13 @@ curl_graph_store_update -X PUT  -w "%{http_code}\n" -o /dev/null\
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-triples-none" <${STORE_NAMED_GRAPH}-two> .
 EOF
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
- | rapper -q -i nquads -o nquads /dev/stdin | sort | diff -w /dev/stdin /dev/fd/3 3<<EOF
+   | sort > PUT-out.nq
+rapper -q -i nquads -o nquads PUT-out.nq > /dev/null
+sort <<EOF > PUT-test.nq
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-triples-none" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-triples-none" <${STORE_NAMED_GRAPH}-two> .
 EOF
-# known to fail. put triples w/ none should strip any statement graph
-#<http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-triples-none" .
-#<http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-triples-none" .
+diff -w PUT-out.nq PUT-test.nq
 
 echo "put quads w/ none"
 curl_graph_store_update -X PUT   -w "%{http_code}\n" -o /dev/null \
@@ -38,10 +38,13 @@ curl_graph_store_update -X PUT   -w "%{http_code}\n" -o /dev/null \
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-none" <${STORE_NAMED_GRAPH}-two> .
 EOF
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
-| rapper -q -i nquads -o nquads /dev/stdin | sort | diff -w /dev/stdin /dev/fd/3 3<<EOF
+   | sort > PUT-out.nq
+rapper -q -i nquads -o nquads PUT-out.nq > /dev/null
+sort <<EOF > PUT-test.nq
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-quads-none" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-none" <${STORE_NAMED_GRAPH}-two> .
 EOF
+diff -w PUT-out.nq PUT-test.nq
 
 # put with default: clear the default graph
 # put triple content with default: store in the default graph. ignore any statement graph term (if permitted)
@@ -70,11 +73,14 @@ curl_graph_store_update -X PUT -o /dev/null \
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-default" <${STORE_NAMED_GRAPH}-two> .
 EOF
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
- | rapper -q -i nquads -o nquads /dev/stdin | sort | diff -w /dev/stdin /dev/fd/3 3<<EOF
+ | sort > PUT-out.nq
+rapper -q -i nquads -o nquads PUT-out.nq > /dev/null
+sort <<EOF > PUT-test.nq
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-quads-default" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-default" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
+diff -w PUT-out.nq PUT-test.nq
 
 # put with graph: clear the target graph
 # put triple content with graph: store in the target graph. ignore any graph term (if permitted)
@@ -89,12 +95,15 @@ curl_graph_store_update -X PUT -o /dev/null \
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-triples-graph" <${STORE_NAMED_GRAPH}-two> .
 EOF
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
- | rapper -q -i nquads -o nquads /dev/stdin | sort | diff -w /dev/stdin /dev/fd/3 3<<EOF
+ | sort > PUT-out.nq
+rapper -q -i nquads -o nquads PUT-out.nq > /dev/null
+sort <<EOF > PUT-test.nq
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-triples-graph" <${STORE_NAMED_GRAPH}-three> .
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-triples-graph" <${STORE_NAMED_GRAPH}-three> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
+diff -w PUT-out.nq PUT-test.nq
 
 # echo "put quads to graph"
 curl_graph_store_update -X PUT -o /dev/null \
@@ -104,12 +113,15 @@ curl_graph_store_update -X PUT -o /dev/null \
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-graph" <${STORE_NAMED_GRAPH}-two> .
 EOF
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
- | rapper -q -i nquads -o nquads /dev/stdin | sort | diff -w /dev/stdin /dev/fd/3 3<<EOF
+ | sort > PUT-out.nq
+rapper -q -i nquads -o nquads PUT-out.nq > /dev/null
+sort <<EOF > PUT-test.nq
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-quads-graph" <${STORE_NAMED_GRAPH}-three> .
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-graph" <${STORE_NAMED_GRAPH}-three> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
+diff -w PUT-out.nq PUT-test.nq
 
 
 # put direct: clear the target graph
@@ -133,4 +145,6 @@ initialize_repository --repository "${STORE_REPOSITORY}-write"
 #<http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-direct" <http://dydra.com/openrdf-sesame/mem-rdf/graph-name> .
 #EOF
 
+rm PUT-test.nq
+rm PUT-out.nq
 

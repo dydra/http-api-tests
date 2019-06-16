@@ -109,10 +109,10 @@ sort <<EOF > POST-test.nq
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object POST-triples-graph" <${STORE_NAMED_GRAPH}-three> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
-
 diff -w POST-out.nq POST-test.nq
 
 rm POST-test.nq
+rm POST-out.nq
 
 
 

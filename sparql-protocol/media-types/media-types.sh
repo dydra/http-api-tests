@@ -18,7 +18,7 @@ EOF
   echo "test ${ref_file} v/s ${new_file} " > $ECHO_OUTPUT
   if [[ -e ${ref_file} ]]
   then
-    diff --strip-trailing-cr -q ${ref_file} ${new_file}
+    diff --strip-trailing-cr ${ref_file} ${new_file}
     rm ${new_file} # if the test succeeded 
   else
     mv ${new_file} ${ref_file}

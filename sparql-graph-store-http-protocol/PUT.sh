@@ -44,6 +44,11 @@ sort <<EOF > PUT-test.nq
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-quads-none" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-none" <${STORE_NAMED_GRAPH}-two> .
 EOF
+echo put-out
+cat PUT-out.nq
+echo put-test
+cat PUT-test.nq
+echo diff
 diff -w PUT-out.nq PUT-test.nq
 
 # put with default: clear the default graph

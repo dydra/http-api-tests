@@ -69,7 +69,7 @@ export STATUS_UNSUPPORTED_MEDIA=415
 
 if [[ "" == "${CURL}" ]]
 then
-  export CURL="curl --ipv4"
+  export CURL="curl --ipv4 -k"  # ignore certificates
 fi
 # export CURL="curl -v --ipv4"
 # export CURL="curl --ipv4 --trace-ascii /dev/tty"

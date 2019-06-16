@@ -46,8 +46,10 @@ sort <<EOF > PUT-test.nq
 EOF
 echo put-out
 cat PUT-out.nq
+od -ax PUT-out.nq
 echo put-test
 cat PUT-test.nq
+od -ax PUT-test.nq
 echo diff
 diff -w PUT-out.nq PUT-test.nq
 

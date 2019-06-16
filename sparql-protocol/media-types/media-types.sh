@@ -15,7 +15,7 @@ function test_media_type() {
   | sed -e 's/.0E0"/.0"/' | sed -e 's/.0E0</.0</g'  | sed -e 's/.0E0,/.0,/g' > ${new_file}
 $query
 EOF
-  echo "test ${ref_file} v/s ${new_file} " > $ECHO_OUTPUT
+  echo "test ${ref_file} v/s ${new_file} " #> $ECHO_OUTPUT
   if [[ -e ${ref_file} ]]
   then
     diff --strip-trailing-cr ${ref_file} ${new_file}

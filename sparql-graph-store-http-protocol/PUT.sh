@@ -21,7 +21,7 @@ curl_graph_store_update -X PUT  -w "%{http_code}\n" -o /dev/null\
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-triples-none" <${STORE_NAMED_GRAPH}-two> .
 EOF
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
- | rapper -q -i nquads -o nquads /dev/stdin | sort | diff /dev/stdin /dev/fd/3 3<<EOF
+ | rapper -q -i nquads -o nquads /dev/stdin | sort | diff --strip-trailing-cr /dev/stdin /dev/fd/3 3<<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-triples-none" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-triples-none" <${STORE_NAMED_GRAPH}-two> .
 EOF
@@ -38,7 +38,7 @@ curl_graph_store_update -X PUT   -w "%{http_code}\n" -o /dev/null \
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-none" <${STORE_NAMED_GRAPH}-two> .
 EOF
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
-| rapper -q -i nquads -o nquads /dev/stdin | sort | diff /dev/stdin /dev/fd/3 3<<EOF
+| rapper -q -i nquads -o nquads /dev/stdin | sort | diff --strip-trailing-cr /dev/stdin /dev/fd/3 3<<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-quads-none" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-none" <${STORE_NAMED_GRAPH}-two> .
 EOF
@@ -56,7 +56,7 @@ curl_graph_store_update -X PUT -o /dev/null \
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-triples-default" <${STORE_NAMED_GRAPH}-two> .
 EOF
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
- | rapper -q -i nquads -o nquads /dev/stdin | sort | diff /dev/stdin /dev/fd/3 3<<EOF
+ | rapper -q -i nquads -o nquads /dev/stdin | sort | diff --strip-trailing-cr /dev/stdin /dev/fd/3 3<<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-triples-default" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-triples-default" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
@@ -70,7 +70,7 @@ curl_graph_store_update -X PUT -o /dev/null \
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-default" <${STORE_NAMED_GRAPH}-two> .
 EOF
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
- | rapper -q -i nquads -o nquads /dev/stdin | sort | diff /dev/stdin /dev/fd/3 3<<EOF
+ | rapper -q -i nquads -o nquads /dev/stdin | sort | diff --strip-trailing-cr /dev/stdin /dev/fd/3 3<<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-quads-default" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-default" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
@@ -89,7 +89,7 @@ curl_graph_store_update -X PUT -o /dev/null \
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-triples-graph" <${STORE_NAMED_GRAPH}-two> .
 EOF
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
- | rapper -q -i nquads -o nquads /dev/stdin | sort | diff /dev/stdin /dev/fd/3 3<<EOF
+ | rapper -q -i nquads -o nquads /dev/stdin | sort | diff --strip-trailing-cr /dev/stdin /dev/fd/3 3<<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-triples-graph" <${STORE_NAMED_GRAPH}-three> .
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-triples-graph" <${STORE_NAMED_GRAPH}-three> .
@@ -104,7 +104,7 @@ curl_graph_store_update -X PUT -o /dev/null \
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-graph" <${STORE_NAMED_GRAPH}-two> .
 EOF
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
- | rapper -q -i nquads -o nquads /dev/stdin | sort | diff /dev/stdin /dev/fd/3 3<<EOF
+ | rapper -q -i nquads -o nquads /dev/stdin | sort | diff --strip-trailing-cr /dev/stdin /dev/fd/3 3<<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-quads-graph" <${STORE_NAMED_GRAPH}-three> .
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-graph" <${STORE_NAMED_GRAPH}-three> .
@@ -127,7 +127,7 @@ initialize_repository --repository "${STORE_REPOSITORY}-write"
 #<http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-direct" <${STORE_NAMED_GRAPH}-two> .
 #EOF
 #curl_graph_store_get --repository "${STORE_REPOSITORY}-write" -o /dev/null \
-# | rapper -q -i nquads -o nquads /dev/stdin | sort | diff /dev/stdin /dev/fd/3 3<<EOF
+# | rapper -q -i nquads -o nquads /dev/stdin | sort | diff --strip-trailing-cr /dev/stdin /dev/fd/3 3<<EOF
 #<http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-quads-direct" <http://dydra.com/openrdf-sesame/mem-rdf/graph-name> .
 #<http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
 #<http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-direct" <http://dydra.com/openrdf-sesame/mem-rdf/graph-name> .

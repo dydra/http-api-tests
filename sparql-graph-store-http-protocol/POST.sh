@@ -34,7 +34,7 @@ echo "test no graph content" > $ECHO_OUTPUT
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
  | rapper -q -i nquads -o nquads /dev/stdin | sort > POST-out.nq
 fgrep -c -i uuid POST-out.nq | fgrep -q 2
-fgrep -v -i uuid POST-out.nq | diff /dev/stdin /dev/fd/3 3<<EOF
+fgrep -v -i uuid POST-out.nq | diff --strip-trailing-cr /dev/stdin /dev/fd/3 3<<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object POST-quads-none" .
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object POST-quads-none" <${STORE_NAMED_GRAPH}-two> .
@@ -64,7 +64,7 @@ EOF
 echo "test default content" > $ECHO_OUTPUT
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
  | rapper -q -i nquads -o nquads /dev/stdin | sort > POST-out.nq
-diff POST-out.nq /dev/fd/3 3<<EOF
+diff --strip-trailing-cr POST-out.nq /dev/fd/3 3<<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object POST-quads-default" .
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object POST-triples-default" .
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
@@ -96,7 +96,7 @@ EOF
 echo "test graph content" > $ECHO_OUTPUT
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
  | rapper -q -i nquads -o nquads /dev/stdin | sort > POST-out.nq
-diff  POST-out.nq /dev/fd/3 3<<EOF
+diff --strip-trailing-cr POST-out.nq /dev/fd/3 3<<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object POST-quads-graph" <${STORE_NAMED_GRAPH}-three> .
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object POST-triples-graph" <${STORE_NAMED_GRAPH}-three> .
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object" .

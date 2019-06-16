@@ -141,15 +141,15 @@ then
   
 fi
 # and one for another registered user
-if [[ "" == "${STORE_TOKEN_JHACKER}" ]]
+if [ -f ~/.dydra/${STORE_HOST}.jhacker.token ]
 then 
-  if [ -f ~/.dydra/${STORE_HOST}.jhacker.token ]
-  then 
-    export STORE_TOKEN_JHACKER=`cat ~/.dydra/${STORE_HOST}.jhacker.token`
-  elif [ -f ~/.dydra/jhacker.token ]
-  then
-    export STORE_TOKEN_JHACKER=`cat ~/.dydra/jhacker.token`
-  fi
+  export STORE_TOKEN_JHACKER=`cat ~/.dydra/${STORE_HOST}.jhacker.token`
+elif [ -f ~/.dydra/jhacker.token ]
+then
+  export STORE_TOKEN_JHACKER=`cat ~/.dydra/jhacker.token`
+else
+  echo "no authentication token for jhacker found"
+  exit 1
 fi
 
 # indicate whether those put/post operations for which the request specified the default graph, will apply any

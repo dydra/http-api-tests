@@ -19,7 +19,7 @@ initialize_repository --repository "${STORE_REPOSITORY}-write"
 # put content as jhacker
 curl_graph_store_update -X PUT  -w "%{http_code}\n" -o /dev/null \
      -H "Content-Type: application/n-triples" \
-     --user "${STORE_TOKEN_JHACKER}:" \
+     -u ":${STORE_TOKEN_JHACKER}" \
      --repository "${STORE_REPOSITORY}-write" <<EOF  \
    | test_put_success
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-triples-collab" .

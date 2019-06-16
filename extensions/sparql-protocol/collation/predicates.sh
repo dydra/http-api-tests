@@ -8,7 +8,7 @@ curl_sparql_request  \
    | jq '.results.bindings[] | .[].value' | fgrep -q 'true'
 
 prefix : <http://example.org/> 
-select (((str(?location) = 'Aabybro')
+select ?location (((str(?location) = 'Aabybro')
          && (?location < 'Åkirkeby'@da)
          && (?location <= 'Åkirkeby'@da)
          && (?location > 'Ølgod'@da)
@@ -17,7 +17,7 @@ select (((str(?location) = 'Aabybro')
          )
         as ?ok)
  where {
-  ?s :value 3.0 .
+  ?s :value 3 .
   ?s :location ?location .
 }
 EOF

@@ -6,6 +6,10 @@
 # they are present, modify/push/test, delete the remote and local repositories
 #
 # nb. the (--push-option | -o) requirs git 2.10 or later
+#
+#    apt-add-repository ppa:git-core/ppa
+#    apt-get update
+#    apt-get install git
 
 ## to run autonomously
 # export STORE_TOKEN="..."
@@ -13,8 +17,10 @@
 # source ../../../define.sh
 
 set -e
+requestID=`date +%Y%m%dT%H%M%S`
 
 ## create local and remote repositories
+rm -rf "git-integration-test"
 mkdir -p "git-integration-test"
 cd "git-integration-test"
 git init
@@ -31,10 +37,12 @@ ssh git@${STORE_HOST} list-repositories | fgrep -q http-api-test
 
 ## create local content
 cat > jhacker/system/count.rq <<EOF
+# $requestID
 select (count(*) as ?count) where {?s ?p ?o}
 EOF
 
 cat > jhacker/system/drop.ru <<EOF
+# $requestID
 drop all
 EOF
 
@@ -69,7 +77,7 @@ git add jhacker/test
 git commit -m "add view on test repository" -a
 git push dydra master 
 
-curl -s -X GET -u "$STORE_TOKEN:" -H "Accept: application/n-quads" "http://${STORE_HOST}/jhacker/test/all.srj" \
+curl -L -k -s -X GET -u "$STORE_TOKEN:" -H "Accept: application/n-quads" "http://${STORE_HOST}/jhacker/test/all.srj" \
   | egrep -q '"git.*object"'
 
 # if it progressed this far, it was successful, so cleanup

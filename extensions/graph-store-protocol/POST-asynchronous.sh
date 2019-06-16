@@ -11,6 +11,11 @@
 # an alternative is to run a local http server, but that may not available for a given client location
 # python -m SimpleHTTPServer
 
+# this reuires that asynchronous processing is in place
+#
+#    service spocq-async start
+
+
 requestID=`date +%Y%m%dT%H%M%S`
 
  # | test_post_success -w "%{http_code}\n"
@@ -42,7 +47,7 @@ clear_repository_content --repository "${STORE_REPOSITORY}-write";
 for ((i = 0; i < 10; i ++)); do (async_graph_store_update $i &); sleep .25; done
 
 # allow the remote operations to run
-sleep 5
+sleep 10
 
 echo "test async completion" > $ECHO_OUTPUT
 # --trace -
@@ -51,7 +56,7 @@ curl_sparql_request -X POST \
   -H "Client-Request-Id: ${requestID}" \
   -H "Content-Type: application/sparql-query" \
   --repository "${STORE_REPOSITORY}-write" --data-binary @- <<EOF \
-  | fgrep -c "default object POST-async" | fgrep -q 10
+  | cat # fgrep -c "default object POST-async" | fgrep -q 10
 select distinct ?o from <urn:dydra:all> where {?s <http://example.com/default-predicate> ?o}
 EOF
 

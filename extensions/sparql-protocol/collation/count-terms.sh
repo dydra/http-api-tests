@@ -15,4 +15,4 @@ curl_sparql_request \
 curl_sparql_request \
    --repository "collation" \
    'query=select%20distinct%20?o%20where%20%7b?s%20?p%20?o%7d' \
- | jq '.results.bindings[] | .o.value' | wc -l | fgrep -q "31"
+ | jq '.results.bindings[] | .o.value' | wc -l | fgrep -q "27"

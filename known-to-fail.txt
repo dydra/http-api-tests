@@ -16,6 +16,7 @@ sparql-graph-store-http-protocol/GET-direct-ntriples.sh # NYI : restricted to th
 sparql-graph-store-http-protocol/GET-graph-service-description.sh # NYI
 # sparql-graph-store-http-protocol/GET-trix.sh       # NYI
 # sparql-graph-store-http-protocol/HEAD-direct.sh    # NYI
+sparql-protocol/paths/paths-from-named-constant.sh # anomalous!!!!
 sparql-protocol/paths/paths-from-named-named.sh # anomalous!!!!
 sparql-protocol/paths/paths-from-named.sh # anomalous!!!!
 sparql-protocol/paths/paths-none.sh  # anomalous!!!!

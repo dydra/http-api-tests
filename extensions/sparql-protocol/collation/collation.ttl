@@ -2,38 +2,38 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 _:a  :location "Allinge"@da  ;
-     :value 11.0 .
+     :value 11 .
 
 _:b  :location "Aulum"@da  ;
-     :value "10.0"^^xsd:float.
+     :value 10 .
 
 _:c  :location "Broager"@da  ;
-     :value "9.0"^^xsd:double ;
-     :value "12.0"^^xsd:float .
+     :value 9 ;
+     :value 12 .
 
 _:d  :location "Br\u00E6dstrup"@da ;
-     :value "8.0"^^xsd:decimal.
+     :value 8 .
 
 _:e  :location "B\u00F8rkop"@da  ;
-     :value 7.0 .
+     :value 7 .
 
 _:f  :location "Wandsbek"@da  ;
-     :value 6.0 .
+     :value 6 .
 
 _:g  :location "\u00C6r\u00F8sk\u00F8bing"@da  ;
-     :value 5.0 .
+     :value 5 .
 
 _:h  :location "\u00D8lgod"@da  ;
-     :value 4.0 .
+     :value 4 .
 
 _:i  :location "Aabybro"@da  ;
-     :value 3.0 .
+     :value 3 .
 
 _:j  :location "\u00C5kirkeby"@da  ;
-     :value 2.0 .
+     :value 2 .
 
 _:k  :location "Aalborg"@da  ;
-     :value 1.0 .
+     :value 1 .
 
 _:o  :location "Barcelona"^^xsd:string  ;
      :value 4 .

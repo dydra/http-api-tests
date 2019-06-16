@@ -16,7 +16,7 @@ select ?value
            'P1Y2M'^^<http://www.w3.org/2001/XMLSchema#yearMonthDuration>
            'P1DT2H'^^<http://www.w3.org/2001/XMLSchema#dayTimeDuration>
            '2014-01-02T10:11:12Z'^^<http://www.w3.org/2001/XMLSchema#dateTime>
-           '2014-01-01'^^<http://www.w3.org/2001/XMLSchema#date>
+           '2014-01-01Z'^^<http://www.w3.org/2001/XMLSchema#date>
            '10:11:12'^^<http://www.w3.org/2001/XMLSchema#time>
            '2014'^^<http://www.w3.org/2001/XMLSchema#gYear>
          } }

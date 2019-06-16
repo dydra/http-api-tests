@@ -141,7 +141,7 @@ then
   
 fi
 # and one for another registered user
-if [[ "" == "$:{STORE_TOKEN_JHACKER}" ]]
+if [[ "" == "${STORE_TOKEN_JHACKER}" ]]
 then 
   if [ -f ~/.dydra/${STORE_HOST}.jhacker.token ]
   then 
@@ -558,7 +558,6 @@ function curl_tpf_get () {
   local revision=""
   local curl_url="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/tpf"
   while [[ "$#" > 0 ]] ; do
-    echo "$1"
     case "$1" in
       -H) case "$2" in
           Accept*) curl_args+=("${1}" "${2}"); shift 2;;

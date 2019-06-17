@@ -44,6 +44,7 @@ rapper -q -i nquads -o nquads PUT-out.nq > /dev/null
 hexdump -C PUT-out.nq
 hexdump -C PUT-in.nq
 # diff -w PUT-out.nq PUT-in.nq
+echo cmp PUT-out.nq PUT-in.nq
 cmp PUT-out.nq PUT-in.nq
 
 # put with default: clear the default graph

@@ -41,7 +41,8 @@ curl_graph_store_update -X PUT   -w "%{http_code}\n" -o /dev/null \
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
    | sort > PUT-out.nq
 rapper -q -i nquads -o nquads PUT-out.nq > /dev/null
-
+hexdump -C PUT-out.nq
+hexdump -C PUT-in.nq
 diff -w PUT-out.nq PUT-in.nq
 
 # put with default: clear the default graph

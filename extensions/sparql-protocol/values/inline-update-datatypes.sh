@@ -23,11 +23,28 @@ EOF3
 EOF4
 #EOF
 
+cat > sort-precedence.txt <<EOF
+"blank"
+"http://example.org"
+"a"
+"b"
+"true"
+"1"
+"2.0"
+"2014"
+"P1DT2H"
+"P1Y2M"
+"2014-01-01"
+"10:11:12Z"
+"2014-01-02T10:11:12Z"
+"abcdefg"
+EOF
+
 # see spocq:algepra/operators/basic-operators.lisp#type-sort-precedence
 # non-native types are last.
 curl_sparql_request <<EOF  \
   --repository "${STORE_REPOSITORY}-write" \
- | jq '.results.bindings[] | .value.value' | diff - sort-precedence.txt 
+ | jq '.results.bindings[] | .value.value' | diff --strip-trailing-cr - sort-precedence.txt 
 
 select ?value
 where { ?s <http://example.org/value> ?value }

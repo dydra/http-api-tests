@@ -19,7 +19,7 @@ where { { values (?value) { } }
       }
 EOF3
 ?value
-{  1 2.0 true 'a'@en  'abcdefg'^^<http://example.org/datatype> 'b' <http://example.org> 'P1Y2M'^^xsd:yearMonthDuration 'P1DT2H'^^xsd:dayTimeDuration '2014-01-02T10:11:12Z'^^xsd:dateTime '2014-01-01'^^xsd:date '10:11:12'^^xsd:time '2014'^^xsd:gYear }
+{  1 2.0 true 'a'@en  'b' <http://example.org> 'abcdef1'^^<http://example.org/datatype> 'P1Y2M'^^xsd:yearMonthDuration 'P1DT2H'^^xsd:dayTimeDuration '2014-01-02T10:11:12Z'^^xsd:dateTime '2014-01-01'^^xsd:date '10:11:12'^^xsd:time '2014'^^xsd:gYear }
 EOF4
 #EOF
 
@@ -37,68 +37,18 @@ cat > sort-precedence.txt <<EOF
 "2014-01-01"
 "10:11:12Z"
 "2014-01-02T10:11:12Z"
-"abcdefg"
+"abcdef1"
 EOF
 
 # see spocq:algepra/operators/basic-operators.lisp#type-sort-precedence
 # non-native types are last.
 curl_sparql_request <<EOF  \
   --repository "${STORE_REPOSITORY}-write" \
- | jq '.results.bindings[] | .value.value' | diff --strip-trailing-cr - sort-precedence.txt 
+ | tee /dev/tty | jq '.results.bindings[] | .value.value' | tee /dev/tty | diff --strip-trailing-cr - sort-precedence.txt 
 
 select ?value
 where { ?s <http://example.org/value> ?value }
 order by ?value
 EOF
 
-cat > /dev/null <<EOFF
------------
-(in-package :spocq.i) (initialize-spocq)
-(trace rdfcache:initialize-term rdfcache-intern-field rdfcache:intern-term set-optional-term rdfcache-object-term-number)
-curl_sparql_request <<EOF  \
-  --repository "${STORE_REPOSITORY}-write" #| jq '.results.bindings[] | .value.value'
-select ?value
-where { ?s <http://example.org/value> ?value }
-#order by ?value
-EOF
-
-(parse-sparql "
-DROP  SILENT  ALL;
-insert { _:test <http://example.org/value> ?value }
-where { { values ?value { 1 2.0 true 'a'@en 'b' <http://example.org> 'c'^^<http://example.org/datatype> 'P1Y2M'^^xsd:yearMonthDuration 'P1DT2H'^^xsd:dayTimeDuration '2014-01-02T10:11:12Z'^^xsd:dateTime '2014-01-01'^^xsd:date '10:11:12'^^xsd:time '2014'^^xsd:gYear }
- }
-        union { bind ( bnode('blank')  as ?value ) }
-      }
-")
-
-(in-package :spocq.i) (initialize-spocq)
-(trace rdfcache:initialize-term rdfcache-intern-field rdfcache:intern-term set-optional-term rdfcache-object-term-number)
-(test-sparql "
-DROP  SILENT  ALL;
-insert { _:test <http://example.org/value> ?value }
-where { { values ?value { 1 2.0 true 'a'@en  'c'^^<http://example.org/datatype> 'b' 'c'^^<http://example.org/datatype> <http://example.org>  'P1Y2M'^^xsd:yearMonthDuration 'P1DT2H'^^xsd:dayTimeDuration '2014-01-02T10:11:12Z'^^xsd:dateTime '2014-01-01'^^xsd:date '10:11:12'^^xsd:time '2014'^^xsd:gYear }
- }
-        union { bind ( bnode('blank')  as ?value ) }
-      }
-" :repository-id "openrdf-sesame/mem-rdf-write")
-
-(in-package :spocq.i) (initialize-spocq)
-(trace rdfcache:initialize-term rdfcache-intern-field rdfcache:intern-term set-optional-term rdfcache-object-term-number)
-(test-sparql "
-DROP  SILENT  ALL;
-insert { _:test <http://example.org/value> ?value }
-where { values ?value {'c'^^<http://example.org/datatype>  'b' } }
-" :repository-id "openrdf-sesame/mem-rdf-write")
-
-(in-package :spocq.i) (initialize-spocq)
-(trace rdfcache:initialize-term rdfcache-intern-field rdfcache:intern-term set-optional-term rdfcache-object-term-number)
-(test-sparql "
-DROP  SILENT  ALL;
-insert { _:test <http://example.org/value> ?value }
-where { values ?value { 'b' 'c'^^<http://example.org/datatype>  } }
-" :repository-id "openrdf-sesame/mem-rdf-write")
-
-(test-sparql "
-DROP  SILENT  ALL;
-" :repository-id "openrdf-sesame/mem-rdf")
-EOFF
+rm sort-precedence.txt

@@ -19,7 +19,7 @@ where { { values (?value) { } }
       }
 EOF3
 ?value
-{  1 2.0 true 'a'@en 'b' <http://example.org>  'c'^^<http://example.org/datatype> 'P1Y2M'^^xsd:yearMonthDuration 'P1DT2H'^^xsd:dayTimeDuration '2014-01-02T10:11:12Z'^^xsd:dateTime '2014-01-01'^^xsd:date '10:11:12'^^xsd:time '2014'^^xsd:gYear }
+{  1 2.0 true 'a'@en  'c'^^<http://example.org/datatype> 'b' <http://example.org> 'P1Y2M'^^xsd:yearMonthDuration 'P1DT2H'^^xsd:dayTimeDuration '2014-01-02T10:11:12Z'^^xsd:dateTime '2014-01-01'^^xsd:date '10:11:12'^^xsd:time '2014'^^xsd:gYear }
 EOF4
 #EOF
 

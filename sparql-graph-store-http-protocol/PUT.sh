@@ -119,6 +119,8 @@ sort <<EOF > PUT-test.nq
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-graph" <${STORE_NAMED_GRAPH}-three> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
+hexdump -C PUT-out.nq
+hexdump -C PUT-test.nq
 diff -w PUT-out.nq PUT-test.nq
 
 

@@ -11,4 +11,4 @@
 "2014-01-01"
 "10:11:12Z"
 "2014-01-02T10:11:12Z"
-"c"
+'abcdefg'^^<http://example.org/datatype>

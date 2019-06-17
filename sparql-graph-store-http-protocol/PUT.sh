@@ -52,7 +52,7 @@ cmp PUT-out.nq PUT-in.nq
 # put quad content with default: store in the default graph. ignore any statement graph term
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
-# echo "put triples to default"
+echo "put triples to default"
 curl_graph_store_update -X PUT -o /dev/null \
      -H "Content-Type: application/n-triples" \
      --repository "${STORE_REPOSITORY}-write" default <<EOF 
@@ -60,11 +60,14 @@ curl_graph_store_update -X PUT -o /dev/null \
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-triples-default" <${STORE_NAMED_GRAPH}-two> .
 EOF
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
- | rapper -q -i nquads -o nquads /dev/stdin | sort | diff -w /dev/stdin /dev/fd/3 3<<EOF
+ | sort > PUT-out.nq
+rapper -q -i nquads -o nquads PUT-out.nq > /dev/null
+sort <<EOF > PUT-test.nq
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-triples-default" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-triples-default" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
+diff -w PUT-out.nq PUT-test.nq
 
 # echo "put quads to default"
 curl_graph_store_update -X PUT -o /dev/null \

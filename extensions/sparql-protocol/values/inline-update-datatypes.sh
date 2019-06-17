@@ -5,6 +5,7 @@
 #cat > /dev/null <<EOF
 
 # unsupported type first, in order to avoid rdfcache import bug
+# whereby, it differs by value somehow
 
 curl_sparql_request \
    "--data-urlencode" "update@/dev/fd/3" \
@@ -19,7 +20,7 @@ where { { values (?value) { } }
       }
 EOF3
 ?value
-{ 'abcdefg'^^<http://example.org/datatype> 1 2.0 true 'a'@en  'b' <http://example.org>  'P1Y2M'^^xsd:yearMonthDuration 'P1DT2H'^^xsd:dayTimeDuration '2014-01-02T10:11:12Z'^^xsd:dateTime '2014-01-01'^^xsd:date '10:11:12'^^xsd:time '2014'^^xsd:gYear }
+{ 'abcdefgh'^^<http://example.org/datatype> 1 2.0 true 'a'@en  'b' <http://example.org>  'P1Y2M'^^xsd:yearMonthDuration 'P1DT2H'^^xsd:dayTimeDuration '2014-01-02T10:11:12Z'^^xsd:dateTime '2014-01-01'^^xsd:date '10:11:12'^^xsd:time '2014'^^xsd:gYear }
 EOF4
 #EOF
 
@@ -37,7 +38,7 @@ cat > sort-precedence.txt <<EOF
 "2014-01-01"
 "10:11:12Z"
 "2014-01-02T10:11:12Z"
-"abcdefg"
+"abcdefgh"
 EOF
 
 # see spocq:algepra/operators/basic-operators.lisp#type-sort-precedence

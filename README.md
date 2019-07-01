@@ -84,8 +84,7 @@ The tests are coded as bash shell scripts. They depend on several utility progra
 
 To test and (if necessary) solve all dependencies you may simply run:
 
-    dependencies_test.sh
-
+`dependencies_test.sh`
 ---
 
 ## Sesame HTTP communication protocol
@@ -209,8 +208,13 @@ designate exactly that named graph in the store.
 
 ## SPARQL graph store protocol
 
+
 The "SPARQL 1.1 Graph Store HTTP Protocol", is supported as per the W3C
 [recommendation](http://www.w3.org/TR/sparql11-http-rdf-update/), with the several additions and restrictions.
+Each DYDRA repository constitutes a Graph Store Protocol
+endpoint which is identified by the resource
+
+    <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>/service
 
 The tests for this facility are present in the directories `sparql-graph-store-http-protocol`
 and
@@ -428,7 +432,7 @@ In order to invoke this mode, it should include the following headers
 
 Each DYDRA repository constitutes a SPARQL endpoint which is identified by the resource
 
-    <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>
+    <HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>/sparql
 
 Requests which conform to the terms of a SPARQL request described in the
 "SPARQL 1.1 Protocol" [recommendation](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321)

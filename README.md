@@ -84,7 +84,8 @@ The tests are coded as bash shell scripts. They depend on several utility progra
 
 To test and (if necessary) solve all dependencies you may simply run:
 
-`dependencies_test.sh`
+    dependencies_test.sh
+
 ---
 
 ## Sesame HTTP communication protocol

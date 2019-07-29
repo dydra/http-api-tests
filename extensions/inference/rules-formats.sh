@@ -66,7 +66,7 @@ curl_graph_store_update -X PUT   -w "%{http_code}\n" -o /dev/null \
 EOF
 
 # exercise the rules
-curl_sparql_request --repository "mem-rdf-write" -H "libraryPath: openrdf-sesamr/inference" <<EOF \
+curl_sparql_request --repository "mem-rdf-write" -H "libraryPath: openrdf-sesame/inference" <<EOF \
  | jq '.results.bindings[] | .[].value' | fgrep -q "http://example.org/class"
 select * where {?s a ?class}
 EOF

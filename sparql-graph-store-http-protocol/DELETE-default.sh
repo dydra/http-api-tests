@@ -5,7 +5,7 @@
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 #echo initialized
 
-curl_graph_store_delete default --repository "${STORE_REPOSITORY}-write"
+curl_graph_store_delete default -o /tmp/gsp.ttl --repository "${STORE_REPOSITORY}-write"
 #echo deleted
 
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \

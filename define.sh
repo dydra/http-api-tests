@@ -10,22 +10,29 @@
 # STORE_TOKEN : the authentication token
 
 export PATH=`pwd`/bin:${PATH}
-if [[ "" == "${STORE_URL}" ]]
-then
-  export STORE_URL="http://localhost"
-fi
 # export STORE_URL=https://dydra.com:81 # 20170705 server version is just http
 # export STORE_URL=http://dydra.com
 # export STORE_URL=http://stage.dydra.com
 
-# strip the protocol and possible user authentication to yield the actual host
-case ${STORE_URL} in
-  http:*)   export STORE_HOST=${STORE_URL#*http://}  ;;
-  https:*)  export STORE_HOST=${STORE_URL#*https://} ;;
-  *) echo "invalid store url: '${STORE_URL}'"; return 1;;
-esac
-# strip a possible port
-export STORE_HOST=${STORE_HOST%:*}
+if [[ "" == "${STORE_HOST}" ]]
+then
+  if [[ "" == "${STORE_URL}" ]]
+  then
+    export STORE_URL="http://localhost"
+  fi
+  # strip the protocol and possible user authentication to yield the actual host
+  case ${STORE_URL} in
+    http:*)   export STORE_HOST=${STORE_URL#*http://}  ;;
+    https:*)  export STORE_HOST=${STORE_URL#*https://} ;;
+    *) echo "invalid store url: '${STORE_URL}'"; return 1;;
+  esac
+  # strip a possible port
+  export STORE_HOST=${STORE_HOST%:*}
+else
+  export STORE_URL="https://${STORE_HOST}"
+fi
+
+
 export STORE_SITE="dydra.com"           # the abstract site name
 export STORE_ACCOUNT="openrdf-sesame"
 export STORE_REPOSITORY="mem-rdf"
@@ -92,7 +99,7 @@ fi
 # define operators to export sparql and graph store url variables of the appropriate pattern
 # and define the values for the default repository. these will be overridden by scripts which expect to use a
 # different repository than the default.
-# export SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}"
+#
 # export SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/sparql"
 # export GRAPH_STORE_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/service"
 
@@ -100,7 +107,6 @@ function set_sparql_url() {
   # $1 : account name
   # $2 : repository name
   export SPARQL_URL="${STORE_URL}/${1}/${2}/sparql"
-# export SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}"
 }
 function set_graph_store_url() {
   # $1 : account name
@@ -237,9 +243,11 @@ EOF
 # openrdf-sesame/mem-rdf-provenance
 # openrdf-sesame/mem-rdf-write
 # openrdf-sesame/mem-rdfs
-# openrdf-sesame/public # to test anonymus access
+# openrdf-sesame/public # to test anonymous access
 # openrdf-sesame/system
 # openrdf-sesame/tpf
+# schema/foaf (must be part of the installed service)
+# schema/foaf__classDescription__view (and the "class" view query
 
 function initialize_repository_configuration () {
 # metadata
@@ -411,7 +419,6 @@ function curl_sparql_request () {
 }
 
 
-
 function curl_sparql_query () {
   curl_sparql_request -H "Content-Type:application/sparql-query" $@
 }
@@ -419,6 +426,54 @@ function curl_sparql_query () {
 function curl_sparql_update () {
   curl_sparql_request -H "Content-Type:application/sparql-update" $*
 }
+
+
+# curl_sparql_view { accept-header-argument } { content-type-header-argument } { view_name }
+# operate with/on a view
+function curl_sparql_view () {
+  local -a curl_args=()
+  local -a accept_media_type=("-H" "Accept: $STORE_SPARQL_RESULTS_MEDIA_TYPE")
+  #local -a content_media_type=("-H" "Content-Type: $STORE_SPARQL_QUERY_MEDIA_TYPE")
+  local -a method=("-X" "GET")
+  local -a data=()
+  local -a user=(-u ":${STORE_TOKEN}")
+  local -a user_id=("user_id=$0")
+  local curl_url="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}"
+  local url_args=()
+  while [[ "$#" > 0 ]] ; do
+    case "$1" in
+      -H) case "$2" in
+          Accept:*) accept_media_type[1]="${2}"; shift 2;;
+          Content-Type:*) content_media_type[1]="${2}"; shift 2;;
+          *) curl_args+=("${1}" "${2}"); shift 2;;
+          esac ;;
+      --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/"; shift 2;;
+      -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
+      -w) curl_args+=("${1}" "${2}"); shift 2;;
+      -X) method[1]="${2}"; shift 2;;
+      --data*) data+=("${1}" "${2}"); shift 2;;
+      --head) method=(); curl_args+=("${1}"); shift 1;;
+      query=*) data=(); content_media_type=(); url_args+=("${1}"); shift 1;;
+      user_id=*) user_id=("${1}"); shift 1;;
+      *=*) url_args+=("${1}"); shift 1;;
+      *) curl_url="${curl_url}/${1}"; shift 1;;
+    esac
+  done
+  url_args+=(${user_id[@]})
+  if [[ ${#url_args[*]} > 0 ]] ; then curl_url=$(IFS='&' ; echo "${curl_url}?${url_args[*]}") ; fi
+  if [[ ${#data[*]} == 0 && ${method[1]} == "POST" ]] ; then data=("--data-binary" "@-"); fi
+  # where an empty array is possible, must be conditional due to unset variable constraint
+  curl_args+=("${accept_media_type[@]}");
+  if [[ ${#content_media_type[*]} > 0 ]] ; then curl_args+=("${content_media_type[@]}"); fi
+  if [[ ${#data[*]} > 0 ]] ; then curl_args+=("${data[@]}"); fi
+  if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
+  if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
+
+  echo ${CURL} -L -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
+  mkdir -p /tmp/test/
+  ${CURL} -L -f -s "${curl_args[@]}" ${curl_url}
+}
+
 
 # curl_graph_store_delete { -H $accept-header-argument } { graph }
 function curl_graph_store_delete () {
@@ -642,6 +697,7 @@ function curl_ldp_get () {
 export -f curl_sparql_request
 export -f curl_sparql_update
 export -f curl_sparql_query
+export -f curl_sparql_view
 export -f curl_graph_store_delete
 export -f curl_graph_store_get
 export -f curl_graph_store_get_code

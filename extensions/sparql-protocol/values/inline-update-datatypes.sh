@@ -45,7 +45,7 @@ EOF
 # non-native types are last.
 curl_sparql_request <<EOF  \
   --repository "${STORE_REPOSITORY}-write" \
- | tee /dev/tty | jq '.results.bindings[] | .value.value' | tee /dev/tty | diff --strip-trailing-cr - sort-precedence.txt 
+ | jq '.results.bindings[] | .value.value' | diff --strip-trailing-cr - sort-precedence.txt 
 
 select ?value
 where { ?s <http://example.org/value> ?value }

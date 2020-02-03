@@ -5,7 +5,7 @@
 curl_sparql_request  \
      -H "Accept: application/sparql-results+json" \
      --repository "collation" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep -q 'true'
+     | jq '.results.bindings[] | .[].value' | fgrep -q 'true'
 
 prefix : <http://example.org/> 
 select ?location (((str(?location) = 'Aabybro')

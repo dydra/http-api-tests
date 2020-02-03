@@ -4,7 +4,7 @@
 
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
-curl_graph_store_delete "graph=${STORE_NAMED_GRAPH}" --repository "${STORE_REPOSITORY}-write"
+curl_graph_store_delete "graph=${STORE_NAMED_GRAPH}" -o /tmp/gsp.ttl --repository "${STORE_REPOSITORY}-write"
 
 curl_graph_store_get  --repository "${STORE_REPOSITORY}-write" \
    | tr -s '\n' '\t' \

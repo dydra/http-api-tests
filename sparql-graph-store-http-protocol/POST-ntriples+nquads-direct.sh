@@ -9,7 +9,7 @@
 
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
-curl_graph_store_update -X POST -o /dev/null \
+curl_graph_store_update -X POST -o /tmp/gsp.ttl \
      -H "Content-Type: application/n-quads" \
     --repository "${STORE_REPOSITORY}-write" \
     --url "${STORE_NAMED_GRAPH_URL}" <<EOF
@@ -18,7 +18,7 @@ curl_graph_store_update -X POST -o /dev/null \
 EOF
 
 
-curl_graph_store_update -X POST -o /dev/null \
+curl_graph_store_update -X POST -o /tmp/gsp.ttl \
      -H "Content-Type: application/n-triples" \
     --repository "${STORE_REPOSITORY}-write" \
     --url "${STORE_NAMED_GRAPH_URL}" <<EOF

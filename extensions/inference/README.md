@@ -1,6 +1,6 @@
 # HTTP API tests : inference, abstraction, extension functions
 
-This directory comprises tests SPARQL abstraction extensions.
+This directory comprises tests for SPARQL abstraction extensions.
 It is intended to cover the following mechanisms:
 
 - pattern-directed entailment :

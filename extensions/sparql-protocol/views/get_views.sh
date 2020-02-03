@@ -1,5 +1,9 @@
 #! /bin/bash
 
+# for example
+# TOKEN=$AUTH bash get_views.sh --account jhacker --host dydra.com --mime application/sparql-query
+# TOKEN=$AUTH bash get_views.sh --account jhacker --host dydra.com --mime application/sparql-query+json
+
 ACCOUNT="jhacker"
 REPOSITORY="system"
 HOST="de8.dydra.com"

@@ -80,7 +80,10 @@ then
 fi
 # export CURL="curl -v --ipv4"
 # export CURL="curl --ipv4 --trace-ascii /dev/tty"
-export ECHO_OUTPUT=/dev/null # /dev/tty # 
+if [[ "" == "${ECHO_OUTPUT}" ]]
+then
+  export ECHO_OUTPUT=/dev/null # /dev/tty # 
+fi
 export RESULT_OUTPUT=
 
 function 1cpl () {
@@ -440,15 +443,17 @@ function curl_sparql_view () {
   local -a user_id=("user_id=$0")
   local curl_url="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}"
   local url_args=()
+
   while [[ "$#" > 0 ]] ; do
     case "$1" in
       -H) case "$2" in
           Accept:*) accept_media_type[1]="${2}"; shift 2;;
-          Content-Type:*) content_media_type[1]="${2}"; shift 2;;
+          Content-Type:*) content_media_type=("-H" "${2}"); shift 2;;
           *) curl_args+=("${1}" "${2}"); shift 2;;
           esac ;;
       --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/"; shift 2;;
       -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
+      -v) curl_args+=("-v"); shift 1;;
       -w) curl_args+=("${1}" "${2}"); shift 2;;
       -X) method[1]="${2}"; shift 2;;
       --data*) data+=("${1}" "${2}"); shift 2;;
@@ -470,7 +475,6 @@ function curl_sparql_view () {
   if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
 
   echo ${CURL} -L -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
-  mkdir -p /tmp/test/
   ${CURL} -L -f -s "${curl_args[@]}" ${curl_url}
 }
 
@@ -549,6 +553,7 @@ function curl_graph_store_update () {
       --url) curl_url="${2}"; shift 2;;
       -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
       -X) method[1]="${2}"; shift 2;;
+      -v) curl_args+=("-v"); shift 1;;
       -w) curl_args+=("${1}" "${2}"); output="/dev/stdout"; shift 2;;
       *) curl_args+=("${1}"); shift 1;;
     esac

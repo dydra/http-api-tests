@@ -1,7 +1,7 @@
 #! /bin/bash
 set -e
 
-# test view usage
+# test view usage: create/read/delete
 
 # 'all' should always be found
 curl_sparql_view -w "%{http_code}\n" all | fgrep -q -s '200'

@@ -58,6 +58,7 @@ export STORE_IS_LOCAL=false
 fgrep 127.0.0.1 /etc/hosts | fgrep -q ${STORE_HOST} &&  export STORE_IS_LOCAL=true
 
 export STATUS_OK=200
+export STATUS_ACCEPTED='202'
 export STATUS_DELETE_SUCCESS='200|204'
 export STATUS_PATCH_SUCCESS='200|201|204'
 export POST_SUCCESS='20201|204'
@@ -144,6 +145,9 @@ then
   elif [ -f ~/.dydra/${STORE_HOST}.token ]
   then
     export STORE_TOKEN=`cat ~/.dydra/${STORE_HOST}.token`
+  elif [ -f ~/.dydra/token@${STORE_HOST} ]
+  then
+    export STORE_TOKEN=`cat ~/.dydra/token@${STORE_HOST}`
   else
     echo "no STORE_TOKEN"
     return 1
@@ -161,7 +165,7 @@ then
     export STORE_TOKEN_JHACKER=`cat ~/.dydra/jhacker.token`
   else
     echo "no authentication token for jhacker found"
-    exit 1
+    return 1
   fi
 fi
 
@@ -172,6 +176,10 @@ STORE_ERRORS=0
 
 function test_bad_request () {
   egrep -q "${STATUS_BAD_REQUEST}"
+}
+
+function test_accepted () {
+  egrep -q "${STATUS_ACCEPTED}"
 }
 
 function test_delete_success () {
@@ -200,6 +208,9 @@ function test_not_found_success () {
 }
 
 function test_ok () {
+  egrep -q "${STATUS_OK}|${STATUS_NO_CONTENT}"
+}
+function test_success () {
   egrep -q "${STATUS_OK}|${STATUS_NO_CONTENT}"
 }
 function test_ok_success () {
@@ -408,7 +419,9 @@ function curl_sparql_request () {
     esac
   done
   url_args+=(${user_id[@]})
+  echo $url_args
   if [[ ${#url_args[*]} > 0 ]] ; then curl_url=$(IFS='&' ; echo "${curl_url}?${url_args[*]}") ; fi
+  echo $curl_url
   if [[ ${#data[*]} == 0 && ${method[1]} == "POST" ]] ; then data=("--data-binary" "@-"); fi
   # where an empty array is possible, must be conditional due to unset variable constraint
   curl_args+=("${accept_media_type[@]}");
@@ -442,17 +455,20 @@ function curl_sparql_view () {
   local -a data=()
   local -a user=(-u ":${STORE_TOKEN}")
   local -a user_id=("user_id=$0")
-  local curl_url="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}"
+  local curl_url=""
   local url_args=()
+  local account=${STORE_ACCOUNT}
+  local repository=${STORE_REPOSITORY}
+  local view="sparql" # start out as the default service location
 
   while [[ "$#" > 0 ]] ; do
     case "$1" in
+      --account) account="${2}"; shift 2;;
       -H) case "$2" in
           Accept:*) accept_media_type[1]="${2}"; shift 2;;
           Content-Type:*) content_media_type=("-H" "${2}"); shift 2;;
           *) curl_args+=("${1}" "${2}"); shift 2;;
           esac ;;
-      --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/"; shift 2;;
       -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
       -v) curl_args+=("-v"); shift 1;;
       -w) curl_args+=("${1}" "${2}"); shift 2;;
@@ -460,11 +476,13 @@ function curl_sparql_view () {
       --data*) data+=("${1}" "${2}"); shift 2;;
       --head) method=(); curl_args+=("${1}"); shift 1;;
       query=*) data=(); content_media_type=(); url_args+=("${1}"); shift 1;;
+      --repository) repository="${2}"; shift 2;;
       user_id=*) user_id=("${1}"); shift 1;;
       *=*) url_args+=("${1}"); shift 1;;
-      *) curl_url="${curl_url}/${1}"; shift 1;;
+      *) view="${1}"; shift 1;;
     esac
   done
+  curl_url="${STORE_URL}/${account}/${repository}/${view}"
   url_args+=(${user_id[@]})
   if [[ ${#url_args[*]} > 0 ]] ; then curl_url=$(IFS='&' ; echo "${curl_url}?${url_args[*]}") ; fi
   if [[ ${#data[*]} == 0 && ${method[1]} == "POST" ]] ; then data=("--data-binary" "@-"); fi
@@ -493,9 +511,12 @@ function curl_graph_store_get () {
   local -a method=("-X" "GET")
   local -a user=(-u ":${STORE_TOKEN}")
   local graph=""  #  the default is all graphs
-  local curl_url="${GRAPH_STORE_URL}"
+  local account=${STORE_ACCOUNT}
+  local repository=${STORE_REPOSITORY}
+  local curl_url=""
   while [[ "$#" > 0 ]] ; do
     case "$1" in
+      --account) account="${2}"; shift 2;;
       all|ALL) graph="all"; shift 1;;
       default|DEFAULT) graph="default"; shift 1;;
       graph=*) graph="${1}"; shift 1;;
@@ -505,14 +526,14 @@ function curl_graph_store_get () {
           *) curl_args+=("${1}" "${2}"); shift 2;;
           esac ;;
       --head) method=(); curl_args+=("${1}"); shift 1;;
-      --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/service"; shift 2;;
+      --repository) repository="${2}"; shift 2;;
       --url) curl_url="${2}"; shift 2;;
       -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
       -X) method[1]="${2}"; shift 2;;
       *) curl_args+=("${1}"); shift 1;;
     esac
   done
-
+  curl_url="${STORE_URL}/${account}/${repository}/service"
   # where an empty array is possible, must be conditional due to unset variable constraint
   curl_args+=("${accept_media_type[@]}");
   if [[ ${#content_media_type[*]} > 0 ]] ; then curl_args+=(${content_media_type[@]}); fi
@@ -537,9 +558,12 @@ function curl_graph_store_update () {
   local -a method=("-X" "POST")
   local -a user=(-u ":${STORE_TOKEN}")
   local graph=""  #  the default is all graphs
+  local account=${STORE_ACCOUNT}
+  local repository=${STORE_REPOSITORY}
   local curl_url="${GRAPH_STORE_URL}"
   while [[ "$#" > 0 ]] ; do
     case "$1" in
+      --account) account="${2}"; shift 2;;
       all|ALL) graph="all"; shift 1;;
       --data*) data[0]="${1}";  data[1]="${2}"; shift 2;;
       default|DEFAULT) graph="default"; shift 1;;
@@ -550,7 +574,7 @@ function curl_graph_store_update () {
           *) curl_args+=("${1}" "${2}"); shift 2;;
           esac ;;
       -o) curl_args+=("-o" "${2}"); output="${2}"; shift 2;;
-      --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/service"; shift 2;;
+      --repository) repository="${2}"; shift 2;;
       --url) curl_url="${2}"; shift 2;;
       -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
       -X) method[1]="${2}"; shift 2;;
@@ -559,6 +583,7 @@ function curl_graph_store_update () {
       *) curl_args+=("${1}"); shift 1;;
     esac
   done
+  curl_url="${STORE_URL}/${account}/${repository}/service"
   if [[ ${#accept_media_type[*]} > 0 ]] ; then curl_args+=("${accept_media_type[@]}"); fi
   if [[ ${#content_media_type[*]} > 0 ]] ; then curl_args+=("${content_media_type[@]}"); fi
   if [[ ${#data[*]} > 0 ]] ; then curl_args+=("${data[@]}"); fi
@@ -713,6 +738,7 @@ export -f curl_tpf_get
 export -f set_sparql_url
 export -f set_graph_store_url
 export -f set_download_url
+export -f test_accepted
 export -f test_bad_request
 export -f test_delete_success
 export -f test_not_found
@@ -720,6 +746,7 @@ export -f test_not_found_success
 export -f test_not_acceptable
 export -f test_not_acceptable_success
 export -f test_ok_success
+export -f test_success
 export -f test_ok
 export -f test_patch_success
 export -f test_post_success

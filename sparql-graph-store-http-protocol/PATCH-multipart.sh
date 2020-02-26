@@ -8,7 +8,7 @@ initialize_repository --repository "${STORE_REPOSITORY}-write"
 
 echo "add extra graph" > ${ECHO_OUTPUT}
 curl_graph_store_update -X PATCH -o /dev/null \
-     -H "Content-Type: multipart/related" \
+     -H "Content-Type: multipart/related; boundary=patch" \
      --repository "${STORE_REPOSITORY}-write" <<EOF
 --patch
 X-HTTP-Method-Override: DELETE

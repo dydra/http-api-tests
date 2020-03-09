@@ -15,7 +15,6 @@ set -e
 # - delete the view query and ensure it is gone
 # - test that a view query without index parameters is rejected
 # - delete the cache repository and ensure that it is gone
-#
 
 echo 'define (or replace) the "classes" view query with a known (erroneous) text' > ${ECHO_OUTPUT}
 curl_sparql_view -X PUT -w "%{http_code}\n" \

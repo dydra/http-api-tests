@@ -9,13 +9,15 @@
 # patch triple content with no graph: store in the default graph. ignore any statement graph term (if permitted)
 # patch quad content with no graph: store in the statement graph, or default if triple statement
 initialize_repository --repository "${STORE_REPOSITORY}-write"
- echo "add extra graph" ; 
+
+echo "add extra graph" > ${ECHO_OUTPUT}
 curl_graph_store_update -X PUT -o /dev/null \
      -H "Content-Type: application/n-triples" \
      --repository "${STORE_REPOSITORY}-write" graph=${STORE_NAMED_GRAPH}-three <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "extra object PATCH-triples-extra-graph" .
 EOF
- echo "patch triples w/ none"
+
+echo "patch triples w/ none" > ${ECHO_OUTPUT}
 curl_graph_store_update -X PATCH  -w "%{http_code}\n" -o /dev/null \
      -H "Content-Type: application/n-triples" \
      --repository "${STORE_REPOSITORY}-write"  <<EOF  \
@@ -23,7 +25,8 @@ curl_graph_store_update -X PATCH  -w "%{http_code}\n" -o /dev/null \
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-triples-none" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-triples-none" <${STORE_NAMED_GRAPH}-two> .
 EOF
- echo "test patch triples w/ none"
+
+echo "test patch triples w/ none" > ${ECHO_OUTPUT}
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
  | sort > PATCH-out.nq
 rapper -q -i nquads -o nquads PATCH-out.nq > /dev/null 
@@ -41,7 +44,7 @@ diff -w PATCH-out.nq PATCH-test.nq
 #<http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-triples-none" .
 #<http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 
- echo "patch quads w/ none"
+echo "patch quads w/ none" > ${ECHO_OUTPUT}
 curl_graph_store_update -X PATCH   -w "%{http_code}\n" -o /dev/null \
      -H "Content-Type: application/n-quads" \
      --repository "${STORE_REPOSITORY}-write"  <<EOF \
@@ -49,7 +52,8 @@ curl_graph_store_update -X PATCH   -w "%{http_code}\n" -o /dev/null \
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-quads-none" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-quads-none" <${STORE_NAMED_GRAPH}-two> .
 EOF
- echo "test patch quads w/ none"
+
+echo "test patch quads w/ none" > ${ECHO_OUTPUT}
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
  | sort > PATCH-out.nq
 rapper -q -i nquads -o nquads PATCH-out.nq > /dev/null 
@@ -65,21 +69,23 @@ diff -w PATCH-out.nq PATCH-test.nq
 # patch triple content with default: store in the default graph. ignore any statement graph term (if permitted)
 # patch quad content with default: store in the default graph. ignore any statement graph term
 initialize_repository --repository "${STORE_REPOSITORY}-write"
- echo "add extra graph"
+
+echo "add extra graph" > ${ECHO_OUTPUT}
 curl_graph_store_update -X PUT -o /dev/null \
      -H "Content-Type: application/n-triples" \
      --repository "${STORE_REPOSITORY}-write" graph=${STORE_NAMED_GRAPH}-three <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "extra object PATCH-triples-extra-graph" .
 EOF
 
- echo "patch triples to default"
+echo "patch triples to default" > ${ECHO_OUTPUT}
 curl_graph_store_update -X PATCH -o /dev/null \
      -H "Content-Type: application/n-triples" \
      --repository "${STORE_REPOSITORY}-write" default <<EOF 
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-triples-default" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-triples-default" <${STORE_NAMED_GRAPH}-two> .
 EOF
- echo "test patch triples to default"
+
+echo "test patch triples to default" > ${ECHO_OUTPUT}
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
  | sort > PATCH-out.nq
 rapper -q -i nquads -o nquads PATCH-out.nq > /dev/null 
@@ -95,15 +101,15 @@ EOF
 #<http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-triples-default" .
 #<http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 
-
- echo "patch quads to default"
+echo "patch quads to default" > ${ECHO_OUTPUT}
 curl_graph_store_update -X PATCH -o /dev/null \
      -H "Content-Type: application/n-quads" \
      --repository "${STORE_REPOSITORY}-write" default <<EOF 
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-quads-default" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-quads-default" <${STORE_NAMED_GRAPH}-two> .
 EOF
- echo "test patch quads to default"
+
+echo "test patch quads to default" > ${ECHO_OUTPUT}
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
  | sort > PATCH-out.nq
 rapper -q -i nquads -o nquads PATCH-out.nq > /dev/null 
@@ -125,21 +131,23 @@ diff -w PATCH-out.nq PATCH-test.nq
 # patch triple content with graph: store in the target graph. ignore any graph term (if permitted)
 # patch quad content with graph: store in the target graph.
 initialize_repository --repository "${STORE_REPOSITORY}-write"
- echo "add extra graph"
+
+echo "add extra graph" > ${ECHO_OUTPUT}
 curl_graph_store_update -X PUT -o /dev/null \
      -H "Content-Type: application/n-triples" \
      --repository "${STORE_REPOSITORY}-write" graph=${STORE_NAMED_GRAPH}-three <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "extra object PATCH-triples-extra-graph" .
 EOF
 
- echo "patch triples to graph"
+echo "patch triples to graph" > ${ECHO_OUTPUT}
 curl_graph_store_update -X PATCH -o /dev/null \
      -H "Content-Type: application/n-triples" \
      --repository "${STORE_REPOSITORY}-write" graph=${STORE_NAMED_GRAPH}-three <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-triples-graph" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-triples-graph" <${STORE_NAMED_GRAPH}-two> .
 EOF
- echo "test patch triples to graph"
+
+echo "test patch triples to graph" > ${ECHO_OUTPUT}
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
  | sort > PATCH-out.nq
 rapper -q -i nquads -o nquads PATCH-out.nq > /dev/null 
@@ -157,14 +165,15 @@ diff -w PATCH-out.nq PATCH-test.nq
 #<http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-triples-graph" <${STORE_NAMED_GRAPH}-two> .
 #<http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 
- echo "patch quads to graph"
+echo "patch quads to graph" > ${ECHO_OUTPUT}
 curl_graph_store_update -X PATCH -o /dev/null \
      -H "Content-Type: application/n-quads" \
      --repository "${STORE_REPOSITORY}-write" graph=${STORE_NAMED_GRAPH}-three <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-quads-graph" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-quads-graph" <${STORE_NAMED_GRAPH}-two> .
 EOF
- echo "test patch quads to graph"
+
+echo "test patch quads to graph" > ${ECHO_OUTPUT}
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
  | sort > PATCH-out.nq
 rapper -q -i nquads -o nquads PATCH-out.nq > /dev/null 

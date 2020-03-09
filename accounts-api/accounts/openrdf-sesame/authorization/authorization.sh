@@ -1,14 +1,12 @@
 #! /bin/bash
 
-#! /bin/bash
-
 # test queries against intended authorizations
 #
 # import the test authorization list.
 # check that the direct and indirect links are found
 
 set -e
-queryURL="${STORE_URL}/accounts/${STORE_ACCOUNT}/authorization"
+queryURL="${STORE_URL}/system/accounts/${STORE_ACCOUNT}/authorization"
 
 
 ${CURL} -s -w "%{http_code}\n" -f -s -S -X PATCH --user "${STORE_TOKEN}:" \

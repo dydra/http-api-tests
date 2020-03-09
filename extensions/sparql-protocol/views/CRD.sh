@@ -26,4 +26,10 @@ curl_sparql_view -X DELETE -w "%{http_code}\n" allput \
 
 for ((i=0; i < 3; i ++)) ;do insert_and_delete; done
 
-curl_sparql_view -w "%{http_code}\n" allput | fgrep -q -s '404'
+echo "test deletion succeeded" > ${ECHO_OUTPUT}
+curl_sparql_view -w "%{http_code}\n" -H "Accept: application/sparql-results+json" allput | fgrep -q -s '404'
+# and
+curl_sparql_view -w "%{http_code}\n" -H "Accept: application/rdf+xml" allput | fgrep -q -s '404'
+# but
+curl_sparql_view -w "%{http_code}\n" -H "Accept: application/rdf+xml" -H "Silent: true" allput | fgrep -q -s '204'
+

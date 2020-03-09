@@ -33,7 +33,7 @@ curl_sparql_request <<EOF \
  | jq '.results.bindings[] | .[].value' | fgrep -q "${STORE_ACCOUNT}/${STORE_REPOSITORY}"
 
 PREFIX dydra: <http://dydra.com/sparql-functions#> 
-SELECT ( dydra:repository-uri() as ?result )
+SELECT ( dydra:repository-url() as ?result )
 WHERE {}
 EOF
 

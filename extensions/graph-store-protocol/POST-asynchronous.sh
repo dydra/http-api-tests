@@ -43,7 +43,7 @@ EOF
 
 
 clear_repository_content --repository "${STORE_REPOSITORY}-write";
-# perform 10 'parallel' requests, with a sleep to avaoid a rate-limit 429
+# perform 10 'parallel' requests, with a sleep to avoid a rate-limit 429
 for ((i = 0; i < 10; i ++)); do (async_graph_store_update $i &); sleep .25; done
 
 # allow the remote operations to run
@@ -56,7 +56,7 @@ curl_sparql_request -X POST \
   -H "Client-Request-Id: ${requestID}" \
   -H "Content-Type: application/sparql-query" \
   --repository "${STORE_REPOSITORY}-write" --data-binary @- <<EOF \
-  | cat # fgrep -c "default object POST-async" | fgrep -q 10
+  | fgrep -c "default object POST-async" | fgrep -q 10
 select distinct ?o from <urn:dydra:all> where {?s <http://example.com/default-predicate> ?o}
 EOF
 

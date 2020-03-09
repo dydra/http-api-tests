@@ -23,7 +23,7 @@ curl_sparql_view -X PUT -w "%{http_code}\n" \
     -H "Accept: text/turtle" \
     --repository "foaf" \
     --data-binary @- types <<EOF \
-    | cat # test_put_success
+    | test_put_success
 select distinct ?type  # invalid
 where {
  { graph ?g {?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?type} }
@@ -47,7 +47,7 @@ curl_sparql_view -H "Accept: application/sparql-results+json" \
     types \
     | egrep -qs '"results"';
 
-echo "create a materialization cache repository. fails due to vew query" > ${ECHO_OUTPUT}
+echo "create a materialization cache repository. fails due to view query" > ${ECHO_OUTPUT}
 ${CURL} -X POST -s -w "%{http_code}\n" -u ":${STORE_TOKEN}" \
     -H "Accept: application/sparql-results+json" \
     -H "Content-Type: application/json" \
@@ -61,15 +61,17 @@ ${CURL} -X POST -s -w "%{http_code}\n" -u ":${STORE_TOKEN}" \
 EOF
 #
 
-echo "test that it did create the repository itself"
-curl_graph_store_get -w "%{http_code}\n" --repository foaf__types__view \
+# nb. the repository will be empty, thus the silent
+echo "test that it did create the repository itself" > ${ECHO_OUTPUT}
+curl_graph_store_get -H "Silent:true" -w "%{http_code}\n" \
+    --repository foaf__types__view \
     | test_ok
 
 # test the projection
 # the first attempt should fail and require a revision
 
 echo "delete the cache content to regenerate to match the view - should fail due to parameters" > ${ECHO_OUTPUT}
-curl_graph_store_delete -w "%{http_code}\n" \
+curl_graph_store_delete -H "Silent:true" -w "%{http_code}\n" \
     --repository "foaf__types__view" \
     | test_bad_request
 

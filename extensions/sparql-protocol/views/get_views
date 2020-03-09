@@ -1,5 +1,7 @@
 #! /bin/bash
 
+# retrieve and output all views for a given repository
+# not intended to be run as a regression test
 # for example
 # TOKEN=$AUTH bash get_views.sh --account jhacker --host dydra.com --mime application/sparql-query
 # TOKEN=$AUTH bash get_views.sh --account jhacker --host dydra.com --mime application/sparql-query+json
@@ -24,8 +26,7 @@ then
   TOKEN=`cat ~/.dydra/token@${HOST}`
 fi
 
-echo   "https://${HOST}/${ACCOUNT}/${REPOSITORY}/sparql" 
-
+echo "retrieve all views" > ${ECHO_OUTPUT}
 curl --silent -k --ipv4 -X POST --data-binary @- \
   --user ":${TOKEN}" \
   -H "Accept: application/n-triples" \
@@ -33,7 +34,7 @@ curl --silent -k --ipv4 -X POST --data-binary @- \
   "https://${HOST}/${ACCOUNT}/${REPOSITORY}/sparql" <<EOF \
     | sed -e 's/<//g'     | sed -e 's/>//g'  | sed -e 's/http:/https:/g' \
     | sed -e "s:/dydra.com/:/${HOST}/:g" \
-    | while read repo view name; do echo; echo $view; curl -L --silent -k --ipv4 -X GET -L -H "Accept: ${MIME}" --user ":${TOKEN}" $view; echo ""; done
+    | while read repo view name; do curl -L --silent -k --ipv4 -X GET -L -H "Accept: ${MIME}" --user ":${TOKEN}" $view; echo ""; done
 construct {
   ?repository ?view ?name
 }

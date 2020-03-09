@@ -64,7 +64,7 @@ WD_PREFIX=`pwd`/
 set +e     # allow failure in order to record it
 for script_pathname in $SCRIPTS
 do
-  script_pathname=`echo -n ${script_pathname} | sed 's.//./.g'`
+  script_pathname=`echo -n "${script_pathname}" | sed 's.//./.g'`
   if [[ "/" == "${script_pathname:0:1}" ]]
   then
     script_pathname=${script_pathname#$WD_PREFIX}
@@ -73,7 +73,7 @@ do
   then
     script_pathname="${script_pathname:2}"
   fi
-  echo -n "${script_pathname} :  ";
+  echo -n "  ${script_pathname} :  ";
   script_filename=`basename $script_pathname`
   script_directory=`dirname $script_pathname`
   script_tag=`basename $script_directory`"/${script_filename}"

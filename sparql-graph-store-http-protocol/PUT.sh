@@ -13,7 +13,7 @@
 # put quad content with no graph: store in the statement graph, or default if triple statement
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
-echo "put triples w/ none"
+echo "put triples w/ none"  > $ECHO_OUTPUT
 # while, in theory, one coulr return a 400 and claim it is a protocol violatation, that leaves no
 # easy way to clear a repositiry with named graph content and import just the default graph.
 curl_graph_store_update -X PUT  -w "%{http_code}\n" -o /dev/null\
@@ -32,7 +32,7 @@ sort <<EOF > PUT-test.nq
 EOF
 diff -w PUT-out.nq PUT-test.nq
 
-echo "put quads w/ none"
+echo "put quads w/ none" > $ECHO_OUTPUT
 sort <<EOF > PUT-in.nq
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-quads-none" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-none" <${STORE_NAMED_GRAPH}-two> .
@@ -54,7 +54,7 @@ cmp PUT-out.nq PUT-in.nq
 # put quad content with default: store in the default graph. ignore any statement graph term
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
-echo "put triples to default"
+echo "put triples to default" > $ECHO_OUTPUT
 curl_graph_store_update -X PUT -o /dev/null \
      -H "Content-Type: application/n-triples" \
      --repository "${STORE_REPOSITORY}-write" default <<EOF 
@@ -71,7 +71,7 @@ sort <<EOF > PUT-test.nq
 EOF
 diff -w PUT-out.nq PUT-test.nq
 
-# echo "put quads to default"
+echo "put quads to default" > $ECHO_OUTPUT
 curl_graph_store_update -X PUT -o /dev/null \
      -H "Content-Type: application/n-quads" \
      --repository "${STORE_REPOSITORY}-write" default <<EOF 
@@ -93,7 +93,7 @@ diff -w PUT-out.nq PUT-test.nq
 # put quad content with graph: store in the target graph.
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
-# echo "put triples to graph"
+echo "put triples to graph" > $ECHO_OUTPUT
 curl_graph_store_update -X PUT -o /dev/null \
      -H "Content-Type: application/n-triples" \
      --repository "${STORE_REPOSITORY}-write" graph=${STORE_NAMED_GRAPH}-three <<EOF
@@ -111,7 +111,7 @@ sort <<EOF > PUT-test.nq
 EOF
 diff -w PUT-out.nq PUT-test.nq
 
-# echo "put quads to graph"
+echo "put quads to graph" > $ECHO_OUTPUT
 curl_graph_store_update -X PUT -o /dev/null \
      -H "Content-Type: application/n-quads" \
      --repository "${STORE_REPOSITORY}-write" graph=${STORE_NAMED_GRAPH}-three <<EOF
@@ -127,8 +127,8 @@ sort <<EOF > PUT-test.nq
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-quads-graph" <${STORE_NAMED_GRAPH}-three> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
-hexdump -C PUT-out.nq
-hexdump -C PUT-test.nq
+# hexdump -C PUT-out.nq
+# hexdump -C PUT-test.nq
 diff -w PUT-out.nq PUT-test.nq
 
 
@@ -139,7 +139,7 @@ initialize_repository --repository "${STORE_REPOSITORY}-write"
 
 
 
-# echo "put quads direct" NYI
+echo "put quads direct" NYI  > $ECHO_OUTPUT
 #curl_graph_store_update -X PUT   -w "%{http_code}\n" -o /dev/null \
 #     -H "Content-Type: application/n-quads" \
 #    --url "${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-write/graph-name" <<EOF

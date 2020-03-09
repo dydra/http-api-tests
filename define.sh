@@ -42,6 +42,7 @@ export STORE_CLIENT_IP="127.0.0.1"
 export STORE_PREFIX="rdf"
 export STORE_DGRAPH="sesame"
 export STORE_IGRAPH="http://example.org"
+# the _url form is used as the curl location while the other is the quad term
 export STORE_NAMED_GRAPH="http://${STORE_SITE}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/graph-name"
 export STORE_NAMED_GRAPH_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/graph-name"
 # accept json by default for use with jq
@@ -354,7 +355,7 @@ EOF
 ## but note, some require presence in the respective directory
 
 function run_all_tests() {
-  bash run_all.sh > run_all.out
+  bash run_all.sh | tee /dev/tty > run_all.out 2&>1 
 }
 
 function run_test() {
@@ -419,12 +420,10 @@ function curl_sparql_request () {
     esac
   done
   url_args+=(${user_id[@]})
-  echo $url_args
   if [[ ${#url_args[*]} > 0 ]] ; then curl_url=$(IFS='&' ; echo "${curl_url}?${url_args[*]}") ; fi
-  echo $curl_url
   if [[ ${#data[*]} == 0 && ${method[1]} == "POST" ]] ; then data=("--data-binary" "@-"); fi
   # where an empty array is possible, must be conditional due to unset variable constraint
-  curl_args+=("${accept_media_type[@]}");
+  if [[ ${accept_media_type[1]} != "Accept:" ]]; then curl_args+=("${accept_media_type[@]}"); fi
   if [[ ${#content_media_type[*]} > 0 ]] ; then curl_args+=("${content_media_type[@]}"); fi
   if [[ ${#data[*]} > 0 ]] ; then curl_args+=("${data[@]}"); fi
   if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
@@ -450,7 +449,7 @@ function curl_sparql_update () {
 function curl_sparql_view () {
   local -a curl_args=()
   local -a accept_media_type=("-H" "Accept: $STORE_SPARQL_RESULTS_MEDIA_TYPE")
-  #local -a content_media_type=("-H" "Content-Type: $STORE_SPARQL_QUERY_MEDIA_TYPE")
+  local -a content_media_type=("-H" "Content-Type: $STORE_SPARQL_QUERY_MEDIA_TYPE")
   local -a method=("-X" "GET")
   local -a data=()
   local -a user=(-u ":${STORE_TOKEN}")
@@ -514,9 +513,11 @@ function curl_graph_store_get () {
   local account=${STORE_ACCOUNT}
   local repository=${STORE_REPOSITORY}
   local curl_url=""
+  local url_args=()
+  curl_url="${STORE_URL}/${account}/${repository}/service"
   while [[ "$#" > 0 ]] ; do
     case "$1" in
-      --account) account="${2}"; shift 2;;
+      --account) account="${2}"; shift 2; curl_url="${STORE_URL}/${account}/${repository}/service";;
       all|ALL) graph="all"; shift 1;;
       default|DEFAULT) graph="default"; shift 1;;
       graph=*) graph="${1}"; shift 1;;
@@ -526,14 +527,15 @@ function curl_graph_store_get () {
           *) curl_args+=("${1}" "${2}"); shift 2;;
           esac ;;
       --head) method=(); curl_args+=("${1}"); shift 1;;
-      --repository) repository="${2}"; shift 2;;
+      --repository) repository="${2}"; shift 2; curl_url="${STORE_URL}/${account}/${repository}/service";;
       --url) curl_url="${2}"; shift 2;;
       -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
       -X) method[1]="${2}"; shift 2;;
+      *=*) url_args+=("${1}"); shift 1;;
       *) curl_args+=("${1}"); shift 1;;
     esac
   done
-  curl_url="${STORE_URL}/${account}/${repository}/service"
+  if [[ ${#url_args[*]} > 0 ]] ; then curl_url=$(IFS='&' ; echo "${curl_url}?${url_args[*]}") ; fi
   # where an empty array is possible, must be conditional due to unset variable constraint
   curl_args+=("${accept_media_type[@]}");
   if [[ ${#content_media_type[*]} > 0 ]] ; then curl_args+=(${content_media_type[@]}); fi
@@ -561,9 +563,10 @@ function curl_graph_store_update () {
   local account=${STORE_ACCOUNT}
   local repository=${STORE_REPOSITORY}
   local curl_url="${GRAPH_STORE_URL}"
+  curl_url="${STORE_URL}/${account}/${repository}/service"
   while [[ "$#" > 0 ]] ; do
     case "$1" in
-      --account) account="${2}"; shift 2;;
+      --account) account="${2}"; shift 2; curl_url="${STORE_URL}/${account}/${repository}/service";;
       all|ALL) graph="all"; shift 1;;
       --data*) data[0]="${1}";  data[1]="${2}"; shift 2;;
       default|DEFAULT) graph="default"; shift 1;;
@@ -574,7 +577,7 @@ function curl_graph_store_update () {
           *) curl_args+=("${1}" "${2}"); shift 2;;
           esac ;;
       -o) curl_args+=("-o" "${2}"); output="${2}"; shift 2;;
-      --repository) repository="${2}"; shift 2;;
+      --repository) repository="${2}"; shift 2; curl_url="${STORE_URL}/${account}/${repository}/service";;
       --url) curl_url="${2}"; shift 2;;
       -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
       -X) method[1]="${2}"; shift 2;;
@@ -583,7 +586,6 @@ function curl_graph_store_update () {
       *) curl_args+=("${1}"); shift 1;;
     esac
   done
-  curl_url="${STORE_URL}/${account}/${repository}/service"
   if [[ ${#accept_media_type[*]} > 0 ]] ; then curl_args+=("${accept_media_type[@]}"); fi
   if [[ ${#content_media_type[*]} > 0 ]] ; then curl_args+=("${content_media_type[@]}"); fi
   if [[ ${#data[*]} > 0 ]] ; then curl_args+=("${data[@]}"); fi
@@ -596,6 +598,10 @@ function curl_graph_store_update () {
 }
 
 
+function curl_graph_store_clear () {
+  curl_graph_store_update -X PUT $@ -o /dev/null <<EOF
+EOF
+}
 
 function clear_repository_content () {
   curl_graph_store_update -X PUT $@ -o /dev/null <<EOF
@@ -729,6 +735,7 @@ export -f curl_sparql_request
 export -f curl_sparql_update
 export -f curl_sparql_query
 export -f curl_sparql_view
+export -f curl_graph_store_clear
 export -f curl_graph_store_delete
 export -f curl_graph_store_get
 export -f curl_graph_store_get_code

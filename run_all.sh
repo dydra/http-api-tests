@@ -9,7 +9,8 @@ then
 else
 date
 initialize_all_repositories
-bash  ./run.sh extensions/git
+# problems with the repository content
+# bash  ./run.sh extensions/git
 bash  ./run.sh extensions/graph-store-protocol
 bash  ./run.sh extensions/sparql-protocol/collation
 bash  ./run.sh extensions/sparql-protocol/meta-data

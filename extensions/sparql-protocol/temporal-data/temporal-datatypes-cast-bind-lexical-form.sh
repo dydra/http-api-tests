@@ -23,7 +23,7 @@ curl_sparql_request <<EOF \
 
 prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
 
-select (((xsd:string(?date) = '2014-01-01Z') &&
+select (((xsd:string(?date) = '2014-01-01') &&
          (xsd:string(?dateTime) = '2014-01-01T23:59:58Z') &&
          (xsd:string(?dayTimeDuration) = 'P1DT2H3M4S') &&
          (xsd:string(?gDay) = '---12') &&
@@ -35,10 +35,10 @@ select (((xsd:string(?date) = '2014-01-01Z') &&
          (xsd:string(?yearMonthDuration) = 'P10Y1M')
          ) as ?ok)
 where {
- # exercise care with the zone as xsd:date('2014-01-01') does not
- # round-trip through the store: it is canoncialzed to zulu
+ # exercise care with the xsd:date('2014-01-01').
+ # older versions appended a 'Z' which did not round-trip.
  bind(xsd:dateTime('2014-01-01T23:59:58Z') as ?dateTime) .
- bind(xsd:date('2014-01-01Z') as ?date) .
+ bind(xsd:date('2014-01-01') as ?date) .
  bind(xsd:dayTimeDuration('P1DT2H3M4S') as ?dayTimeDuration) .
  bind(xsd:gDay('---12') as ?gDay) .
  bind(xsd:gMonth('--11') as ?gMonth) .
@@ -50,8 +50,16 @@ where {
  }
 EOF
 
+cat > /dev/null <<EOF
+(test-sparql "prefix xsd: <http://www.w3.org/2001/XMLSchema-datatypes>
 
-
-
-
-
+select (((xsd:string(?date) = '2014-01-01') ) as ?ok)
+?date
+(xsd:string(?date) as ?string)
+where {
+ # exercise care with the zone as xsd:date('2014-01-01') does not
+ # round-trip through the store: it is canoncialzed to zulu
+ bind(xsd:date('2014-01-01') as ?date) .
+ }"
+             :repository-id "james/test")
+EOF

@@ -555,6 +555,7 @@ function curl_graph_store_get_code () {
 function curl_graph_store_update () {
   local -a curl_args=()
   local -a accept_media_type=()
+  local -a content_encoding=()
   local -a content_media_type=("-H" "Content-Type: $STORE_GRAPH_MEDIA_TYPE")
   local -a data=("--data-binary" "@-")
   local -a method=("-X" "POST")
@@ -574,10 +575,12 @@ function curl_graph_store_update () {
      -H) case "$2" in
           Accept:*) accept_media_type=("-H" "${2}"); shift 2;;
           Content-Type:*) content_media_type[1]="${2}"; shift 2;;
+          Content-Encoding:*) content_encoding=("-H" "${2}"); shift 2;;
           *) curl_args+=("${1}" "${2}"); shift 2;;
           esac ;;
       -o) curl_args+=("-o" "${2}"); output="${2}"; shift 2;;
-      --repository) repository="${2}"; shift 2; curl_url="${STORE_URL}/${account}/${repository}/service";;
+      --repository) repository="${2}";
+        shift 2; curl_url="${STORE_URL}/${account}/${repository}/service";;
       --url) curl_url="${2}"; shift 2;;
       -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
       -X) method[1]="${2}"; shift 2;;
@@ -587,6 +590,7 @@ function curl_graph_store_update () {
     esac
   done
   if [[ ${#accept_media_type[*]} > 0 ]] ; then curl_args+=("${accept_media_type[@]}"); fi
+  if [[ ${#content_encoding[*]} > 0 ]] ; then curl_args+=("${content_encoding[@]}"); fi
   if [[ ${#content_media_type[*]} > 0 ]] ; then curl_args+=("${content_media_type[@]}"); fi
   if [[ ${#data[*]} > 0 ]] ; then curl_args+=("${data[@]}"); fi
   if [[ "${graph}" ]] ; then curl_url="${curl_url}?${graph}"; fi
@@ -661,7 +665,7 @@ function curl_tpf_get () {
       --head) method=(); curl_args+=("${1}"); shift 1;;
       --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/tpf"; shift 2;;
       --revision) revision="${2}"; shift 2;;
-      -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
+      -u|--user) if [[ -z "${2}" ]]; then user=(); e<e user[1]="${2}"; fi; shift 2;;
       *) query="${1}"; shift 1;;
     esac
   done

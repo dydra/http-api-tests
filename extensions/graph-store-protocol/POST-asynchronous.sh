@@ -56,7 +56,8 @@ curl_sparql_request -X POST \
   -H "Client-Request-Id: ${requestID}" \
   -H "Content-Type: application/sparql-query" \
   --repository "${STORE_REPOSITORY}-write" --data-binary @- <<EOF \
-  | fgrep -c "default object POST-async" | fgrep -q 10
+  | fgrep -c "default object POST-async" \
+  | fgrep -q 10 || echo "asynchronous count failed"; exit 1
 select distinct ?o from <urn:dydra:all> where {?s <http://example.com/default-predicate> ?o}
 EOF
 

@@ -3,7 +3,7 @@
 # test that repeated variables are compiled propery
 
 curl_sparql_request \
-     --repository "${STORE_REPOSITORY}-write" \
+     --repository "${STORE_REPOSITORY}" \
      -H "Accept: application/sparql-results+json" <<EOF \
    | fgrep -c count | fgrep -q 1
 select count(*)

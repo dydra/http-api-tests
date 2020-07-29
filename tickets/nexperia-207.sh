@@ -1,11 +1,12 @@
 #! /bin/bash
 #
-# test that repeated variables are compiled propery
+# test that repeated variables are compiled properly
 
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | fgrep -c count | fgrep -q 1
+   | tee $ECHO_OUTPUT \
+   | fgrep COUNT | fgrep -q '"1"'
 select count(*)
 where {
  ?s ?p ?o .

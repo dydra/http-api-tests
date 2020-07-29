@@ -4,10 +4,20 @@
 #   intended to be sourced
 #
 # environment :
-# STORE_URL : host http url
-# STORE_ACCOUNT : account name
-# STORE_REPOSITORY : individual repository
+# STORE_HOST : http host name
+# STORE_ACCOUNT : account name              : default "openrdf-sesame"
+# STORE_REPOSITORY : individual repository  : default "mem-rdf"
 # STORE_TOKEN : the authentication token
+#
+# this defines several operators for RDF|SPARQL access to the given store
+#
+# curl_sparql_request
+#   curl_sparql_query
+#   curl_sparql_update
+#   curl_sparql_view
+# graph_store_get
+# graph_store_update
+#
 
 export PATH=`pwd`/bin:${PATH}
 # export STORE_URL=https://dydra.com:81 # 20170705 server version is just http
@@ -146,9 +156,6 @@ then
   elif [ -f ~/.dydra/${STORE_HOST}.token ]
   then
     export STORE_TOKEN=`cat ~/.dydra/${STORE_HOST}.token`
-  elif [ -f ~/.dydra/token@${STORE_HOST} ]
-  then
-    export STORE_TOKEN=`cat ~/.dydra/token@${STORE_HOST}`
   else
     echo "no STORE_TOKEN"
     return 1
@@ -166,7 +173,7 @@ then
     export STORE_TOKEN_JHACKER=`cat ~/.dydra/jhacker.token`
   else
     echo "no authentication token for jhacker found"
-    return 1
+    export STORE_TOKEN_JHACKER="${STORE_TOKEN}"
   fi
 fi
 
@@ -454,6 +461,7 @@ function curl_sparql_view () {
   local -a data=()
   local -a user=(-u ":${STORE_TOKEN}")
   local -a user_id=("user_id=$0")
+  local graph=""  #  the default is all graphs
   local curl_url=""
   local url_args=()
   local account=${STORE_ACCOUNT}
@@ -463,6 +471,8 @@ function curl_sparql_view () {
   while [[ "$#" > 0 ]] ; do
     case "$1" in
       --account) account="${2}"; shift 2;;
+      default|DEFAULT) graph="default"; shift 1;;
+      --graph) if [[ "" == "${2}" ]] ; then graph=""; else graph="graph=${2}"; fi;  shift 2;;
       -H) case "$2" in
           Accept:*) accept_media_type[1]="${2}"; shift 2;;
           Content-Type:*) content_media_type=("-H" "${2}"); shift 2;;
@@ -483,6 +493,7 @@ function curl_sparql_view () {
   done
   curl_url="${STORE_URL}/${account}/${repository}/${view}"
   url_args+=(${user_id[@]})
+  if [[ "${graph}" ]] ; then url_args+=(${graph[@]}); fi
   if [[ ${#url_args[*]} > 0 ]] ; then curl_url=$(IFS='&' ; echo "${curl_url}?${url_args[*]}") ; fi
   if [[ ${#data[*]} == 0 && ${method[1]} == "POST" ]] ; then data=("--data-binary" "@-"); fi
   # where an empty array is possible, must be conditional due to unset variable constraint
@@ -521,6 +532,7 @@ function curl_graph_store_get () {
       all|ALL) graph="all"; shift 1;;
       default|DEFAULT) graph="default"; shift 1;;
       graph=*) graph="${1}"; shift 1;;
+      --graph=*) graph="${1}"; shift 1;;
       -H) case "$2" in
           Accept:*) accept_media_type[1]="${2}"; shift 2;;
           Content-Type:*) content_media_type=("-H" "${2}"); shift 2;;
@@ -572,7 +584,8 @@ function curl_graph_store_update () {
       --data*) data[0]="${1}";  data[1]="${2}"; shift 2;;
       default|DEFAULT) graph="default"; shift 1;;
       graph=*) if [[ "graph=" == "${1}" ]] ; then graph=""; else graph="${1}"; fi;  shift 1;;
-     -H) case "$2" in
+      --graph=*) if [[ "graph=" == "${1}" ]] ; then graph=""; else graph="${1}"; fi;  shift 1;;
+      -H) case "$2" in
           Accept:*) accept_media_type=("-H" "${2}"); shift 2;;
           Content-Type:*) content_media_type[1]="${2}"; shift 2;;
           Content-Encoding:*) content_encoding=("-H" "${2}"); shift 2;;

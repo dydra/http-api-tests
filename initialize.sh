@@ -3,8 +3,10 @@
 
 # http api tests : repository creation and content initialization
 set -e
-source ./definitions.sh
-export STORE_TOKEN_ADMIN=`cat ~/.dydra/token-admin@${STORE_HOST}`
+if [[ "" == "${STORE_HOST}" ]]
+then source ./define.sh
+fi
+export STORE_TOKEN_ADMIN=`cat ~/.dydra/${STORE_HOST}.token`
 
 # create one account/repository for each of various authorization combinations
 #
@@ -31,9 +33,9 @@ export STORE_TOKEN_ADMIN=`cat ~/.dydra/token-admin@${STORE_HOST}`
 
 #  $ACCOUNT                     : the base account
 
-${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
-     ${STORE_URL}/accounts?auth_token=${STORE_TOKEN_ADMIN} <<EOF \
- |  egrep -q "${STATUS_POST_SUCCESS}"
+${CURL} -v -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
+     -u ":${STORE_TOKEN_ADMIN}" ${STORE_URL}/system/accounts <<EOF \
+ | tee /dev/tty | egrep -q "${STATUS_POST_SUCCESS}"
 {"account": {"name": "${STORE_ACCOUNT}"} }
 EOF
 
@@ -58,7 +60,7 @@ EOF
 #  $ACCOUNT-anon                : allowing anonymous profile and repository list access
 
 ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
-     ${STORE_URL}/accounts?auth_token=${STORE_TOKEN_ADMIN} <<EOF \
+     -u ":${STORE_TOKEN_ADMIN}" ${STORE_URL}/system/accounts <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 {"account": {"name": "${STORE_ACCOUNT}-anon"} }
 EOF
@@ -82,7 +84,7 @@ EOF
 # authorization:  owner authorization for read/write - the normal case
 
 ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
-     ${STORE_URL}/accounts?auth_token=${STORE_TOKEN_ADMIN} <<EOF \
+     -u ":${STORE_TOKEN_ADMIN}" ${STORE_URL}/system/accounts <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 {"account": {"name": "${STORE_ACCOUNT}"} }
 EOF
@@ -91,7 +93,7 @@ EOF
 
 ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
      -u "${STORE_TOKEN}:" \
-     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories <<EOF \
+     ${STORE_URL}/system/accounts/${STORE_ACCOUNT}/repositories <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 {"repository": {"name": "${STORE_REPOSITORY}"} }
 EOF
@@ -102,7 +104,7 @@ initialize_repository_public ;
 
 ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
      -u "${STORE_TOKEN}:" \
-     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories <<EOF \
+     ${STORE_URL}/system/accounts/${STORE_ACCOUNT}/repositories <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 {"repository": {"name": "${STORE_REPOSITORY}-write"} }
 EOF
@@ -112,7 +114,7 @@ EOF
 
 ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
      -u "${STORE_TOKEN}:" \
-     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories <<EOF \
+     ${STORE_URL}/system/accounts/${STORE_ACCOUNT}/repositories <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 {"repository": {"name": "$STORE_REPOSITORY_PUBLIC"} }
 EOF
@@ -121,7 +123,7 @@ EOF
 # metadata w/ anonymous read access
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
+     -u ":${STORE_TOKEN}" \
      ${STORE_URL}/${STORE_ACCOUNT}/system <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 _:aclAnon <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/${STORE_REPOSITORY_PUBLIC}> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY_PUBLIC}> .
@@ -147,8 +149,8 @@ EOF
 #  $ACCOUNT/$REPOSITORY-user : owner plus authenticated (user) read
 
 ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
-     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories <<EOF \
+     -u ":${STORE_TOKEN}" \
+     ${STORE_URL}/system/accounts/${STORE_ACCOUNT}/repositories <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 {"repository": {"name": "${STORE_REPOSITORY}-user"} }
 EOF
@@ -156,7 +158,7 @@ EOF
 # metadata w/ authenticated user read access
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
+     -u ":${STORE_TOKEN}" \
      ${STORE_URL}/${STORE_ACCOUNT}/system <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 _:aclUser <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-user> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-user> .
@@ -171,7 +173,7 @@ EOF
 ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
      -H "Accept: application/n-quads" \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
+     -u ":${STORE_TOKEN}" \
      ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-user <<EOF \
  |  egrep -q "${STATUS_PUT_SUCCESS}"
 <http://example.com/subject> <http://example.com/predicate> "object" <${STORE_URL}>.
@@ -182,8 +184,8 @@ EOF
 #  $ACCOUNT/$REPOSITORY-byuser : owner plus authenticated (user) read
 
 ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
-     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories <<EOF \
+     -u ":${STORE_TOKEN}" \
+     ${STORE_URL}/system/accounts/${STORE_ACCOUNT}/repositories <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 {"repository": {"name": "${STORE_REPOSITORY}-byuser"} }
 EOF
@@ -192,7 +194,7 @@ EOF
 # metadata w/ anonymous access specific to user
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
+     -u ":${STORE_TOKEN}" \
      ${STORE_URL}/${STORE_ACCOUNT}/system <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 _:aclRead <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-byuser> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-byuser> .
@@ -218,24 +220,24 @@ EOF
 # with the necessary accounts
 
 ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
-     -u "${STORE_TOKEN_ADMIN}:" \
-     ${STORE_URL}/accounts <<EOF \
+     -u "$:{STORE_TOKEN_ADMIN}" \
+     ${STORE_URL}/system/accounts <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 {"account": {"name": "${STORE_ACCOUNT}-read"} }
 EOF
 # to reset: (initialize-account-metadata (account "openrdf-sesame-read"))
 
 ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
-     -u "${STORE_TOKEN_ADMIN}:" \
-     ${STORE_URL}/accounts <<EOF \
+     -u "$:{STORE_TOKEN_ADMIN}" \
+     ${STORE_URL}/system/accounts <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 {"account": {"name": "${STORE_ACCOUNT}-write"} }
 EOF
 # to reset: (initialize-account-metadata (account "openrdf-sesame-write"))
 
 ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
-     -u "${STORE_TOKEN_ADMIN}:" \
-     ${STORE_URL}/accounts <<EOF \
+     -u "$:{STORE_TOKEN_ADMIN}" \
+     ${STORE_URL}/system/accounts <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 {"account": {"name": "${STORE_ACCOUNT}-readwrite"} }
 EOF
@@ -244,7 +246,7 @@ EOF
 # and authentication
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     -u "${STORE_TOKEN_ADMIN}:" \
+     -u "$:{STORE_TOKEN_ADMIN}" \
      ${STORE_URL}/system/system <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}-read> <urn:dydra:accessToken> "${STORE_TOKEN}_READ" <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}-read> .
@@ -267,7 +269,7 @@ EOF
 
 ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
      -u "${STORE_TOKEN}:" \
-     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories <<EOF \
+     ${STORE_URL}/system/accounts/${STORE_ACCOUNT}/repositories <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 {"repository": {"name": "${STORE_REPOSITORY}-readbyip"} }
 EOF
@@ -305,7 +307,7 @@ EOF
 
 ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
      -u "${STORE_TOKEN}:" \
-     ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories <<EOF \
+     ${STORE_URL}/system/accounts/${STORE_ACCOUNT}/repositories <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 {"repository": {"name": "${STORE_REPOSITORY}-writebyip"} }
 EOF

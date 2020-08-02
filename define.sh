@@ -5,9 +5,10 @@
 #
 # environment :
 # STORE_HOST : http host name
-# STORE_ACCOUNT : account name              : default "openrdf-sesame"
-# STORE_REPOSITORY : individual repository  : default "mem-rdf"
+# STORE_ACCOUNT : account name                 : default "openrdf-sesame"
+# STORE_REPOSITORY : individual repository     : default "mem-rdf"
 # STORE_TOKEN : the authentication token
+# STORE_COLLABORTOR : the collaborator account : default "jhacker"
 #
 # this defines several operators for RDF|SPARQL access to the given store
 #
@@ -18,6 +19,11 @@
 # graph_store_get
 # graph_store_update
 #
+#
+# in order for the tests to run, the following must be present for the default settings
+#
+# openrdf-sesame/mem-rdf
+# openrdf-sesame/mem-rdf
 
 export PATH=`pwd`/bin:${PATH}
 # export STORE_URL=https://dydra.com:81 # 20170705 server version is just http
@@ -44,9 +50,18 @@ fi
 
 
 export STORE_SITE="dydra.com"           # the abstract site name
-export STORE_ACCOUNT="openrdf-sesame"
-export STORE_REPOSITORY="mem-rdf"
-export STORE_REPOSITORY_WRITABLE="mem-rdf-write"
+if [[ "" == "${STORE_ACCOUNT}" ]]
+then export STORE_ACCOUNT="openrdf-sesame"
+fi
+if [[ "" == "${STORE_REPOSITORY}" ]]
+then export STORE_REPOSITORY="mem-rdf"
+fi
+if [[ "" == "${STORE_COLLABORATOR}" ]]
+then export STORE_COLLABORATOR="jhacker"
+fi
+
+
+export STORE_REPOSITORY_WRITABLE="${STORE_REPOSITORY}-write"
 export STORE_REPOSITORY_PUBLIC="public"
 export STORE_CLIENT_IP="127.0.0.1"
 export STORE_PREFIX="rdf"
@@ -163,17 +178,17 @@ then
 fi
 
 # and one for another registered user
-if [[ "" == "${STORE_TOKEN_JHACKER}" ]]
+if [[ "" == "${STORE_TOKEN_COLLABORATOR}" ]]
 then
   if [ -f ~/.dydra/${STORE_HOST}.jhacker.token ]
   then 
-    export STORE_TOKEN_JHACKER=`cat ~/.dydra/${STORE_HOST}.jhacker.token`
+    export STORE_TOKEN_COLLABORATOR=`cat ~/.dydra/${STORE_HOST}.jhacker.token`
   elif [ -f ~/.dydra/jhacker.token ]
   then
-    export STORE_TOKEN_JHACKER=`cat ~/.dydra/jhacker.token`
+    export STORE_TOKEN_COLLABORATOR=`cat ~/.dydra/jhacker.token`
   else
-    echo "no authentication token for jhacker found"
-    export STORE_TOKEN_JHACKER="${STORE_TOKEN}"
+    echo "no authentication token for collaborator found"
+    export STORE_TOKEN_COLLABORATOR="${STORE_TOKEN}"
   fi
 fi
 

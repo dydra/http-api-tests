@@ -1,77 +1,76 @@
-?g	?o	?p	?s
-<http://example.org/graph>	1	<http://example.org/predicate>	<http://example.org/subject>
-<http://example.org/graph>	<http://example.org/object>	<http://example.org/predicate>	<http://example.org/subject>
-<http://example.org/graph>	"a string"	<http://example.org/predicate>	<http://example.org/subject>
-<http://example.org/graph>	_:object	<http://example.org/predicate>	<http://example.org/subject>
-<http://example.org/graph>	1	<http://example.org/predicate>	_:subject
-<http://example.org/graph>	<http://example.org/object>	<http://example.org/predicate>	_:subject
-<http://example.org/graph>	"a string"	<http://example.org/predicate>	_:subject
-<http://example.org/graph>	_:object	<http://example.org/predicate>	_:subject
-	"-P31DT23H59M59S"^^<http://www.w3.org/2001/XMLSchema#dayTimeDuration>	<http://www.w3.org/2001/XMLSchema#dayTimeDuration>	<http://example.org/default>
-	"P31DT23H59M59S"^^<http://www.w3.org/2001/XMLSchema#dayTimeDuration>	<http://www.w3.org/2001/XMLSchema#dayTimeDuration>	<http://example.org/default>
-	0.0	<http://www.w3.org/2001/XMLSchema#float>	<http://example.org/default>
-	1.0	<http://www.w3.org/2001/XMLSchema#float>	<http://example.org/default>
-	-1.0	<http://www.w3.org/2001/XMLSchema#float>	<http://example.org/default>
-	"a string"	<http://www.w3.org/2001/XMLSchema#string>	<http://example.org/default>
-	"normalizedString"^^<http://www.w3.org/2001/XMLSchema#normalizedString>	<http://www.w3.org/2001/XMLSchema#normalizedString>	<http://example.org/default>
-	"0"^^<http://www.w3.org/2001/XMLSchema#nonPositiveInteger>	<http://www.w3.org/2001/XMLSchema#nonPositiveInteger>	<http://example.org/default>
-	"-36893488147419103230"^^<http://www.w3.org/2001/XMLSchema#nonPositiveInteger>	<http://www.w3.org/2001/XMLSchema#nonPositiveInteger>	<http://example.org/default>
-	"-9223372036854775808"^^<http://www.w3.org/2001/XMLSchema#long>	<http://www.w3.org/2001/XMLSchema#long>	<http://example.org/default>
-	"9223372036854775807"^^<http://www.w3.org/2001/XMLSchema#long>	<http://www.w3.org/2001/XMLSchema#long>	<http://example.org/default>
-	"0001-00-00T00:00:00.001"^^<http://www.w3.org/2001/XMLSchema#gYear>	<http://www.w3.org/2001/XMLSchema#gYear>	<http://example.org/default>
-	"2099-12-31T23:23:59.999"^^<http://www.w3.org/2001/XMLSchema#gYear>	<http://www.w3.org/2001/XMLSchema#gYear>	<http://example.org/default>
-	"en"^^<http://www.w3.org/2001/XMLSchema#language>	<http://www.w3.org/2001/XMLSchema#language>	<http://example.org/default>
-	"0"^^<http://www.w3.org/2001/XMLSchema#unsignedInt>	<http://www.w3.org/2001/XMLSchema#unsignedInt>	<http://example.org/default>
-	"4294967295"^^<http://www.w3.org/2001/XMLSchema#unsignedInt>	<http://www.w3.org/2001/XMLSchema#unsignedInt>	<http://example.org/default>
-	"P10Y1M"^^<http://www.w3.org/2001/XMLSchema#yearMonthDuration>	<http://www.w3.org/2001/XMLSchema#yearMonthDuration>	<http://example.org/default>
-	"-P10Y1M"^^<http://www.w3.org/2001/XMLSchema#yearMonthDuration>	<http://www.w3.org/2001/XMLSchema#yearMonthDuration>	<http://example.org/default>
-	"http://www.w3.org/2001/XMLSchema#"^^<http://www.w3.org/2001/XMLSchema#anyURI>	<http://www.w3.org/2001/XMLSchema#anyURI>	<http://example.org/default>
-	"Name"^^<http://www.w3.org/2001/XMLSchema#Name>	<http://www.w3.org/2001/XMLSchema#Name>	<http://example.org/default>
-	"token"^^<http://www.w3.org/2001/XMLSchema#token>	<http://www.w3.org/2001/XMLSchema#token>	<http://example.org/default>
-	"-2147483648"^^<http://www.w3.org/2001/XMLSchema#int>	<http://www.w3.org/2001/XMLSchema#int>	<http://example.org/default>
-	"2147483647"^^<http://www.w3.org/2001/XMLSchema#int>	<http://www.w3.org/2001/XMLSchema#int>	<http://example.org/default>
-	"0"^^<http://www.w3.org/2001/XMLSchema#unsignedLong>	<http://www.w3.org/2001/XMLSchema#unsignedLong>	<http://example.org/default>
-	"18446744073709551615"^^<http://www.w3.org/2001/XMLSchema#unsignedLong>	<http://www.w3.org/2001/XMLSchema#unsignedLong>	<http://example.org/default>
-	0.0	<http://www.w3.org/2001/XMLSchema#double>	<http://example.org/default>
-	1.0	<http://www.w3.org/2001/XMLSchema#double>	<http://example.org/default>
-	-1.0	<http://www.w3.org/2001/XMLSchema#double>	<http://example.org/default>
-	1.1	<http://www.w3.org/2001/XMLSchema#decimal>	<http://example.org/default>
-	-1.1	<http://www.w3.org/2001/XMLSchema#decimal>	<http://example.org/default>
-	"-128"^^<http://www.w3.org/2001/XMLSchema#byte>	<http://www.w3.org/2001/XMLSchema#byte>	<http://example.org/default>
-	"127"^^<http://www.w3.org/2001/XMLSchema#byte>	<http://www.w3.org/2001/XMLSchema#byte>	<http://example.org/default>
-	"2014-01-01"^^<http://www.w3.org/2001/XMLSchema#date>	<http://www.w3.org/2001/XMLSchema#date>	<http://example.org/default>
-	"-2014-01-01"^^<http://www.w3.org/2001/XMLSchema#date>	<http://www.w3.org/2001/XMLSchema#date>	<http://example.org/default>
-	"0F+40A=="^^<http://www.w3.org/2001/XMLSchema#base64Binary>	<http://www.w3.org/2001/XMLSchema#base64Binary>	<http://example.org/default>
-	"NMTOKEN"^^<http://www.w3.org/2001/XMLSchema#NMTOKEN>	<http://www.w3.org/2001/XMLSchema#NMTOKEN>	<http://example.org/default>
-	"-1"^^<http://www.w3.org/2001/XMLSchema#negativeInteger>	<http://www.w3.org/2001/XMLSchema#negativeInteger>	<http://example.org/default>
-	"-36893488147419103230"^^<http://www.w3.org/2001/XMLSchema#negativeInteger>	<http://www.w3.org/2001/XMLSchema#negativeInteger>	<http://example.org/default>
-	"0"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger>	<http://www.w3.org/2001/XMLSchema#nonNegativeInteger>	<http://example.org/default>
-	"36893488147419103230"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger>	<http://www.w3.org/2001/XMLSchema#nonNegativeInteger>	<http://example.org/default>
-	"00:00:00.001"^^<http://www.w3.org/2001/XMLSchema#time>	<http://www.w3.org/2001/XMLSchema#time>	<http://example.org/default>
-	"23:23:59.999"^^<http://www.w3.org/2001/XMLSchema#time>	<http://www.w3.org/2001/XMLSchema#time>	<http://example.org/default>
-	"0001-00-00T00:00:00.001"^^<http://www.w3.org/2001/XMLSchema#dateTime>	<http://www.w3.org/2001/XMLSchema#dateTime>	<http://example.org/default>
-	"2099-12-31T23:23:59.999"^^<http://www.w3.org/2001/XMLSchema#dateTime>	<http://www.w3.org/2001/XMLSchema#dateTime>	<http://example.org/default>
-	"NCName"^^<http://www.w3.org/2001/XMLSchema#NCName>	<http://www.w3.org/2001/XMLSchema#NCName>	<http://example.org/default>
-	"--12"^^<http://www.w3.org/2001/XMLSchema#gMonth>	<http://www.w3.org/2001/XMLSchema#gMonth>	<http://example.org/default>
-	"--01"^^<http://www.w3.org/2001/XMLSchema#gMonth>	<http://www.w3.org/2001/XMLSchema#gMonth>	<http://example.org/default>
-	"1"^^<http://www.w3.org/2001/XMLSchema#positiveInteger>	<http://www.w3.org/2001/XMLSchema#positiveInteger>	<http://example.org/default>
-	"36893488147419103230"^^<http://www.w3.org/2001/XMLSchema#positiveInteger>	<http://www.w3.org/2001/XMLSchema#positiveInteger>	<http://example.org/default>
-	"0001-00"^^<http://www.w3.org/2001/XMLSchema#gYearMonth>	<http://www.w3.org/2001/XMLSchema#gYearMonth>	<http://example.org/default>
-	"2099-12"^^<http://www.w3.org/2001/XMLSchema#gYearMonth>	<http://www.w3.org/2001/XMLSchema#gYearMonth>	<http://example.org/default>
-	"--01-01"^^<http://www.w3.org/2001/XMLSchema#gMonthDay>	<http://www.w3.org/2001/XMLSchema#gMonthDay>	<http://example.org/default>
-	"--12-31"^^<http://www.w3.org/2001/XMLSchema#gMonthDay>	<http://www.w3.org/2001/XMLSchema#gMonthDay>	<http://example.org/default>
-	"0123456789abcdef"^^<http://www.w3.org/2001/XMLSchema#hexBinary>	<http://www.w3.org/2001/XMLSchema#hexBinary>	<http://example.org/default>
-	"-32768"^^<http://www.w3.org/2001/XMLSchema#short>	<http://www.w3.org/2001/XMLSchema#short>	<http://example.org/default>
-	"32767"^^<http://www.w3.org/2001/XMLSchema#short>	<http://www.w3.org/2001/XMLSchema#short>	<http://example.org/default>
-	1	<http://www.w3.org/2001/XMLSchema#integer>	<http://example.org/default>
-	0	<http://www.w3.org/2001/XMLSchema#integer>	<http://example.org/default>
-	-1	<http://www.w3.org/2001/XMLSchema#integer>	<http://example.org/default>
-	"0"^^<http://www.w3.org/2001/XMLSchema#unsignedShort>	<http://www.w3.org/2001/XMLSchema#unsignedShort>	<http://example.org/default>
-	"65535"^^<http://www.w3.org/2001/XMLSchema#unsignedShort>	<http://www.w3.org/2001/XMLSchema#unsignedShort>	<http://example.org/default>
-	"---01"^^<http://www.w3.org/2001/XMLSchema#gDay>	<http://www.w3.org/2001/XMLSchema#gDay>	<http://example.org/default>
-	"---31"^^<http://www.w3.org/2001/XMLSchema#gDay>	<http://www.w3.org/2001/XMLSchema#gDay>	<http://example.org/default>
-	"0"^^<http://www.w3.org/2001/XMLSchema#unsignedByte>	<http://www.w3.org/2001/XMLSchema#unsignedByte>	<http://example.org/default>
-	"255"^^<http://www.w3.org/2001/XMLSchema#unsignedByte>	<http://www.w3.org/2001/XMLSchema#unsignedByte>	<http://example.org/default>
-	"true"^^<http://www.w3.org/2001/XMLSchema#boolean>	<http://www.w3.org/2001/XMLSchema#boolean>	<http://example.org/default>
-	"false"^^<http://www.w3.org/2001/XMLSchema#boolean>	<http://www.w3.org/2001/XMLSchema#boolean>	<http://example.org/default>
-	_:object	<http://example.org/predicate>	_:subject
+?s	?p	?o
+_:subject	<http://example.org/predicate>	_:object
+_:subject	<http://example.org/predicate>	<http://example.org/object>
+_:subject	<http://example.org/predicate>	"a string"
+_:subject	<http://example.org/predicate>	1
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#NCName>	"NCName"^^<http://www.w3.org/2001/XMLSchema#NCName>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#NMTOKEN>	"NMTOKEN"^^<http://www.w3.org/2001/XMLSchema#NMTOKEN>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#Name>	"Name"^^<http://www.w3.org/2001/XMLSchema#Name>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#anyURI>	"http://www.w3.org/2001/XMLSchema#"^^<http://www.w3.org/2001/XMLSchema#anyURI>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#base64Binary>	"0F+40A=="^^<http://www.w3.org/2001/XMLSchema#base64Binary>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#boolean>	"false"^^<http://www.w3.org/2001/XMLSchema#boolean>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#boolean>	"true"^^<http://www.w3.org/2001/XMLSchema#boolean>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#byte>	"-128"^^<http://www.w3.org/2001/XMLSchema#byte>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#byte>	"127"^^<http://www.w3.org/2001/XMLSchema#byte>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#date>	"-2014-01-01"^^<http://www.w3.org/2001/XMLSchema#date>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#date>	"2014-01-01"^^<http://www.w3.org/2001/XMLSchema#date>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#dateTime>	"2099-12-31T23:23:59.999"^^<http://www.w3.org/2001/XMLSchema#dateTime>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#dateTime>	"0001-00-00T00:00:00.001"^^<http://www.w3.org/2001/XMLSchema#dateTime>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#dayTimeDuration>	"-P31DT23H59M59S"^^<http://www.w3.org/2001/XMLSchema#dayTimeDuration>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#dayTimeDuration>	"P31DT23H59M59S"^^<http://www.w3.org/2001/XMLSchema#dayTimeDuration>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#decimal>	-1.1
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#decimal>	1.1
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#double>	-1.0
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#double>	0.0
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#double>	1.0
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#float>	-1.0
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#float>	0.0
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#float>	1.0
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#gDay>	"---31"^^<http://www.w3.org/2001/XMLSchema#gDay>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#gDay>	"---01"^^<http://www.w3.org/2001/XMLSchema#gDay>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#gMonth>	"--01"^^<http://www.w3.org/2001/XMLSchema#gMonth>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#gMonth>	"--12"^^<http://www.w3.org/2001/XMLSchema#gMonth>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#gMonthDay>	"--12-31"^^<http://www.w3.org/2001/XMLSchema#gMonthDay>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#gMonthDay>	"--01-01"^^<http://www.w3.org/2001/XMLSchema#gMonthDay>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#gYear>	"2099-12-31T23:23:59.999"^^<http://www.w3.org/2001/XMLSchema#gYear>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#gYear>	"0001-00-00T00:00:00.001"^^<http://www.w3.org/2001/XMLSchema#gYear>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#gYearMonth>	"2099-12"^^<http://www.w3.org/2001/XMLSchema#gYearMonth>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#gYearMonth>	"0001-00"^^<http://www.w3.org/2001/XMLSchema#gYearMonth>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#hexBinary>	"0123456789abcdef"^^<http://www.w3.org/2001/XMLSchema#hexBinary>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#int>	"-2147483648"^^<http://www.w3.org/2001/XMLSchema#int>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#int>	"2147483647"^^<http://www.w3.org/2001/XMLSchema#int>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#integer>	-1
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#integer>	0
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#integer>	1
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#language>	"en"^^<http://www.w3.org/2001/XMLSchema#language>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#long>	"-9223372036854775808"^^<http://www.w3.org/2001/XMLSchema#long>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#long>	"9223372036854775807"^^<http://www.w3.org/2001/XMLSchema#long>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#negativeInteger>	"-36893488147419103230"^^<http://www.w3.org/2001/XMLSchema#negativeInteger>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#negativeInteger>	"-1"^^<http://www.w3.org/2001/XMLSchema#negativeInteger>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#nonNegativeInteger>	"0"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#nonNegativeInteger>	"36893488147419103230"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#nonPositiveInteger>	"-36893488147419103230"^^<http://www.w3.org/2001/XMLSchema#nonPositiveInteger>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#nonPositiveInteger>	"0"^^<http://www.w3.org/2001/XMLSchema#nonPositiveInteger>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#normalizedString>	"normalizedString"^^<http://www.w3.org/2001/XMLSchema#normalizedString>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#positiveInteger>	"1"^^<http://www.w3.org/2001/XMLSchema#positiveInteger>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#positiveInteger>	"36893488147419103230"^^<http://www.w3.org/2001/XMLSchema#positiveInteger>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#short>	"-32768"^^<http://www.w3.org/2001/XMLSchema#short>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#short>	"32767"^^<http://www.w3.org/2001/XMLSchema#short>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#string>	"a string"
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#time>	"00:00:00.001"^^<http://www.w3.org/2001/XMLSchema#time>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#time>	"23:23:59.999"^^<http://www.w3.org/2001/XMLSchema#time>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#token>	"token"^^<http://www.w3.org/2001/XMLSchema#token>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#unsignedByte>	"0"^^<http://www.w3.org/2001/XMLSchema#unsignedByte>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#unsignedByte>	"255"^^<http://www.w3.org/2001/XMLSchema#unsignedByte>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#unsignedInt>	"0"^^<http://www.w3.org/2001/XMLSchema#unsignedInt>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#unsignedInt>	"4294967295"^^<http://www.w3.org/2001/XMLSchema#unsignedInt>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#unsignedLong>	"0"^^<http://www.w3.org/2001/XMLSchema#unsignedLong>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#unsignedLong>	"18446744073709551615"^^<http://www.w3.org/2001/XMLSchema#unsignedLong>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#unsignedShort>	"0"^^<http://www.w3.org/2001/XMLSchema#unsignedShort>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#unsignedShort>	"65535"^^<http://www.w3.org/2001/XMLSchema#unsignedShort>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#yearMonthDuration>	"-P10Y1M"^^<http://www.w3.org/2001/XMLSchema#yearMonthDuration>
+<http://example.org/default>	<http://www.w3.org/2001/XMLSchema#yearMonthDuration>	"P10Y1M"^^<http://www.w3.org/2001/XMLSchema#yearMonthDuration>
+<http://example.org/subject>	<http://example.org/predicate>	_:object
+<http://example.org/subject>	<http://example.org/predicate>	<http://example.org/object>
+<http://example.org/subject>	<http://example.org/predicate>	"a string"
+<http://example.org/subject>	<http://example.org/predicate>	1

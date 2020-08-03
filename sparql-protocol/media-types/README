@@ -4,9 +4,10 @@ exercise sparql requests for supported media types
  - sparql relation results
  - gsp requests
 
- the sample dataset includes prototypical values for each supported datatype.
- first, imported this, then perform select and construct requests for supported media type.
+ the sample datasets includes prototypical values for each supported datatype.
+ first, import this, then perform select and construct requests for supported media type.
  the results are compared with a respective '.ref' document which contains the expected results
  any failure causes the test to fail.
+ any failure leaves the '.new' file for reference.
 
 

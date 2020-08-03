@@ -53,10 +53,10 @@ ${CURL} -X POST -s -w "%{http_code}\n" -u ":${STORE_TOKEN}" \
     --data-binary @- \
     "${STORE_URL}/system/accounts/openrdf-sesame/repositories" <<EOF \
     | test_success
-{name: "foaf__types__view",
- class: "internal-materialized-repository",
- sourceRepository: "openrdf-sesame/foaf",
- sourceView: "types"}
+{"name": "foaf__types__view",
+ "class": "internal-view-repository",
+ "sourceRepository": "openrdf-sesame/foaf",
+ "sourceView": "types"}
 EOF
 #
 

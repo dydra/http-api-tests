@@ -25,7 +25,7 @@ PREFIX provenanceRepositoryId: <${STORE_ACCOUNT}/${STORE_REPOSITORY}-provenance>
 DROP SILENT ALL ;
 INSERT DATA {
  GRAPH <http://example.org/uri1/${OBJECT_ID}> {
-  <http://example.org/uri1/one> <foaf:name> "object-${OBJECT_ID}" .
+  <http://example.org/uri1/one> <foaf:name> 'object-${OBJECT_ID}' .
   <http://example.org/uri1/one> rdf:type <http://example.org/thing> .
  }
 }
@@ -36,6 +36,7 @@ curl_graph_store_get \
     -H "Accept: application/n-quads" \
     "graph=http://example.org/uri1/${OBJECT_ID}" \
     --repository "${STORE_REPOSITORY}-write" \
+  | tee $ECHO_OUTPUT \
   | rapper -q --input nquads --output nquads /dev/stdin - \
   | fgrep -q "object-${OBJECT_ID}"
 
@@ -47,5 +48,6 @@ curl_graph_store_get \
 curl_graph_store_get \
      -H "Accept: application/n-quads"  \
      --repository "${STORE_REPOSITORY}-provenance" \
-   | rapper -q --input nquads --output nquads /dev/stdin -  \
-   | fgrep "${OBJECT_ID}" | fgrep -q '<urn:dydra:Graph>'
+  | tee $ECHO_OUTPUT \
+  | rapper -q --input nquads --output nquads /dev/stdin -  \
+  | fgrep "${OBJECT_ID}" | fgrep -q '<urn:dydra:Graph>'

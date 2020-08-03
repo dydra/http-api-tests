@@ -24,10 +24,10 @@ EOF
 
 echo "test patch quads w/ none" > ${ECHO_OUTPUT}
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
-| rapper -q -i nquads -o nquads /dev/stdin | sort | diff -w /dev/stdin /dev/fd/3 3<<EOF
-<http://example.com/default-subject> <http://example.com/default-predicate> "new object" .
-<http://example.com/named-subject> <http://example.com/named-predicate> "named object" <http://dydra.com/openrdf-sesame/mem-rdf/graph-name> .
-EOF
+| rapper -q -i nquads -o nquads /dev/stdin | sort > result.nq
+fgrep -q "new object" result.nq
+fgrep -q "named object" result.nq
+fgrep -qv "default object" result.nq
 
 
 

@@ -1,0 +1,11 @@
+select *
+where {
+  {select * where { ?s a <http://data.dydra.com/PostgresResourceIn1> .
+    ?s <http://data.dydra.com/in1> ?in1 .
+    ?s <http://data.dydra.com/name> ?name .
+    ?s <http://data.dydra.com/out3> ?out . }}
+  {select * where { ?s a <http://data.dydra.com/PostgresResourceIn2> .
+    ?s <http://data.dydra.com/in2> ?in2 .
+    ?s <http://data.dydra.com/name> ?name .
+    ?s <http://data.dydra.com/out4> ?out . }}
+}

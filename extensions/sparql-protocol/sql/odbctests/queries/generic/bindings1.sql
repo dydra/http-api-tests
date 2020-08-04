@@ -1,0 +1,1 @@
+SELECT "testView"."in1","testView"."in2","testView"."name","testView"."out3" FROM "testView" WHERE ("in1" IN (1,2)) JOIN (SELECT "testView"."in1","testView"."in2","testView"."name","testView"."out3" FROM "testView" WHERE ("testView"."type" = http://data.dydra.com/testView)) ON ("in1" = "testView"."in1")

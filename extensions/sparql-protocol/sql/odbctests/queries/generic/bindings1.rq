@@ -1,0 +1,9 @@
+select *
+where {
+  { ?s a <http://data.dydra.com/testView> .
+    ?s <http://data.dydra.com/in1> ?in1 .
+    ?s <http://data.dydra.com/in2> ?in2 .
+    ?s <http://data.dydra.com/name> ?name .
+    ?s <http://data.dydra.com/out3> ?out . }
+  values (?in1) { (1) (2) }
+}

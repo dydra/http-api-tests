@@ -188,7 +188,7 @@ ${CURL} -X DELETE -s -w "%{http_code}\n" -u ":${STORE_TOKEN}" \
 echo " ensure it is gone" >  ${ECHO_OUTPUT}
 curl_sparql_request -X GET   -w "%{http_code}\n" \
     --repository "foaf__types__view" \
-    | test_not_found ; 
+    | tee $ECHO_OUTPUT | test_not_found ; 
 
 
 echo "${0} complete" >  ${ECHO_OUTPUT}

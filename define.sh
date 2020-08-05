@@ -225,7 +225,7 @@ function test_unauthorized_success () {
 }
 
 function test_not_found () {
-  egrep -q "${STATUS_NOT_FOUND}"
+  egrep -q "${STATUS_NOT_FOUND}|${STATUS_BAD_REQUEST}"
 }
 function test_not_found_success () {
   egrep -q "${STATUS_NOT_FOUND}"

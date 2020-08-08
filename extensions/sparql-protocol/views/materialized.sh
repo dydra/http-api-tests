@@ -3,7 +3,7 @@ set -e
 
 # exercise materialization
 #
-# given openrdf_sesame/foaf
+# given openrdf-sesame/foaf
 # - replace any "classes" view query with a known text
 # - create a materialization cache repository
 # - delete the cache content to regenerate to match the view

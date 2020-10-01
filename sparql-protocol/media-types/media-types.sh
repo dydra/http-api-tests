@@ -10,7 +10,7 @@ function test_media_type() {
   local ref_file="${mime_file}.ref"
   local new_file="${mime_file}.new"
 
-  echo "request: ${mime}" > $ECHO_OUTPUT
+  echo "request: ${mime}" > /dev/tty #$ECHO_OUTPUT
   curl_sparql_request -H "Accept: ${mime}" --repository mem-rdf-write <<EOF \
     | sed -e 's/.0E0"/.0"/' | sed -e 's/.0E0</.0</g'  | sed -e 's/.0E0,/.0,/g' > ${new_file}
 $query
@@ -23,7 +23,7 @@ EOF
 #    rm /tmp/${new_file}
 #  fi
   echo "test ${ref_file} v/s ${new_file} " > $ECHO_OUTPUT
-  if [[ -e ${ref_file} ]]
+  if [[ -s ${ref_file} ]]
   then
     diff -w --strip-trailing-cr ${ref_file} ${new_file}
     rm ${new_file} # if the test succeeded 

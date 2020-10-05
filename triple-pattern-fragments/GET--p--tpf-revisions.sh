@@ -11,6 +11,7 @@ curl_tpf_get "p=http%3A%2F%2Fexample.com%2Fdefault-predicate" --revision "${revi
 fgrep -c default-subject result.nq | fgrep -q 1
 exit $?
 
+# iff the repsoitory has revisions then operate on the latest one.
 # (timeline-location-date-time (rlmdb:get-revision-timestamps (repository "openrdf-sesame/mem-rdf")))
 # in order not to have to guess, use today
 if (( $revisionCount > 1 )) 

@@ -4,6 +4,7 @@
 
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}" \
+     -H 'Content-Type: application/sparql-update' \
      -H 'Accept: application/sparql-results+json' <<EOF \
    | tee $ECHO_OUTPUT \
    | fgrep -c label | fgrep -q '4'

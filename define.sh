@@ -260,8 +260,7 @@ function test_unsupported_media () {
 
 
 # provide operators to restore aspects of the store to a known state
-# they presumes, that the various PUT operators work
-
+# they presume that the various PUT operators work
 
 function initialize_account () {
 # metadata
@@ -382,12 +381,12 @@ function run_all_tests() {
 }
 
 function run_test() {
-  (cd `dirname $1`; bash -e `basename $1`)
+  (cd `dirname "$1"`; bash -e "`basename \"$1\"`")
   if [[ "0" == "$?" ]]
   then
-    echo $1 succeeded
+    echo "$1" succeeded
   else
-    echo $1 failed
+    echo "$1" failed
   fi
 }
 

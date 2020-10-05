@@ -11,9 +11,11 @@
 # an alternative is to run a local http server, but that may not available for a given client location
 # python -m SimpleHTTPServer
 
-# this reuires that asynchronous processing is in place
+# the test requires that asynchronous processing is in place, as
 #
 #    service spocq-async start
+#
+# it frequently fails when the predicted delay is too short.
 
 
 requestID=`date +%Y%m%dT%H%M%S`
@@ -28,9 +30,9 @@ function async_graph_store_update () {
   index=$1
   curl_graph_store_update -X POST -w "%{http_code}\n" -o /dev/null \
     -H "Accept-Asynchronous: notify" \
-    -H "Asynchronous-Location: http://127.0.0.1:8000/post" \
+    -H "Asynchronous-Location: http://${STORE_HOST}/${STORE_ACCOUNT}/${STORE_REPOSITORY_WRITABLE}/service" \
     -H "Asynchronous-Method: POST" \
-    -H "Asynchronous-Content-Type: application/n-quads" \
+    -H "Asynchronous-Content-Type: application/ld+json" \
     -H "Accept: application/json" \
     -H "Client-Request-Id: ${requestID}.${index}" \
     -H "Content-Type: application/n-triples; charset=UTF-8" \
@@ -41,13 +43,16 @@ EOF
 # if [[ "$?" != "0" ]]; then echo "failed: ${requestID}.${index}"; fi
 }
 
+### alternativels
+###     -H "Asynchronous-Content-Type: application/n-quads" \
+
 
 clear_repository_content --repository "${STORE_REPOSITORY_WRITABLE}";
 # perform 10 'parallel' requests, with a sleep to avoid a rate-limit 429
 for ((i = 0; i < 10; i ++)); do (async_graph_store_update $i &); sleep .25; done
 
-# allow the remote operations to run
-sleep 10
+# allow the remote operations to run: background runs @10seconds
+sleep 20
 
 echo "test async completion" > $ECHO_OUTPUT
 curl_sparql_request -X POST \

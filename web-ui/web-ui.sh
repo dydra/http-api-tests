@@ -14,8 +14,8 @@ echo "ui tests @${STORE_HOST}"
 
 function http_get () {
   echo -n "${STORE_URL}$1 "
-  echo $CURL -w "%{http_code}\n" -s -L -u "${STORE_TOKEN}:" -o $OUTPUT ${STORE_URL}$1 > $ECHO_OUTPUT
-  $CURL -w "%{http_code}\n" -s -L -u "${STORE_TOKEN}:" -o $OUTPUT ${STORE_URL}$1 | egrep -q '(200|301|302)'
+  echo $CURL -w "%{http_code}\n" -s -L -u ":${STORE_TOKEN}" -o $OUTPUT ${STORE_URL}$1 > $ECHO_OUTPUT
+  $CURL -w "%{http_code}\n" -s -L -u ":${STORE_TOKEN}" -o $OUTPUT ${STORE_URL}$1 | egrep -q '(200|301|302)'
   if [ "$?" != "0" ]
   then
     echo " failed"
@@ -33,7 +33,8 @@ http_get /openrdf-sesame
 http_get /openrdf-sesame/mem-rdf
 http_get /openrdf-sesame/mem-rdf/@query
 http_get /openrdf-sesame/mem-rdf/_endpoint
-http_get /openrdf-sesame/mem-rdf/_logs
+# was seen to fail with a rails "no database" error
+http_get /openrdf-sesame/mem-rdf/_logs # || echo "? no database for logs?"
 http_get /openrdf-sesame/mem-rdf/_sidebar
 
 http_get /openrdf-sesame/_repositories/new

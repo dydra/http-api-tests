@@ -6,7 +6,9 @@ set -e
 if [[ "" == "${STORE_TOKEN}" ]]
 then source ./define.sh
 fi
+# and for admin operations - in case different from user account
 export STORE_TOKEN_ADMIN=`cat ~/.dydra/${STORE_HOST}.token`
+
 
 # create one account/repository for each of various authorization combinations
 #
@@ -55,6 +57,8 @@ function create_repository() {
 {"repository": {"name": "${newRepo}"} }
 EOF
 }
+export -f create_account
+export -f create_repository
 
 
 for account in ${STORE_ACCOUNT} jhacker; do create_account $account; done

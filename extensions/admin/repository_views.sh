@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # test retrieving a repository's view list
-#
+# see alsi extensions/sparql-protocol/views/materialized.sh
 
 # GET <repository>/views yields the view list
 $CURL -s -L -X GET -H "Accept: application/sparql-results+json" \

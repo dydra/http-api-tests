@@ -85,9 +85,3 @@ where {
  bind(xsd:yearMonthDuration('P10Y1M') as ?yearMonthDuration) .
  }
 EOF
-
-
-
-
-
-

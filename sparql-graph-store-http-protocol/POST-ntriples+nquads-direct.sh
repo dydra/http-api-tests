@@ -7,7 +7,8 @@
 
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
-curl_graph_store_update -X POST -o /tmp/gsp.ttl \
+# -o /tmp/gsp.ttl
+curl_graph_store_update -X POST -o /dev/null \
      -H "Content-Type: application/n-quads" \
     --url "${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-write/graph-name" <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object POST1" .
@@ -15,7 +16,8 @@ curl_graph_store_update -X POST -o /tmp/gsp.ttl \
 EOF
 
 
-curl_graph_store_update -X POST -o /tmp/gsp.ttl \
+# -o /tmp/gsp.ttl
+curl_graph_store_update -X POST -o /dev/null \
      -H "Content-Type: application/n-triples" \
     --url "${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-write/graph-name" <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object POST2" .

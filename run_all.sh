@@ -3,15 +3,9 @@
 function run () {
   bash ./run.sh $@
   let "all_errors += $?"
-  if [ -n "$(<failed.txt)" ]; then
-      cat failed.txt >> failed_all.txt
-  fi
+  cat failed.txt >> failed_all.txt
 }
 
-function report() {
-  echo "${all_errors} errors for run_all.sh" | tee -a failed_all.txt
-}
-  
 if [[ "$1" != "" ]]
 then
   for ((i = 0; i < $1; i ++)) do
@@ -46,5 +40,6 @@ run triple-pattern-fragments
 run web-ui
 
 run accounts-api/accounts/openrdf-sesame/authorization/
-report
+
+echo "${all_errors} errors for run_all.sh" | tee -a failed_all.txt
 fi

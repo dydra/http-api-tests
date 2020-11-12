@@ -10,8 +10,9 @@ function test_media_type() {
   local ref_file="${mime_file}.ref"
   local new_file="${mime_file}.new"
 
-  echo "request: ${mime}" > /dev/tty #$ECHO_OUTPUT
+  echo "request: ${mime}" #> $ECHO_OUTPUT
   curl_sparql_request -H "Accept: ${mime}" --repository mem-rdf-write <<EOF \
+    | tee ${ECHO_OUTPUT} \
     | sed -e 's/.0E0"/.0"/' | sed -e 's/.0E0</.0</g'  | sed -e 's/.0E0,/.0,/g' > ${new_file}
 $query
 EOF
@@ -26,7 +27,7 @@ EOF
   if [[ -s ${ref_file} ]]
   then
     diff -w --strip-trailing-cr ${ref_file} ${new_file}
-    rm ${new_file} # if the test succeeded 
+    #rm ${new_file} # if the test succeeded 
   else
     mv ${new_file} ${ref_file}
   fi
@@ -48,6 +49,7 @@ test_media_type application/rdf+xml
 test_media_type application/sparql-results+xml
 test_media_type application/sparql-results+json
 test_media_type text/csv
+test_media_type text/tab-separated-values
 test_media_type application/sparql-results+json-columns-streaming
 
 # does not work as post.
@@ -66,3 +68,63 @@ cat > /dev/null <<EOF
              :response-content-type mime:application/sparql-results+json)
 EOF
 
+
+cat > /dev/null <<EOF
+curl_sparql_request -H "Accept: application/trix" --repository mem-rdf-write <<END
+construct { ?s <http://www.w3.org/2001/XMLSchema#string> ?o}
+where {
+  {graph ?g {?s <http://www.w3.org/2001/XMLSchema#string> ?o}}
+  union
+  {?s <http://www.w3.org/2001/XMLSchema#string> ?o} 
+}
+order by ?s ?p ?o
+END
+
+curl_sparql_request -H "Accept: text/csv" --repository mem-rdf-write <<END
+construct { ?s <http://example.org/special> ?o}
+where {
+  {?s <http://example.org/special> ?o} 
+}
+order by ?s ?p ?o
+END
+
+curl_sparql_request -H "Accept: application/n-quads" --repository mem-rdf-write <<END
+construct { ?s <http://example.org/special> ?o}
+where {
+  {?s <http://example.org/special> ?o} 
+}
+order by ?s ?p ?o
+END
+
+curl_sparql_request -H "Accept: application/trix" --repository mem-rdf-write <<END
+construct { ?s ?p ?o}
+where {
+  {?s ?p ?o} 
+}
+order by ?s ?p ?o
+END
+
+curl_sparql_request -H "Accept: text/tab-separated-values" --repository mem-rdf-write <<END
+construct { ?s ?p ?o}
+where {
+  {?s ?p ?o} 
+}
+order by ?s ?p ?o
+END
+
+dydra-import -i application/n-quads -X PUT openrdf-sesame/mem-rdf-write /dev/stdin <<END
+<http://example.org/default> <http://example.org/special> "string with comma (,)" .
+<http://example.org/default> <http://example.org/special> "string with comma (,)"^^<http://example.org/special> .
+<http://example.org/default> <http://example.org/special> "special string with comma (,)"^^<http://example.org/special> .
+END
+
+dydra-import -i application/n-quads -X PUT openrdf-sesame/mem-rdf-write /dev/stdin <<END
+#<http://example.org/default> <http://www.w3.org/2001/XMLSchema#int> "-2147483648"^^<http://www.w3.org/2001/XMLSchema#int> .
+<http://example.org/default> <http://www.w3.org/2001/XMLSchema#int> "2147483647"^^<http://www.w3.org/2001/XMLSchema#int> .
+#<http://example.org/default> <http://www.w3.org/2001/XMLSchema#long> "9223372036854775807"^^<http://www.w3.org/2001/XMLSchema#long> .
+#<http://example.org/default> <http://www.w3.org/2001/XMLSchema#integer> "-10"^^<http://www.w3.org/2001/XMLSchema#integer> .
+#<http://example.org/default> <http://www.w3.org/2001/XMLSchema#integer> "10"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<http://example.org/default> <http://www.w3.org/2001/XMLSchema#integer> "0"^^<http://www.w3.org/2001/XMLSchema#integer> .
+END
+
+EOF

@@ -5,8 +5,8 @@
 <http://example.org/default> xsd:boolean "false"^^xsd:boolean .
 <http://example.org/default> xsd:decimal "1.1"^^xsd:decimal .
 <http://example.org/default> xsd:decimal "-1.1"^^xsd:decimal .
-<http://example.org/default> xsd:integer "1"^^xsd:integer .
-<http://example.org/default> xsd:integer "-1"^^xsd:integer .
+<http://example.org/default> xsd:integer "10"^^xsd:integer .
+<http://example.org/default> xsd:integer "-10"^^xsd:integer .
 <http://example.org/default> xsd:integer "0"^^xsd:integer .
 <http://example.org/default> xsd:double "1.0"^^xsd:double .
 <http://example.org/default> xsd:double "-1.0"^^xsd:double .
@@ -67,6 +67,20 @@
 <http://example.org/default> xsd:NMTOKEN "NMTOKEN"^^xsd:NMTOKEN .
 <http://example.org/default> xsd:Name "Name"^^xsd:Name .
 <http://example.org/default> xsd:NCName "NCName"^^xsd:NCName .
+
+# string variants
+<http://example.org/default> xsd:string "string with comma (,)"^^xsd:string .
+<http://example.org/default> xsd:string 'string with double quote: (")'^^xsd:string .
+<http://example.org/default> xsd:string 'string with backspace (\b)'^^xsd:string .
+<http://example.org/default> xsd:string 'string with cr (\r)'^^xsd:string .
+<http://example.org/default> xsd:string 'string with formfeed (\f)'^^xsd:string .
+<http://example.org/default> xsd:string 'string with lf (\n)'^^xsd:string .
+<http://example.org/default> xsd:string 'string with tab (\t)'^^xsd:string .
+<http://example.org/default> xsd:string 'string with crlf (\n\r)'^^xsd:string .
+<http://example.org/default> xsd:string 'string with crlf (\n\r), comma (,), and double quote (")'^^xsd:string .
+
+# non-native types
+<http://example.org/default> <http://example.org/special> "special string with comma (,)"^^<http://example.org/special> .
 
 
 _:subject <http://example.org/predicate> _:object .

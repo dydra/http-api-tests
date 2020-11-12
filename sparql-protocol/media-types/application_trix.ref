@@ -23,6 +23,11 @@
   </triple>
   <triple>
    <uri>http://example.org/default</uri>
+   <uri>http://example.org/special</uri>
+   <typedLiteral datatype="http://example.org/special">special string with comma (,)</typedLiteral>
+  </triple>
+  <triple>
+   <uri>http://example.org/default</uri>
    <uri>http://www.w3.org/2001/XMLSchema#NCName</uri>
    <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#NCName">NCName</typedLiteral>
   </triple>
@@ -204,7 +209,7 @@
   <triple>
    <uri>http://example.org/default</uri>
    <uri>http://www.w3.org/2001/XMLSchema#integer</uri>
-   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#integer">-1</typedLiteral>
+   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#integer">-10</typedLiteral>
   </triple>
   <triple>
    <uri>http://example.org/default</uri>
@@ -214,7 +219,7 @@
   <triple>
    <uri>http://example.org/default</uri>
    <uri>http://www.w3.org/2001/XMLSchema#integer</uri>
-   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#integer">1</typedLiteral>
+   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#integer">10</typedLiteral>
   </triple>
   <triple>
    <uri>http://example.org/default</uri>
@@ -290,6 +295,51 @@
    <uri>http://example.org/default</uri>
    <uri>http://www.w3.org/2001/XMLSchema#string</uri>
    <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#string">a string</typedLiteral>
+  </triple>
+  <triple>
+   <uri>http://example.org/default</uri>
+   <uri>http://www.w3.org/2001/XMLSchema#string</uri>
+   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#string">string with backspace (\u0008)</typedLiteral>
+  </triple>
+  <triple>
+   <uri>http://example.org/default</uri>
+   <uri>http://www.w3.org/2001/XMLSchema#string</uri>
+   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#string">string with comma (,)</typedLiteral>
+  </triple>
+  <triple>
+   <uri>http://example.org/default</uri>
+   <uri>http://www.w3.org/2001/XMLSchema#string</uri>
+   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#string">string with cr (\u000D)</typedLiteral>
+  </triple>
+  <triple>
+   <uri>http://example.org/default</uri>
+   <uri>http://www.w3.org/2001/XMLSchema#string</uri>
+   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#string">string with crlf (\u000A\u000D)</typedLiteral>
+  </triple>
+  <triple>
+   <uri>http://example.org/default</uri>
+   <uri>http://www.w3.org/2001/XMLSchema#string</uri>
+   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#string">string with crlf (\u000A\u000D), comma (,), and double quote (\u0022)</typedLiteral>
+  </triple>
+  <triple>
+   <uri>http://example.org/default</uri>
+   <uri>http://www.w3.org/2001/XMLSchema#string</uri>
+   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#string">string with double quote: (\u0022)</typedLiteral>
+  </triple>
+  <triple>
+   <uri>http://example.org/default</uri>
+   <uri>http://www.w3.org/2001/XMLSchema#string</uri>
+   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#string">string with formfeed (\u000C)</typedLiteral>
+  </triple>
+  <triple>
+   <uri>http://example.org/default</uri>
+   <uri>http://www.w3.org/2001/XMLSchema#string</uri>
+   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#string">string with lf (\u000A)</typedLiteral>
+  </triple>
+  <triple>
+   <uri>http://example.org/default</uri>
+   <uri>http://www.w3.org/2001/XMLSchema#string</uri>
+   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#string">string with tab (\u0009)</typedLiteral>
   </triple>
   <triple>
    <uri>http://example.org/default</uri>

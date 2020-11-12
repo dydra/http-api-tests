@@ -1,23 +1,24 @@
 s,p,o
 _:subject,http://example.org/predicate,_:object
 _:subject,http://example.org/predicate,http://example.org/object
-_:subject,http://example.org/predicate,a string
+_:subject,http://example.org/predicate,"a string"
 _:subject,http://example.org/predicate,1
-http://example.org/default,http://www.w3.org/2001/XMLSchema#NCName,NCName
-http://example.org/default,http://www.w3.org/2001/XMLSchema#NMTOKEN,NMTOKEN
-http://example.org/default,http://www.w3.org/2001/XMLSchema#Name,Name
-http://example.org/default,http://www.w3.org/2001/XMLSchema#anyURI,http://www.w3.org/2001/XMLSchema#
-http://example.org/default,http://www.w3.org/2001/XMLSchema#base64Binary,0F+40A==
+http://example.org/default,http://example.org/special,"special string with comma (,)"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#NCName,"NCName"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#NMTOKEN,"NMTOKEN"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#Name,"Name"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#anyURI,"http://www.w3.org/2001/XMLSchema#"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#base64Binary,"0F+40A=="
 http://example.org/default,http://www.w3.org/2001/XMLSchema#boolean,false
 http://example.org/default,http://www.w3.org/2001/XMLSchema#boolean,true
-http://example.org/default,http://www.w3.org/2001/XMLSchema#byte,-128
-http://example.org/default,http://www.w3.org/2001/XMLSchema#byte,127
-http://example.org/default,http://www.w3.org/2001/XMLSchema#date,-2014-01-01
+http://example.org/default,http://www.w3.org/2001/XMLSchema#byte,"-128"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#byte,"127"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#date,"-2014-01-01"
 http://example.org/default,http://www.w3.org/2001/XMLSchema#date,2014-01-01
-http://example.org/default,http://www.w3.org/2001/XMLSchema#dateTime,2099-12-31T23:23:59.999
-http://example.org/default,http://www.w3.org/2001/XMLSchema#dateTime,0001-00-00T00:00:00.001
-http://example.org/default,http://www.w3.org/2001/XMLSchema#dayTimeDuration,-P31DT23H59M59S
-http://example.org/default,http://www.w3.org/2001/XMLSchema#dayTimeDuration,P31DT23H59M59S
+http://example.org/default,http://www.w3.org/2001/XMLSchema#dateTime,"2099-12-31T23:23:59.999"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#dateTime,"0001-00-00T00:00:00.001"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#dayTimeDuration,"-P31DT23H59M59S"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#dayTimeDuration,"P31DT23H59M59S"
 http://example.org/default,http://www.w3.org/2001/XMLSchema#decimal,-1.1
 http://example.org/default,http://www.w3.org/2001/XMLSchema#decimal,1.1
 http://example.org/default,http://www.w3.org/2001/XMLSchema#double,-1.0
@@ -26,51 +27,63 @@ http://example.org/default,http://www.w3.org/2001/XMLSchema#double,1.0
 http://example.org/default,http://www.w3.org/2001/XMLSchema#float,-1.0
 http://example.org/default,http://www.w3.org/2001/XMLSchema#float,0.0
 http://example.org/default,http://www.w3.org/2001/XMLSchema#float,1.0
-http://example.org/default,http://www.w3.org/2001/XMLSchema#gDay,---31
-http://example.org/default,http://www.w3.org/2001/XMLSchema#gDay,---01
-http://example.org/default,http://www.w3.org/2001/XMLSchema#gMonth,--01
-http://example.org/default,http://www.w3.org/2001/XMLSchema#gMonth,--12
-http://example.org/default,http://www.w3.org/2001/XMLSchema#gMonthDay,--12-31
-http://example.org/default,http://www.w3.org/2001/XMLSchema#gMonthDay,--01-01
-http://example.org/default,http://www.w3.org/2001/XMLSchema#gYear,2099-12-31T23:23:59.999
-http://example.org/default,http://www.w3.org/2001/XMLSchema#gYear,0001-00-00T00:00:00.001
-http://example.org/default,http://www.w3.org/2001/XMLSchema#gYearMonth,2099-12
-http://example.org/default,http://www.w3.org/2001/XMLSchema#gYearMonth,0001-00
-http://example.org/default,http://www.w3.org/2001/XMLSchema#hexBinary,0123456789abcdef
-http://example.org/default,http://www.w3.org/2001/XMLSchema#int,-2147483648
-http://example.org/default,http://www.w3.org/2001/XMLSchema#int,2147483647
-http://example.org/default,http://www.w3.org/2001/XMLSchema#integer,-1
+http://example.org/default,http://www.w3.org/2001/XMLSchema#gDay,"---31"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#gDay,"---01"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#gMonth,"--01"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#gMonth,"--12"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#gMonthDay,"--12-31"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#gMonthDay,"--01-01"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#gYear,"2099-12-31T23:23:59.999"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#gYear,"0001-00-00T00:00:00.001"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#gYearMonth,"2099-12"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#gYearMonth,"0001-00"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#hexBinary,"0123456789abcdef"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#int,"-2147483648"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#int,"2147483647"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#integer,-10
 http://example.org/default,http://www.w3.org/2001/XMLSchema#integer,0
-http://example.org/default,http://www.w3.org/2001/XMLSchema#integer,1
-http://example.org/default,http://www.w3.org/2001/XMLSchema#language,en
-http://example.org/default,http://www.w3.org/2001/XMLSchema#long,-9223372036854775808
-http://example.org/default,http://www.w3.org/2001/XMLSchema#long,9223372036854775807
-http://example.org/default,http://www.w3.org/2001/XMLSchema#negativeInteger,-36893488147419103230
-http://example.org/default,http://www.w3.org/2001/XMLSchema#negativeInteger,-1
-http://example.org/default,http://www.w3.org/2001/XMLSchema#nonNegativeInteger,0
-http://example.org/default,http://www.w3.org/2001/XMLSchema#nonNegativeInteger,36893488147419103230
-http://example.org/default,http://www.w3.org/2001/XMLSchema#nonPositiveInteger,-36893488147419103230
-http://example.org/default,http://www.w3.org/2001/XMLSchema#nonPositiveInteger,0
-http://example.org/default,http://www.w3.org/2001/XMLSchema#normalizedString,normalizedString
-http://example.org/default,http://www.w3.org/2001/XMLSchema#positiveInteger,1
-http://example.org/default,http://www.w3.org/2001/XMLSchema#positiveInteger,36893488147419103230
-http://example.org/default,http://www.w3.org/2001/XMLSchema#short,-32768
-http://example.org/default,http://www.w3.org/2001/XMLSchema#short,32767
-http://example.org/default,http://www.w3.org/2001/XMLSchema#string,a string
-http://example.org/default,http://www.w3.org/2001/XMLSchema#time,00:00:00.001
-http://example.org/default,http://www.w3.org/2001/XMLSchema#time,23:23:59.999
-http://example.org/default,http://www.w3.org/2001/XMLSchema#token,token
-http://example.org/default,http://www.w3.org/2001/XMLSchema#unsignedByte,0
-http://example.org/default,http://www.w3.org/2001/XMLSchema#unsignedByte,255
-http://example.org/default,http://www.w3.org/2001/XMLSchema#unsignedInt,0
-http://example.org/default,http://www.w3.org/2001/XMLSchema#unsignedInt,4294967295
-http://example.org/default,http://www.w3.org/2001/XMLSchema#unsignedLong,0
-http://example.org/default,http://www.w3.org/2001/XMLSchema#unsignedLong,18446744073709551615
-http://example.org/default,http://www.w3.org/2001/XMLSchema#unsignedShort,0
-http://example.org/default,http://www.w3.org/2001/XMLSchema#unsignedShort,65535
-http://example.org/default,http://www.w3.org/2001/XMLSchema#yearMonthDuration,-P10Y1M
-http://example.org/default,http://www.w3.org/2001/XMLSchema#yearMonthDuration,P10Y1M
+http://example.org/default,http://www.w3.org/2001/XMLSchema#integer,10
+http://example.org/default,http://www.w3.org/2001/XMLSchema#language,"en"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#long,"-9223372036854775808"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#long,"9223372036854775807"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#negativeInteger,"-36893488147419103230"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#negativeInteger,"-1"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#nonNegativeInteger,"0"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#nonNegativeInteger,"36893488147419103230"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#nonPositiveInteger,"-36893488147419103230"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#nonPositiveInteger,"0"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#normalizedString,"normalizedString"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#positiveInteger,"1"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#positiveInteger,"36893488147419103230"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#short,"-32768"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#short,"32767"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#string,"a string"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#string,"string with backspace ()"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#string,"string with comma (,)"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#string,"string with cr ()"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#string,"string with crlf (
+)"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#string,"string with crlf (
+), comma (,), and double quote ("")"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#string,"string with double quote: ("")"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#string,"string with formfeed ()"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#string,"string with lf (
+)"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#string,"string with tab (	)"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#time,"00:00:00.001"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#time,"23:23:59.999"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#token,"token"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#unsignedByte,"0"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#unsignedByte,"255"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#unsignedInt,"0"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#unsignedInt,"4294967295"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#unsignedLong,"0"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#unsignedLong,"18446744073709551615"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#unsignedShort,"0"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#unsignedShort,"65535"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#yearMonthDuration,"-P10Y1M"
+http://example.org/default,http://www.w3.org/2001/XMLSchema#yearMonthDuration,"P10Y1M"
 http://example.org/subject,http://example.org/predicate,_:object
 http://example.org/subject,http://example.org/predicate,http://example.org/object
-http://example.org/subject,http://example.org/predicate,a string
+http://example.org/subject,http://example.org/predicate,"a string"
 http://example.org/subject,http://example.org/predicate,1

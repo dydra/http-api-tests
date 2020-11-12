@@ -7,6 +7,7 @@
     <rdf:Description rdf:nodeID='subject'><ns1:predicate xmlns:ns1='http://example.org/' rdf:resource='http://example.org/object'/></rdf:Description>
     <rdf:Description rdf:nodeID='subject'><ns1:predicate xmlns:ns1='http://example.org/' >a string</ns1:predicate></rdf:Description>
     <rdf:Description rdf:nodeID='subject'><ns1:predicate xmlns:ns1='http://example.org/' rdf:datatype='http://www.w3.org/2001/XMLSchema#integer'>1</ns1:predicate></rdf:Description>
+    <rdf:Description rdf:about='http://example.org/default'><ns1:special xmlns:ns1='http://example.org/' rdf:datatype='http://example.org/special'>special string with comma (,)</ns1:special></rdf:Description>
     <rdf:Description rdf:about='http://example.org/default'><ns2:NCName xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#NCName'>NCName</ns2:NCName></rdf:Description>
     <rdf:Description rdf:about='http://example.org/default'><ns2:NMTOKEN xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#NMTOKEN'>NMTOKEN</ns2:NMTOKEN></rdf:Description>
     <rdf:Description rdf:about='http://example.org/default'><ns2:Name xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#Name'>Name</ns2:Name></rdf:Description>
@@ -43,9 +44,9 @@
     <rdf:Description rdf:about='http://example.org/default'><ns2:hexBinary xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#hexBinary'>0123456789abcdef</ns2:hexBinary></rdf:Description>
     <rdf:Description rdf:about='http://example.org/default'><ns2:int xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#int'>-2147483648</ns2:int></rdf:Description>
     <rdf:Description rdf:about='http://example.org/default'><ns2:int xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#int'>2147483647</ns2:int></rdf:Description>
-    <rdf:Description rdf:about='http://example.org/default'><ns2:integer xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#integer'>-1</ns2:integer></rdf:Description>
+    <rdf:Description rdf:about='http://example.org/default'><ns2:integer xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#integer'>-10</ns2:integer></rdf:Description>
     <rdf:Description rdf:about='http://example.org/default'><ns2:integer xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#integer'>0</ns2:integer></rdf:Description>
-    <rdf:Description rdf:about='http://example.org/default'><ns2:integer xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#integer'>1</ns2:integer></rdf:Description>
+    <rdf:Description rdf:about='http://example.org/default'><ns2:integer xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#integer'>10</ns2:integer></rdf:Description>
     <rdf:Description rdf:about='http://example.org/default'><ns2:language xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#language'>en</ns2:language></rdf:Description>
     <rdf:Description rdf:about='http://example.org/default'><ns2:long xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#long'>-9223372036854775808</ns2:long></rdf:Description>
     <rdf:Description rdf:about='http://example.org/default'><ns2:long xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#long'>9223372036854775807</ns2:long></rdf:Description>
@@ -61,6 +62,18 @@
     <rdf:Description rdf:about='http://example.org/default'><ns2:short xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#short'>-32768</ns2:short></rdf:Description>
     <rdf:Description rdf:about='http://example.org/default'><ns2:short xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#short'>32767</ns2:short></rdf:Description>
     <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' >a string</ns2:string></rdf:Description>
+    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#string'>string with backspace ()</ns2:string></rdf:Description>
+    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#string'>string with comma (,)</ns2:string></rdf:Description>
+    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#string'>string with cr ()</ns2:string></rdf:Description>
+    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#string'>string with crlf (
+)</ns2:string></rdf:Description>
+    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#string'>string with crlf (
+), comma (,), and double quote (")</ns2:string></rdf:Description>
+    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#string'>string with double quote: (")</ns2:string></rdf:Description>
+    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#string'>string with formfeed ()</ns2:string></rdf:Description>
+    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#string'>string with lf (
+)</ns2:string></rdf:Description>
+    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#string'>string with tab (	)</ns2:string></rdf:Description>
     <rdf:Description rdf:about='http://example.org/default'><ns2:time xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#time'>00:00:00.001</ns2:time></rdf:Description>
     <rdf:Description rdf:about='http://example.org/default'><ns2:time xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#time'>23:23:59.999</ns2:time></rdf:Description>
     <rdf:Description rdf:about='http://example.org/default'><ns2:token xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#token'>token</ns2:token></rdf:Description>

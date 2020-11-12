@@ -2,6 +2,7 @@ _:subject <http://example.org/predicate> _:object .
 _:subject <http://example.org/predicate> <http://example.org/object> .
 _:subject <http://example.org/predicate> "a string" .
 _:subject <http://example.org/predicate> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<http://example.org/default> <http://example.org/special> "special string with comma (,)"^^<http://example.org/special> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#NCName> "NCName"^^<http://www.w3.org/2001/XMLSchema#NCName> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#NMTOKEN> "NMTOKEN"^^<http://www.w3.org/2001/XMLSchema#NMTOKEN> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#Name> "Name"^^<http://www.w3.org/2001/XMLSchema#Name> .
@@ -38,9 +39,9 @@ _:subject <http://example.org/predicate> "1"^^<http://www.w3.org/2001/XMLSchema#
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#hexBinary> "0123456789abcdef"^^<http://www.w3.org/2001/XMLSchema#hexBinary> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#int> "-2147483648"^^<http://www.w3.org/2001/XMLSchema#int> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#int> "2147483647"^^<http://www.w3.org/2001/XMLSchema#int> .
-<http://example.org/default> <http://www.w3.org/2001/XMLSchema#integer> "-1"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<http://example.org/default> <http://www.w3.org/2001/XMLSchema#integer> "-10"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#integer> "0"^^<http://www.w3.org/2001/XMLSchema#integer> .
-<http://example.org/default> <http://www.w3.org/2001/XMLSchema#integer> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<http://example.org/default> <http://www.w3.org/2001/XMLSchema#integer> "10"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#language> "en"^^<http://www.w3.org/2001/XMLSchema#language> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#long> "-9223372036854775808"^^<http://www.w3.org/2001/XMLSchema#long> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#long> "9223372036854775807"^^<http://www.w3.org/2001/XMLSchema#long> .
@@ -56,6 +57,15 @@ _:subject <http://example.org/predicate> "1"^^<http://www.w3.org/2001/XMLSchema#
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#short> "-32768"^^<http://www.w3.org/2001/XMLSchema#short> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#short> "32767"^^<http://www.w3.org/2001/XMLSchema#short> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#string> "a string" .
+<http://example.org/default> <http://www.w3.org/2001/XMLSchema#string> "string with backspace (\b)" .
+<http://example.org/default> <http://www.w3.org/2001/XMLSchema#string> "string with comma (,)" .
+<http://example.org/default> <http://www.w3.org/2001/XMLSchema#string> "string with cr (\r)" .
+<http://example.org/default> <http://www.w3.org/2001/XMLSchema#string> "string with crlf (\n\r)" .
+<http://example.org/default> <http://www.w3.org/2001/XMLSchema#string> "string with crlf (\n\r), comma (,), and double quote (\")" .
+<http://example.org/default> <http://www.w3.org/2001/XMLSchema#string> "string with double quote: (\")" .
+<http://example.org/default> <http://www.w3.org/2001/XMLSchema#string> "string with formfeed (\f)" .
+<http://example.org/default> <http://www.w3.org/2001/XMLSchema#string> "string with lf (\n)" .
+<http://example.org/default> <http://www.w3.org/2001/XMLSchema#string> "string with tab (\t)" .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#time> "00:00:00.001"^^<http://www.w3.org/2001/XMLSchema#time> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#time> "23:23:59.999"^^<http://www.w3.org/2001/XMLSchema#time> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#token> "token"^^<http://www.w3.org/2001/XMLSchema#token> .

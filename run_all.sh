@@ -1,5 +1,11 @@
 #! /bin/bash
 
+function run () {
+  bash ./run.sh $@
+  let "all_errors += $?"
+  cat failed.txt >> failed_all.txt
+}
+
 if [[ "$1" != "" ]]
 then
   for ((i = 0; i < $1; i ++)) do
@@ -7,30 +13,33 @@ then
     bash run_all.sh
   done;
 else
-date
+all_errors=0
+date | tee failed_all.txt # no append to start with empty output file
 initialize_all_repositories
 # problems with the repository content
-# bash  ./run.sh extensions/git
-bash  ./run.sh extensions/graph-store-protocol
-bash  ./run.sh extensions/sparql-protocol/collation
-bash  ./run.sh extensions/sparql-protocol/meta-data
-bash  ./run.sh extensions/sparql-protocol/describe
-bash  ./run.sh extensions/sparql-protocol/parameters
-bash  ./run.sh extensions/sparql-protocol/provenance
-bash  ./run.sh extensions/sparql-protocol/revisions
-bash  ./run.sh extensions/sparql-protocol/sparql-operators
+# run extensions/git
+run extensions/graph-store-protocol
+run extensions/sparql-protocol/collation
+run extensions/sparql-protocol/meta-data
+run extensions/sparql-protocol/describe
+run extensions/sparql-protocol/parameters
+run extensions/sparql-protocol/provenance
+run extensions/sparql-protocol/revisions
+run extensions/sparql-protocol/sparql-operators
 # some translations depend on gensym state
-# bash  ./run.sh extensions/sparql-protocol/sql
-bash  ./run.sh extensions/sparql-protocol/temporal-data
-bash  ./run.sh extensions/sparql-protocol/values
-bash  ./run.sh extensions/sparql-protocol/views
-bash  ./run.sh extensions/sparql-protocol/xpath-operators
-# no tests yet bash  ./run.sh linked-data-platform
-bash  ./run.sh sparql-graph-store-http-protocol
-bash  ./run.sh sparql-protocol
-bash  ./run.sh tickets
-bash  ./run.sh triple-pattern-fragments
-bash  ./run.sh web-ui
+# run extensions/sparql-protocol/sql
+run extensions/sparql-protocol/temporal-data
+run extensions/sparql-protocol/values
+run extensions/sparql-protocol/views
+run extensions/sparql-protocol/xpath-operators
+# no tests yet run linked-data-platform
+run sparql-graph-store-http-protocol
+run sparql-protocol
+run tickets
+run triple-pattern-fragments
+run web-ui
 
-bash  ./run.sh accounts-api/accounts/openrdf-sesame/authorization/
+run accounts-api/accounts/openrdf-sesame/authorization/
+
+echo "${all_errors} errors for run_all.sh" | tee -a failed_all.txt
 fi

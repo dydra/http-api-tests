@@ -31,7 +31,7 @@ Resets test target repository content
 - `run.sh`
 Runs a given collection of test scripts, reports the outcomes.
 Observes known failures from `known-to-fail.txt`.
-Records new failures in the file `failures.txt`.
+Records new failures in the file `failed.txt`.
 Returns the error count as its result.
 
 The scripts are arranged in directories which reflect the protocol resource paths.

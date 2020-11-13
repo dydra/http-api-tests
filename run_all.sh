@@ -14,7 +14,8 @@ then
   done;
 else
 all_errors=0
-date | tee failed_all.txt # no append to start with empty output file
+echo -n > failed_all.txt # start with empty output file
+date
 initialize_all_repositories
 # problems with the repository content
 # run extensions/git
@@ -41,5 +42,6 @@ run web-ui
 
 run accounts-api/accounts/openrdf-sesame/authorization/
 
-echo "${all_errors} errors for run_all.sh" | tee -a failed_all.txt
+echo
+echo "${all_errors} errors for run_all.sh"
 fi

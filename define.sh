@@ -88,7 +88,7 @@ export STATUS_OK=200
 export STATUS_ACCEPTED='202'
 export STATUS_DELETE_SUCCESS='200|204'
 export STATUS_PATCH_SUCCESS='200|201|204'
-export POST_SUCCESS='20201|204'
+export POST_SUCCESS='200|201|204'
 export STATUS_POST_SUCCESS='200|201|204'
 export PUT_SUCCESS='201|204'
 export STATUS_PUT_SUCCESS='200|201|204'
@@ -178,6 +178,9 @@ then
   fi
 fi
 
+# and for admin operations - in case different from user account
+export STORE_TOKEN_ADMIN=`cat ~/.dydra/${STORE_HOST}.token`
+
 # and one for another registered user
 if [[ "" == "${STORE_TOKEN_COLLABORATOR}" ]]
 then
@@ -257,6 +260,9 @@ function test_unsupported_media () {
   egrep -q "${STATUS_UNSUPPORTED_MEDIA}"
 }
 
+function test_updated () {
+  egrep -q "${STATUS_UPDATED}"
+}
 
 
 # provide operators to restore aspects of the store to a known state
@@ -421,8 +427,11 @@ function curl_sparql_request () {
   local -a data=()
   local -a user=(-u ":${STORE_TOKEN}")
   local -a user_id=("user_id=$0")
-  local curl_url="${SPARQL_URL}"
-  local url_args=()
+  local -a curl_url="${SPARQL_URL}"
+  local -a url_args=()
+  local -a account=${STORE_ACCOUNT}
+  local -a repository=${STORE_REPOSITORY}
+
   while [[ "$#" > 0 ]] ; do
     case "$1" in
       -H) case "$2" in
@@ -430,7 +439,8 @@ function curl_sparql_request () {
           Content-Type:*) content_media_type[1]="${2}"; shift 2;;
           *) curl_args+=("${1}" "${2}"); shift 2;;
           esac ;;
-      --repository) curl_url="${STORE_URL}/${STORE_ACCOUNT}/${2}/sparql"; shift 2;;
+      --account) account="${2}"; shift 2;;
+      --repository) repository="${2}"; shift 2;;
       -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
       -X) method[1]="${2}"; shift 2;;
       --data*) data+=("${1}" "${2}"); shift 2;;
@@ -441,6 +451,7 @@ function curl_sparql_request () {
       *) curl_args+=("${1}"); shift 1;;
     esac
   done
+  curl_url="${STORE_URL}/${account}/${repository}/sparql"
   url_args+=(${user_id[@]})
   if [[ ${#url_args[*]} > 0 ]] ; then curl_url=$(IFS='&' ; echo "${curl_url}?${url_args[*]}") ; fi
   if [[ ${#data[*]} == 0 && ${method[1]} == "POST" ]] ; then data=("--data-binary" "@-"); fi
@@ -587,6 +598,7 @@ function curl_graph_store_update () {
   local -a data=("--data-binary" "@-")
   local -a method=("-X" "POST")
   local -a user=(-u ":${STORE_TOKEN}")
+  local -a output="/dev/stdout"
   local graph=""  #  the default is all graphs
   local account=${STORE_ACCOUNT}
   local repository=${STORE_REPOSITORY}
@@ -599,7 +611,7 @@ function curl_graph_store_update () {
       --data*) data[0]="${1}";  data[1]="${2}"; shift 2;;
       default|DEFAULT) graph="default"; shift 1;;
       graph=*) if [[ "graph=" == "${1}" ]] ; then graph=""; else graph="${1}"; fi;  shift 1;;
-      --graph=*) if [[ "graph=" == "${1}" ]] ; then graph=""; else graph="${1}"; fi;  shift 1;;
+      --graph=*) if [[ "--graph=" == "${1}" ]] ; then graph=""; else graph="${1}"; fi;  shift 1;;
       -H) case "$2" in
           Accept:*) accept_media_type=("-H" "${2}"); shift 2;;
           Content-Type:*) content_media_type[1]="${2}"; shift 2;;
@@ -631,7 +643,7 @@ function curl_graph_store_update () {
 
 
 function curl_graph_store_clear () {
-  curl_graph_store_update -X PUT $@ -o /dev/null <<EOF
+  curl_graph_store_update -X DELETE $@ -o /dev/null <<EOF
 EOF
 }
 
@@ -762,6 +774,62 @@ function curl_ldp_get () {
 }
 
 
+function create_account() {
+  local -a newAccount=${1}
+  local -a URL="${STORE_URL}/system/accounts"
+
+  ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
+     -u ":${STORE_TOKEN_ADMIN}" ${URL} <<EOF
+{"account": {"name": "${newAccount}"} }
+EOF
+}
+
+function create_repository() {
+  local -a curl_args=()
+  local -a account="${STORE_ACCOUNT}"
+  local -a repository="new"
+  local -a class=lmdb-quad-repository
+  local -a temporal_properties=""
+  while [[ "$#" > 0 ]] ; do
+    case "$1" in
+      --account) account="${2}"; shift 2;;
+      --class) class="${2}"; shift 2;;
+      --repository) repository="${2}"; shift 2;;
+      --temporal_properties) temporal_properties=", \"temporal-properties\": \"${2}\" "; shift 2 ;;
+      *) curl_args+=("${1}"); shift 1;;
+    esac
+  done
+  local -a URL="${STORE_URL}/system/accounts/${account}/repositories"
+  ${CURL} -w "%{http_code}\n" -f -s -X POST "${curl_args[@]}" \
+     -H "Content-Type: application/json" \
+     -H "Accept: application/n-quads" \
+     --data-binary @- \
+     -u ":${STORE_TOKEN_ADMIN}" ${URL} <<EOF
+{"repository": {"name": "${repository}", "class": "${class}" ${temporal_properties}} }
+EOF
+}
+
+function delete_repository () {
+  local -a curl_args=()
+  local -a account="${STORE_ACCOUNT}"
+  local -a repository="new"
+  while [[ "$#" > 0 ]] ; do
+    case "$1" in
+      --account) account="${2}"; shift 2;;
+      --repository) repository="${2}"; shift 2;;
+      *) curl_args+=("${1}"); shift 1;;
+    esac
+  done
+  local -a URL="${STORE_URL}/system/accounts/${account}/repositories/${repository}"
+  ${CURL} -w "%{http_code}\n" -f -s -X DELETE "${curl_args[@]}" \
+     -H "Accept: application/n-quads" \
+     -u ":${STORE_TOKEN_ADMIN}" ${URL}
+}
+
+export -f echo_and_curl
+export -f create_account
+export -f create_repository
+export -f delete_repository
 
 export -f curl_sparql_request
 export -f curl_sparql_update
@@ -793,6 +861,7 @@ export -f test_put_success
 export -f test_unauthorized
 export -f test_unauthorized_success
 export -f test_unsupported_media
+export -f test_updated
 
 export -f clear_repository_content
 export -f initialize_account

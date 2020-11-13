@@ -14,16 +14,7 @@
  {"s": "http://example.org/default", "p": "http://www.w3.org/2001/XMLSchema#byte", "o": "-128" },
  {"s": "http://example.org/default", "p": "http://www.w3.org/2001/XMLSchema#byte", "o": "127" },
  {"s": "http://example.org/default", "p": "http://www.w3.org/2001/XMLSchema#date", "o": "-2014-01-01" },
- {"s": "http://example.org/default", "p": "http://www.w3.org/2001/XMLSchema#date", "o": "#S(SPOCQ:DATE
-   :ID NIL
-   :LEXICAL-FORM NIL
-   :TIMELINE-LOCATION 1388534400000000
-   :ZONE 0
-   :YEAR NIL
-   :MONTH NIL
-   :DAY NIL
-   :HOUR NIL
-   :MINUTE NIL)" },
+ {"s": "http://example.org/default", "p": "http://www.w3.org/2001/XMLSchema#date", "o": "2014-01-01" },
  {"s": "http://example.org/default", "p": "http://www.w3.org/2001/XMLSchema#dateTime", "o": "2099-12-31T23:23:59.999" },
  {"s": "http://example.org/default", "p": "http://www.w3.org/2001/XMLSchema#dateTime", "o": "0001-00-00T00:00:00.001" },
  {"s": "http://example.org/default", "p": "http://www.w3.org/2001/XMLSchema#dayTimeDuration", "o": "-P31DT23H59M59S" },

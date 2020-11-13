@@ -51,6 +51,7 @@ test_media_type application/sparql-results+json
 test_media_type text/csv
 test_media_type text/tab-separated-values
 test_media_type application/sparql-results+json-columns-streaming
+test_media_type application/json
 
 # does not work as post.
 # requires a get to a view

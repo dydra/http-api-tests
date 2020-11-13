@@ -1,15 +1,6 @@
 #! /bin/bash
 
 
-# http api tests : repository creation and content initialization
-set -e
-if [[ "" == "${STORE_TOKEN}" ]]
-then source ./define.sh
-fi
-# and for admin operations - in case different from user account
-export STORE_TOKEN_ADMIN=`cat ~/.dydra/${STORE_HOST}.token`
-
-
 # create one account/repository for each of various authorization combinations
 #
 #  $STORE_ACCOUNT                           : the base account
@@ -33,32 +24,15 @@ export STORE_TOKEN_ADMIN=`cat ~/.dydra/${STORE_HOST}.token`
 # export STORE_HOST=<host>.dydra.com
 # bash initialize-minimal.sh
 
-function create_account() {
-  local -a newAccount=${1}
-  local -a URL="${STORE_URL}/system/accounts"
 
-  ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
-     -u ":${STORE_TOKEN_ADMIN}" ${URL} <<EOF \
-     | tee ${ECHO_OUTPUT} | egrep -q "${STATUS_POST_SUCCESS}"
-{"account": {"name": "${newAccount}"} }
-EOF
-}
+# http api tests : repository creation and content initialization
+set -e
+if [[ "" == "${STORE_TOKEN}" ]]
+then source ./define.sh
+fi
 
-function create_repository() {
-  local -a newRepo=${1}
-  local -a URL="${STORE_URL}/system/accounts/${STORE_ACCOUNT}/repositories"
 
-  ${CURL} -w "%{http_code}\n" -f -s -X POST \
-     -H "Content-Type: application/json" \
-     -H "Accept: application/n-quads" \
-     --data-binary @- \
-     -u ":${STORE_TOKEN_ADMIN}" ${URL} <<EOF \
-     | tee ${ECHO_OUTPUT} | egrep -q "${STATUS_POST_SUCCESS}"
-{"repository": {"name": "${newRepo}"} }
-EOF
-}
-export -f create_account
-export -f create_repository
+
 
 
 for account in ${STORE_ACCOUNT} jhacker; do create_account $account; done

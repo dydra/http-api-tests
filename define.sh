@@ -836,7 +836,6 @@ function delete_repository () {
      -u ":${STORE_TOKEN_ADMIN}" ${URL}
 }
 
-export -f echo_and_curl
 export -f create_account
 export -f create_repository
 export -f delete_repository

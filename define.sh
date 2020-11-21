@@ -790,12 +790,14 @@ function create_repository() {
   local -a repository="new"
   local -a class=lmdb-quad-repository
   local -a temporal_properties=""
+  local -a time_series_properties=""
   while [[ "$#" > 0 ]] ; do
     case "$1" in
       --account) account="${2}"; shift 2;;
       --class) class="${2}"; shift 2;;
       --repository) repository="${2}"; shift 2;;
       --temporal_properties) temporal_properties=", \"temporal-properties\": \"${2}\" "; shift 2 ;;
+      --time_series_properties) time_series_properties=", \"time-series-properties\": \"${2}\" "; shift 2 ;;
       *) curl_args+=("${1}"); shift 1;;
     esac
   done
@@ -805,7 +807,11 @@ function create_repository() {
      -H "Accept: application/n-quads" \
      --data-binary @- \
      -u ":${STORE_TOKEN_ADMIN}" ${URL} <<EOF
-{"repository": {"name": "${repository}", "class": "${class}" ${temporal_properties}} }
+{"repository": {"name": "${repository}", "class": "${class}"
+                 ${temporal_properties}
+                 ${time_series_properties}
+               }
+ }
 EOF
 }
 
@@ -826,7 +832,6 @@ function delete_repository () {
      -u ":${STORE_TOKEN_ADMIN}" ${URL}
 }
 
-export -f echo_and_curl
 export -f create_account
 export -f create_repository
 export -f delete_repository

@@ -7,17 +7,17 @@ set -o errexit
 
 # gsp
 curl_graph_store_get -D - -X OPTIONS \
-   | fgrep "Allow" | fgrep GET | fgrep -q DELETE
+   | fgrep -i "Allow" | fgrep GET | fgrep -q DELETE
 
 # there are no restrictions on request media type
 curl_graph_store_get -D - -f -s -X OPTIONS \
      -H "Content-Type: application/sparql-query" \
-   | fgrep "Allow" | fgrep GET | fgrep PUT | fgrep POST | fgrep -q DELETE
+   | fgrep -i "Allow" | fgrep GET | fgrep PUT | fgrep POST | fgrep -q DELETE
 
 # there are no restrictions on response media type
 curl_graph_store_get -D - -f -s -X OPTIONS \
      -H "Accept: application/sparql-results+xml" \
-   | fgrep "Allow" | fgrep PUT | fgrep POST | fgrep -q DELETE
+   | fgrep -i "Allow" | fgrep PUT | fgrep POST | fgrep -q DELETE
 
 
 # verify that headers for a 401 are those required by preflight requests
@@ -28,6 +28,7 @@ STORE_TOKEN="not valid" curl_graph_store_get -D - -f -s -X OPTIONS \
   --repository "system" \
   --account "system" \
   | tr '\n' ' ' | tr '\r' ' ' \
-  | fgrep 'Access-Control-Allow-Origin' \
-  | fgrep 'Access-Control-Allow-Credentials' \
+  | fgrep -i 'Access-Control-Allow-Origin' \
+  | fgrep -i 'Access-Control-Allow-Credentials' \
   | fgrep -q 401
+

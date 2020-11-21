@@ -24,7 +24,7 @@ administer the target repositories and execute tests.
 
 - `define.sh`
 Defines the shell environment variables and operators to be employed by the test scripts
-- `ìnitialize.sh`
+- `initialize.sh`
 Creates the test target repositories with respective meta-data and content.
 - `reset.sh`
 Resets test target repository content

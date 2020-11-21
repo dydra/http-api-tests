@@ -179,7 +179,17 @@ then
 fi
 
 # and for admin operations - in case different from user account
-export STORE_TOKEN_ADMIN=`cat ~/.dydra/${STORE_HOST}.token`
+if [[ "" == "${STORE_TOKEN_ADMIN}" ]]
+then
+  if [ -f ~/.dydra/${STORE_HOST}.token ]
+  then
+    export STORE_TOKEN_ADMIN=`cat ~/.dydra/${STORE_HOST}.token`
+  else
+    echo "no STORE_TOKEN_ADMIN"
+    return 1
+  fi
+fi
+
 
 # and one for another registered user
 if [[ "" == "${STORE_TOKEN_COLLABORATOR}" ]]

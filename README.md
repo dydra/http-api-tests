@@ -81,6 +81,7 @@ The tests are coded as bash shell scripts. They depend on several utility progra
 - `json_reformat` : `apt-get install yajl-tools`
 - `rapper` : `apt-get install raptor2-utils`
 - `tidy` : `apt-get install tidy`
+- `json_diff` : pip install json-delta
 
 To test and (if necessary) solve all dependencies you may simply run:
 

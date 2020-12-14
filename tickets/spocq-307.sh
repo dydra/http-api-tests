@@ -7,8 +7,8 @@
 curl_sparql_request \
      -H "Accept: application/sparql-results+json" \
      -H "Content-Type:application/sparql-query" <<EOF \
- | tee $ECHO_OUTPUT | fgrep COUNT | fgrep -q '"1"'
-SELECT count(*) WHERE {
+ | tee $ECHO_OUTPUT | fgrep -i COUNT | fgrep -q '"1"'
+SELECT (count(*) as ?count) WHERE {
   VALUES (?this ?Type) {
     ( <https://localhost:4443/admin/acl/agents/e413f97b-15ee-47ea-ba65-4479aa7f1f9e/>
       <https://localhost:4443/admin/ns#AgentItem> )
@@ -25,8 +25,8 @@ EOF
 curl_sparql_request \
      -H "Accept: application/sparql-results+json" \
      -H "Content-Type:application/sparql-query" <<EOF \
- | tee $ECHO_OUTPUT | fgrep COUNT | fgrep -q '"1"'
-SELECT count(*) WHERE {
+ | tee $ECHO_OUTPUT | fgrep -i COUNT | fgrep -q '"1"'
+SELECT (count(*) as ?count) WHERE {
     VALUES (?this ?Type) {
     ( <https://localhost:4443/admin/acl/agents/e413f97b-15ee-47ea-ba65-4479aa7f1f9e/>
       <https://localhost:4443/admin/ns#AgentItem> )
@@ -41,8 +41,8 @@ EOF
 curl_sparql_request \
      -H "Accept: application/sparql-results+json" \
      -H "Content-Type:application/sparql-query" <<EOF \
- | tee $ECHO_OUTPUT | fgrep COUNT | fgrep -q '"1"'
-SELECT count(*) WHERE {
+ | tee $ECHO_OUTPUT | fgrep -i COUNT | fgrep -q '"1"'
+SELECT (count(*) as ?count) WHERE {
  ?s ?p ?o .
  FILTER (?p IN (<http://example.com/default-predicate>))
 }
@@ -54,11 +54,22 @@ EOF
 curl_sparql_request \
      -H "Accept: application/sparql-results+json" \
      -H "Content-Type:application/sparql-query" <<EOF \
- | tee $ECHO_OUTPUT | fgrep COUNT | fgrep -q '"1"'
-SELECT count(*) WHERE {
+ | tee $ECHO_OUTPUT | fgrep -i COUNT | fgrep -q '"1"'
+SELECT (count(*) as ?count) WHERE {
  ?s ?p ?o .
  FILTER (?p IN (<http://example.com/default-predicate>,
                 <http://example.com/unknown-predicate>))
 }
 EOF
+
+curl_sparql_request \
+     -H "Accept: application/sparql-results+json" \
+     -H "Content-Type:application/sparql-query" <<EOF \
+ | tee $ECHO_OUTPUT | fgrep -i COUNT | fgrep -q '"0"'
+SELECT (count(*) as ?count) WHERE {
+ ?s ?p ?o .
+ FILTER (?p IN (<http://example.com/unknown-predicate>))
+}
+EOF
+
 

@@ -1,18 +1,6 @@
 #! /bin/bash
 
-# test sort precedence for full complement of datatypes
-
-curl_sparql_request <<EOF  \
- | tee $ECHO_OUTPUT | tr '\n' ' ' | fgrep '"abcdefg"' | fgrep '"defg"' | fgrep -q '"d"' 
-
-select ?s1 ?s2 ?s3
-where {
-  bind("abcdefg" as ?s1)
-  bind(substr(?s1, 4) as ?s2)
-  bind(substr(?s1, 4, 1) as ?s3)
-}
-
-EOF
+# test string operators
 
 STRSTARTS, STRENDS, CONTAINS, STRBEFORE and STRAFTER 
 

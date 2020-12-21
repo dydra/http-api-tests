@@ -39,7 +39,7 @@ for account in ${STORE_ACCOUNT} jhacker; do create_account $account; done
 
 for repository in ${STORE_REPOSITORY} ${STORE_REPOSITORY_WRITABLE} ${STORE_REPOSITORY_PUBLIC} ${STORE_REPOSITORY_PROVENANCE} \
                   foaf collation inference ldp public tpf; do
-    create_repository $repository
+    create_repository --repository $repository
     done
 
 # authorization and metadata :

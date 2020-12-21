@@ -16,6 +16,7 @@ construct {
 }
 where {
   values ?o {
+    <http://example.org/aURI>
     '2020-12-01'^^xsd:date
     '2020-12-01T00:00:00'^^xsd:dateTime
     '2020-12-01T00:00:00Z'^^xsd:dateTime
@@ -37,57 +38,61 @@ EOF
    "@graph" : [
       {
          "@id" : "_:g1",
+         "http://example.org#value" : "http://example.org/aURI"
+      },
+      {
+         "@id" : "_:g2",
          "http://example.org#value" : {
             "@value" : "langstring",
             "@language" : "en"
          }
       },
       {
-         "@id" : "_:g2",
+         "@id" : "_:g3",
          "http://example.org#value" : "string"
       },
       {
-         "@id" : "_:g3",
+         "@id" : "_:g4",
          "http://example.org#value" : false
       },
       {
          "http://example.org#value" : true,
-         "@id" : "_:g4"
-      },
-      {
-         "@id" : "_:g5",
-         "http://example.org#value" : 1
+         "@id" : "_:g5"
       },
       {
          "@id" : "_:g6",
-         "http://example.org#value" : 1.1
+         "http://example.org#value" : 1
       },
       {
          "@id" : "_:g7",
+         "http://example.org#value" : 1.1
+      },
+      {
+         "@id" : "_:g8",
          "http://example.org#value" : 2
       },
       {
          "http://example.org#value" : 3,
-         "@id" : "_:g8"
-      },
-      {
-         "http://example.org#value" : "2020-12-01",
          "@id" : "_:g9"
       },
       {
-         "@id" : "_:g10",
+         "http://example.org#value" : "2020-12-01",
+         "@id" : "_:g10"
+      },
+      {
+         "@id" : "_:g11",
          "http://example.org#value" : "2020-11-30T18:00:00Z"
       },
       {
          "http://example.org#value" : "2020-12-01T00:00:00Z",
-         "@id" : "_:g11"
-      },
-      {
-         "@id" : "_:g12",
-         "http://example.org#value" : "2020-12-01T00:00:00"
+         "@id" : "_:g12"
       },
       {
          "@id" : "_:g13",
+         "http://example.org#value" : "2020-12-01T00:00:00"
+      },
+      {
+         "@id" : "_:g14",
          "http://example.org#value" : "2020-12-01T06:00:00Z"
       }
    ]

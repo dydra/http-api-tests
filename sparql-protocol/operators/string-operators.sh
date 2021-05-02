@@ -2,7 +2,7 @@
 
 # test string operators
 
-STRSTARTS, STRENDS, CONTAINS, STRBEFORE and STRAFTER 
+# STRSTARTS, STRENDS, CONTAINS, STRBEFORE and STRAFTER 
 
 curl_sparql_request <<EOF  \
  | tee $ECHO_OUTPUT | fgrep -q "true" 

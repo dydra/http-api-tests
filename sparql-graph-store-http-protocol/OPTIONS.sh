@@ -20,9 +20,13 @@ curl_graph_store_get -D - -f -s -X OPTIONS \
    | fgrep -i "Allow" | fgrep PUT | fgrep POST | fgrep -q DELETE
 
 
-# verify that headers for a 401 are those required by preflight requests
+# verify that headers are those required by preflight requests
+# even where the actual request would yield a 401
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
+#
+# the fetch document permts and 200
+# https://fetch.spec.whatwg.org/
 
 STORE_TOKEN="not valid" curl_graph_store_get -D - -f -s -X OPTIONS \
   --repository "system" \
@@ -30,5 +34,5 @@ STORE_TOKEN="not valid" curl_graph_store_get -D - -f -s -X OPTIONS \
   | tr '\n' ' ' | tr '\r' ' ' \
   | fgrep -i 'Access-Control-Allow-Origin' \
   | fgrep -i 'Access-Control-Allow-Credentials' \
-  | fgrep -q 401
+  | fgrep -q 200
 

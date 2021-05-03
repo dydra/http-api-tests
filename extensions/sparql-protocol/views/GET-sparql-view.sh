@@ -7,32 +7,28 @@
 
 # note the suppressed accept header to permit the file type to act
 
-SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.tsv" \
-  curl_sparql_request -X GET -I -w "%{http_code}\n" -H "Accept:" | fgrep -q -s '200'
+curl_sparql_view -X GET -I -w "%{http_code}\n" -H "Accept:" all.tsv | fgrep -q -s '200'
 
-SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.tsv" \
-curl_sparql_request -X GET -H "Accept:" | wc -l | fgrep -q -s '3'
-SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.tsv" \
-curl_sparql_request 'limit=1' -X GET -H "Accept:"  | wc -l | fgrep -q -s '2' 
-SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.tsv" \
-curl_sparql_request 'limit=1' 'offset=1' -X GET -H "Accept:" | wc -l | fgrep -q -s '2'
-SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.tsv" \
-curl_sparql_request 'limit=1' 'offset=2' -X GET -H "Accept:" | wc -l | fgrep -q -s '1'
+curl_sparql_view -X GET -H "Accept:" all.tsv | wc -l | fgrep -q -s '3'
+
+curl_sparql_view 'limit=1' -X GET -H "Accept:" all.tsv | wc -l | fgrep -q -s '2' 
+
+curl_sparql_view 'limit=1' 'offset=1' -X GET -H "Accept:" all.tsv | wc -l | fgrep -q -s '2'
+
+curl_sparql_view 'limit=1' 'offset=2' -X GET -H "Accept:" all.tsv | wc -l | fgrep -q -s '1'
 
 
-SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.csv" \
-curl_sparql_request -X GET -H "Accept:" | wc -l | fgrep -q -s '3'
+curl_sparql_view -X GET -H "Accept:" all.csv | wc -l | fgrep -q -s '3'
 
 
-SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.srj" \
-curl_sparql_request -X GET -H "Accept:" | fgrep '"s":' | wc -l  | fgrep -q -s '2' 
-SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.srj" \
-curl_sparql_request 'limit=1' 'offset=1' -X GET -H "Accept:" | fgrep '"s":' | wc -l | fgrep -q -s '1' 
+curl_sparql_view -X GET -H "Accept:" all.srj | fgrep '"s":' | wc -l  | fgrep -q -s '2' 
 
-SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.srx" \
-curl_sparql_request -X GET -H "Accept:" | tidy -xml -q | fgrep '<result>' | wc -l | fgrep -q -s '2' 
-SPARQL_URL="${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}/all.srx" \
-curl_sparql_request 'limit=1' 'offset=1' -X GET  -H "Accept:" | tidy -xml -q | fgrep '<result>' | wc -l | fgrep -q -s '1' 
+curl_sparql_view 'limit=1' 'offset=1' -X GET -H "Accept:" all.srj | fgrep '"s":' | wc -l | fgrep -q -s '1' 
+
+
+curl_sparql_view -X GET -H "Accept:" all.srx | tidy -xml -q | fgrep '<result>' | wc -l | fgrep -q -s '2' 
+
+curl_sparql_view 'limit=1' 'offset=1' -X GET  -H "Accept:" all.srx | tidy -xml -q | fgrep '<result>' | wc -l | fgrep -q -s '1' 
 
 
 # NTF

@@ -3,7 +3,7 @@
 # test that variable regex patterns are properly cached
 curl_sparql_request  \
      --repository "collation" <<EOF \
-  | tee $ECHO_OUTPUT | wc | fgrep -s '3'
+  | tee $ECHO_OUTPUT | wc | fgrep -q '3'
 select  ?pattern ?value
 where {
   values (?key ?pattern) { ('k1' 'A+' )  ('k2' 'B+' )  ('k3' 'C+' ) }

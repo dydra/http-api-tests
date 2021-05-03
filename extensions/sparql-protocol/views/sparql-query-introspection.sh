@@ -46,7 +46,7 @@ select count(*) where {?s ?p ?o}
 EOF
 
 
-tmpfile=$(mktemp /tmp/tmp-XXXXXX.pdf)
+tmpfile="$(mktemp /tmp/tmp-XXXXXX).pdf"
 curl_sparql_request \
   -H "Content-Type: application/sparql-query" \
   -H "Accept: application/VND.DYDRA.SPARQL-RESULTS-EXECUTION+GRAPHVIZ+PDF"  <<EOF \

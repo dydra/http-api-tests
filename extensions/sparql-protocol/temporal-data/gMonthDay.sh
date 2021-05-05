@@ -21,10 +21,10 @@ select ((( xsd:gMonthDay('--12-25') = '--12-25'^^xsd:gMonthDay) &&
          ( xsd:gMonthDay(xsd:date('2014-12-31')) = '--12-31Z'^^xsd:gMonthDay ) &&
 
          # no order, but also not incommensurable
-         (! ( xsd:gMonthDay('--11-25') <   xsd:gMonthDay('--12-25') )) &&
+         ( xsd:gMonthDay('--11-25') <   xsd:gMonthDay('--12-25') ) &&
          (! ( xsd:gMonthDay('--12-25') <   xsd:gMonthDay('--11-25') )) &&
-         (! ( xsd:gMonthDay('--11-25') <=   xsd:gMonthDay('--12-25') )) &&
-         (! ( xsd:gMonthDay('--12-25') <=   xsd:gMonthDay('--11-25') )))
+         ( xsd:gMonthDay('--11-25') <=   xsd:gMonthDay('--11-26') ) &&
+         (! ( xsd:gMonthDay('--11-26') <=   xsd:gMonthDay('--11-25') )))
        as ?ok)
 where {
  }

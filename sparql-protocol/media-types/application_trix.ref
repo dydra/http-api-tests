@@ -1,4 +1,4 @@
-<TriX xmlns='http://www.w3.org/2004/03/trix/trix-1/'>
+<trix xmlns='http://www.w3.org/2004/03/trix/trix-1/'>
  <graph>
   <uri>urn:dydra:default<uri>
   <triple>
@@ -144,12 +144,12 @@
   <triple>
    <uri>http://example.org/default</uri>
    <uri>http://www.w3.org/2001/XMLSchema#gDay</uri>
-   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#gDay">---31</typedLiteral>
+   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#gDay">---01</typedLiteral>
   </triple>
   <triple>
    <uri>http://example.org/default</uri>
    <uri>http://www.w3.org/2001/XMLSchema#gDay</uri>
-   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#gDay">---01</typedLiteral>
+   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#gDay">---31</typedLiteral>
   </triple>
   <triple>
    <uri>http://example.org/default</uri>
@@ -164,12 +164,12 @@
   <triple>
    <uri>http://example.org/default</uri>
    <uri>http://www.w3.org/2001/XMLSchema#gMonthDay</uri>
-   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#gMonthDay">--12-31</typedLiteral>
+   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#gMonthDay">--01-01</typedLiteral>
   </triple>
   <triple>
    <uri>http://example.org/default</uri>
    <uri>http://www.w3.org/2001/XMLSchema#gMonthDay</uri>
-   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#gMonthDay">--01-01</typedLiteral>
+   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#gMonthDay">--12-31</typedLiteral>
   </triple>
   <triple>
    <uri>http://example.org/default</uri>
@@ -184,12 +184,12 @@
   <triple>
    <uri>http://example.org/default</uri>
    <uri>http://www.w3.org/2001/XMLSchema#gYearMonth</uri>
-   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#gYearMonth">2099-12</typedLiteral>
+   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#gYearMonth">0001-01</typedLiteral>
   </triple>
   <triple>
    <uri>http://example.org/default</uri>
    <uri>http://www.w3.org/2001/XMLSchema#gYearMonth</uri>
-   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#gYearMonth">0001-00</typedLiteral>
+   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#gYearMonth">2099-12</typedLiteral>
   </triple>
   <triple>
    <uri>http://example.org/default</uri>
@@ -427,4 +427,4 @@
    <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#integer">1</typedLiteral>
   </triple>
  </graph>
-</Trix>
+</trix>

@@ -20,10 +20,10 @@ select ((( xsd:gYearMonth('1976-02-05:00') = '1976-02-05:00'^^xsd:gYearMonth) &&
          ( xsd:gYearMonth(xsd:date('2014-12-31')) = '2014-12Z'^^xsd:gYearMonth ) &&
 
          # no order, but also not incommensurable
-         (! ( xsd:gYearMonth('1975-02') <   xsd:gYearMonth('1976-02') )) &&
+         ( xsd:gYearMonth('1975-02') <   xsd:gYearMonth('1976-02') ) &&
          (! ( xsd:gYearMonth('1976-02') <   xsd:gYearMonth('1975-02') )) &&
-         (! ( xsd:gYearMonth('1975-02') <=   xsd:gYearMonth('1976-02') )) &&
-         (! ( xsd:gYearMonth('1976-02') <=   xsd:gYearMonth('1975-02') ))
+         ( xsd:gYearMonth('1975-02') <=   xsd:gYearMonth('1975-03') ) &&
+         (! ( xsd:gYearMonth('1976-02') <=   xsd:gYearMonth('1975-03') ))
           )
        as ?ok)
 where {

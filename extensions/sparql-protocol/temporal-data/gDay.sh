@@ -13,10 +13,10 @@ select ((( xsd:gDay('---12') = '---12'^^xsd:gDay) &&
          ( xsd:gDay('---12+12:00') = '---12+12:00'^^xsd:gDay) &&
 
          ( xsd:gDay('---12Z') != '---13Z'^^xsd:gDay) &&
-         # no order, but also not incommensurable
-         (! ( xsd:gDay('---11') <   xsd:gDay('---12') )) &&
+         # 2020-05-02: yes, order
+         ( xsd:gDay('---11') <   xsd:gDay('---12') ) &&
          (! ( xsd:gDay('---12') <   xsd:gDay('---11') )) &&
-         (! ( xsd:gDay('---11') <=   xsd:gDay('---12') )) &&
+         ( xsd:gDay('---11') <=   xsd:gDay('---12') ) &&
          (! ( xsd:gDay('---12') <=   xsd:gDay('---11') )))
        as ?ok)
 where {

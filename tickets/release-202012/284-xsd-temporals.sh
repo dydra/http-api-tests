@@ -1,6 +1,7 @@
 #! /bin/bash
 #
 # verify round-trip for valid _and_ invalid basic temporal types
+# invalid terms should still be round-tripped
 
 curl_sparql_request \
      -H "Accept: application/n-quads" \
@@ -15,13 +16,13 @@ where {
     '2020-12-03-06:00'^^xsd:date
     '2020-12-03+06:00'^^xsd:date
     '2020-12-03Z'^^xsd:date
-    '2020-12-03Z+06:00'^^xsd:date
+    '2020-12-03Z+06:00'^^xsd:date #invalid
     '2020-12-03T00:00:00'^^xsd:dateTime
     '2020-12-03T00:00:00Z'^^xsd:dateTime
     '2020-12-03T00:00:00-06:00'^^xsd:dateTime
     '2020-12-03T00:00:00+06:00'^^xsd:dateTime
-    '2020-12-03T00:00:00Z-06:00'^^xsd:dateTime
-    '2020-12-03T00:00:00Z+06:00'^^xsd:dateTime
+    '2020-12-03T00:00:00Z-06:00'^^xsd:dateTime  # invalid
+    '2020-12-03T00:00:00Z+06:00'^^xsd:dateTime  # invalid
     '00:03:00'^^xsd:time
     '00:03:00-06:00'^^xsd:time
     '00:03:00+06:00'^^xsd:time

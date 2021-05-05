@@ -6,7 +6,7 @@
 curl_sparql_request \
      -H 'Accept: application/ld+json;profile=http://www.w3.org/ns/json-ld#expanded' \
      -H 'Content-Type:application/sparql-query' <<EOF \
- | tee $ECHO_OUTPUT | json_pp | json_diff /dev/stdin /dev/fd/3 3<<TEST 2>&1 | egrep -q '^\[\]$'
+ | tee $ECHO_OUTPUT | json_pp | json_diff /dev/stdin /dev/fd/3 3<<TEST 2>&1 | tee $ECHO_OUTPUT | egrep -q '^\[\]$'
 construct {
   [ <http://example.org#value> ?o ]
 }

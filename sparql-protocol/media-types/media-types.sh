@@ -10,7 +10,7 @@ function test_media_type() {
   local ref_file="${mime_file}.ref"
   local new_file="${mime_file}.new"
 
-  echo "request: ${mime}" #> $ECHO_OUTPUT
+  echo "request: ${mime}" > $ECHO_OUTPUT
   curl_sparql_request -H "Accept: ${mime}" --repository mem-rdf-write <<EOF \
     | tee ${ECHO_OUTPUT} \
     | sed -e 's/.0E0"/.0"/' | sed -e 's/.0E0</.0</g'  | sed -e 's/.0E0,/.0,/g' > ${new_file}

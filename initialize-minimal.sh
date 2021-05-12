@@ -35,12 +35,13 @@ fi
 
 
 
-for account in ${STORE_ACCOUNT} jhacker; do create_account $account; done
+for account in ${STORE_ACCOUNT} jhacker test; do create_account $account; done
 
 for repository in ${STORE_REPOSITORY} ${STORE_REPOSITORY_WRITABLE} ${STORE_REPOSITORY_PUBLIC} ${STORE_REPOSITORY_PROVENANCE} \
                   foaf collation inference ldp public tpf; do
     create_repository --repository $repository
     done
+create_repository --account test --repository test
 
 # authorization and metadata :
 # add authorization for authenticated users to read the repository list either from both accounts-api and the sesame resources

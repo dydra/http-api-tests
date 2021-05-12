@@ -5,7 +5,7 @@
 curl_sparql_request \
      -H "Accept: application/ld+json" \
      -H "Content-Type:application/sparql-query" <<EOF \
- | tee $ECHO_OUTPUT | fgrep '{"@language":"en", "@value":"a"}'
+ | tee $ECHO_OUTPUT | fgrep -q '{"@language":"en", "@value":"a"}'
 CONSTRUCT {
   <http://example.org/subject> <http://example.org/predicate> ?string
 }

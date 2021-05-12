@@ -6,7 +6,7 @@ curl_sparql_request \
      -H "Accept: application/sparql-results+json" \
      -H "Content-Type:application/sparql-query" <<EOF \
  | tee $ECHO_OUTPUT | jq '.results.bindings[] | .[] | "\(.type),\(.datatype),\(.value)"' | sort | diff -w - /dev/fd/2 2<<TEST
-# select basic types updated after `$date` (xsd:dateTime)
+# select basic types updated after some date (xsd:dateTime)
 PREFIX plm: <http://www.data.nexperia.com/def/plm/>
 PREFIX nxp: <http://purl.org/nxp/schema/v1/>
 

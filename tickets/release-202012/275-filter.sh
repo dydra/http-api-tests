@@ -30,13 +30,13 @@ WHERE {
 
   {
      VALUES (?id ?time ?place) {
-      ( 'one' "1970-01-01T00:00:00Z"^^xsd:dateTime <http://example.org>)
-      ( 'one' "1970-01-01T00:00:01Z"^^xsd:dateTime <http://example.org>)
-      ( 'two' "1970-01-01T00:00:00Z"^^xsd:dateTime <http://example.org>)
-      ( 'two' "1970-01-01T00:00:01Z"^^xsd:dateTime <http://example.org>)
+      ( 'one' '1970-01-01T00:00:00Z'^^xsd:dateTime <http://example.org>)
+      ( 'one' '1970-01-01T00:00:01Z'^^xsd:dateTime <http://example.org>)
+      ( 'two' '1970-01-01T00:00:00Z'^^xsd:dateTime <http://example.org>)
+      ( 'two' '1970-01-01T00:00:01Z'^^xsd:dateTime <http://example.org>)
     }
   }
-  FILTER (?time >= "1970-01-01T00:00:01Z"^^xsd:dateTime)
+  FILTER (?time >= '1970-01-01T00:00:01Z'^^xsd:dateTime)
 }
 EOF
 "literal,http://www.w3.org/2001/XMLSchema#dateTime,1970-01-01T00:00:01Z"

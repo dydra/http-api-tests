@@ -3,7 +3,7 @@
 # test sort precedence for full complement of datatypes
 
 curl_sparql_request <<EOF  \
- | jq '.results.bindings[] | .value.value' | diff - sort-precedence.txt 
+ | tee $ECHO_OUTPUT | jq '.results.bindings[] | .value.value' | diff - sort-precedence.txt 
 
 select ?value
  where {

@@ -1,6 +1,6 @@
 <trix xmlns='http://www.w3.org/2004/03/trix/trix-1/'>
  <graph>
-  <uri>urn:dydra:default<uri>
+  <uri>urn:dydra:default</uri>
   <triple>
    <id>subject</id>
    <uri>http://example.org/predicate</uri>

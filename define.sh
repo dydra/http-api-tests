@@ -842,9 +842,44 @@ function delete_repository () {
      -u ":${STORE_TOKEN_ADMIN}" ${URL}
 }
 
+# repository_has_revisions { --account $account } {--repository $repository}
+# tests whether the repository contins more than one revision
+# this rather than whether it has the revision metadata sub-databases,
+# as the tests require more than one revision
+
+function repository_has_revisions () {
+  local -a user=(-u ":${STORE_TOKEN}")
+  local account=${STORE_ACCOUNT}
+  local repository=${STORE_REPOSITORY}
+  local -a curl_args=()
+  local curl_url=""
+
+
+  local -a method=("-X" "GET")
+  local -a user=(-u ":${STORE_TOKEN}")
+  local revision=""
+  local repository="${STORE_REPOSITORY}"
+  local path=""
+
+  while [[ "$#" > 0 ]] ; do
+    case "$1" in
+      --account) account="${2}"; shift 2;;
+      --repository) repository="${2}"; shift 2;;
+      -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
+    esac
+  done
+  if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
+  curl_url="${STORE_URL}/system/accounts/${account}/repositories/${repository}/revisions";
+
+  echo ${CURL} -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
+  ${CURL} -f -s "${curl_args[@]}" ${curl_url} \
+  -H "Accept: text/plain" | wc | fgrep -q -v "1      37"
+}
+
 export -f create_account
 export -f create_repository
 export -f delete_repository
+export -f repository_has_revisions
 
 export -f curl_sparql_request
 export -f curl_sparql_update

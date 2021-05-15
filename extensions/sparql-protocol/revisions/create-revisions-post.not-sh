@@ -1,7 +1,7 @@
 #! /bin/bash
 # nb. not named create-revisions.sh in order to remain invisible to test scripts
 
-# import sequence of generated .nq documents sources into a repository as PUTS.
+# import sequence of generated .nq documents sources into a repository as POSTs.
 # this retains the respective revisions as distinct rather than just appending
 # the content which permits inter-revision comparisons and othe roperations
 #
@@ -12,8 +12,8 @@ set -e
 # https://www.w3.org/TR/2013/REC-sparql11-http-rdf-update-20130321/#http-delete
 curl_graph_store_delete -w "%{http_code}\n" --repository "${STORE_REPOSITORY}-write"
 
-for ((i = 0; i < 5; i ++)); do
-  curl_graph_store_update -X PUT --repository "${STORE_REPOSITORY}-write" <<EOF
+for ((i = 0; i < 2; i ++)); do
+  curl_graph_store_update -X POST --repository "${STORE_REPOSITORY}-write" <<EOF
 <http://example.org/subject> <http://example.org/predicate> "object ${i}" <http://example.org/revised-graph-${i}> .
 EOF
 done

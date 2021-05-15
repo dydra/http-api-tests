@@ -42,8 +42,8 @@ second
   }
 }
 EOF
- { "v": {"type":"literal", "datatype":"http://www.w3.org/2001/XMLSchema#string", "value":"8 inch diameter"} },
- { "v": {"type":"literal", "datatype":"http://www.w3.org/2001/XMLSchema#string", "value":"8\" diameter"} },
- { "v": {"type":"literal", "datatype":"http://www.w3.org/2001/XMLSchema#string", "value":"8\" diameter"} },
- { "v": {"type":"literal", "datatype":"http://www.w3.org/2001/XMLSchema#string", "value":"first\nsecond\n8 \" diameter"} } ] } }
+ { "v": {"type":"literal", "value":"8 inch diameter"} },
+ { "v": {"type":"literal", "value":"8\" diameter"} },
+ { "v": {"type":"literal", "value":"8\" diameter"} },
+ { "v": {"type":"literal", "value":"first\nsecond\n8 \" diameter"} } ] } }
 TEST

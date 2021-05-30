@@ -5,7 +5,7 @@ exercise sparql requests for supported media types
  - gsp requests
 
  the sample datasets includes prototypical values for each supported datatype.
- first, import this, then perform select and construct requests for supported media type.
+ first, import 'media-types.trig', then perform select and construct requests for supported media type.
  the results are compared with a respective '.ref' document which contains the expected results
  any failure causes the test to fail.
  any failure leaves the '.new' file for reference.

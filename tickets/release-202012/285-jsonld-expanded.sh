@@ -6,7 +6,7 @@
 curl_sparql_request \
      -H 'Accept: application/ld+json;profile=http://www.w3.org/ns/json-ld#expanded' \
      -H 'Content-Type:application/sparql-query' <<EOF \
- | tee $ECHO_OUTPUT | json_pp | json_diff /dev/stdin /dev/fd/3 3<<TEST 2>&1 | tee $ECHO_OUTPUT | egrep -q '^\[\]$'
+ | tee $ECHO_OUTPUT | json_pp | json_diff /dev/stdin /dev/fd/3 3<<TEST 2>&1 | tee $ECHO_OUTPUT | egrep -q '^\{\}$'
 construct {
   [ <http://example.org#value> ?o ]
 }
@@ -38,45 +38,45 @@ EOF
       }
    },
    {
+      "@id" : "_:g2",
       "http://example.org#value" : {
          "@language" : "en",
          "@value" : "langstring"
-      },
-      "@id" : "_:g2"
+      }
    },
    {
+      "@id" : "_:g3",
       "http://example.org#value" : {
          "@value" : "string"
-      },
-      "@id" : "_:g3"
+      }
    },
    {
       "@id" : "_:g4",
       "http://example.org#value" : {
-         "@value" : false,
-         "@type" : "http://www.w3.org/2001/XMLSchema#boolean"
+         "@type" : "http://www.w3.org/2001/XMLSchema#boolean",
+         "@value" : false
       }
    },
    {
+      "@id" : "_:g5",
       "http://example.org#value" : {
          "@type" : "http://www.w3.org/2001/XMLSchema#boolean",
          "@value" : true
-      },
-      "@id" : "_:g5"
+      }
    },
    {
       "@id" : "_:g6",
       "http://example.org#value" : {
-         "@value" : "1",
-         "@type" : "http://www.w3.org/2001/XMLSchema#integer"
+         "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+         "@value" : "1"
       }
    },
    {
+      "@id" : "_:g7",
       "http://example.org#value" : {
-        "@type" : "http://www.w3.org/2001/XMLSchema#decimal",
-        "@value" : "1.1"
-      },
-      "@id" : "_:g7"
+         "@type" : "http://www.w3.org/2001/XMLSchema#decimal",
+         "@value" : "1.1"
+      }
    },
    {
       "@id" : "_:g8",
@@ -86,25 +86,25 @@ EOF
       }
    },
    {
+      "@id" : "_:g9",
       "http://example.org#value" : {
          "@type" : "http://www.w3.org/2001/XMLSchema#float",
          "@value" : "3.0"
-      },
-      "@id" : "_:g9"
+      }
    },
    {
+      "@id" : "_:g10",
       "http://example.org#value" : {
-         "@value" : "2020-12-01",
-         "@type" : "http://www.w3.org/2001/XMLSchema#date"
-      },
-      "@id" : "_:g10"
+         "@type" : "http://www.w3.org/2001/XMLSchema#date",
+         "@value" : "2020-12-01"
+      }
    },
    {
+      "@id" : "_:g11",
       "http://example.org#value" : {
-         "@value" : "2020-11-30T18:00:00Z",
-         "@type" : "http://www.w3.org/2001/XMLSchema#dateTime"
-      },
-      "@id" : "_:g11"
+         "@type" : "http://www.w3.org/2001/XMLSchema#dateTime",
+         "@value" : "2020-11-30T18:00:00Z"
+      }
    },
    {
       "@id" : "_:g12",
@@ -116,15 +116,15 @@ EOF
    {
       "@id" : "_:g13",
       "http://example.org#value" : {
-         "@value" : "2020-12-01T00:00:00",
-         "@type" : "http://www.w3.org/2001/XMLSchema#dateTime"
+         "@type" : "http://www.w3.org/2001/XMLSchema#dateTime",
+         "@value" : "2020-12-01T00:00:00"
       }
    },
    {
       "@id" : "_:g14",
       "http://example.org#value" : {
-         "@value" : "2020-12-01T06:00:00Z",
-         "@type" : "http://www.w3.org/2001/XMLSchema#dateTime"
+         "@type" : "http://www.w3.org/2001/XMLSchema#dateTime",
+         "@value" : "2020-12-01T06:00:00Z"
       }
    }
 ]

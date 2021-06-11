@@ -73,9 +73,8 @@ EOF
    },
    {
       "http://example.org#value" : {
-         "type" : "literal",
-         "value" : "1.1",
-         "datatype" : "http://www.w3.org/2001/XMLSchema#decimal"
+        "@type" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "@value" : "1.1"
       },
       "@id" : "_:g7"
    },

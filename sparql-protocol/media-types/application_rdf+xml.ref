@@ -62,18 +62,18 @@
     <rdf:Description rdf:about='http://example.org/default'><ns2:short xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#short'>-32768</ns2:short></rdf:Description>
     <rdf:Description rdf:about='http://example.org/default'><ns2:short xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#short'>32767</ns2:short></rdf:Description>
     <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' >a string</ns2:string></rdf:Description>
-    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#string'>string with backspace ()</ns2:string></rdf:Description>
-    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#string'>string with comma (,)</ns2:string></rdf:Description>
-    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#string'>string with cr ()</ns2:string></rdf:Description>
-    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#string'>string with crlf (
+    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' >string with backspace ()</ns2:string></rdf:Description>
+    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' >string with comma (,)</ns2:string></rdf:Description>
+    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' >string with cr ()</ns2:string></rdf:Description>
+    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' >string with crlf (
 )</ns2:string></rdf:Description>
-    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#string'>string with crlf (
+    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' >string with crlf (
 ), comma (,), and double quote (")</ns2:string></rdf:Description>
-    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#string'>string with double quote: (")</ns2:string></rdf:Description>
-    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#string'>string with formfeed ()</ns2:string></rdf:Description>
-    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#string'>string with lf (
+    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' >string with double quote: (")</ns2:string></rdf:Description>
+    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' >string with formfeed ()</ns2:string></rdf:Description>
+    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' >string with lf (
 )</ns2:string></rdf:Description>
-    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#string'>string with tab (	)</ns2:string></rdf:Description>
+    <rdf:Description rdf:about='http://example.org/default'><ns2:string xmlns:ns2='http://www.w3.org/2001/XMLSchema#' >string with tab (	)</ns2:string></rdf:Description>
     <rdf:Description rdf:about='http://example.org/default'><ns2:time xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#time'>00:00:00.001</ns2:time></rdf:Description>
     <rdf:Description rdf:about='http://example.org/default'><ns2:time xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#time'>23:23:59.999</ns2:time></rdf:Description>
     <rdf:Description rdf:about='http://example.org/default'><ns2:token xmlns:ns2='http://www.w3.org/2001/XMLSchema#' rdf:datatype='http://www.w3.org/2001/XMLSchema#token'>token</ns2:token></rdf:Description>

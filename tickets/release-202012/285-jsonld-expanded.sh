@@ -1,7 +1,7 @@
 #! /bin/bash
 #
 # verify json-ld encoding.
-# reiterates sparql-protocol/media-types for json-ld
+# reiterates sparql-protocol/media-types for json-ld as expanded
 
 curl_sparql_request \
      -H 'Accept: application/ld+json;profile=http://www.w3.org/ns/json-ld#expanded' \

@@ -107,3 +107,15 @@ ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
      | tee ${ECHO_OUTPUT} |  egrep -q "${STATUS_PUT_SUCCESS}"
 <http://example.com/subject> <http://example.com/predicate> "object" <${STORE_URL}>.
 EOF
+
+## also for the test/foaf repository
+${CURL} -w "%{http_code}\n" -L -f -s -X POST \
+     -H "Content-Type: application/n-quads" --data-binary @- \
+     -u ":${STORE_TOKEN}" \
+     ${STORE_URL}/test/foaf/service <<EOF \
+     | tee ${ECHO_OUTPUT} |  egrep -q "${STATUS_POST_SUCCESS}"
+<http://www.setf.de/#self> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Agent> .
+<http://www.setf.de/#self> <http://xmlns.com/foaf/0.1/name> "test" .
+<http://www.setf.de/#self> <http://xmlns.com/foaf/0.1/homepage> <http://dydra.com/test> .
+<http://www.setf.de/#self> <http://xmlns.com/foaf/0.1/mbox> <mailto:test@dydra.com> .
+EOF

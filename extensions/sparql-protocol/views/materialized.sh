@@ -2,21 +2,21 @@
 set -e
 
 # exercise term identifier cache materialization
-# this is a internal materialized view with integer indices for the parameters
+# this is for an internal materialized view with integer indices for the parameters
 #
 # given the test/foaf repository
 # - replace any "types" view with a known text
 # - ensure that the materialization cache repository exists
 #   test/foaf/types corresponds to foaf__types__view repository
 # - delete the cache content to regenerate the view
-# - - first attempt should fail for lack of index
-# - - revised version succeeds
+#   go through several revisions to verify consistency until the final revised version succeeds
 # - test the projection
 # - modify the view changing the indices and the projection
 # - test the new projection
 # - delete the view query and ensure it is gone
 # - test that a view query without index parameters is rejected
 # - delete the cache repository and ensure that it is gone
+# - delete the view
 
 echo 'define (or replace) the "classes" view query with a known (erroneous) text' > ${ECHO_OUTPUT}
 curl_sparql_view -X PUT -w "%{http_code}\n" \
@@ -52,7 +52,7 @@ curl_sparql_view -H "Accept: application/sparql-results+json" \
     | egrep -qs '"results"';
 
 
-echo "create a materialization cache repository. fails due to view query" > ${ECHO_OUTPUT}
+echo "create a materialized cache repository. content will fail due to view query" > ${ECHO_OUTPUT}
 ${CURL} -X POST -s -w "%{http_code}\n" -u ":${STORE_TOKEN}" \
     -H "Accept: application/sparql-results+json" \
     -H "Content-Type: application/json" \
@@ -64,7 +64,7 @@ ${CURL} -X POST -s -w "%{http_code}\n" -u ":${STORE_TOKEN}" \
  "sourceRepository": "test/foaf",
  "sourceView": "types"}
 EOF
-#
+
 
 # nb. the repository will be empty, thus the silent
 echo "test that it did create the repository itself" > ${ECHO_OUTPUT}
@@ -98,7 +98,7 @@ where {
 }
 EOF
 
-echo "delete the cache content to regenerate to match the view - should fail due to projection" > ${ECHO_OUTPUT}
+echo "delete the cache content to regenerate to match the view - should also fail due to projection" > ${ECHO_OUTPUT}
 curl_graph_store_delete -w "%{http_code}\n" \
     --account "test" \
     --repository "foaf__types__view" \
@@ -199,7 +199,7 @@ curl_sparql_request -X GET '$s=%3chttp://www.setf.de/%23self%3e' \
     --repository "foaf__types__view" \
     | egrep -qs '"results"'; 
 
-### this is the place for a federation test
+### this is the place for an eventual federation test
 
 
 echo "delete the cache repository" > ${ECHO_OUTPUT}

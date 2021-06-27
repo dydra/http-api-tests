@@ -2,27 +2,37 @@
 set -e
 
 # exercise string to term identifier index
-# this is an internal materialized view with a text index for just the string identifier
+# this is for an internal text index for just one string identifier
 #
 # in this case, the materializing view is optional.
-# the same pattern applies to the names, but if no "text" view exists, it is emulated as
-# if the view were (nb, the isSTRING predicate does not actually exist)
+# the same pattern applies to the repository names, as if a "text" view exists.
+# if there is none, it is emulated as if the view were
 #
 #    select $string where { ?s ?p $string . filter(isSTRING($string)) }
+#
+# (nb, the isSTRING predicate does not actually exist)
 #
 # given the test/foaf repository 
 # - ensure that the text index exists
 #   test/foaf corresponds to the foaf__text__view repository
 #   the "text" view is implicit
 # - ensure that a "byName" view exists
-# - delete the cache content to regenerate the index (this actually just adds)
+# - delete the cache content to regenerate the index
+#   (this could actually just add)
 # - test the index
 #   - with a view which uses the index
 #   - with a direct request to the index itself
 # - delete the cache repository and ensure that it is gone
 # - delete the view
 
-echo "create a materialization cache repository. fails due to view query" > ${ECHO_OUTPUT}
+# this proceeds without a view
+# the single index is constructed with the columns
+# - identifier
+# - string
+# - language
+# - pattern
+
+echo "create an index repository" > ${ECHO_OUTPUT}
 ${CURL} -X POST -s -w "%{http_code}\n" -u ":${STORE_TOKEN}" \
     -H "Accept: application/sparql-results+json" \
     -H "Content-Type: application/json" \
@@ -35,7 +45,7 @@ ${CURL} -X POST -s -w "%{http_code}\n" -u ":${STORE_TOKEN}" \
 EOF
 #
 
-echo 'define (or replace) the text index view query' > ${ECHO_OUTPUT}
+echo 'define (or replace) the query which uses the text index' > ${ECHO_OUTPUT}
 curl_sparql_view -X PUT -w "%{http_code}\n" \
     -H "Content-Type: application/sparql-query" \
     --account "test" \
@@ -47,7 +57,7 @@ where {
   ?subject a foaf:Person;
     foaf:name $name;
     foaf:mbox ?mbox .
-  ?name <http://jena.hpl.hp.com/ARQ/property#textMatch> 't:*' .
+  ?name <http://jena.hpl.hp.com/ARQ/property#textMatch> $namePattern .
 }
 EOF
 
@@ -72,13 +82,14 @@ echo "check view execution" >  ${ECHO_OUTPUT}
 curl_sparql_view -H "Accept: application/sparql-results+json" \
     --account "test" \
     --repository "foaf" \
+    '$namePattern=%22t:*%22' \
     byName \
     | egrep -qs '"test"';
 
 
 
 echo "check direct index access" > ${ECHO_OUTPUT}
-curl_sparql_request -X GET '$name=%22t:*%22' \
+curl_sparql_request -X GET '$pattern=%22t:*%22' \
     -H "Content-Type: " \
     -H "Accept: application/sparql-results+json" \
     --account "test" \
@@ -103,7 +114,7 @@ curl_sparql_request -X GET   -w "%{http_code}\n" \
 curl_sparql_view -X DELETE -w "%{http_code}\n" \
     --account "test" \
     --repository "foaf" \
-    --data-binary @- byName | test_delete_success
+    byName | test_delete_success
 
 
 echo "${0} complete" >  ${ECHO_OUTPUT}

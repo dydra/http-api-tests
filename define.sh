@@ -10,6 +10,11 @@
 # STORE_TOKEN : the authentication token
 # STORE_COLLABORTOR : the collaborator account : default "jhacker"
 #
+# in order to run it behind nginx to target a local host
+# define STORE_TOKEN, STORE_TOKEN_ADMIN and STORE_HOST
+# source define.sh
+# redefine STORE_URL to use http rather than https
+#
 # this defines several operators for RDF|SPARQL access to the given store
 #
 # curl_sparql_request

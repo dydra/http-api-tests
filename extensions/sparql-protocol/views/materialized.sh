@@ -1,6 +1,8 @@
 #! /bin/bash
 set -e
 
+## nb. these tests may fail while the free text implementation is in flux
+
 # exercise term identifier cache materialization
 # this is for an internal materialized view with integer indices for the parameters
 #

@@ -69,7 +69,7 @@ where {
 }
 EOF
 
-# simple sequence path in either direction
+echo "simple sequence path in either direction" > ${ECHO_OUTPUT}
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
@@ -85,6 +85,7 @@ where {
 }
 EOF
 
+echo "union constant & 2x-sequence" > ${ECHO_OUTPUT}
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
@@ -100,6 +101,7 @@ where {
 }
 EOF
 
+echo "union constant & 3x-sequence" > ${ECHO_OUTPUT}
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
@@ -115,6 +117,7 @@ where {
 }
 EOF
 
+echo "union constant & 4x-sequence" > ${ECHO_OUTPUT}
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
@@ -130,7 +133,7 @@ where {
 }
 EOF
 
-# possible sequence paths
+echo "variant sequence paths" > ${ECHO_OUTPUT}
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \

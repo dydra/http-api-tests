@@ -64,7 +64,7 @@ ${CURL} -X POST -s -w "%{http_code}\n" -u ":${STORE_TOKEN}" \
 {"name": "foaf__types__view",
  "class": "internal-view-repository",
  "sourceRepository": "test/foaf",
- "sourceView": "types"}
+ "viewName": "types"}
 EOF
 
 

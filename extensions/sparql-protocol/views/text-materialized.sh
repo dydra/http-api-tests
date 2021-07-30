@@ -18,6 +18,15 @@ set -e
 # it ields the free text values as well as the interned term identifier
 # the remainder are carried through as term identifiers only
 
+# test support
+curl_sparql_query -X GET \
+  -H "Content-Type: " \
+  -H "Accept: application/n-quads" \
+  | fgrep -qs  'http://www.w3.org/ns/sparql-service-description#TextIndex' \
+    || echo "no free text support" ; exit 0
+
+
+
 echo 'define (or replace) the "byNameMbox" view query' > ${ECHO_OUTPUT}
 curl_sparql_view -X PUT -w "%{http_code}\n" \
     -H "Content-Type: application/sparql-query" \
@@ -29,7 +38,7 @@ prefix foaf: <http://xmlns.com/foaf/0.1/> .
 select ?subject \$name ?mbox
 where {
   ?subject a foaf:Person;
-    foaf:name $name;
+    foaf:name \$name;
     foaf:mbox ?mbox .
 }
 EOF

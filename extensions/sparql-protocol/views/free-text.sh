@@ -55,6 +55,13 @@ set -e
 # - language
 # - pattern
 
+# test support
+curl_sparql_query -X GET \
+  -H "Content-Type: " \
+  -H "Accept: application/n-quads" \
+  | fgrep -qs  'http://www.w3.org/ns/sparql-service-description#TextIndex' \
+    || echo "no free text support" ; exit 0
+
 echo "create an index repository" > ${ECHO_OUTPUT}
 ${CURL} -X POST -s -w "%{http_code}\n" -u ":${STORE_TOKEN}" \
     -H "Accept: application/sparql-results+json" \

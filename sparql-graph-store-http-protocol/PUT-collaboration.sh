@@ -27,7 +27,7 @@ curl_graph_store_update -X PUT  -w "%{http_code}\n" -o /dev/null \
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PUT-triples-collab" <${STORE_NAMED_GRAPH}-collab> .
 EOF
 
-echo ")test content" > $ECHO_OUTPUT
+echo "test content" > $ECHO_OUTPUT
 curl_graph_store_get --repository "${STORE_REPOSITORY_WRITABLE}" \
  | rapper -q -i nquads -o nquads /dev/stdin | sort | diff /dev/stdin /dev/fd/3 3<<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PUT-triples-collab" .

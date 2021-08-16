@@ -21,6 +21,7 @@
 # unset STORE_URL
 # unset STORE_TOKEN
 # unset STORE_TOKEN_COLLABORATOR
+# unset STORE_TOKEN_ADMIN
 # export STORE_HOST=<host>.dydra.com
 # bash initialize-minimal.sh
 
@@ -42,6 +43,8 @@ for repository in ${STORE_REPOSITORY} ${STORE_REPOSITORY_WRITABLE} ${STORE_REPOS
     create_repository --repository $repository
     done
 create_repository --account test --repository test
+create_repository --account test --repository foaf
+create_repository --account system --repository null
 
 # authorization and metadata :
 # add authorization for authenticated users to read the repository list either from both accounts-api and the sesame resources

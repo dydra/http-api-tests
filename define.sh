@@ -186,13 +186,8 @@ fi
 # and for admin operations - in case different from user account
 if [[ "" == "${STORE_TOKEN_ADMIN}" ]]
 then
-  if [ -f ~/.dydra/${STORE_HOST}.token ]
-  then
-    export STORE_TOKEN_ADMIN=`cat ~/.dydra/${STORE_HOST}.token`
-  else
-    echo "no STORE_TOKEN_ADMIN"
-    return 1
-  fi
+  echo "reuse STORE_TOKEN as STORE_TOKEN_ADMIN"
+  export STORE_TOKEN_ADMIN="$STORE_TOKEN"
 fi
 
 
@@ -202,11 +197,8 @@ then
   if [ -f ~/.dydra/${STORE_HOST}.jhacker.token ]
   then 
     export STORE_TOKEN_COLLABORATOR=`cat ~/.dydra/${STORE_HOST}.jhacker.token`
-  elif [ -f ~/.dydra/jhacker.token ]
-  then
-    export STORE_TOKEN_COLLABORATOR=`cat ~/.dydra/jhacker.token`
   else
-    echo "no authentication token for collaborator found"
+    echo "reuse STORE_TOKEN as STORE_TOKEN_COLLABORATOR"
     export STORE_TOKEN_COLLABORATOR="${STORE_TOKEN}"
   fi
 fi

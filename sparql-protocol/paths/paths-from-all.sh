@@ -69,7 +69,7 @@ where {
 }
 EOF
 
-echo "simple sequence path in either direction" > ${ECHO_OUTPUT}
+echo "simple sequence path from sonstant subject" > ${ECHO_OUTPUT}
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \

@@ -553,6 +553,7 @@ function curl_graph_store_get () {
   local -a content_media_type=()
   local -a method=("-X" "GET")
   local -a user=(-u ":${STORE_TOKEN}")
+  local -a user_id=("user_id=$0")
   local graph=""  #  the default is all graphs
   local account=${STORE_ACCOUNT}
   local repository=${STORE_REPOSITORY}
@@ -575,11 +576,13 @@ function curl_graph_store_get () {
       --repository) repository="${2}"; shift 2; curl_url="${STORE_URL}/${account}/${repository}/service";;
       --url) curl_url="${2}"; shift 2;;
       -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
+      user_id=*) user_id=("${1}"); shift 1;;
       -X) method[1]="${2}"; shift 2;;
       *=*) url_args+=("${1}"); shift 1;;
       *) curl_args+=("${1}"); shift 1;;
     esac
   done
+  url_args+=(${user_id[@]})
   if [[ ${#url_args[*]} > 0 ]] ; then curl_url=$(IFS='&' ; echo "${curl_url}?${url_args[*]}") ; fi
   # where an empty array is possible, must be conditional due to unset variable constraint
   curl_args+=("${accept_media_type[@]}");
@@ -605,11 +608,13 @@ function curl_graph_store_update () {
   local -a data=("--data-binary" "@-")
   local -a method=("-X" "POST")
   local -a user=(-u ":${STORE_TOKEN}")
+  local -a user_id=("user_id=$0")
   local -a output="/dev/stdout"
   local graph=""  #  the default is all graphs
   local account=${STORE_ACCOUNT}
   local repository=${STORE_REPOSITORY}
   local curl_url="${GRAPH_STORE_URL}"
+  local url_args=()
   curl_url="${STORE_URL}/${account}/${repository}/service"
   while [[ "$#" > 0 ]] ; do
     case "$1" in
@@ -630,12 +635,15 @@ function curl_graph_store_update () {
         shift 2; curl_url="${STORE_URL}/${account}/${repository}/service";;
       --url) curl_url="${2}"; shift 2;;
       -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
+      user_id=*) user_id=("${1}"); shift 1;;
       -X) method[1]="${2}"; shift 2;;
       -v) curl_args+=("-v"); shift 1;;
       -w) curl_args+=("${1}" "${2}"); output="/dev/stdout"; shift 2;;
       *) curl_args+=("${1}"); shift 1;;
     esac
   done
+  url_args+=(${user_id[@]})
+  if [[ ${#url_args[*]} > 0 ]] ; then curl_url=$(IFS='&' ; echo "${curl_url}?${url_args[*]}") ; fi
   if [[ ${#accept_media_type[*]} > 0 ]] ; then curl_args+=("${accept_media_type[@]}"); fi
   if [[ ${#content_encoding[*]} > 0 ]] ; then curl_args+=("${content_encoding[@]}"); fi
   if [[ ${#content_media_type[*]} > 0 ]] ; then curl_args+=("${content_media_type[@]}"); fi

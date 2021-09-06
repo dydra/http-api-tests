@@ -6,7 +6,7 @@
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
 # execute the put with turtle.
-# succeed with the count variant which includes the revieion url
+# succeed with the count variant which includes the revision url
 echo PUT-turtle : w/successor PUT > $ECHO_OUTPUT
 curl_graph_store_update -X PUT -o /tmp/successor.nt \
      -H "Accept: application/n-quads" \

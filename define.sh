@@ -583,12 +583,12 @@ function curl_graph_store_get () {
     esac
   done
   url_args+=(${user_id[@]})
+  if [[ "${graph}" ]] ; then url_args+=(${graph}); fi
   if [[ ${#url_args[*]} > 0 ]] ; then curl_url=$(IFS='&' ; echo "${curl_url}?${url_args[*]}") ; fi
   # where an empty array is possible, must be conditional due to unset variable constraint
   curl_args+=("${accept_media_type[@]}");
   if [[ ${#content_media_type[*]} > 0 ]] ; then curl_args+=(${content_media_type[@]}); fi
   if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
-  if [[ "${graph}" ]] ; then curl_url="${curl_url}?${graph}"; fi
   if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
 
   echo ${CURL} -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
@@ -643,12 +643,12 @@ function curl_graph_store_update () {
     esac
   done
   url_args+=(${user_id[@]})
+  if [[ "${graph}" ]] ; then url_args+=(${graph}); fi
   if [[ ${#url_args[*]} > 0 ]] ; then curl_url=$(IFS='&' ; echo "${curl_url}?${url_args[*]}") ; fi
   if [[ ${#accept_media_type[*]} > 0 ]] ; then curl_args+=("${accept_media_type[@]}"); fi
   if [[ ${#content_encoding[*]} > 0 ]] ; then curl_args+=("${content_encoding[@]}"); fi
   if [[ ${#content_media_type[*]} > 0 ]] ; then curl_args+=("${content_media_type[@]}"); fi
   if [[ ${#data[*]} > 0 ]] ; then curl_args+=("${data[@]}"); fi
-  if [[ "${graph}" ]] ; then curl_url="${curl_url}?${graph}"; fi
   if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
   if [[ ${#user[*]} > 0 ]] ; then curl_args+=("${user[@]}"); fi
 

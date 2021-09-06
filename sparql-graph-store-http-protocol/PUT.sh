@@ -4,9 +4,9 @@
 # verify intermediate deletions and additions
 # verify the end result(s)
 #
-# nb. the input and test data managemenet here is convoluted and various.
+# nb. the input and test data management here is convoluted and various.
 # when run under travis, the sorts were strangely sensitive.
-# eventually constructing the entire test on the floy was the only stable method.
+# eventually constructing the entire test on the fly was the only stable method.
 
 # put with no graph : clear the repository
 # put triple content with no graph: store in the default graph. ignore any statement graph term (if permitted)

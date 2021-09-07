@@ -1,0 +1,43 @@
+#! /bin/bash
+
+# perform all post variations: default, graph=, none, (direct: nyi)
+# verify the end result
+# intended to be run manually
+
+function perform_post () {
+  curl_graph_store_update -X POST  -w "%{http_code}\n" -o /dev/null \
+     -H "Content-Type: application/n-quads" \
+     --repository "${STORE_REPOSITORY}-write"  <<EOF  \
+   | test_post_success
+<http://example.com/default-subject> <http://example.com/default-predicate> "default object POST $1" .
+<http://example.com/named-subject> <http://example.com/named-predicate> "named object POST $1" <${STORE_NAMED_GRAPH}> .
+EOF
+}
+
+function perform_query () {
+  curl_sparql_request \
+     -H "Accept: application/sparql-results+json" \
+     'query=select%20(count(*)%20as%20%3Fcount)%20where%20%7B%3Fs%20%3Fp%20%3Fo%7D' \
+     --repository "${STORE_REPOSITORY}-write" \
+   | jq '.results.bindings | .[].count.value'
+}
+
+
+echo initialize repository > $ECHO_OUTPUT
+initialize_repository --repository "${STORE_REPOSITORY}-write"
+
+echo "run post quads, no graph"  > $ECHO_OUTPUT
+( for ((i = 0; i < 100; i ++)) ; do perform_post $i; done) &
+
+echo "run queries" > $ECHO_OUTPUT
+count=0
+for ((i = 0; i < 2000; i++)) do
+  # necessary to eliminate quotes
+  count=`perform_query | sed -e 's/"\([^"]*\)"/\1/'`;
+  echo $i $count
+  if (( 100 < $count )) ; then break; fi
+  sleep 1
+done
+
+
+

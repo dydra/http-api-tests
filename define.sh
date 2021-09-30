@@ -241,6 +241,10 @@ function test_not_found_success () {
   egrep -q "${STATUS_NOT_FOUND}"
 }
 
+function test_not_implemented () {
+  egrep -q "${STATUS_NOT_IMPLEMENTED}"
+}
+
 function test_ok () {
   egrep -q "${STATUS_OK}|${STATUS_NO_CONTENT}"
 }
@@ -440,6 +444,7 @@ function curl_sparql_request () {
   local -a repository=${STORE_REPOSITORY}
 
   while [[ "$#" > 0 ]] ; do
+    # echo "arg $1";
     case "$1" in
       -H) case "$2" in
           Accept:*) accept_media_type[1]="${2}"; shift 2;;
@@ -457,7 +462,9 @@ function curl_sparql_request () {
       *=*) url_args+=("${1}"); shift 1;;
       *) curl_args+=("${1}"); shift 1;;
     esac
+    # echo "curl_args in loop ${curl_args[@]}"
   done
+  # echo "curl_args ${curl_args[@]}";
   curl_url="${STORE_URL}/${account}/${repository}/sparql"
   url_args+=(${user_id[@]})
   if [[ ${#url_args[*]} > 0 ]] ; then curl_url=$(IFS='&' ; echo "${curl_url}?${url_args[*]}") ; fi
@@ -907,12 +914,13 @@ export -f test_not_found
 export -f test_not_found_success
 export -f test_not_acceptable
 export -f test_not_acceptable_success
+export -f test_not_implemented
 export -f test_ok_success
-export -f test_success
 export -f test_ok
 export -f test_patch_success
 export -f test_post_success
 export -f test_put_success
+export -f test_success
 export -f test_unauthorized
 export -f test_unauthorized_success
 export -f test_unsupported_media

@@ -37,7 +37,7 @@ curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
     | fgrep http://example.com/default-subject | fgrep -q 'default object . PUT-trix-successor'
 
 # wait for the asynchronous successor to run
-sleep 20
+sleep 30
 
 
 # test that the result count was 1

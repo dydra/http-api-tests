@@ -5,6 +5,9 @@
 
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
+#      -H "Asynchronous-Content-Type: application/n-quads" \
+#      -H "Asynchronous-Content-Type: application/sparql-results+json" \
+
 # execute the put with turtle.
 # succeed with the count variant which includes the revision url
 echo PUT-turtle : w/successor PUT > $ECHO_OUTPUT
@@ -29,7 +32,7 @@ curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
     | fgrep http://example.com/default-subject | fgrep -q 'default object PUT-successor'
 
 # wait for the asynchronous successor to run
-sleep 20
+sleep 30
 
 
 # test that the result count was 1

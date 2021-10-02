@@ -283,7 +283,7 @@ function initialize_account () {
 # metadata
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     -u "$:{STORE_TOKEN}:" \
+     -u ":${STORE_TOKEN}" \
      ${STORE_URL}/${STORE_ACCOUNT}/system <<EOF
 <http://dydra.com/accounts/openrdf-sesame> <urn:dydra:baseIRI> <http://dydra.com/accounts/openrdf-sesame> <http://dydra.com/accounts/openrdf-sesame> .
 EOF
@@ -308,7 +308,7 @@ function initialize_repository_configuration () {
 # metadata
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     -u "$:{STORE_TOKEN}:" \
+     -u ":${STORE_TOKEN}" \
      ${STORE_URL}/${STORE_ACCOUNT}/system <<EOF
 <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:baseIRI> <http://www.openrdf.org/mem-rdf> <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> .
 <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:skolemize> "false"^^<http://www.w3.org/2001/XMLSchema#boolean> <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> .
@@ -330,7 +330,7 @@ function initialize_repository_rdf_graphs () {
 ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
      -H "Accept: application/n-quads" \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     -u "$:{STORE_TOKEN}:" \
+     -u ":${STORE_TOKEN}" \
      ${GRAPH_STORE_URL} <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
@@ -343,7 +343,7 @@ ${CURL} -w "%{http_code}\n" -f -s -X POST \
      -H "Content-Type: application/json" \
      -H "Accept: " \
      --data-binary @- \
-     -u "$:{STORE_TOKEN}:" \
+     -u ":${STORE_TOKEN}" \
      ${STORE_URL}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/profile <<EOF 
 {
     "name": "mem-rdf",

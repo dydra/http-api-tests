@@ -30,7 +30,7 @@ function async_graph_store_update () {
   index=$1
   curl_graph_store_update -X POST -w "%{http_code}\n" -o /dev/null \
     -H "Accept-Asynchronous: notify" \
-    -H "Asynchronous-Location: http://${STORE_HOST}/${STORE_ACCOUNT}/${STORE_REPOSITORY_WRITABLE}/service" \
+    -H "Asynchronous-Location: https://${STORE_HOST}/${STORE_ACCOUNT}/${STORE_REPOSITORY_WRITABLE}/service" \
     -H "Asynchronous-Method: POST" \
     -H "Asynchronous-Content-Type: application/ld+json" \
     -H "Accept: application/json" \

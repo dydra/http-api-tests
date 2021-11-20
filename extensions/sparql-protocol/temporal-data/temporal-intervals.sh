@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# exercise interval constructors, accessors and combinators
+# exercise interval constructors and predicates
 # check datatypes and successful counts
 
 curl_sparql_request revision-id=HEAD <<EOF \

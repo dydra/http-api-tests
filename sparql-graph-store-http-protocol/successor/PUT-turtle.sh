@@ -27,15 +27,16 @@ EOF
 export repositoryRevisionUUID=`fgrep 'http://www.w3.org/ns/activitystreams#object' /tmp/successor.nt | sed 's/.*revision=\([^>]*\).*/\1/'`
 echo "repositoryRevisionUUID: $repositoryRevisionUUID" > $ECHO_OUTPUT
 
-echo PUT-turtle : test gps update completion > $ECHO_OUTPUT
+echo PUT-turtle : test gsp update completion > $ECHO_OUTPUT
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
     | fgrep http://example.com/default-subject | fgrep -q 'default object PUT-successor'
 
 # wait for the asynchronous successor to run
-sleep 30
+sleep 45
 
 
 # test that the result count was 1
+# this fails on occasion, when the async update commits after the get is staged, but not yet run.
 echo PUT-turtle : test successor query completion > $ECHO_OUTPUT
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
     | fgrep openrdf-sesame/mem-rdf-write | fgrep -q '"1"^^<http://www.w3.org/2001/XMLSchema#integer>'

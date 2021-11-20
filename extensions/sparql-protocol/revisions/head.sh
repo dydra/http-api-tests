@@ -11,7 +11,7 @@ WHERE { { graph ?g  { ?s ?p ?o } } union { ?s ?p ?o } }
 EOF
 
 else
-  echo "${STORE_ACCOUNT}/${STORE_REPOSITORY} has just one revision"
+  echo "${0}: ${STORE_ACCOUNT}/${STORE_REPOSITORY} has just one revision"
 fi
 
 

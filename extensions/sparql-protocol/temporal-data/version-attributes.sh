@@ -3,15 +3,15 @@
 # set a revisioned repository to a known state
 # in order to apply queries with version attributes
 
-### first, clear the repository
+echo "first, clear the repository" > $ECHO_OUTPUT
 ### checks, also that it exists
-curl -X DELETE -H "Accept: text/turtle" --user ":${STORE_TOKEN}" \
+curl -q -X DELETE -H "Accept: text/turtle" --user ":${STORE_TOKEN}" -o $ECHO_OUTPUT \
   "https://${STORE_HOST}/system/accounts/test/repositories/test__rev/revisions"
 
 
-## create three revisions
+echo "create three revisions" > $ECHO_OUTPUT
 for i in 1 2 3; do
-  curl_graph_store_update -X PUT -o /dev/null \
+  curl_graph_store_update -X PUT -o $ECHO_OUTPUT \
      -H "Content-Type: text/turtle" \
      --account test --repository test__rev <<EOF
 <http://example.com/default-subject>
@@ -19,7 +19,7 @@ for i in 1 2 3; do
 EOF
 done
 
-## verify single head
+echo "next, verify single head" > $ECHO_OUTPUT
 curl_sparql_request revision-id=HEAD \
    --account test --repository test__rev <<EOF \
    | tee $ECHO_OUTPUT | fgrep -c 'PUT3' | fgrep -q "1"
@@ -32,7 +32,7 @@ where {
 }
 EOF
 
-## verify three revisions
+echo "next, verify three revisions" > $ECHO_OUTPUT
 curl_sparql_request 'revision-id=*--*' \
    --account test --repository test__rev <<EOF \
    | tee $ECHO_OUTPUT | fgrep -c 'PUT' | fgrep -q "3"
@@ -45,7 +45,7 @@ where {
 }
 EOF
 
-## verify version attributes
+echo "next, verify version attributes of the second revision" > $ECHO_OUTPUT
 curl_sparql_request 'revision-id=*--*' \
    --account test --repository test__rev <<EOF \
    | tee $ECHO_OUTPUT | fgrep -c 'PUT2' | fgrep -q "1"

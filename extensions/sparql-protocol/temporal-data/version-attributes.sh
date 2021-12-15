@@ -5,7 +5,7 @@
 
 echo "first, clear the repository" > $ECHO_OUTPUT
 ### checks, also that it exists
-curl -q -X DELETE -H "Accept: text/turtle" --user ":${STORE_TOKEN}" -o $ECHO_OUTPUT \
+curl -s -X DELETE -H "Accept: text/turtle" --user ":${STORE_TOKEN}" -o $ECHO_OUTPUT \
   "https://${STORE_HOST}/system/accounts/test/repositories/test__rev/revisions"
 
 

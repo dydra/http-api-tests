@@ -10,9 +10,23 @@ curl_sparql_request \
 select count(*)
 where {
  ?s ?p ?o .
- filter (?o != 2 && ?o != 2 || ?o != 3)
+ filter (?o != 'a' && ?o != 'a' || ?o != 'c')
 }
 EOF
 
 
 
+cat >/dev/null <<EOF
+(expand-query "
+(test-sparql "
+# the initial version used these number constants.
+# the fail as they are not comparale
+select count(*)
+where {
+ ?s ?p ?o .
+ filter (?o != 1 && ?o != 1 || ?o != 3)
+}
+"
+:repository-id "openrdf-sesame/mem-rdf"
+:agent (system-agent))
+EOF

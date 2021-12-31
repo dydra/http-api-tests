@@ -39,10 +39,12 @@ sleep 30
 # jsonld knows triples only: both statements are in the default graph
 echo PUT-rj : test successor query completion > $ECHO_OUTPUT
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
-    | fgrep openrdf-sesame/mem-rdf-write | fgrep -q '"2"^^<http://www.w3.org/2001/XMLSchema#integer>'
+    | tee ${ECHO_OUTPUT} \
+    | fgrep openrdf-sesame/mem-rdf-write | fgrep -qi '"2"^^<http://www.w3.org/2001/XMLSchema#integer>'
 
 # test that the revision was adopted
-echo PUT-rj : test successor query completion > $ECHO_OUTPUT
+echo PUT-rj : test successor query completion using $repositoryRevisionUUID > $ECHO_OUTPUT
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
-    | fgrep 'http://www.w3.org/ns/activitystreams#object' | fgrep -q "$repositoryRevisionUUID"
+    | tee ${ECHO_OUTPUT} \
+    | fgrep 'http://www.w3.org/ns/activitystreams#object' | fgrep -qi "$repositoryRevisionUUID"
 

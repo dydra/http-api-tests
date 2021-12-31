@@ -39,10 +39,12 @@ sleep 45
 # this fails on occasion, when the async update commits after the get is staged, but not yet run.
 echo PUT-turtle : test successor query completion > $ECHO_OUTPUT
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
+    | tee ${ECHO_OUTPUT} \
     | fgrep openrdf-sesame/mem-rdf-write | fgrep -q '"1"^^<http://www.w3.org/2001/XMLSchema#integer>'
 
 # test that the revision was adopted
-echo PUT-turtle : test successor query completion > $ECHO_OUTPUT
+echo PUT-turtle : test successor query completion using $repositoryRevisionUUID > $ECHO_OUTPUT
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
-    | fgrep 'http://www.w3.org/ns/activitystreams#object' | fgrep -q "$repositoryRevisionUUID"
+    | tee ${ECHO_OUTPUT} \
+    | fgrep 'http://www.w3.org/ns/activitystreams#object' | fgrep -qi "$repositoryRevisionUUID"
 

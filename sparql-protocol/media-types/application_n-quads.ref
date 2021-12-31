@@ -14,8 +14,8 @@ _:subject <http://example.org/predicate> "1"^^<http://www.w3.org/2001/XMLSchema#
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#byte> "127"^^<http://www.w3.org/2001/XMLSchema#byte> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#date> "-2014-01-01"^^<http://www.w3.org/2001/XMLSchema#date> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#date> "2014-01-01"^^<http://www.w3.org/2001/XMLSchema#date> .
+<http://example.org/default> <http://www.w3.org/2001/XMLSchema#dateTime> "0001-01-01T00:00:00.001"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#dateTime> "2099-12-31T23:23:59.999"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
-<http://example.org/default> <http://www.w3.org/2001/XMLSchema#dateTime> "0001-00-00T00:00:00.001"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#dayTimeDuration> "-P31DT23H59M59S"^^<http://www.w3.org/2001/XMLSchema#dayTimeDuration> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#dayTimeDuration> "P31DT23H59M59S"^^<http://www.w3.org/2001/XMLSchema#dayTimeDuration> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#decimal> "-1.1"^^<http://www.w3.org/2001/XMLSchema#decimal> .
@@ -32,8 +32,8 @@ _:subject <http://example.org/predicate> "1"^^<http://www.w3.org/2001/XMLSchema#
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#gMonth> "--12"^^<http://www.w3.org/2001/XMLSchema#gMonth> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#gMonthDay> "--01-01"^^<http://www.w3.org/2001/XMLSchema#gMonthDay> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#gMonthDay> "--12-31"^^<http://www.w3.org/2001/XMLSchema#gMonthDay> .
-<http://example.org/default> <http://www.w3.org/2001/XMLSchema#gYear> "2099-12-31T23:23:59.999"^^<http://www.w3.org/2001/XMLSchema#gYear> .
-<http://example.org/default> <http://www.w3.org/2001/XMLSchema#gYear> "0001-00-00T00:00:00.001"^^<http://www.w3.org/2001/XMLSchema#gYear> .
+<http://example.org/default> <http://www.w3.org/2001/XMLSchema#gYear> "0001"^^<http://www.w3.org/2001/XMLSchema#gYear> .
+<http://example.org/default> <http://www.w3.org/2001/XMLSchema#gYear> "2099"^^<http://www.w3.org/2001/XMLSchema#gYear> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#gYearMonth> "0001-01"^^<http://www.w3.org/2001/XMLSchema#gYearMonth> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#gYearMonth> "2099-12"^^<http://www.w3.org/2001/XMLSchema#gYearMonth> .
 <http://example.org/default> <http://www.w3.org/2001/XMLSchema#hexBinary> "0123456789abcdef"^^<http://www.w3.org/2001/XMLSchema#hexBinary> .

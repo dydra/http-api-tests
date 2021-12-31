@@ -84,12 +84,12 @@
   <triple>
    <uri>http://example.org/default</uri>
    <uri>http://www.w3.org/2001/XMLSchema#dateTime</uri>
-   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#dateTime">2099-12-31T23:23:59.999</typedLiteral>
+   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#dateTime">0001-01-01T00:00:00.001</typedLiteral>
   </triple>
   <triple>
    <uri>http://example.org/default</uri>
    <uri>http://www.w3.org/2001/XMLSchema#dateTime</uri>
-   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#dateTime">0001-00-00T00:00:00.001</typedLiteral>
+   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#dateTime">2099-12-31T23:23:59.999</typedLiteral>
   </triple>
   <triple>
    <uri>http://example.org/default</uri>
@@ -174,12 +174,12 @@
   <triple>
    <uri>http://example.org/default</uri>
    <uri>http://www.w3.org/2001/XMLSchema#gYear</uri>
-   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#gYear">2099-12-31T23:23:59.999</typedLiteral>
+   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#gYear">0001</typedLiteral>
   </triple>
   <triple>
    <uri>http://example.org/default</uri>
    <uri>http://www.w3.org/2001/XMLSchema#gYear</uri>
-   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#gYear">0001-00-00T00:00:00.001</typedLiteral>
+   <typedLiteral datatype="http://www.w3.org/2001/XMLSchema#gYear">2099</typedLiteral>
   </triple>
   <triple>
    <uri>http://example.org/default</uri>

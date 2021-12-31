@@ -3,6 +3,12 @@
 # set a revisioned repository to a known state
 # in order to apply queries with version attributes
 
+if [[ -z "${STORE_STATEMENT_ANNOTATION}" ]]
+then
+  echo "no statement annotation";
+  exit 0
+fi
+
 echo "first, clear the repository" > $ECHO_OUTPUT
 ### checks, also that it exists
 curl -s -X DELETE -H "Accept: text/turtle" --user ":${STORE_TOKEN}" -o $ECHO_OUTPUT \
@@ -39,7 +45,7 @@ curl_sparql_request 'revision-id=*--*' \
 prefix dydra: <urn:dydra>
 prefix time: <http://www.w3.org/2006/time#>
 prefix : <http://example.org#>
-select ?subject ?predicate ?object ?addedOrdinal ?deletedOrdinal
+select ?subject ?predicate ?object
 where {
    ?subject ?predicate ?object
 }
@@ -64,6 +70,51 @@ where {
           {| dydra:met-by ?predecessorDeletedOrdinal;
              dydra:starts ?addedOrdinal;
              dydra:finishes ?deletedOrdinal;
+             dydra:meets ?successorAddedOrdinal |}.
+    filter (?deletedOrdinal = dydraOp:repository-end-ordinal())
+}
+EOF
+
+
+echo "next pass, with collated statements" > $ECHO_OUTPUT
+### checks, also that it exists
+curl -s -X DELETE -H "Accept: text/turtle" --user ":${STORE_TOKEN}" -o $ECHO_OUTPUT \
+  "https://${STORE_HOST}/system/accounts/test/repositories/test__rev/revisions"
+
+
+echo "create three revisions of collated statements" > $ECHO_OUTPUT
+for i in 1 2 3; do
+  curl_graph_store_update -X PUT -o $ECHO_OUTPUT \
+     -H "Content-Type: text/turtle" \
+     --account test --repository test__rev <<EOF
+<http://example.com/default-subject>
+    <http://example.com/default-predicate1> "default object PUT-o1${i} ;
+    <http://example.com/default-predicate2> "default object PUT-o2${i} ;
+    <http://example.com/default-predicate3> "default object PUT-o3${i}" .
+EOF
+done
+
+echo "next, verify version attributes of the second revision" > $ECHO_OUTPUT
+curl_sparql_request 'revision-id=HEAD-1' \
+   --account test --repository test__rev <<EOF \
+   | tee $ECHO_OUTPUT | fgrep -c 'PUT2' | fgrep -q "1"
+prefix dydra: <urn:dydra>
+prefix dydraOp: <http://dydra.com/sparql-functions#>
+prefix time: <http://www.w3.org/2006/time#>
+prefix : <http://example.org#>
+
+select ?subject ?predicate ?object
+       ?predecessorDeletedOrdinal ?addedOrdinal ?deletedOrdinal ?successorAddedOrdinal
+where {
+   # dydra:met-by is the end of previous visibility
+   # dydra:starts is the current visibility with modified content
+   # the added ordinal is 0, then the statements were added for the first time
+   ?subject <http://example.com/default-predicate1> ?object1 .
+   ?subject <http://example.com/default-predicate2> ?object2
+          {| dydra:met-by ?predecessorDeletedOrdinal;
+             dydra:starts ?addedOrdinal; |} .
+   ?subject <http://example.com/default-predicate3> ?object3 
+          {| dydra:finishes ?deletedOrdinal;
              dydra:meets ?successorAddedOrdinal |}.
     filter (?deletedOrdinal = dydraOp:repository-end-ordinal())
 }

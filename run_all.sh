@@ -6,6 +6,8 @@ function run () {
   cat failed.txt >> failed_all.txt
 }
 
+set_store_features
+
 if [[ "$1" != "" ]]
 then
   for ((i = 0; i < $1; i ++)) do

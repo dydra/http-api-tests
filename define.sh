@@ -888,6 +888,15 @@ function repository_has_revisions () {
   -H "Accept: text/plain" | wc | fgrep -q -v "1      37"
 }
 
+function set_store_features () {
+  # capture the service description
+  bash sparql-protocol/service-description.sh
+  if `fgrep -q statementAnnotation service-description.ttl` ; then export STORE_STATEMENT_ANNOTATION="true"; fi
+  if `fgrep -q indexedTimes service-description.ttl` ; then export STORE_INDEXED_TIMES="true"; fi
+  if `fgrep -q indexedRevisions service-description.ttl` ; then export STORE_INDEXED_REVISIONS="true"; fi
+}
+
+
 export -f create_account
 export -f create_repository
 export -f delete_repository
@@ -904,6 +913,7 @@ export -f curl_graph_store_get_code
 export -f curl_graph_store_update
 export -f curl_download
 export -f curl_tpf_get
+export -f set_store_features
 export -f set_sparql_url
 export -f set_graph_store_url
 export -f set_download_url

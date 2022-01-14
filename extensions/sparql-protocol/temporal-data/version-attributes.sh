@@ -3,7 +3,7 @@
 # set a revisioned repository to a known state
 # in order to apply queries with version attributes
 
-if [[ -z "${STORE_STATEMENT_ANNOTATION}" ]]
+if [[ -z "${STORE_STATEMENT_ANNOTATION:-}" ]]
 then
   echo "no statement annotation";
   exit 0

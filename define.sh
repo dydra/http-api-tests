@@ -194,9 +194,9 @@ fi
 # and one for another registered user
 if [[ "" == "${STORE_TOKEN_COLLABORATOR}" ]]
 then
-  if [ -f ~/.dydra/${STORE_HOST}.jhacker.token ]
+  if [ -f ~/.dydra/${STORE_HOST}.${STORE_COLLABORATOR}.token ]
   then 
-    export STORE_TOKEN_COLLABORATOR=`cat ~/.dydra/${STORE_HOST}.jhacker.token`
+    export STORE_TOKEN_COLLABORATOR=`cat ~/.dydra/${STORE_HOST}.${STORE_COLLABORATOR}.token`
   else
     echo "reuse STORE_TOKEN as STORE_TOKEN_COLLABORATOR"
     export STORE_TOKEN_COLLABORATOR="${STORE_TOKEN}"
@@ -819,7 +819,7 @@ function create_repository() {
       --class) class="${2}"; shift 2;;
       --repository) repository="${2}"; shift 2;;
       --temporal_properties) temporal_properties=", \"temporal-properties\": \"${2}\" "; shift 2 ;;
-      --time_series_properties) time_series_properties=", \"time-series-properties\": \"${2}\" "; shift 2 ;;
+      --event_properties) event_properties=", \"event-properties\": \"${2}\" "; shift 2 ;;
       *) curl_args+=("${1}"); shift 1;;
     esac
   done
@@ -831,7 +831,7 @@ function create_repository() {
      -u ":${STORE_TOKEN_ADMIN}" ${URL} <<EOF
 {"repository": {"name": "${repository}", "class": "${class}"
                  ${temporal_properties}
-                 ${time_series_properties}
+                 ${event_properties}
                }
  }
 EOF
@@ -891,9 +891,18 @@ function repository_has_revisions () {
 function set_store_features () {
   # capture the service description
   bash sparql-protocol/service-description.sh
-  if `fgrep -q statementAnnotation service-description.ttl` ; then export STORE_STATEMENT_ANNOTATION="true"; fi
-  if `fgrep -q indexedTimes service-description.ttl` ; then export STORE_INDEXED_TIMES="true"; fi
-  if `fgrep -q indexedRevisions service-description.ttl` ; then export STORE_INDEXED_REVISIONS="true"; fi
+  if `fgrep -q statementAnnotation service-description.ttl`
+    then export STORE_STATEMENT_ANNOTATION="true"
+    else export STORE_STATEMENT_ANNOTATION="false"
+  fi
+  if `fgrep -q indexedTimes service-description.ttl`
+    then export STORE_INDEXED_TIMES="true"
+    else export STORE_INDEXED_TIMES="false"
+  fi
+  if `fgrep -q indexedEvents service-description.ttl`
+    then export STORE_INDEXED_EVENTS="true"
+    else export STORE_INDEXED_EVENTS="false"
+  fi
 }
 
 

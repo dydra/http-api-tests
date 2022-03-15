@@ -32,19 +32,15 @@ if [[ "" == "${STORE_TOKEN}" ]]
 then source ./define.sh
 fi
 
-
-
-
-
 for account in ${STORE_ACCOUNT} jhacker test; do create_account $account; done
 
 for repository in ${STORE_REPOSITORY} ${STORE_REPOSITORY_WRITABLE} ${STORE_REPOSITORY_PUBLIC} ${STORE_REPOSITORY_PROVENANCE} \
                   foaf collation inference ldp public tpf; do
-    create_repository --repository $repository ${STORE_REPOSITORY_CLASS}
-    done
-create_repository --account test --repository test  ${STORE_REPOSITORY_CLASS}
-create_repository --account test --repository foaf ${STORE_REPOSITORY_CLASS}
-create_repository --account system --repository null ${STORE_REPOSITORY_CLASS}
+    create_repository --repository $repository --class ${STORE_REPOSITORY_CLASS}
+done
+create_repository --account test --repository test --class ${STORE_REPOSITORY_CLASS}
+create_repository --account test --repository foaf --class ${STORE_REPOSITORY_CLASS}
+create_repository --account system --repository null --class ${STORE_REPOSITORY_CLASS}
 
 # authorization and metadata :
 # add authorization for authenticated users to read the repository list either from both accounts-api and the sesame resources

@@ -3,8 +3,8 @@
 # retrieve and output all views for a given repository
 # not intended to be run as a regression test
 # for example
-# TOKEN=$AUTH bash get_views.sh --account jhacker --host dydra.com --mime application/sparql-query
-# TOKEN=$AUTH bash get_views.sh --account jhacker --host dydra.com --mime application/sparql-query+json
+# bash get_views --account jhacker --host dydra.com --token=$AUTH --mime application/sparql-query
+# bash get_views --account jhacker --host dydra.com --token=$AUTH --mime application/sparql-query+json
 
 ACCOUNT="jhacker"
 REPOSITORY="system"
@@ -18,7 +18,8 @@ while [[ "$#" > 0 ]] ; do
     --host) HOST="${2}"; shift 2;;
     --mime) MIME="${2}"; shift 2;;
     --repository) REPOSITORY="${2}"; shift 2;;
-    *) "echo ${0} --account --host --repository --token"; exit 1;;
+    --token) TOKEN="${2}"; shift 2;;
+    *) echo "usage: ${0} --account --host --repository --token"; exit 1;;
   esac
 done
 if [[ "" == "$TOKEN" ]]

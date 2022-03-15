@@ -674,6 +674,14 @@ function clear_repository_content () {
 EOF
 }
 
+function clear_repository_revisions () {
+  local -a URL="${STORE_URL}/system/accounts/${1}/repositories/${2}/revisions"
+  ${CURL} -f -s -X DELETE  -w "%{http_code}\n" \
+     -H "Accept: text/turtle" \
+     -u ":${STORE_TOKEN_ADMIN}" ${URL}
+}
+# clear_repository_revisions test test-revisioned-repository
+
 # initialize_repository_content { --repository $repository-name } { --url $url }
 # clear everything, insert one statement each in the default and the named graphs
 function initialize_repository_content () {
@@ -946,6 +954,7 @@ export -f test_unsupported_media
 export -f test_updated
 
 export -f clear_repository_content
+export -f clear_repository_revisions
 export -f initialize_account
 export -f initialize_repository
 export -f initialize_all_repositories

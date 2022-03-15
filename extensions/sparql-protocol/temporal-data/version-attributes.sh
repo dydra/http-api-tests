@@ -32,13 +32,13 @@ curl_sparql_request revision-id=HEAD \
 prefix dydra: <urn:dydra>
 prefix time: <http://www.w3.org/2006/time#>
 prefix : <http://example.org#>
-select ?subject ?predicate ?object ?addedOrdinal ?deletedOrdinal
+select ?subject ?predicate ?object
 where {
    ?subject ?predicate ?object
 }
 EOF
 
-echo "next, verify three revisions" > $ECHO_OUTPUT
+echo "next, verify three revisions w/o attribute" > $ECHO_OUTPUT
 curl_sparql_request 'revision-id=*--*' \
    --account test --repository test__rev <<EOF \
    | tee $ECHO_OUTPUT | fgrep -c 'PUT' | fgrep -q "3"
@@ -50,6 +50,21 @@ where {
    ?subject ?predicate ?object
 }
 EOF
+
+
+echo "next, verify three revisions w/ attribute" > $ECHO_OUTPUT
+curl_sparql_request 'revision-id=*--*' \
+   --account test --repository test__rev <<EOF \
+   | tee $ECHO_OUTPUT | fgrep -c 'PUT' | fgrep -q "3"
+prefix dydra: <urn:dydra>
+prefix time: <http://www.w3.org/2006/time#>
+prefix : <http://example.org#>
+select ?subject ?predicate ?object ?addedOrdinal
+where {
+   ?subject ?predicate ?object {| dydra:starts ?addedOrdinal |}
+}
+EOF
+
 
 echo "next, verify version attributes of the second revision" > $ECHO_OUTPUT
 curl_sparql_request 'revision-id=*--*' \
@@ -71,6 +86,7 @@ where {
              dydra:starts ?addedOrdinal;
              dydra:finishes ?deletedOrdinal;
              dydra:meets ?successorAddedOrdinal |}.
+    # the end ordinal is for the third revision
     filter (?deletedOrdinal = dydraOp:repository-end-ordinal())
 }
 EOF
@@ -88,16 +104,16 @@ for i in 1 2 3; do
      -H "Content-Type: text/turtle" \
      --account test --repository test__rev <<EOF
 <http://example.com/default-subject>
-    <http://example.com/default-predicate1> "default object PUT-o1${i} ;
-    <http://example.com/default-predicate2> "default object PUT-o2${i} ;
+    <http://example.com/default-predicate1> "default object PUT-o1${i}" ;
+    <http://example.com/default-predicate2> "default object PUT-o2${i}" ;
     <http://example.com/default-predicate3> "default object PUT-o3${i}" .
 EOF
 done
 
 echo "next, verify version attributes of the second revision" > $ECHO_OUTPUT
-curl_sparql_request 'revision-id=HEAD-1' \
+curl_sparql_request 'revision-id=*--*' \
    --account test --repository test__rev <<EOF \
-   | tee $ECHO_OUTPUT | fgrep -c 'PUT2' | fgrep -q "1"
+   | tee $ECHO_OUTPUT | fgrep -c 'default-subject' | fgrep -q "9"
 prefix dydra: <urn:dydra>
 prefix dydraOp: <http://dydra.com/sparql-functions#>
 prefix time: <http://www.w3.org/2006/time#>
@@ -109,13 +125,12 @@ where {
    # dydra:met-by is the end of previous visibility
    # dydra:starts is the current visibility with modified content
    # the added ordinal is 0, then the statements were added for the first time
+   # dydra:met-by is the end of previous visibility
+   # dydra:starts is the current visibility with modified content
+   # the added ordinal is 0, then the statements were added for the first time
    ?subject <http://example.com/default-predicate1> ?object1 .
-   ?subject <http://example.com/default-predicate2> ?object2
-          {| dydra:met-by ?predecessorDeletedOrdinal;
-             dydra:starts ?addedOrdinal; |} .
-   ?subject <http://example.com/default-predicate3> ?object3 
-          {| dydra:finishes ?deletedOrdinal;
-             dydra:meets ?successorAddedOrdinal |}.
-    filter (?deletedOrdinal = dydraOp:repository-end-ordinal())
+   ?subject <http://example.com/default-predicate2> ?object2 {| dydra:met-by ?predecessorDeletedOrdinal; dydra:starts ?addedOrdinal; |} .
+   ?subject <http://example.com/default-predicate3> ?object3 {| dydra:finishes ?deletedOrdinal; dydra:meets ?successorAddedOrdinal |}.
+   filter (?deletedOrdinal = dydraOp:repository-end-ordinal())
 }
 EOF

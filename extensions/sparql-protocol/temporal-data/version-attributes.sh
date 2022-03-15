@@ -88,8 +88,8 @@ for i in 1 2 3; do
      -H "Content-Type: text/turtle" \
      --account test --repository test__rev <<EOF
 <http://example.com/default-subject>
-    <http://example.com/default-predicate1> "default object PUT-o1${i} ;
-    <http://example.com/default-predicate2> "default object PUT-o2${i} ;
+    <http://example.com/default-predicate1> "default object PUT-o1${i}" ;
+    <http://example.com/default-predicate2> "default object PUT-o2${i}" ;
     <http://example.com/default-predicate3> "default object PUT-o3${i}" .
 EOF
 done

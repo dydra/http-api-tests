@@ -134,3 +134,39 @@ where {
    filter (?deletedOrdinal = dydraOp:repository-end-ordinal())
 }
 EOF
+
+echo "next pass, with incrementally inserted statements" > $ECHO_OUTPUT
+### checks, also that it exists
+curl -s -X DELETE -H "Accept: text/turtle" --user ":${STORE_TOKEN}" -o $ECHO_OUTPUT \
+  "https://${STORE_HOST}/system/accounts/test/repositories/test__rev/revisions"
+
+echo "create three revisions" > $ECHO_OUTPUT
+for i in 1 2 3; do
+  curl_graph_store_update -X POST -o $ECHO_OUTPUT \
+     -H "Content-Type: text/turtle" \
+     --account test --repository test__rev default <<EOF
+<http://example.com/default-subject>
+    <http://example.com/default-predicate> "default object POST${i}" .
+EOF
+done
+
+echo "next, verify single head with 3 statements" > $ECHO_OUTPUT
+curl_sparql_request revision-id=HEAD \
+   --account test --repository test__rev <<EOF \
+   | tee $ECHO_OUTPUT | fgrep -c 'POST' | fgrep -q "3"
+select ?subject ?predicate ?object
+where {
+   ?subject ?predicate ?object
+}
+EOF
+
+echo "next, verify annotated statement pattern also returns 3 statements" > $ECHO_OUTPUT
+curl_sparql_request revision-id=HEAD \
+   --account test --repository test__rev <<EOF \
+   | tee $ECHO_OUTPUT | fgrep -c 'POST' | fgrep -q "3"
+prefix dydra: <urn:dydra>
+select ?subject ?predicate ?object ?addedOrdinal
+where {
+   ?subject ?predicate ?object {| dydra:starts ?addedOrdinal |}
+}
+EOF

@@ -17,6 +17,6 @@ curl_sparql_request \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" \
      --repository "${STORE_REPOSITORY}-write"<<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep -q "name-moved"
+   | tee ${ECHO_OUTPUT} | jq '.results.bindings[] | .[].value' | fgrep -q "name-moved"
 select ?g where { graph ?g { ?s ?p ?o } }
 EOF

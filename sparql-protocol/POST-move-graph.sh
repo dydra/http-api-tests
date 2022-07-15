@@ -9,8 +9,8 @@ curl_sparql_request \
      -H "Content-Type: application/sparql-update" \
      --repository "${STORE_REPOSITORY}-write" <<EOF \
    | jq '.boolean' | fgrep -q 'true'
-move <http://dydra.com/openrdf-sesame/mem-rdf/graph-name>
-to <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-moved>
+move <http://dydra.com/${STORE_ACCOUNT}/${STORE_REPOSITORY}/graph-name>
+to <http://dydra.com/${STORE_ACCOUNT}/${STORE_REPOSITORY}/graph-name-moved>
 EOF
 
 curl_sparql_request \

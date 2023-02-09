@@ -875,11 +875,11 @@ function delete_revisions () {
      -u ":${STORE_TOKEN_ADMIN}" ${URL}
 }
 
-# repository_is_revisioned { --account $account } {--repository $repository}
-# tests whether the repository is revisioned or not,
-# regardless of whether it has actually stored multiple revisions or not
+# repository_revision_count { --account $account } {--repository $repository}
+# returns the revision count from dydra's repository introspection,
+# 0 for an unrevisioned repository, >=1 for revisioned repositories
 
-function repository_is_revisioned () {
+function repository_revision_count () {
   local -a curl_args=()
   local -a account="${STORE_ACCOUNT}"
   local -a repository="new"
@@ -891,11 +891,52 @@ function repository_is_revisioned () {
     esac
   done
 curl_sparql_request --account ${account} --repository ${repository} revision-id=HEAD <<EOF \
-   | tee $ECHO_OUTPUT | jq -r '.results.bindings[].revisionCount.value' | egrep -q '^[1-9][0-9]*$'
+   | tee $ECHO_OUTPUT | jq -r '.results.bindings[].revisionCount.value'
 prefix dydra: <http://dydra.com/sparql-functions#>
 select (dydra:repository-revision-count() as ?revisionCount)
 where {}
 EOF
+}
+
+# repository_is_revisioned { --account $account } {--repository $repository}
+# tests whether the repository is revisioned or not,
+# regardless of whether it has actually stored multiple revisions or not
+
+function repository_is_revisioned () {
+  repository_revision_count $@ | egrep -q '^[1-9][0-9]*$'
+}
+
+# repository_is_revisioned { --account $account } {--repository $repository}
+# returns the number of actual revisions,
+# that is, it returns at least 1,
+# and, incidentally, also 1 for an unrevisioned repository
+
+function repository_number_of_revisions () {
+  local -a user=(-u ":${STORE_TOKEN}")
+  local account=${STORE_ACCOUNT}
+  local repository=${STORE_REPOSITORY}
+  local -a curl_args=()
+  local curl_url=""
+
+  local -a method=("-X" "GET")
+  local -a user=(-u ":${STORE_TOKEN}")
+  local revision=""
+  local repository="${STORE_REPOSITORY}"
+  local path=""
+
+  while [[ "$#" > 0 ]] ; do
+    case "$1" in
+      --account) account="${2}"; shift 2;;
+      --repository) repository="${2}"; shift 2;;
+      -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
+    esac
+  done
+  if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
+  curl_url="${STORE_URL}/system/accounts/${account}/repositories/${repository}/revisions";
+
+  echo ${CURL} -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
+  ${CURL} -f -s "${curl_args[@]}" ${curl_url} \
+  -H "Accept: text/plain" | wc -l
 }
 
 # repository_has_revisions { --account $account } {--repository $repository}
@@ -993,4 +1034,6 @@ export -f initialize_prefixes
 export -f initialize_privacy
 
 export -f delete_revisions
+export -f repository_revision_count
 export -f repository_is_revisioned
+export -f repository_number_of_revisions

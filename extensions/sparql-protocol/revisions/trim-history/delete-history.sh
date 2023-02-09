@@ -3,14 +3,14 @@
 repository=${STORE_REPOSITORY_REVISIONED}
 # repository=unrevisioned
 
-if [[ "" == "${INFO_OUTPUT}" ]]
+if [[ "" == "${INFO_OUTPUT:-}" ]]
 then
   export INFO_OUTPUT=${ECHO_OUTPUT} # /dev/null # /dev/tty
 fi
 
 # q option for grep
 q=-q
-q=""
+#q=""
 
 if ( repository_is_revisioned --repository ${repository})
 then

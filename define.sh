@@ -862,18 +862,21 @@ function delete_revisions () {
   local -a curl_args=()
   local -a account="${STORE_ACCOUNT}"
   local -a repository="new"
+  local url_args=()
   while [[ "$#" > 0 ]] ; do
     case "$1" in
       --account) account="${2}"; shift 2;;
       --repository) repository="${2}"; shift 2;;
+      *=*) url_args+=("${1}"); shift 1;;
       *) curl_args+=("${1}"); shift 1;;
     esac
   done
-  local -a URL="${STORE_URL}/system/accounts/${account}/repositories/${repository}/revisions"
+  local -a curl_url="${STORE_URL}/system/accounts/${account}/repositories/${repository}/revisions"
+  if [[ ${#url_args[*]} > 0 ]] ; then curl_url=$(IFS='&' ; echo "${curl_url}?${url_args[*]}") ; fi
   ${CURL} -f -s -X DELETE "${curl_args[@]}" \
      -o /dev/null \
      -H "Accept: application/n-quads" \
-     -u ":${STORE_TOKEN_ADMIN}" ${URL}
+     -u ":${STORE_TOKEN_ADMIN}" ${curl_url}
 }
 
 # repository_revision_count { --account $account } {--repository $repository}

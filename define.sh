@@ -69,6 +69,9 @@ fi
 export STORE_REPOSITORY_WRITABLE="${STORE_REPOSITORY}-write"
 export STORE_REPOSITORY_PROVENANCE="${STORE_REPOSITORY}-provenance"
 export STORE_REPOSITORY_PUBLIC="${STORE_REPOSITORY}-public"
+export STORE_REPOSITORY_REVISIONED="${STORE_REPOSITORY}-revisioned"
+export STORE_REPOSITORY_CLASS="lmdb-quad-repository"
+export STORE_REVISIONED_REPOSITORY_CLASS="lmdb-revisioned-repository"
 export STORE_CLIENT_IP="127.0.0.1"
 export STORE_PREFIX="rdf"
 export STORE_DGRAPH="sesame"
@@ -810,7 +813,7 @@ function create_repository() {
   local -a curl_args=()
   local -a account="${STORE_ACCOUNT}"
   local -a repository="new"
-  local -a class=lmdb-quad-repository
+  local -a class="${STORE_REPOSITORY_CLASS}"
   local -a temporal_properties=""
   local -a time_series_properties=""
   while [[ "$#" > 0 ]] ; do
@@ -824,6 +827,7 @@ function create_repository() {
     esac
   done
   local -a URL="${STORE_URL}/system/accounts/${account}/repositories"
+  echo "create repository: ${account}/${repository}, class: ${class}" > $ECHO_OUTPUT
   ${CURL} -w "%{http_code}\n" -f -s -X POST "${curl_args[@]}" \
      -H "Content-Type: application/json" \
      -H "Accept: application/n-quads" \

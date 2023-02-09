@@ -21,4 +21,3 @@ curl_graph_store_get \
      -H "Accept: application/n-quads" --repository "${STORE_REPOSITORY}-write" \
    | tr -s '\n' '\t' \
    | fgrep 'trix-graph-name' | fgrep -q 'PUT-trix'
-

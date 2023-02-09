@@ -854,6 +854,23 @@ function delete_repository () {
      -u ":${STORE_TOKEN_ADMIN}" ${URL}
 }
 
+function delete_revisions () {
+  local -a curl_args=()
+  local -a account="${STORE_ACCOUNT}"
+  local -a repository="new"
+  while [[ "$#" > 0 ]] ; do
+    case "$1" in
+      --account) account="${2}"; shift 2;;
+      --repository) repository="${2}"; shift 2;;
+      *) curl_args+=("${1}"); shift 1;;
+    esac
+  done
+  local -a URL="${STORE_URL}/system/accounts/${account}/repositories/${repository}/revisions"
+  ${CURL} -w "%{http_code}\n" -f -s -X DELETE "${curl_args[@]}" \
+     -H "Accept: application/n-quads" \
+     -u ":${STORE_TOKEN_ADMIN}" ${URL}
+}
+
 # repository_has_revisions { --account $account } {--repository $repository}
 # tests whether the repository contins more than one revision
 # this rather than whether it has the revision metadata sub-databases,
@@ -949,4 +966,4 @@ export -f initialize_collaboration
 export -f initialize_prefixes
 export -f initialize_privacy
 
-
+export -f delete_revisions

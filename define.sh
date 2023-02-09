@@ -70,8 +70,8 @@ export STORE_REPOSITORY_WRITABLE="${STORE_REPOSITORY}-write"
 export STORE_REPOSITORY_PROVENANCE="${STORE_REPOSITORY}-provenance"
 export STORE_REPOSITORY_PUBLIC="${STORE_REPOSITORY}-public"
 export STORE_REPOSITORY_REVISIONED="${STORE_REPOSITORY}-revisioned"
-export STORE_REPOSITORY_CLASS="lmdb-quad-repository"
-export STORE_REVISIONED_REPOSITORY_CLASS="lmdb-revisioned-repository"
+export STORE_REPOSITORY_CLASS_DEFAULT="lmdb-quad-repository"
+export STORE_REVISIONED_REPOSITORY_CLASS_DEFAULT="lmdb-revisioned-repository"
 export STORE_CLIENT_IP="127.0.0.1"
 export STORE_PREFIX="rdf"
 export STORE_DGRAPH="sesame"
@@ -813,7 +813,7 @@ function create_repository() {
   local -a curl_args=()
   local -a account="${STORE_ACCOUNT}"
   local -a repository="new"
-  local -a class="${STORE_REPOSITORY_CLASS}"
+  local -a class="${STORE_REPOSITORY_CLASS_DEFAULT}"
   local -a temporal_properties=""
   local -a time_series_properties=""
   while [[ "$#" > 0 ]] ; do
@@ -875,8 +875,31 @@ function delete_revisions () {
      -u ":${STORE_TOKEN_ADMIN}" ${URL}
 }
 
+# repository_is_revisioned { --account $account } {--repository $repository}
+# tests whether the repository is revisioned or not,
+# regardless of whether it has actually stored multiple revisions or not
+
+function repository_is_revisioned () {
+  local -a curl_args=()
+  local -a account="${STORE_ACCOUNT}"
+  local -a repository="new"
+  while [[ "$#" > 0 ]] ; do
+    case "$1" in
+      --account) account="${2}"; shift 2;;
+      --repository) repository="${2}"; shift 2;;
+      *) curl_args+=("${1}"); shift 1;;
+    esac
+  done
+curl_sparql_request --account ${account} --repository ${repository} revision-id=HEAD <<EOF \
+   | tee $ECHO_OUTPUT | jq -r '.results.bindings[].revisionCount.value' | egrep -q '^[1-9][0-9]*$'
+prefix dydra: <http://dydra.com/sparql-functions#>
+select (dydra:repository-revision-count() as ?revisionCount)
+where {}
+EOF
+}
+
 # repository_has_revisions { --account $account } {--repository $repository}
-# tests whether the repository contins more than one revision
+# tests whether the repository contains more than one revision
 # this rather than whether it has the revision metadata sub-databases,
 # as the tests require more than one revision
 
@@ -886,7 +909,6 @@ function repository_has_revisions () {
   local repository=${STORE_REPOSITORY}
   local -a curl_args=()
   local curl_url=""
-
 
   local -a method=("-X" "GET")
   local -a user=(-u ":${STORE_TOKEN}")
@@ -971,3 +993,4 @@ export -f initialize_prefixes
 export -f initialize_privacy
 
 export -f delete_revisions
+export -f repository_is_revisioned

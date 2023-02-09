@@ -870,7 +870,8 @@ function delete_revisions () {
     esac
   done
   local -a URL="${STORE_URL}/system/accounts/${account}/repositories/${repository}/revisions"
-  ${CURL} -w "%{http_code}\n" -f -s -X DELETE "${curl_args[@]}" \
+  ${CURL} -f -s -X DELETE "${curl_args[@]}" \
+     -o /dev/null \
      -H "Accept: application/n-quads" \
      -u ":${STORE_TOKEN_ADMIN}" ${URL}
 }

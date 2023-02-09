@@ -25,6 +25,8 @@ curl_graph_store_update -X PUT -o /tmp/successor.nt \
 EOF
 
 export repositoryRevisionUUID=`fgrep 'http://www.w3.org/ns/activitystreams#object' /tmp/successor.nt | sed 's/.*revision=\([^>]*\).*/\1/'`
+rm /tmp/successor.nt
+
 echo "repositoryRevisionUUID: $repositoryRevisionUUID" > $ECHO_OUTPUT
 
 echo PUT-turtle : test gsp update completion > $ECHO_OUTPUT

@@ -38,7 +38,6 @@ for repository in ${STORE_REPOSITORY} ${STORE_REPOSITORY_WRITABLE} ${STORE_REPOS
                   foaf collation inference ldp public tpf; do
     create_repository --repository $repository --class ${STORE_REPOSITORY_CLASS}
 done
-create_repository --repository ${STORE_REPOSITORY_REVISIONED} --class ${STORE_REVISIONED_REPOSITORY_CLASS}
 create_repository --account test --repository test --class ${STORE_REPOSITORY_CLASS}
 create_repository --account test --repository foaf --class ${STORE_REPOSITORY_CLASS}
 create_repository --account system --repository null --class ${STORE_REPOSITORY_CLASS}

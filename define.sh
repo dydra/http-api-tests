@@ -910,12 +910,10 @@ function repository_is_revisioned () {
   repository_revision_count $@ | egrep -q '^[1-9][0-9]*$'
 }
 
-# repository_is_revisioned { --account $account } {--repository $repository}
-# returns the number of actual revisions,
-# that is, it returns at least 1,
-# and, incidentally, also 1 for an unrevisioned repository
+# repository_list_revisions { --account $account } {--repository $repository}
+# returns list of revision UUIDs
 
-function repository_number_of_revisions () {
+function repository_list_revisions () {
   local -a user=(-u ":${STORE_TOKEN}")
   local account=${STORE_ACCOUNT}
   local repository=${STORE_REPOSITORY}
@@ -940,7 +938,16 @@ function repository_number_of_revisions () {
 
   echo ${CURL} -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
   ${CURL} -f -s "${curl_args[@]}" ${curl_url} \
-  -H "Accept: text/plain" | wc -l
+  -H "Accept: text/plain"
+}
+
+# repository_number_of_revisions { --account $account } {--repository $repository}
+# returns the number of actual revisions,
+# that is, it returns at least 1,
+# and, incidentally, also 1 for an unrevisioned repository
+
+function repository_number_of_revisions () {
+  repository_list_revisions $@ | wc -l
 }
 
 # repository_has_revisions { --account $account } {--repository $repository}
@@ -949,31 +956,7 @@ function repository_number_of_revisions () {
 # as the tests require more than one revision
 
 function repository_has_revisions () {
-  local -a user=(-u ":${STORE_TOKEN}")
-  local account=${STORE_ACCOUNT}
-  local repository=${STORE_REPOSITORY}
-  local -a curl_args=()
-  local curl_url=""
-
-  local -a method=("-X" "GET")
-  local -a user=(-u ":${STORE_TOKEN}")
-  local revision=""
-  local repository="${STORE_REPOSITORY}"
-  local path=""
-
-  while [[ "$#" > 0 ]] ; do
-    case "$1" in
-      --account) account="${2}"; shift 2;;
-      --repository) repository="${2}"; shift 2;;
-      -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
-    esac
-  done
-  if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
-  curl_url="${STORE_URL}/system/accounts/${account}/repositories/${repository}/revisions";
-
-  echo ${CURL} -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
-  ${CURL} -f -s "${curl_args[@]}" ${curl_url} \
-  -H "Accept: text/plain" | wc | fgrep -q -v "1      37"
+  repository_list_revisions $@ | wc | fgrep -q -v "1      37"
 }
 
 function set_store_features () {
@@ -1041,3 +1024,4 @@ export -f delete_revisions
 export -f repository_revision_count
 export -f repository_is_revisioned
 export -f repository_number_of_revisions
+export -f repository_list_revisions

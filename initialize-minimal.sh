@@ -45,6 +45,7 @@ done
 # configred as revisioned true in /srv/dydra/config/server.conf:
 create_repository --repository ${STORE_REPOSITORY_REVISIONED} --class ${rev_class}
 create_repository --account test --repository test --class ${class}
+create_repository --account test --repository test__rev --class ${rev_class}
 create_repository --account test --repository foaf --class ${class}
 create_repository --account system --repository null --class ${class}
 

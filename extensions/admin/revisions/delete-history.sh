@@ -38,7 +38,7 @@ EOF
 }
 
 echo "initial test after delete revisions" > ${INFO_OUTPUT}
-delete_revisions --repository ${repository}
+delete_revisions --repository ${repository} | fgrep -x 200 > ${GREP_OUTPUT}
 repository_number_of_revisions --repository ${repository} | fgrep -qx "1"
 
 add_quad 1
@@ -62,8 +62,8 @@ curl_graph_store_get --repository mem-rdf-revisioned revision-id=HEAD   | tr -s 
 #repository_list_revisions --repository ${repository}
 
 echo "calling DELETE-HISTORY: remove all revisions prior to HEAD~1" > ${INFO_OUTPUT}
-delete_revisions --repository ${repository} revision-id=HEAD~1 mode=delete-history
-#delete_revisions --repository ${repository} revision-id=HEAD~1 mode=project-history
+delete_revisions --repository ${repository} revision-id=HEAD~1 mode=delete-history | fgrep -x 200 > ${GREP_OUTPUT}
+#delete_revisions --repository ${repository} revision-id=HEAD~1 mode=project-history | fgrep -x 200 > ${GREP_OUTPUT}
 repository_number_of_revisions --repository ${repository} | fgrep -qx "3"
 echo "have three revisions now: HEAD~1, HEAD, and a new revision from the trim-history command itself" > ${INFO_OUTPUT}
 

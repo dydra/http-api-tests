@@ -873,7 +873,7 @@ function delete_revisions () {
   done
   local -a curl_url="${STORE_URL}/system/accounts/${account}/repositories/${repository}/revisions"
   if [[ ${#url_args[*]} > 0 ]] ; then curl_url=$(IFS='&' ; echo "${curl_url}?${url_args[*]}") ; fi
-  ${CURL} -f -s -X DELETE "${curl_args[@]}" \
+  ${CURL} -w "%{http_code}\n" -f -s -X DELETE "${curl_args[@]}" \
      -o /dev/null \
      -H "Accept: application/n-quads" \
      -u ":${STORE_TOKEN_ADMIN}" ${curl_url}

@@ -14,7 +14,7 @@ else
 fi
 
 echo "initial test after delete revisions" > ${ECHO_OUTPUT}
-delete_revisions --repository ${repository}
+delete_revisions --repository ${repository} | fgrep -xq 200
 repository_number_of_revisions --repository ${repository} | fgrep -qx "1"
 
 echo "put something in, thus creating a second revision" > ${ECHO_OUTPUT}
@@ -26,5 +26,5 @@ EOF
 repository_number_of_revisions --repository ${repository} | fgrep -qx "2"
 
 echo "delete revisions again and test" > ${ECHO_OUTPUT}
-delete_revisions --repository ${repository}
+delete_revisions --repository ${repository} | fgrep -xq 200
 repository_number_of_revisions --repository ${repository} | fgrep -qx "1"

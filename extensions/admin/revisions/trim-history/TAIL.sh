@@ -14,6 +14,8 @@ add_quad 2
 repository_number_of_revisions --repository ${repository} | fgrep -x "3" > ${GREP_OUTPUT}
 curl_graph_store_get --repository mem-rdf-revisioned | tr -s '\n' '\t' | fgrep "object-1" | fgrep "object-2" > ${GREP_OUTPUT}
 
-echo "remove all revisions prior to HEAD should leave just one revision + the operation's revision" > ${INFO_OUTPUT}
-delete_revisions --repository ${repository} revision-id=HEAD mode=delete-history | fgrep -x 200 > ${GREP_OUTPUT}
-repository_number_of_revisions --repository ${repository} | fgrep -x "2" > ${GREP_OUTPUT}
+echo "remove all revisions prior to TAIL should do nothing as TAIL has no history" > ${INFO_OUTPUT}
+# Note the test for HTTP 204 here, as delete-history of TAIL should lead to 204 no content:
+delete_revisions --repository ${repository} revision-id=TAIL mode=delete-history | fgrep -x 204 > ${GREP_OUTPUT}
+echo "... and it should even not add another revision" > ${INFO_OUTPUT}
+repository_number_of_revisions --repository ${repository} | fgrep -x "3" > ${GREP_OUTPUT}

@@ -24,15 +24,25 @@ else
 fi
 
 function add_quad() {
-    local object="object-"${1:-0}
-    before=$(repository_number_of_revisions --repository ${repository})
+  local -a method=("-X" "POST")
+  local object="object"
+  while [[ "$#" > 0 ]] ; do
+    case "$1" in
+        -X) method[1]="${2}"; shift 2;;
+        *) object+="-${1}"; shift 1;;
+    esac
+  done
+  #echo "method: ${method[@]}" > ${INFO_OUTPUT}
+  #echo "object: $object" > ${INFO_OUTPUT}
 
-    echo "put in ${object}, thus adding revision" > ${INFO_OUTPUT}
-    curl_graph_store_update --repository ${repository} -X POST -o /dev/null <<EOF \
-        | tee ${ECHO_OUTPUT}
+  before=$(repository_number_of_revisions --repository ${repository})
+
+  echo "put in ${object}, thus adding revision" > ${INFO_OUTPUT}
+  curl_graph_store_update --repository ${repository} -X POST -o /dev/null <<EOF \
+      | tee ${ECHO_OUTPUT}
 <http://example.com/default-subject> <http://example.com/default-predicate> "${object}" <http://example.com/default-graph> .
 EOF
 
-    after=$(repository_number_of_revisions --repository ${repository})
-    test $[$before+1] -eq $after
+  after=$(repository_number_of_revisions --repository ${repository})
+  test $[$before+1] -eq $after
 }

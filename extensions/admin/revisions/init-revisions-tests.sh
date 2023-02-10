@@ -3,16 +3,6 @@
 repository=${STORE_REPOSITORY_REVISIONED}
 # repository=unrevisioned
 
-if ( repository_is_revisioned --repository ${repository})
-then
-  echo
-  echo "    ${0}: ${STORE_ACCOUNT}/${repository} is revisioned" # > ${ECHO_OUTPUT}
-else
-  echo
-  echo "    ${0}: ${STORE_ACCOUNT}/${repository} is not revisioned" # > ${ECHO_OUTPUT}
-  exit 1
-fi
-
 if [[ "" == "${INFO_OUTPUT:-}" ]]
 then
   export INFO_OUTPUT=${ECHO_OUTPUT} # /dev/null # /dev/tty
@@ -23,6 +13,15 @@ then
   export GREP_OUTPUT=${ECHO_OUTPUT} # /dev/null # /dev/tty
 fi
 
+if ( repository_is_revisioned --repository ${repository})
+then
+  echo -e "\n    ${0}: ${STORE_ACCOUNT}/${repository} is revisioned" > ${INFO_OUTPUT}
+else
+  echo -e "\n    ${0}: ${STORE_ACCOUNT}/${repository} is not revisioned" > ${INFO_OUTPUT}
+  # We use the seperate repository ${STORE_REPOSITORY_REVISIONED} now,
+  # which should always be revisioned. So error in case it is not:
+  exit 1
+fi
 
 function add_quad() {
     local object="object-"${1:-0}

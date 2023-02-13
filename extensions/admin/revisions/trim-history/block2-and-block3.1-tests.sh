@@ -35,10 +35,13 @@ curl_graph_store_get --repository mem-rdf-revisioned | tr -s '\n' '\t' \
 
 repository_list_revisions --repository ${repository}
 
-echo "check visibilities of quads in last four revisions" > ${INFO_OUTPUT}
+echo "check visibilities of quads in all revisions" > ${INFO_OUTPUT}
+echo "check visibilities of quads in revisions HEAD~4: empty revision" > ${INFO_OUTPUT}
 # HEAD~4 is tail and gives 404 already
 #curl_graph_store_get --repository mem-rdf-revisioned revision-id=HEAD~4| tr -s '\n' '\t' \
     #    | fgrep -v "object-3.1" | fgrep -v "object-3.2" | fgrep -v "object-2.1" | fgrep -v "object-2.2" > ${GREP_OUTPUT}
+result=$(curl_graph_store_get_code_nofail --repository mem-rdf-revisioned revision-id=HEAD~4 2>&1 > /dev/null)
+test "$result" -eq "404"
 echo "check visibilities of quads in revisions HEAD~3" > ${INFO_OUTPUT}
 curl_graph_store_get --repository mem-rdf-revisioned revision-id=HEAD~3 | tr -s '\n' '\t' \
     | fgrep    "object-3.1" | fgrep -v "object-3.2" | fgrep -v "object-2.1" | fgrep -v "object-2.2" > ${GREP_OUTPUT}

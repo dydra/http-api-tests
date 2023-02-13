@@ -1,5 +1,9 @@
 #! /bin/bash
 
+# not really a tests but sourced in the other tests
+# but can also ran as a simple test to make sure that
+# ${STORE_REPOSITORY_REVISIONED} is really a revisioned repository
+
 repository=${STORE_REPOSITORY_REVISIONED}
 # repository=unrevisioned
 

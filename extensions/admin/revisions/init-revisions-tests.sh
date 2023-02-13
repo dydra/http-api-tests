@@ -38,7 +38,7 @@ function add_quad() {
   before=$(repository_number_of_revisions --repository ${repository})
 
   echo "put in ${object}, thus adding revision" > ${INFO_OUTPUT}
-  curl_graph_store_update --repository ${repository} -X POST -o /dev/null <<EOF \
+  curl_graph_store_update --repository ${repository} ${method[@]} -o /dev/null <<EOF \
       | tee ${ECHO_OUTPUT}
 <http://example.com/default-subject> <http://example.com/default-predicate> "${object}" <http://example.com/default-graph> .
 EOF

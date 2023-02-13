@@ -99,14 +99,6 @@ echo "have five revisions now: HEAD~3 through HEAD, and a new revision from the 
 
 echo "check visibilities of quads in all revisions again after trim-history in mode \"${mode}\"" > ${INFO_OUTPUT}
 
-# HEAD~3 is boundary revision
-# object-4.1 was inserted in HEAD~5 and deleted before the boundary in HEAD~4,
-#    is inserted after the boundary in HEAD and was not visible at the boundary
-# object-4.2 was inserted before the boundary in HEAD~4 and deleted at the boundary in HEAD~3,
-#    is inserted after the boundary in HEAD~2 and was not visible at the boundary
-# object-extra was inserted at the boundary in HEAD~3
-# object-foo was inserted after the boundary in HEAD~1 and is not affected by the trim operation
-
 rev="HEAD~4"
 echo "check visibilities of quads in revisions ${rev}" > ${INFO_OUTPUT}
 curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev} | tr -s '\n' '\t' \

@@ -557,7 +557,7 @@ function curl_graph_store_delete () {
 }
 
 # curl_graph_store_get { -H $accept-header-argument } {--repository $repository} { graph }
-function curl_graph_store_get () {
+function curl_graph_store_get_nofail () {
   local -a curl_args=()
   local -a accept_media_type=("-H" "Accept: $STORE_GRAPH_MEDIA_TYPE")
   local -a content_media_type=()
@@ -601,13 +601,21 @@ function curl_graph_store_get () {
   if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
   if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
 
-  echo ${CURL} -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
-  ${CURL} -f -s "${curl_args[@]}" ${curl_url}
+  echo ${CURL} -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
+  ${CURL} -s "${curl_args[@]}" ${curl_url}
+}
+
+function curl_graph_store_get () {
+  curl_graph_store_get_nofail -f $@
 }
 
 # curl_graph_store_get_code { $accept-header-argument } { graph }
 function curl_graph_store_get_code () {
   curl_graph_store_get -w "%{http_code}\n" $@
+}
+
+function curl_graph_store_get_code_nofail () {
+  curl_graph_store_get_nofail -w "%{stderr}%{http_code}\n" $@
 }
 
 function curl_graph_store_update () {
@@ -980,7 +988,9 @@ export -f curl_sparql_view
 export -f curl_graph_store_clear
 export -f curl_graph_store_delete
 export -f curl_graph_store_get
+export -f curl_graph_store_get_nofail
 export -f curl_graph_store_get_code
+export -f curl_graph_store_get_code_nofail
 export -f curl_graph_store_update
 export -f curl_download
 export -f curl_tpf_get

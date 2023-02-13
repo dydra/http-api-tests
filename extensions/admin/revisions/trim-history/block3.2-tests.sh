@@ -15,19 +15,19 @@ result=$(curl_graph_store_get_code_nofail --repository mem-rdf-revisioned 2>&1 >
 test "$result" -eq "404"
 
 add_quad -X POST 3.3
-repository_number_of_revisions --repository ${repository} | fgrep -x "2" | fgrep -v "object-foo" > ${GREP_OUTPUT}
+repository_number_of_revisions --repository ${repository} | fgrep -x "2" > ${GREP_OUTPUT}
 curl_graph_store_get --repository mem-rdf-revisioned | tr -s '\n' '\t' \
-    | fgrep    "object-3.3" | fgrep -v "object-3.4" | fgrep -v "object-3.4-extra" > ${GREP_OUTPUT}
+    | fgrep    "object-3.3" | fgrep -v "object-3.4" | fgrep -v "object-3.4-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 
 add_quad -X PUT 3.4 # also delete 3.3
-repository_number_of_revisions --repository ${repository} | fgrep -x "3" | fgrep -v "object-foo" > ${GREP_OUTPUT}
+repository_number_of_revisions --repository ${repository} | fgrep -x "3" > ${GREP_OUTPUT}
 curl_graph_store_get --repository mem-rdf-revisioned | tr -s '\n' '\t' \
-    | fgrep -v "object-3.3" | fgrep    "object-3.4" | fgrep -v "object-3.4-extra" > ${GREP_OUTPUT}
+    | fgrep -v "object-3.3" | fgrep    "object-3.4" | fgrep -v "object-3.4-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 
 add_quad -X POST 3.4-extra # just an extra quad not really necessary
-repository_number_of_revisions --repository ${repository} | fgrep -x "4" | fgrep -v "object-foo" > ${GREP_OUTPUT}
+repository_number_of_revisions --repository ${repository} | fgrep -x "4" > ${GREP_OUTPUT}
 curl_graph_store_get --repository mem-rdf-revisioned | tr -s '\n' '\t' \
-    | fgrep -v "object-3.3" | fgrep    "object-3.4" | fgrep    "object-3.4-extra" > ${GREP_OUTPUT}
+    | fgrep -v "object-3.3" | fgrep    "object-3.4" | fgrep    "object-3.4-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 
 add_quad -X POST 3.3 # inserts 3.3 again
 repository_number_of_revisions --repository ${repository} | fgrep -x "5" > ${GREP_OUTPUT}

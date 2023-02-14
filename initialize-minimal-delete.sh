@@ -10,12 +10,12 @@ fi
 
 for repository in ${STORE_REPOSITORY} ${STORE_REPOSITORY_WRITABLE} ${STORE_REPOSITORY_PUBLIC} ${STORE_REPOSITORY_PROVENANCE} \
                   foaf collation inference ldp public tpf; do
-    echo delete_repository --repository $repository
     delete_repository --repository $repository
 done
-echo delete_repository --account test --repository test
+delete_repository --repository ${STORE_REPOSITORY_REVISIONED}
 delete_repository --account test --repository test
-echo delete_repository --account test --repository foaf
 delete_repository --account test --repository foaf
-echo NOT DELETING: delete_repository --account system --repository null
+
+echo "NOT DELETING: delete_repository --account system --repository null"
+echo "  (as it can only be created again via dydra-admin)"
 #delete_repository --account system --repository null

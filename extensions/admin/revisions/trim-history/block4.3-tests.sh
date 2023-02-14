@@ -33,9 +33,9 @@ add_quad -X POST foo # boundary revision
 repository_number_of_revisions --repository ${repository} | fgrep -x "5" > ${GREP_OUTPUT}
 curl_graph_store_get --repository ${repository} | tr -s '\n' '\t' \
     | fgrep    "object-4.4b" | fgrep    "object-4.4c" | fgrep    "object-extra" | fgrep    "object-foo" > ${GREP_OUTPUT}
-echo "before put extra, press key"; read
+##echo "before put extra, press key"; read
 add_quad -X PUT extra # no change to extra itself but all other quads are deleted
-echo "after put extra, press key"; read
+##echo "after put extra, press key"; read
 repository_number_of_revisions --repository ${repository} | fgrep -x "6" > ${GREP_OUTPUT}
 curl_graph_store_get --repository ${repository} | tr -s '\n' '\t' \
     | fgrep -v "object-4.4b" | fgrep -v "object-4.4c" | fgrep    "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
@@ -88,11 +88,11 @@ curl_graph_store_get --repository ${repository} revision-id=${rev}   | tr -s '\n
     | fgrep -v "object-4.4b" | fgrep    "object-4.4c" | fgrep    "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 
 # repository_list_revisions --repository ${repository}
-echo "before trim history in $mode, press key"; read
+##echo "before trim history in $mode, press key"; read
 rev="HEAD~2"
 echo "calling ${mode}: remove all revisions prior to ${rev}" > ${INFO_OUTPUT}
 delete_revisions --repository ${repository} revision-id=${rev} mode="$mode" | fgrep -x 200 > ${GREP_OUTPUT}
-echo "after trim history in $mode, press key"; read
+##echo "after trim history in $mode, press key"; read
 repository_number_of_revisions --repository ${repository} | fgrep -x "4" > ${GREP_OUTPUT}
 echo "have four revisions now: HEAD~2 through HEAD, and a new revision from the trim-history command itself" > ${INFO_OUTPUT}
 

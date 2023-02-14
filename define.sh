@@ -885,6 +885,7 @@ function delete_revisions () {
      -o /dev/null \
      -H "Accept: application/n-quads" \
      -u ":${STORE_TOKEN_ADMIN}" ${curl_url}
+  ##echo -e "\n\npress key to continue ${url_args[*]}" > /dev/tty; read
 }
 
 # repository_revision_count { --account $account } {--repository $repository}

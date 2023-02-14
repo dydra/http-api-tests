@@ -2,7 +2,7 @@
 
 source ../init-revisions-tests.sh
 
-for mode in delete-history project-history; do
+for mode in project-history delete-history; do
 
     echo "testing $0 in mode \"${mode}\"..." > ${INFO_OUTPUT}
 

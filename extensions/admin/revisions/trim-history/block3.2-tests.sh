@@ -2,7 +2,7 @@
 
 source ../init-revisions-tests.sh
 
-for mode in delete-history project-history; do
+for mode in project-history delete-history; do
 
     echo "testing $0 in mode \"${mode}\"..." > ${INFO_OUTPUT}
 
@@ -86,6 +86,7 @@ echo "have three revisions now: HEAD~1, HEAD, and a new revision from the trim-h
 
 case "${mode}" in
     "project-history")
+
 echo "check visibilities of quads in all revisions again after trim-history in mode \"${mode}\"" > ${INFO_OUTPUT}
 rev="HEAD~2"
 echo "check visibilities of quads in revisions ${rev} - boundary revision" > ${INFO_OUTPUT}
@@ -99,8 +100,10 @@ rev="HEAD"
 echo "check visibilities of quads in revisions ${rev} - trim operation revision (identical to previous)" > ${INFO_OUTPUT}
 curl_graph_store_get --repository ${repository} revision-id=${rev}   | tr -s '\n' '\t' \
     | fgrep    "object-3.3" | fgrep    "object-3.4" | fgrep    "object-3.4-extra" | fgrep    "object-foo" > ${GREP_OUTPUT}
+
 ;;
     "delete-history")
+
 echo "check visibilities of quads in all revisions again after trim-history in mode \"${mode}\"" > ${INFO_OUTPUT}
 rev="HEAD~2"
 echo "check visibilities of quads in revisions ${rev} - boundary revision" > ${INFO_OUTPUT}
@@ -114,6 +117,7 @@ rev="HEAD"
 echo "check visibilities of quads in revisions ${rev} - trim operation revision (identical to previous)" > ${INFO_OUTPUT}
 curl_graph_store_get --repository ${repository} revision-id=${rev}   | tr -s '\n' '\t' \
     | fgrep    "object-3.3" | fgrep -v "object-3.4" | fgrep -v "object-3.4-extra" | fgrep    "object-foo" > ${GREP_OUTPUT}
+
 ;;
     *) echo "Error: unknown mode \"${mode}\""
        exit 2

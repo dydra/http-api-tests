@@ -33,6 +33,7 @@ add_quad -X POST foo # boundary revision
 repository_number_of_revisions --repository ${repository} | fgrep -x "5" > ${GREP_OUTPUT}
 curl_graph_store_get --repository ${repository} | tr -s '\n' '\t' \
     | fgrep    "object-4.4b" | fgrep    "object-4.4c" | fgrep    "object-extra" | fgrep    "object-foo" > ${GREP_OUTPUT}
+
 ##echo "before put extra, press key"; read
 add_quad -X PUT extra # no change to extra itself but all other quads are deleted
 ##echo "after put extra, press key"; read
@@ -53,6 +54,16 @@ curl_graph_store_get --repository ${repository} | tr -s '\n' '\t' \
 # object-4.4c was inserted in HEAD~4 and deleted after the boundary in HEAD~1 and inserted in HEAD again
 # object-extra was inserted HEAD~3 (and is PUT again in HEAD~1 but that makes no difference to it)
 # object-foo was inserted in HEAD~2 and deleted in HEAD~1
+
+# Note on object-extra:
+#   It is added as a PUT just after the boundary and not touched anymore after that.
+#   Because of that, it has a delete and an insert with the pivot ID (= the ID after
+#   the boundary in the visibilty index of that statement/quad), which are both equal
+#   to the last ID (= the last ID in that visibility index).
+#   This needs to be treated as a 4.4c case, that is, the post position (= position
+#   after the pivot in that visibility index) needs to be retained.
+#   This was a bug in the first version of the algorithm, which incorrectly treated
+#   it as a 4.4b case and thus dropped the quad completely.
 
 echo "check visibilities of quads in all revisions" > ${INFO_OUTPUT}
 rev="HEAD~6"
@@ -127,19 +138,16 @@ curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' 
     | fgrep -v "object-4.4b" | fgrep -v "object-4.4c" | fgrep -v "object-extra" | fgrep    "object-foo" > ${GREP_OUTPUT}
 rev="HEAD~2"
 echo "check visibilities of quads in revisions ${rev}" > ${INFO_OUTPUT}
-# HEAD~2 is completely empty, and results in HTTP 404
-#curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' '\t' \
-#    | fgrep -v "object-4.4b" | fgrep -v "object-4.4c" | fgrep -v "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
-result=$(curl_graph_store_get_code_nofail --repository ${repository} revision-id=${rev} 2>&1 > /dev/null)
-test "$result" -eq "404"
+curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' '\t' \
+    | fgrep -v "object-4.4b" | fgrep -v "object-4.4c" | fgrep    "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 rev="HEAD~1"
 echo "check visibilities of quads in revisions ${rev}" > ${INFO_OUTPUT}
 curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' '\t' \
-    | fgrep -v "object-4.4b" | fgrep    "object-4.4c" | fgrep -v "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
+    | fgrep -v "object-4.4b" | fgrep    "object-4.4c" | fgrep    "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 rev="HEAD"
 echo "check visibilities of quads in revisions ${rev} - trim operation revision (identical to previous)"   > ${INFO_OUTPUT}
 curl_graph_store_get --repository ${repository} revision-id=${rev}   | tr -s '\n' '\t' \
-    | fgrep -v "object-4.4b" | fgrep    "object-4.4c" | fgrep -v "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
+    | fgrep -v "object-4.4b" | fgrep    "object-4.4c" | fgrep    "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 
 ;;
 

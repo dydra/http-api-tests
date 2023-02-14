@@ -486,11 +486,11 @@ function curl_sparql_request () {
 
 
 function curl_sparql_query () {
-  curl_sparql_request -H "Content-Type:application/sparql-query" $@
+  curl_sparql_request -H "Content-Type:application/sparql-query" "$@"
 }
 
 function curl_sparql_update () {
-  curl_sparql_request -H "Content-Type:application/sparql-update" $*
+  curl_sparql_request -H "Content-Type:application/sparql-update" "$@"
 }
 
 
@@ -553,7 +553,7 @@ function curl_sparql_view () {
 
 # curl_graph_store_delete { -H $accept-header-argument } { graph }
 function curl_graph_store_delete () {
-  curl_graph_store_get -X DELETE $@
+  curl_graph_store_get -X DELETE "$@"
 }
 
 # curl_graph_store_get { -H $accept-header-argument } {--repository $repository} { graph }
@@ -606,16 +606,16 @@ function curl_graph_store_get_nofail () {
 }
 
 function curl_graph_store_get () {
-  curl_graph_store_get_nofail -f $@
+  curl_graph_store_get_nofail -f "$@"
 }
 
 # curl_graph_store_get_code { $accept-header-argument } { graph }
 function curl_graph_store_get_code () {
-  curl_graph_store_get -w "%{http_code}\n" $@
+  curl_graph_store_get -w "%{http_code}\n" "$@"
 }
 
 function curl_graph_store_get_code_nofail () {
-  curl_graph_store_get_nofail -w "%{stderr}%{http_code}\n" $@
+  curl_graph_store_get_nofail -w "%{stderr}%{http_code}\n" "$@"
 }
 
 function curl_graph_store_update () {
@@ -676,12 +676,12 @@ function curl_graph_store_update () {
 
 
 function curl_graph_store_clear () {
-  curl_graph_store_update -X DELETE $@ -o /dev/null <<EOF
+  curl_graph_store_update -X DELETE "$@" -o /dev/null <<EOF
 EOF
 }
 
 function clear_repository_content () {
-  curl_graph_store_update -X PUT $@ -o /dev/null <<EOF
+  curl_graph_store_update -X PUT "$@" -o /dev/null <<EOF
 EOF
 }
 
@@ -696,16 +696,16 @@ function clear_repository_revisions () {
 # initialize_repository_content { --repository $repository-name } { --url $url }
 # clear everything, insert one statement each in the default and the named graphs
 function initialize_repository_content () {
-  curl_graph_store_update -X PUT $@ -o /dev/null <<EOF
+  curl_graph_store_update -X PUT "$@" -o /dev/null <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
 EOF
-  curl_graph_store_update -X POST graph=${STORE_NAMED_GRAPH} -o /dev/null $@ <<EOF
+  curl_graph_store_update -X POST graph=${STORE_NAMED_GRAPH} -o /dev/null "$@" <<EOF
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
 }
 
 function initialize_repository () {
-  initialize_repository_content $@
+  initialize_repository_content "$@"
 }
 
 function initialize_repository_public () {
@@ -924,7 +924,7 @@ EOF
 # regardless of whether it has actually stored multiple revisions or not
 
 function repository_is_revisioned () {
-  repository_revision_count $@ | egrep -q '^[1-9][0-9]*$'
+  repository_revision_count "$@" | egrep -q '^[1-9][0-9]*$'
 }
 
 # repository_list_revisions { --account $account } {--repository $repository}
@@ -964,7 +964,7 @@ function repository_list_revisions () {
 # and, incidentally, also 1 for an unrevisioned repository
 
 function repository_number_of_revisions () {
-  repository_list_revisions $@ | wc -l
+  repository_list_revisions "$@" | wc -l
 }
 
 # repository_has_revisions { --account $account } {--repository $repository}
@@ -973,7 +973,7 @@ function repository_number_of_revisions () {
 # as the tests require more than one revision
 
 function repository_has_revisions () {
-  repository_list_revisions $@ | wc | fgrep -q -v "1      37"
+  repository_list_revisions "$@" | wc | fgrep -q -v "1      37"
 }
 
 function set_store_features () {

@@ -14,22 +14,22 @@ repository_number_of_revisions --repository ${repository} | fgrep -x "1" > ${GRE
 
 add_quad -X POST 3.1
 repository_number_of_revisions --repository ${repository} | fgrep -x "2" > ${GREP_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} | tr -s '\n' '\t' \
     | fgrep "object-3.1" | fgrep -v "object-3.2" | fgrep -v "object-2.1" | fgrep -v "object-2.2" > ${GREP_OUTPUT}
 
 add_quad -X PUT 3.2 # also delete 3.1
 repository_number_of_revisions --repository ${repository} | fgrep -x "3" > ${GREP_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} | tr -s '\n' '\t' \
     | fgrep -v "object-3.1" | fgrep "object-3.2" | fgrep -v "object-2.1" | fgrep -v "object-2.2" > ${GREP_OUTPUT}
 
 add_quad -X PUT 2.1 # also deletes 3.2 # will be boundary revision
 repository_number_of_revisions --repository ${repository} | fgrep -x "4" > ${GREP_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} | tr -s '\n' '\t' \
     | fgrep -v "object-3.1" | fgrep -v "object-3.2" | fgrep "object-2.1" | fgrep -v "object-2.2" > ${GREP_OUTPUT}
 
 add_quad -X POST 2.2
 repository_number_of_revisions --repository ${repository} | fgrep -x "5" > ${GREP_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} | tr -s '\n' '\t' \
     | fgrep -v "object-3.1" | fgrep -v "object-3.2" | fgrep "object-2.1" | fgrep "object-2.2" > ${GREP_OUTPUT}
 
 # HEAD~1 is boundary revision
@@ -42,25 +42,25 @@ echo "check visibilities of quads in all revisions" > ${INFO_OUTPUT}
 rev="HEAD~4"
 echo "check visibilities of quads in revisions ${rev}: empty revision" > ${INFO_OUTPUT}
 # HEAD~4 is tail and gives 404 already
-#curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev}| tr -s '\n' '\t' \
+#curl_graph_store_get --repository ${repository} revision-id=${rev}| tr -s '\n' '\t' \
     #    | fgrep -v "object-3.1" | fgrep -v "object-3.2" | fgrep -v "object-2.1" | fgrep -v "object-2.2" > ${GREP_OUTPUT}
-result=$(curl_graph_store_get_code_nofail --repository mem-rdf-revisioned revision-id=${rev} 2>&1 > /dev/null)
+result=$(curl_graph_store_get_code_nofail --repository ${repository} revision-id=${rev} 2>&1 > /dev/null)
 test "$result" -eq "404"
 rev="HEAD~3"
 echo "check visibilities of quads in revisions ${rev}" > ${INFO_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev} | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' '\t' \
     | fgrep    "object-3.1" | fgrep -v "object-3.2" | fgrep -v "object-2.1" | fgrep -v "object-2.2" > ${GREP_OUTPUT}
 rev="HEAD~2"
 echo "check visibilities of quads in revisions ${rev}" > ${INFO_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev} | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' '\t' \
     | fgrep -v "object-3.1" | fgrep    "object-3.2" | fgrep -v "object-2.1" | fgrep -v "object-2.2" > ${GREP_OUTPUT}
 rev="HEAD~1"
 echo "check visibilities of quads in revisions ${rev}" > ${INFO_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev} | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' '\t' \
     | fgrep -v "object-3.1" | fgrep -v "object-3.2" | fgrep    "object-2.1" | fgrep -v "object-2.2" > ${GREP_OUTPUT}
 rev="HEAD"
 echo "check visibilities of quads in revisions ${rev}" > ${INFO_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev}   | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} revision-id=${rev}   | tr -s '\n' '\t' \
     | fgrep -v "object-3.1" | fgrep -v "object-3.2" | fgrep    "object-2.1" | fgrep   "object-2.2" > ${GREP_OUTPUT}
 
 #repository_list_revisions --repository ${repository}
@@ -77,15 +77,15 @@ echo "have three revisions now: HEAD~1, HEAD, and a new revision from the trim-h
 echo "check visibilities of quads in all revisions again after trim-history in mode \"${mode}\"" > ${INFO_OUTPUT}
 rev="HEAD~2"
 echo "check visibilities of quads in revisions ${rev} - boundary revision" > ${INFO_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev} | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' '\t' \
     | fgrep -v "object-3.1" | fgrep -v "object-3.2" | fgrep    "object-2.1" | fgrep -v "object-2.2" > ${GREP_OUTPUT}
 rev="HEAD~1"
 echo "check visibilities of quads in revisions ${rev} - pivot revision" > ${INFO_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev} | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' '\t' \
     | fgrep -v "object-3.1" | fgrep -v "object-3.2" | fgrep    "object-2.1" | fgrep    "object-2.2" > ${GREP_OUTPUT}
 rev="HEAD"
 echo "check visibilities of quads in revisions ${rev} - trim operation revision (identical to previous)" > ${INFO_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev}   | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} revision-id=${rev}   | tr -s '\n' '\t' \
     | fgrep -v "object-3.1" | fgrep -v "object-3.2" | fgrep    "object-2.1" | fgrep    "object-2.2" > ${GREP_OUTPUT}
 
 done

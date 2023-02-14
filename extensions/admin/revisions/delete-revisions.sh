@@ -8,7 +8,7 @@ repository_number_of_revisions --repository ${repository} | fgrep -x "1" > ${GRE
 
 add_quad foo
 repository_number_of_revisions --repository ${repository} | fgrep -x "2" > ${GREP_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned | tr -s '\n' '\t' | fgrep "object-foo" > ${GREP_OUTPUT}
+curl_graph_store_get --repository ${repository} | tr -s '\n' '\t' | fgrep "object-foo" > ${GREP_OUTPUT}
 
 echo "delete revisions again and test" > ${INFO_OUTPUT}
 delete_revisions --repository ${repository} | fgrep -x 200 > ${GREP_OUTPUT}

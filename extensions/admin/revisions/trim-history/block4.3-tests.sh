@@ -11,37 +11,37 @@ delete_revisions --repository ${repository} | fgrep -x 200 > ${GREP_OUTPUT}
 echo "initial test after delete revisions" > ${INFO_OUTPUT}
 repository_number_of_revisions --repository ${repository} | fgrep -x "1" > ${GREP_OUTPUT}
 
-result=$(curl_graph_store_get_code_nofail --repository mem-rdf-revisioned 2>&1 > /dev/null)
+result=$(curl_graph_store_get_code_nofail --repository ${repository} 2>&1 > /dev/null)
 test "$result" -eq "404"
 
 add_quad -X POST 4.4b
 repository_number_of_revisions --repository ${repository} | fgrep -x "2" > ${GREP_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} | tr -s '\n' '\t' \
     | fgrep    "object-4.4b" | fgrep -v "object-4.4c" | fgrep -v "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 
 add_quad -X POST 4.4c
 repository_number_of_revisions --repository ${repository} | fgrep -x "3" > ${GREP_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} | tr -s '\n' '\t' \
     | fgrep    "object-4.4b" | fgrep    "object-4.4c" | fgrep -v "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 
 add_quad -X POST extra
 repository_number_of_revisions --repository ${repository} | fgrep -x "4" > ${GREP_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} | tr -s '\n' '\t' \
     | fgrep    "object-4.4b" | fgrep    "object-4.4c" | fgrep    "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 
 add_quad -X POST foo # boundary revision
 repository_number_of_revisions --repository ${repository} | fgrep -x "5" > ${GREP_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} | tr -s '\n' '\t' \
     | fgrep    "object-4.4b" | fgrep    "object-4.4c" | fgrep    "object-extra" | fgrep    "object-foo" > ${GREP_OUTPUT}
 
 add_quad -X PUT extra # no change to extra itself but all other quads are deleted
 repository_number_of_revisions --repository ${repository} | fgrep -x "6" > ${GREP_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} | tr -s '\n' '\t' \
     | fgrep -v "object-4.4b" | fgrep -v "object-4.4c" | fgrep    "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 
 add_quad -X POST 4.4c # insert 4.4c again so that it has another ID after the pivot ID
 repository_number_of_revisions --repository ${repository} | fgrep -x "7" > ${GREP_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} | tr -s '\n' '\t' \
     | fgrep -v "object-4.4b" | fgrep    "object-4.4c" | fgrep    "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 
 
@@ -57,33 +57,33 @@ echo "check visibilities of quads in all revisions" > ${INFO_OUTPUT}
 rev="HEAD~6"
 echo "check visibilities of quads in revisions ${rev}: empty revision" > ${INFO_OUTPUT}
 # HEAD~4 is tail and results in HTTP 404 already
-#curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev} | tr -s '\n' '\t' \
+#curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' '\t' \
 #    | fgrep -v "object-3.1" | fgrep -v "object-3.2" | fgrep -v "object-2.1" | fgrep -v "object-2.2" > ${GREP_OUTPUT}
-result=$(curl_graph_store_get_code_nofail --repository mem-rdf-revisioned revision-id=${rev} 2>&1 > /dev/null)
+result=$(curl_graph_store_get_code_nofail --repository ${repository} revision-id=${rev} 2>&1 > /dev/null)
 test "$result" -eq "404"
 rev="HEAD~5"
 echo "check visibilities of quads in revisions ${rev}" > ${INFO_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev} | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' '\t' \
     | fgrep    "object-4.4b" | fgrep -v "object-4.4c" | fgrep -v "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 rev="HEAD~4"
 echo "check visibilities of quads in revisions ${rev}" > ${INFO_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev} | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' '\t' \
     | fgrep    "object-4.4b" | fgrep    "object-4.4c" | fgrep -v "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 rev="HEAD~3"
 echo "check visibilities of quads in revisions ${rev}" > ${INFO_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev} | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' '\t' \
     | fgrep    "object-4.4b" | fgrep    "object-4.4c" | fgrep    "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 rev="HEAD~2"
 echo "check visibilities of quads in revisions ${rev}" > ${INFO_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev} | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' '\t' \
     | fgrep    "object-4.4b" | fgrep    "object-4.4c" | fgrep    "object-extra" | fgrep    "object-foo" > ${GREP_OUTPUT}
 rev="HEAD~1"
 echo "check visibilities of quads in revisions ${rev}" > ${INFO_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev} | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' '\t' \
     | fgrep -v "object-4.4b" | fgrep -v "object-4.4c" | fgrep    "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 rev="HEAD"
 echo "check visibilities of quads in revisions ${rev}"   > ${INFO_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev}   | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} revision-id=${rev}   | tr -s '\n' '\t' \
     | fgrep -v "object-4.4b" | fgrep    "object-4.4c" | fgrep    "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 
 # repository_list_revisions --repository ${repository}
@@ -101,19 +101,19 @@ case "${mode}" in
 echo "check visibilities of quads in all revisions again after trim-history in mode \"${mode}\"" > ${INFO_OUTPUT}
 rev="HEAD~3"
 echo "check visibilities of quads in revisions ${rev}" > ${INFO_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev} | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' '\t' \
     | fgrep    "object-4.4b" | fgrep    "object-4.4c" | fgrep    "object-extra" | fgrep    "object-foo" > ${GREP_OUTPUT}
 rev="HEAD~2"
 echo "check visibilities of quads in revisions ${rev}" > ${INFO_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev} | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' '\t' \
     | fgrep -v "object-4.4b" | fgrep -v "object-4.4c" | fgrep    "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 rev="HEAD~1"
 echo "check visibilities of quads in revisions ${rev}" > ${INFO_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev} | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' '\t' \
     | fgrep -v "object-4.4b" | fgrep    "object-4.4c" | fgrep    "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 rev="HEAD"
 echo "check visibilities of quads in revisions ${rev} - trim operation revision (identical to previous)"   > ${INFO_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev}   | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} revision-id=${rev}   | tr -s '\n' '\t' \
     | fgrep -v "object-4.4b" | fgrep    "object-4.4c" | fgrep    "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 ;;
 
@@ -121,22 +121,22 @@ curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev}   | tr -
 echo "check visibilities of quads in all revisions again after trim-history in mode \"${mode}\"" > ${INFO_OUTPUT}
 rev="HEAD~3"
 echo "check visibilities of quads in revisions ${rev}" > ${INFO_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev} | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' '\t' \
     | fgrep -v "object-4.4b" | fgrep -v "object-4.4c" | fgrep -v "object-extra" | fgrep    "object-foo" > ${GREP_OUTPUT}
 rev="HEAD~2"
 echo "check visibilities of quads in revisions ${rev}" > ${INFO_OUTPUT}
 # HEAD~2 is completely empty, and results in HTTP 404
-#curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev} | tr -s '\n' '\t' \
+#curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' '\t' \
 #    | fgrep -v "object-4.4b" | fgrep -v "object-4.4c" | fgrep -v "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
-result=$(curl_graph_store_get_code_nofail --repository mem-rdf-revisioned revision-id=${rev} 2>&1 > /dev/null)
+result=$(curl_graph_store_get_code_nofail --repository ${repository} revision-id=${rev} 2>&1 > /dev/null)
 test "$result" -eq "404"
 rev="HEAD~1"
 echo "check visibilities of quads in revisions ${rev}" > ${INFO_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev} | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' '\t' \
     | fgrep -v "object-4.4b" | fgrep    "object-4.4c" | fgrep -v "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 rev="HEAD"
 echo "check visibilities of quads in revisions ${rev} - trim operation revision (identical to previous)"   > ${INFO_OUTPUT}
-curl_graph_store_get --repository mem-rdf-revisioned revision-id=${rev}   | tr -s '\n' '\t' \
+curl_graph_store_get --repository ${repository} revision-id=${rev}   | tr -s '\n' '\t' \
     | fgrep -v "object-4.4b" | fgrep    "object-4.4c" | fgrep -v "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 
 ;;

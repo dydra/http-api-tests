@@ -1,0 +1,120 @@
+----------------------------------------------------------------------
+=> Block 1: corner cases:
+
+Note: needs a history of at least three revisions, quads do not really matter.
+
+=> BLOCK 1.1: TAIL tests
+1.1
+=> when boundary id is TAIL (=the first revision),
+"204 No Content" is returned and no revision is added
+
+=> BLOCK 1.2: HEAD tests
+1.2
+=> when boundary id is HEAD (=the last revision),
+-> two revisions exist after the operation:
+the old head and one revision for the trim operation
+
+
+----------------------------------------------------------------------
+=> BLOCK 2: quads that only inserted at or after the boundary revision
+
+2.1
+=> a quad that is inserted at the boundary,
+-> is visible in all revisions after the operation in both modes
+
+2.2
+=> a quad that is inserted after the boundery at a revision "pivot",
+-> exists only beginning with that pivot revision in both modes
+
+
+----------------------------------------------------------------------
+=> BLOCK 3: quads with visibility entries before or up to the boundary revision
+
+=> BLOCK 3.1: quads that are deleted before or at the boundary and are not inserted again
+3.1
+=> a quad that was deleted before the boundary (and is not inserted again),
+-> is not existing in any revision in both modes after the trim operation
+
+3.2
+=> a quad that was deleted at the boundary (and is not inserted again),
+-> is not existing in any revision in both modes after the trim operation
+
+=> BLOCK 3.2: quads that were inserted before the boundary and exist at the boundary
+3.3
+=> a quad that was inserted before the boundary, deleted
+before the boundary and inserted again at the at the boundary,
+-> is inserted at the boundary in both modes
+(and thus visible in all revisions after the trim operation)
+
+3.4a
+=> a quad that was inserted before the boundary and is not inserted
+again at the boundary,
+-> is inserted at the boundary in mode project-history
+(and thus visible in all revisions after the trim operation)
+(with a phantom insert at the boundary)
+
+3.4b
+=> a quad that was inserted before the boundary and is not inserted
+again at the boundary,
+-> are not existing in any revision in mode delete-history
+
+Note: Tests 3.4a and 3.4b use the same quad.
+
+
+----------------------------------------------------------------------
+=> BLOCK 4: quads that were inserted before the boundary and also
+change visibility after the boundary
+
+=> Block 4.1
+4.1
+=> a quad that was inserted and deleted before the boundary and
+is then inserted again after the boundary at a revision "pivot"
+(and was thus not visible at the boundary),
+-> exists only beginning with that pivot revision in both modes
+
+4.2
+=> a quad that was inserted and deleted at the boundary and
+is then inserted again after the boundary at a revision "pivot"
+(and was thus not visible at the boundary),
+-> exists only beginning with that pivot revision in both modes
+
+=> Block 4.2
+4.3
+=> a quad was inserted before the boundary, existed at the boundary
+and was deleted after the boundary at a revision "pivot",
+inserted at the boundary
+(thus, the revision prior to the pivot is equal to the boundary id),
+-> is visible in revisions boundary through pivot after the operation
+in both modes
+
+=> Block 4.3
+4.4a
+=> a quad was inserted before the boundary, existed at the boundary
+and was deleted after the boundary at a revision "pivot",
+with no change at the boundary itself
+(thus, the revision prior to the pivot is not equal to the boundary id),
+in mode project-history,
+-> is visible in revisions boundary through pivot after the operation
+(with a phantom insert at the boundary)
+
+4.4b
+=> a quad was inserted before the boundary, existed at the boundary
+and was deleted after the boundary at a revision "pivot",
+with no change at the boundary itself.
+(thus, the revision prior to the pivot is not equal to the boundary id),
+in mode delete-history,
+and with the pivot ID equal to the last ID of the quad,
+-> is not existing in any revision after the trim operation
+
+4.4c
+=> a quad was inserted before the boundary, existed at the boundary
+and was deleted after the boundary at a revision "pivot",
+with no change at the boundary itself.
+(thus, the revision prior to the pivot is not equal to the boundary id),
+in mode delete-history,
+and with the pivot ID smaller than the last ID of the quad,
+-> is visible in all revisions starting with the post position,
+that is with the revision immediately following the pivot position
+
+Note: The quads of both 4.4b and 4.4a can also used for 4.4a,
+  so just use both in the test for 4.4a.

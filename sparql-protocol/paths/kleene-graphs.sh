@@ -21,7 +21,7 @@ EOF
 curl_graph_store_get --repository "test" --account "test" \
   | wc | fgrep -q 7
 
-
+echo "test ex:kleene-predicate+" > $ECHO_OUTPUT
 curl_sparql_request \
  --repository "test" \
  --account "test" \
@@ -36,6 +36,7 @@ where {
 }
 EOF
 
+echo "test ex:kleene-predicate+ w/ second variable pattern" > $ECHO_OUTPUT
 curl_sparql_request\
  --repository "test" \
  --account "test" \
@@ -53,6 +54,7 @@ EOF
 
 # (url-decode "%229353%20608%2098178%22")
 
+echo "test ex:kleene-predicate+ w/ second constant pattern" > $ECHO_OUTPUT
 curl_sparql_request \
  --repository "test" \
  --account "test" \
@@ -84,6 +86,7 @@ where {
 }
 EOF
 
+echo "test ex:kleene-predicate+ across graphs" > $ECHO_OUTPUT
 curl_sparql_request '$node=%3chttp%3a%2f%2fexample.org%2fnode1%3e' \
  --repository "test" \
  --account "test" \
@@ -99,7 +102,7 @@ where {
 }
 EOF
 
-
+echo "test ex:kleene-predicate+ multi-graph dataset from constant subject" > $ECHO_OUTPUT
 curl_sparql_request \
  --repository "test" \
  --account "test" \
@@ -114,7 +117,7 @@ where {
 }
 EOF
 
-
+echo "test ex:kleene-predicate+ multi-graph graph form from constant subject" > $ECHO_OUTPUT
 curl_sparql_request \
  --repository "test" \
  --account "test" \
@@ -130,7 +133,7 @@ where {
 }
 EOF
 
-
+echo "test ex:kleene-predicate+ single graph from from constant subject" > $ECHO_OUTPUT
 curl_sparql_request \
  --repository "test" \
  --account "test" \
@@ -146,7 +149,7 @@ where {
 }
 EOF
 
-
+echo "test ex:kleene-predicate+ single graph from from constant subject in service clause" > $ECHO_OUTPUT
 curl_sparql_request \
  --repository "test" \
  --account "test" \
@@ -164,7 +167,7 @@ where {
 }
 EOF
 
-
+echo "test ex:kleene-predicate+ all graph from from constant subject in service clause" > $ECHO_OUTPUT
 curl_sparql_request \
  --repository "test" \
  --account "test" \
@@ -182,7 +185,7 @@ where {
 }
 EOF
 
-
+echo "test ex:kleene-predicate+ all graph multiple patterns from from variable subject in service clause" > $ECHO_OUTPUT
 curl_sparql_request '$name=%22kleene%20leaf%201%22' \
  --repository "test" \
  --account "test" \
@@ -201,26 +204,7 @@ where {
 }
 EOF
 
-curl_sparql_request '$name=%22kleene%20leaf%202%22' \
- --repository "test" \
- --account "test" \
- -H "Content-Type: application/sparql-query" \
- -H "Accept: application/sparql-results+json" <<EOF \
- | tee $ECHO_OUTPUT | egrep -c '/node(1|2|3)' | fgrep -q 2
-prefix ex: <http://example.com/>
-select * # count(*)
-where {
-  service <http://localhost/test/test> {
-    graph <urn:dydra:all> {
-      ?node ex:kleene-name ?name .
-      ?node ex:kleene-predicate+ ?Leaf .
-    }
-  }
-}
-EOF
-
-
-# for all/default/named variants, test just the service formulation
+echo "import 4-node dataset" > $ECHO_OUTPUT
 ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
      -H "Accept: application/n-quads" \
      -H "Content-Type: application/n-quads" --data-binary @- \
@@ -241,6 +225,7 @@ ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
 <http://example.org/node4> <http://example.com/kleene-name> "graph node 4" <http://example.org/node4> .
 EOF
 
+echo "test ex:kleene-predicate+ default graph form from variable subject in service clause" > $ECHO_OUTPUT
 curl_sparql_request \
  --repository "test" \
  --account "test" \
@@ -259,7 +244,7 @@ where {
 }
 EOF
 
-
+echo "test ex:kleene-predicate+ named graph form from variable subject in service clause" > $ECHO_OUTPUT
 curl_sparql_request \
  --repository "test" \
  --account "test" \
@@ -278,7 +263,7 @@ where {
 }
 EOF
 
-
+echo "test ex:kleene-predicate+ all graph form from variable subject in service clause" > $ECHO_OUTPUT
 curl_sparql_request \
  --repository "test" \
  --account "test" \
@@ -297,6 +282,7 @@ where {
 }
 EOF
 
+echo "test ex:kleene-predicate+ no graph form from variable subject in service clause" > $ECHO_OUTPUT
 curl_sparql_request \
  --repository "test" \
  --account "test" \
@@ -313,6 +299,7 @@ where {
 }
 EOF
 
+echo "test ex:kleene-predicate+ constant graph form from variable subject in service clause" > $ECHO_OUTPUT
 curl_sparql_request \
  --repository "test" \
  --account "test" \

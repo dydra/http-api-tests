@@ -7,6 +7,10 @@ function run () {
 }
 
 set_store_features
+echo "features: "
+echo "STORE_STATEMENT_ANNOTATION = ${STORE_STATEMENT_ANNOTATION}"
+echo "STORE_INDEXED_TIMES = ${STORE_INDEXED_TIMES}"
+echo "STORE_INDEXED_EVENTS = ${STORE_INDEXED_EVENTS}"
 
 if [[ "$1" != "" ]]
 then

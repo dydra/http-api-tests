@@ -7,7 +7,7 @@
 curl_sparql_request \
      -H "Accept: text/csv" \
      -H "Content-Type:application/sparql-query" <<EOF \
- | sort | tee $ECHO_OUTPUT |  sed -e 's/"/./' | diff -w - /dev/fd/2 2<<TEST
+ | sort -d | tee $ECHO_OUTPUT | diff -w - /dev/fd/2 2<<TEST
 SELECT  ?id ?value
 WHERE {
   VALUES (?id) {
@@ -22,7 +22,7 @@ WHERE {
 }
 EOF
 id,value
-.one",""
-.one","123"
-.two",
+"one",""
+"one","123"
+"two",
 TEST

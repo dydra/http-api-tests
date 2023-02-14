@@ -5,8 +5,8 @@
 
 curl_sparql_request \
      -H 'Accept: application/ld+json;profile=http://www.w3.org/ns/json-ld#expanded' \
-     -H 'Content-Type:application/sparql-query' <<EOF \
- | tee $ECHO_OUTPUT | json_pp | json_diff /dev/stdin /dev/fd/3 3<<TEST 2>&1 | tee $ECHO_OUTPUT | egrep -q '^\{\}$'
+     -H 'Content-Type:application/sparql-query' <<EOF  \
+ | tee $ECHO_OUTPUT > tmp.json
 construct {
   [ <http://example.org#value> ?o ]
 }
@@ -30,6 +30,8 @@ where {
 }
 order by ?o
 EOF
+
+json_diff tmp.json <<EOF 2>&1 | tee $ECHO_OUTPUT | egrep -q '^\[\]$'
 [
    {
       "@id" : "_:g1",
@@ -128,4 +130,7 @@ EOF
       }
    }
 ]
-TEST
+EOF
+
+
+

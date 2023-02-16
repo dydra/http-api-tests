@@ -1,6 +1,6 @@
 #! /bin/bash
 
-source init-revisions-tests.sh
+source test-if-revisioned-and-common-functions.sh
 
 echo "initial test after delete revisions" > ${INFO_OUTPUT}
 delete_revisions --repository ${repository} | fgrep -x 200 > ${GREP_OUTPUT}

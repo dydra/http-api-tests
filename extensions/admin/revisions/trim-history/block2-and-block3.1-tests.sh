@@ -1,6 +1,6 @@
 #! /bin/bash
 
-source ../init-revisions-tests.sh
+source ../test-if-revisioned-and-common-functions.sh
 
 for mode in project-history delete-history; do
 

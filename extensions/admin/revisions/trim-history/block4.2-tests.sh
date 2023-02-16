@@ -11,7 +11,9 @@ delete_revisions --repository ${repository} | fgrep -x 200 > ${GREP_OUTPUT}
 echo "initial test after delete revisions" > ${INFO_OUTPUT}
 repository_number_of_revisions --repository ${repository} | fgrep -x "1" > ${GREP_OUTPUT}
 
-result=$(curl_graph_store_get_code_nofail --repository ${repository} 2>&1 > /dev/null)
+rev="HEAD"
+result=$(curl_graph_store_get_code_nofail --repository ${repository} revision-id=${rev} 2>&1 > /dev/null)
+echo "result: ${result}" > ${INFO_OUTPUT}
 test "$result" -eq "404"
 
 add_quad -X POST 4.3

@@ -50,3 +50,12 @@ EOF
   after=$(repository_number_of_revisions --repository ${repository})
   test $[$before+1] -eq $after
 }
+
+function get_visibility() {
+  curl_sparql_request --repository ${repository} revision-id="*--*" \
+    -H "Content-Type: application/sparql-query" \
+    -H "Accept: application/json" <<EOF \
+    | jq -r '.[] | join(",")' | tee ${ECHO_OUTPUT}
+select ?o ?v where { graph ?g {?s ?p ?o {| <urn:dydra:copy> ?v |} } }
+EOF
+}

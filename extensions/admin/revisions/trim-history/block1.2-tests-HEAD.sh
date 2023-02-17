@@ -25,9 +25,9 @@ repository_number_of_revisions --repository ${repository} | fgrep -x "3" > ${GRE
 curl_graph_store_get --repository ${repository} | tr -s '\n' '\t' \
     | fgrep "object-1" | fgrep    "object-2" > ${GREP_OUTPUT}
 
-echo "checking visibilities before trim-history" > ${INFO_OUTPUT}
+echo "checking visibility vectors before trim-history" > ${INFO_OUTPUT}
 get_visibility | tr -s '\n' '\t' | tee ${INFO_OUTPUT} \
-    | fgrep "object-1,2" | fgrep "object-2,3" > ${GREP_OUTPUT}
+    | fgrep '"object-1,2"' | fgrep '"object-2,3"' > ${GREP_OUTPUT}
 
 
 echo "remove all revisions prior to HEAD should leave just one revision + the operation's revision (in mode \"${mode}\")" > ${INFO_OUTPUT}
@@ -37,16 +37,16 @@ repository_number_of_revisions --repository ${repository} | fgrep -x "2" > ${GRE
 case "${mode}" in
     "project-history")
 
-echo "checking visibilities after trim-history in mode \"${mode}\"" > ${INFO_OUTPUT}
+echo "checking visibility vectors after trim-history in mode \"${mode}\"" > ${INFO_OUTPUT}
 get_visibility | tr -s '\n' '\t' | tee ${INFO_OUTPUT} \
     | fgrep "object-1,3" | fgrep "object-2,3" > ${GREP_OUTPUT}
 
 ;;
     "delete-history")
 
-echo "checking visibilities after trim-history in mode \"${mode}\"" > ${INFO_OUTPUT}
+echo "checking visibility vectors after trim-history in mode \"${mode}\"" > ${INFO_OUTPUT}
 get_visibility | tr -s '\n' '\t' | tee ${INFO_OUTPUT} \
-    | fgrep -v "object-1" | fgrep "object-2,3" > ${GREP_OUTPUT}
+    | fgrep -v 'object-1' | fgrep '"object-2,3"' > ${GREP_OUTPUT}
 
 ;;
     *) echo "Error: unknown mode \"${mode}\""

@@ -55,7 +55,7 @@ function get_visibility() {
   curl_sparql_request --repository ${repository} revision-id="*--*" \
     -H "Content-Type: application/sparql-query" \
     -H "Accept: application/json" <<EOF \
-    | jq -r '.[] | join(",")' | tee ${ECHO_OUTPUT}
+    | jq '.[] | join(",")' | tee ${ECHO_OUTPUT}
 select ?o ?v where { graph ?g {?s ?p ?o {| <urn:dydra:copy> ?v |} } }
 EOF
 }

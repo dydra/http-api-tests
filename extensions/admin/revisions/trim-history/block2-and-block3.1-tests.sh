@@ -67,6 +67,14 @@ echo "check visibilities of quads in revisions ${rev}" > ${INFO_OUTPUT}
 curl_graph_store_get --repository ${repository} revision-id=${rev}   | tr -s '\n' '\t' \
     | fgrep -v "object-3.1" | fgrep -v "object-3.2" | fgrep    "object-2.1" | fgrep   "object-2.2" > ${GREP_OUTPUT}
 
+echo "checking visibility vectors before trim-history" > ${INFO_OUTPUT}
+get_visibility | tr -s '\n' '\t' | tee ${INFO_OUTPUT} \
+    | fgrep    '"object-3.1,2,3"' \
+    | fgrep    '"object-3.2,3,4"' \
+    | fgrep    '"object-2.1,4"' \
+    | fgrep    '"object-2.2,5"' > ${GREP_OUTPUT}
+
+
 #repository_list_revisions --repository ${repository}
 
 rev="HEAD~1"
@@ -91,5 +99,12 @@ rev="HEAD"
 echo "check visibilities of quads in revisions ${rev} - trim operation revision (identical to previous)" > ${INFO_OUTPUT}
 curl_graph_store_get --repository ${repository} revision-id=${rev}   | tr -s '\n' '\t' \
     | fgrep -v "object-3.1" | fgrep -v "object-3.2" | fgrep    "object-2.1" | fgrep    "object-2.2" > ${GREP_OUTPUT}
+
+echo "checking visibility vectors after trim-history in mode \"${mode}\"" > ${INFO_OUTPUT}
+get_visibility | tr -s '\n' '\t' | tee ${INFO_OUTPUT} \
+    | fgrep -v 'object-3.1' \
+    | fgrep -v 'object-3.2' \
+    | fgrep    '"object-2.1,4"' \
+    | fgrep    '"object-2.2,5"' > ${GREP_OUTPUT}
 
 done

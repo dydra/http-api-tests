@@ -100,7 +100,16 @@ echo "check visibilities of quads in revisions ${rev}"   > ${INFO_OUTPUT}
 curl_graph_store_get --repository ${repository} revision-id=${rev}   | tr -s '\n' '\t' \
     | fgrep -v "object-4.4b" | fgrep    "object-4.4c" | fgrep    "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 
+echo "checking visibility vectors before trim-history" > ${INFO_OUTPUT}
+get_visibility | tr -s '\n' '\t' | tee ${INFO_OUTPUT} \
+    | fgrep    '"object-4.4b,2,6"' \
+    | fgrep    '"object-4.4c,3,6,7"' \
+    | fgrep    '"object-extra,4,6,6"' \
+    | fgrep    '"object-foo,5,6"' > ${GREP_OUTPUT}
+
+
 # repository_list_revisions --repository ${repository}
+
 ##echo "before trim history in $mode, press key"; read
 rev="HEAD~2"
 echo "calling ${mode}: remove all revisions prior to ${rev}" > ${INFO_OUTPUT}
@@ -132,6 +141,13 @@ echo "check visibilities of quads in revisions ${rev} - trim operation revision 
 curl_graph_store_get --repository ${repository} revision-id=${rev}   | tr -s '\n' '\t' \
     | fgrep -v "object-4.4b" | fgrep    "object-4.4c" | fgrep    "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
 
+echo "checking visibility vectors after trim-history in mode \"${mode}\"" > ${INFO_OUTPUT}
+get_visibility | tr -s '\n' '\t' | tee ${INFO_OUTPUT} \
+    | fgrep    '"object-4.4b,5,6"' \
+    | fgrep    '"object-4.4c,5,6,7"' \
+    | fgrep    '"object-extra,5,6,6"' \
+    | fgrep    '"object-foo,5,6"' > ${GREP_OUTPUT}
+
 ;;
     "delete-history")
 
@@ -152,6 +168,13 @@ rev="HEAD"
 echo "check visibilities of quads in revisions ${rev} - trim operation revision (identical to previous)"   > ${INFO_OUTPUT}
 curl_graph_store_get --repository ${repository} revision-id=${rev}   | tr -s '\n' '\t' \
     | fgrep -v "object-4.4b" | fgrep    "object-4.4c" | fgrep    "object-extra" | fgrep -v "object-foo" > ${GREP_OUTPUT}
+
+echo "checking visibility vectors after trim-history in mode \"${mode}\"" > ${INFO_OUTPUT}
+get_visibility | tr -s '\n' '\t' | tee ${INFO_OUTPUT} \
+    | fgrep -v 'object-4.4b' \
+    | fgrep    '"object-4.4c,7"' \
+    | fgrep    '"object-extra,6"' \
+    | fgrep    '"object-foo,5,6"' > ${GREP_OUTPUT}
 
 ;;
     *) echo "Error: unknown mode \"${mode}\""

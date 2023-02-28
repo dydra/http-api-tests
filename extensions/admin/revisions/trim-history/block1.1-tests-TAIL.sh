@@ -10,6 +10,8 @@ echo "initial test after delete revisions" > ${INFO_OUTPUT}
 delete_revisions --repository ${repository} | fgrep -x 200 > ${GREP_OUTPUT}
 repository_number_of_revisions --repository ${repository} | fgrep -x "1" > ${GREP_OUTPUT}
 
+make_base_revision_ordinals
+
 rev="HEAD"
 result=$(curl_graph_store_get_code_nofail --repository ${repository} revision-id=${rev} 2>&1 > /dev/null)
 echo "result: ${result}" > ${INFO_OUTPUT}
@@ -27,7 +29,7 @@ curl_graph_store_get --repository ${repository} | tr -s '\n' '\t' \
 
 echo "checking visibility vectors before trim-history" > ${INFO_OUTPUT}
 get_visibility | tr -s '\n' '\t' | tee ${INFO_OUTPUT} \
-    | fgrep '"object-1,2"' | fgrep '"object-2,3"' > ${GREP_OUTPUT}
+    | fgrep "\"object-1,${r2}\"" | fgrep "\"object-2,${r3}\"" > ${GREP_OUTPUT}
 
 
 echo "remove all revisions prior to TAIL should do nothing as TAIL has no history (in mode \"${mode}\")" > ${INFO_OUTPUT}
@@ -38,6 +40,6 @@ repository_number_of_revisions --repository ${repository} | fgrep -x "3" > ${GRE
 
 echo "checking visibility vectors after trim-history in mode \"${mode}\"" > ${INFO_OUTPUT}
 get_visibility | tr -s '\n' '\t' | tee ${INFO_OUTPUT} \
-    | fgrep '"object-1,2"' | fgrep '"object-2,3"' > ${GREP_OUTPUT}
+    | fgrep "\"object-1,${r2}\"" | fgrep "\"object-2,${r3}\"" > ${GREP_OUTPUT}
 
 done

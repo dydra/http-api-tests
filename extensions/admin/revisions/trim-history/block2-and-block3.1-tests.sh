@@ -11,6 +11,8 @@ delete_revisions --repository ${repository} | fgrep -x 200 > ${GREP_OUTPUT}
 echo "initial test after delete revisions" > ${INFO_OUTPUT}
 repository_number_of_revisions --repository ${repository} | fgrep -x "1" > ${GREP_OUTPUT}
 
+make_base_revision_ordinals
+
 rev="HEAD"
 result=$(curl_graph_store_get_code_nofail --repository ${repository} revision-id=${rev} 2>&1 > /dev/null)
 echo "result: ${result}" > ${INFO_OUTPUT}
@@ -69,10 +71,10 @@ curl_graph_store_get --repository ${repository} revision-id=${rev}   | tr -s '\n
 
 echo "checking visibility vectors before trim-history" > ${INFO_OUTPUT}
 get_visibility | tr -s '\n' '\t' | tee ${INFO_OUTPUT} \
-    | fgrep    '"object-3.1,2,3"' \
-    | fgrep    '"object-3.2,3,4"' \
-    | fgrep    '"object-2.1,4"' \
-    | fgrep    '"object-2.2,5"' > ${GREP_OUTPUT}
+    | fgrep    "\"object-3.1,${r2},${r3}\"" \
+    | fgrep    "\"object-3.2,${r3},${r4}\"" \
+    | fgrep    "\"object-2.1,${r4}\"" \
+    | fgrep    "\"object-2.2,${r5}\"" > ${GREP_OUTPUT}
 
 
 #repository_list_revisions --repository ${repository}
@@ -104,7 +106,7 @@ echo "checking visibility vectors after trim-history in mode \"${mode}\"" > ${IN
 get_visibility | tr -s '\n' '\t' | tee ${INFO_OUTPUT} \
     | fgrep -v 'object-3.1' \
     | fgrep -v 'object-3.2' \
-    | fgrep    '"object-2.1,4"' \
-    | fgrep    '"object-2.2,5"' > ${GREP_OUTPUT}
+    | fgrep    "\"object-2.1,${r4}\"" \
+    | fgrep    "\"object-2.2,${r5}\"" > ${GREP_OUTPUT}
 
 done

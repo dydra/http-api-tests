@@ -11,6 +11,8 @@ delete_revisions --repository ${repository} | fgrep -x 200 > ${GREP_OUTPUT}
 echo "initial test after delete revisions" > ${INFO_OUTPUT}
 repository_number_of_revisions --repository ${repository} | fgrep -x "1" > ${GREP_OUTPUT}
 
+make_base_revision_ordinals
+
 rev="HEAD"
 result=$(curl_graph_store_get_code_nofail --repository ${repository} revision-id=${rev} 2>&1 > /dev/null)
 echo "result: ${result}" > ${INFO_OUTPUT}
@@ -81,9 +83,9 @@ curl_graph_store_get --repository ${repository} revision-id=${rev}   | tr -s '\n
 
 echo "checking visibility vectors before trim-history" > ${INFO_OUTPUT}
 get_visibility | tr -s '\n' '\t' | tee ${INFO_OUTPUT} \
-    | fgrep    '"object-4.3,2,3,4,5,6"' \
-    | fgrep    '"object-extra,3,5"' \
-    | fgrep    '"object-foo,5"' > ${GREP_OUTPUT}
+    | fgrep    "\"object-4.3,${r2},${r3},${r4},${r5},${r6}\"" \
+    | fgrep    "\"object-extra,${r3},${r5}\"" \
+    | fgrep    "\"object-foo,${r5}\"" > ${GREP_OUTPUT}
 
 
 #repository_list_revisions --repository ${repository}
@@ -122,9 +124,9 @@ curl_graph_store_get --repository ${repository} revision-id=${rev}   | tr -s '\n
 
 echo "checking visibility vectors after trim-history in mode \"${mode}\"" > ${INFO_OUTPUT}
 get_visibility | tr -s '\n' '\t' | tee ${INFO_OUTPUT} \
-    | fgrep    '"object-4.3,4,5,6"' \
-    | fgrep    '"object-extra,4,5"' \
-    | fgrep    '"object-foo,5"' > ${GREP_OUTPUT}
+    | fgrep    "\"object-4.3,${r4},${r5},${r6}\"" \
+    | fgrep    "\"object-extra,${r4},${r5}\"" \
+    | fgrep    "\"object-foo,${r5}\"" > ${GREP_OUTPUT}
 
 ;;
     "delete-history")
@@ -149,9 +151,9 @@ curl_graph_store_get --repository ${repository} revision-id=${rev}   | tr -s '\n
 
 echo "checking visibility vectors after trim-history in mode \"${mode}\"" > ${INFO_OUTPUT}
 get_visibility | tr -s '\n' '\t' | tee ${INFO_OUTPUT} \
-    | fgrep    '"object-4.3,4,5,6"' \
+    | fgrep    "\"object-4.3,${r4},${r5},${r6}\"" \
     | fgrep -v 'object-extra' \
-    | fgrep    '"object-foo,5"' > ${GREP_OUTPUT}
+    | fgrep    "\"object-foo,${r5}\"" > ${GREP_OUTPUT}
 
 ;;
     *) echo "Error: unknown mode \"${mode}\""

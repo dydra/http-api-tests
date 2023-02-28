@@ -77,3 +77,10 @@ function make_base_revision_ordinals() {
   let r6=$r5+1
   let r7=$r6+1
 }
+
+function check_empty_repository() {
+  rev="HEAD"
+  result=$(curl_graph_store_get_code_nofail --repository ${repository} revision-id=${rev} 2>&1 > /dev/null)
+  echo "result: ${result}" > ${INFO_OUTPUT}
+  test "$result" -eq "404"
+}

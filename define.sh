@@ -937,6 +937,7 @@ function repository_list_revisions () {
   local -a curl_args=()
   local curl_url=""
 
+  local -a accept_media_type=("-H" "Accept:text/plain")
   local -a method=("-X" "GET")
   local -a user=(-u ":${STORE_TOKEN}")
   local revision=""
@@ -945,6 +946,11 @@ function repository_list_revisions () {
 
   while [[ "$#" > 0 ]] ; do
     case "$1" in
+      -H) case "$2" in
+          Accept:*) accept_media_type[1]="${2}"; shift 2;;
+#          Content-Type:*) content_media_type[1]="${2}"; shift 2;;
+#          *) curl_args+=("${1}" "${2}"); shift 2;;
+          esac ;;
       --account) account="${2}"; shift 2;;
       --repository) repository="${2}"; shift 2;;
       -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
@@ -952,10 +958,10 @@ function repository_list_revisions () {
   done
   if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
   curl_url="${STORE_URL}/system/accounts/${account}/repositories/${repository}/revisions";
+  curl_args+=("${accept_media_type[@]}");
 
   echo ${CURL} -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
-  ${CURL} -f -s "${curl_args[@]}" ${curl_url} \
-  -H "Accept: text/plain"
+  ${CURL} -f -s "${curl_args[@]}" ${curl_url}
 }
 
 # repository_number_of_revisions { --account $account } {--repository $repository}

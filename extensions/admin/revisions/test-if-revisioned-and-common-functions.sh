@@ -52,10 +52,28 @@ EOF
 }
 
 function get_visibility() {
+  echo curl_sparql_request--repository ${repository} revision-id="*--*" \
+    -H "Content-Type: application/sparql-query" \
+    -H "Accept: application/json" > ${ECHO_OUTPUT}
   curl_sparql_request --repository ${repository} revision-id="*--*" \
     -H "Content-Type: application/sparql-query" \
     -H "Accept: application/json" <<EOF \
     | jq '.[] | join(",")' | tee ${ECHO_OUTPUT}
 select ?o ?v where { graph ?g {?s ?p ?o {| <urn:dydra:copy> ?v |} } }
 EOF
+}
+
+function get_tail_revision_ordinal() {
+    repository_list_revisions -H Accept:application/json --repository ${repository} | jq .[0].ordinal
+}
+
+function make_base_revision_ordinals() {
+  r1=$(get_tail_revision_ordinal)
+  echo "base revision is ${r1}" > ${INFO_OUTPUT}
+  let r2=$r1+1
+  let r3=$r2+1
+  let r4=$r3+1
+  let r5=$r4+1
+  let r6=$r5+1
+  let r7=$r6+1
 }

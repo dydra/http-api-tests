@@ -25,6 +25,7 @@ date
 initialize_all_repositories
 # problems with the repository content
 # run extensions/git
+run extensions/admin/revisions
 run extensions/graph-store-protocol
 run extensions/sparql-protocol/collation
 run extensions/sparql-protocol/meta-data

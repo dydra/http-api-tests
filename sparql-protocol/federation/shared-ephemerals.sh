@@ -10,7 +10,7 @@ select (count(*) as ?count) where {
  { ?s1 <http://example.com/default-predicate> ?o1
     bind (concat(?o1, '++') as ?o_plus)
  }
- { service  <http://localhost/openrdf-sesame/mem-rdf> {
+ { service  <http://localhost/${STORE_ACCOUNT}/${STORE_REPOSITORY}> {
      ?s2 <http://example.com/default-predicate> ?o2
       bind (concat(?o2, '++') as ?o_plus)
    }
@@ -40,13 +40,13 @@ select * where {
  { ?s1 <http://example.com/default-predicate> ?o1
     bind (concat(?o1, '++') as ?o_plus)
  }
- { service  <http://localhost/openrdf-sesame/mem-rdf> {
+ { service  <http://localhost/${STORE_ACCOUNT}/${STORE_REPOSITORY}> {
      ?s2 <http://example.com/default-predicate> ?o2
       bind (concat(?o2, '++') as ?o_plus)
    }
  }
 }"
-             :repository-id "openrdf-sesame/mem-rdf"
+             :repository-id "${STORE_ACCOUNT}/${STORE_REPOSITORY}"
              :response-content-type mime:application/sparql-results+json
              )
 
@@ -65,13 +65,13 @@ select (count(*) as ?count) where {
 #    bind (concat(?o2, '++') as ?o_plus)
 # }
 
- { service  <http://localhost/openrdf-sesame/mem-rdf> {
+ { service  <http://localhost/${STORE_ACCOUNT}/${STORE_REPOSITORY}> {
      ?s2 <http://example.com/default-predicate> ?o2
       bind (concat(?o2, '++') as ?o_plus)
    }
  }
 }"
-             :repository-id "openrdf-sesame/mem-rdf")
+             :repository-id "${STORE_ACCOUNT}/${STORE_REPOSITORY}")
              :response-content-type mime:application/sparql-results+json
              )
 
@@ -80,13 +80,13 @@ select (count(*) as ?count) where {
  { ?s1 <http://example.com/default-predicate> ?o1
     bind (concat(?o1, '++') as ?o_plus)
  }
- { service  <http://localhost/openrdf-sesame/mem-rdf> {
+ { service  <http://localhost/${STORE_ACCOUNT}/${STORE_REPOSITORY}> {
      ?s2 <http://example.com/default-predicate> ?o2
       bind (concat(?o2, '++') as ?o_plus)
    }
  }
 }"
-             :repository-id "openrdf-sesame/mem-rdf"
+             :repository-id "${STORE_ACCOUNT}/${STORE_REPOSITORY}"
              :agent (system-agent)
              )
 
@@ -96,7 +96,7 @@ select (count(*) as ?count) where {
     bind (concat(?o1, '++') as ?o_plus)
  }
 }"
-             :repository-id "openrdf-sesame/mem-rdf"
+             :repository-id "${STORE_ACCOUNT}/${STORE_REPOSITORY}"
              :response-content-type mime:application/sparql-results+json
              )
 

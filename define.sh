@@ -869,6 +869,7 @@ function delete_repository () {
     esac
   done
   local -a URL="${STORE_URL}/system/accounts/${account}/repositories/${repository}"
+  echo "delete repository: ${account}/${repository}" > $ECHO_OUTPUT
   ${CURL} -w "%{http_code}\n" -f -s -X DELETE "${curl_args[@]}" \
      -H "Accept: application/n-quads" \
      -u ":${STORE_TOKEN_ADMIN}" ${URL}

@@ -91,8 +91,10 @@ To test and (if necessary) solve all dependencies you may simply run:
 ## Sesame HTTP communication protocol
 
 These tests exercise the Sesame rest api, as per the OpenRDF "HTTP communication protocol"
-[description](http://www.openrdf.org/doc/sesame2/system/ch08.html),
-[or](http://openrdf.callimachus.net/sesame/2.7/docs/system.docbook?view#chapter-http-protocol).
+[description](http://www.openrdf.org/doc/sesame2/system/ch08.html)
+([archival link](https://web.archive.org/web/20121215091734/http://www.openrdf.org/doc/sesame2/system/ch08.html)),
+[or](http://openrdf.callimachus.net/sesame/2.7/docs/system.docbook?view#chapter-http-protocol)
+([archival link](https://web.archive.org/web/20160329043259/http://rdf4j.org/sesame/2.7/docs/system.docbook?view#chapter-http-protocol)).
 For the v2.0 Sesame protocol, the concrete resources, with reference to
 the described overview:
 
@@ -165,6 +167,7 @@ and json_reformat. Test failures match against the HTTP status code.
 ### Graph store support through the Sesame HTTP protocol
 
 The graph store support under [sesame](http://www.openrdf.org/doc/sesame2/system/ch08.html#d0e659)
+([archival link](https://web.archive.org/web/20121215091734/http://www.openrdf.org/doc/sesame2/system/ch08.html#d0e659))
 provides two resource patterns.
 
     <SESAME_URL>/repositories/<ID>/rdf-graphs/service

@@ -45,7 +45,7 @@ sleep 30
 echo PUT-trix : test successor query completion > $ECHO_OUTPUT
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
     | tee ${ECHO_OUTPUT} \
-    | fgrep openrdf-sesame/mem-rdf-write | fgrep -q '"1"^^<http://www.w3.org/2001/XMLSchema#integer>'
+    | fgrep "${STORE_ACCOUNT}/${STORE_REPOSITORY}-write" | fgrep -q '"1"^^<http://www.w3.org/2001/XMLSchema#integer>'
 
 # test that the revision was adopted
 echo PUT-trix : test successor query completion using $repositoryRevisionUUID > $ECHO_OUTPUT

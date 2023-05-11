@@ -119,10 +119,10 @@ The compact graph store patterns provide and alternative, less encumbered means
 to address the resource and its content:
 
         ${STORE_URL}/${STORE_ACCOUNT}
-          /${STORE_REPOSITORY}
-          /${STORE_REPOSITORY}?default               : the default graph
-          /${STORE_REPOSITORY}?graph=${STORE_IGRAPH} : an arbitrary indirect graph
-                               graph=urn:dydra:service-description : the repository SPARQL endpoint service description
+          /${STORE_REPOSITORY}/service
+          /${STORE_REPOSITORY}/service?default               : the default graph
+          /${STORE_REPOSITORY}/service?graph=${STORE_IGRAPH} : an arbitrary indirect graph
+                              /service?graph=urn:dydra:service-description : the repository SPARQL endpoint service description
           /${STORE_REPOSITORY}/${STORE_RGRAPH}       : graph relative to the repository base url
 
 
@@ -182,30 +182,30 @@ on the openrdf topic, the designator for a directly referenced named graph in a
 sesame request URI is the literal URL. That is, it includes the "/repositories" text.
 
 > The SPARQL 1.1 Graph Store HTTP Protocol is supported on a per-repository basis.
-> The functionality is accessible at <SESAME_URL>/repositories/<ID>/rdf-graphs/service
-> (for indirectly referenced named graphs), and <SESAME_URL>/repositories/<ID>/rdf-graphs/<NAME>
+> The functionality is accessible at &lt;SESAME_URL&gt;/repositories/&lt;ID&gt;/rdf-graphs/service
+> (for indirectly referenced named graphs), and &lt;SESAME_URL&gt;/repositories/&lt;ID&gt;/rdf-graphs/&lt;NAME&gt;
 > (for directly referenced named graphs).
 > A request on a directly referenced named graph entails that the request URL itself is used
 > as the named graph identifier in the repository.
 
 
-For a repository on a DYDRA host, the sesame request patterns manifest in terms of the host authority, the
-user account and the repository name
+For a repository on a DYDRA host, the sesame request patterns manifest in terms of the host authority,
+the user account and the repository name
 
-    <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/service
-    <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/<NAME>
+    <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/rdf-graphs/service
+    <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/rdf-graphs/<GRAPH-NAME>
 
 The consequence is that, in order to designate the repository as a whole, the sesame request URL must take a form
 
-    <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/service?graph=<HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>
+    <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/rdf-graphs/service?graph=<HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>
 
 and the default graph is designated as
 
-    <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/service?default
+    <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/rdf-graphs/service?default
 
 While a request of the form
 
-    <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/<NAME>
+    <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/rdf-graphs/<GRAPP-NAME>
 
 designate exactly that named graph in the store.
 

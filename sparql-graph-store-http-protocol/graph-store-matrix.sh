@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 protocolgraph="<${STORE_NAMED_GRAPH}-protocol>"
 read -d '' initial_input <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default-object-org" .
@@ -14,6 +14,7 @@ read -d '' input_quads <<EOF
 <http://example.com/named-subject> <http://example.com/named-predicate> "named-object-GRAPH1-new" <${STORE_NAMED_GRAPH}-one> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named-object-GRAPH2-new" <${STORE_NAMED_GRAPH}-three> .
 EOF
+initial_input_lines=$(echo "${initial_input}" | wc -l)
 
 function check_content() {
     # check content
@@ -36,7 +37,7 @@ function check_content() {
         
         #echo "looking for ${statement_object} in ${statement_graph}"
         #echo -n "            "
-        echo -n "  "
+        echo -n "    "
         found=$(echo "${response}" | grep ${statement_object})
         if [ -n "${found}" ]; then
             elem=$(echo "${found}" | awk '{print NF}')
@@ -64,6 +65,75 @@ function check_content() {
     done
 }
 
+function check_results() {
+    local name="$1"
+    input=${!name}
+    input_lines_var="${name}_lines"
+    input_lines=${!input_lines_var}
+    echo -n "  checking ${name}: "
+    #echo -e "--\n${input}\n++"
+    #echo "lines: ${input_lines}"
+
+    # check content
+    let same_count=0
+    let moved_count=0
+    let deleted_count=0
+    for i in $(seq "${input_lines}"); do
+        statement=$(echo "${input}" | sed "${i}q;d")
+        elem=$(echo "${statement}" | awk '{print NF}')
+        if [ "$elem" -eq 4 ]; then
+            statement_object=$(echo "${statement}" | cut -d' ' -f3)
+            statement_graph=default
+        elif [ "$elem" -eq 5 ]; then
+            statement_object=$(echo "${statement}" | cut -d' ' -f3)
+            statement_graph=$(echo "${statement}" | cut -d' ' -f4)
+        elif [ "$elem" -eq 0 ]; then
+            echo empty statement
+            exit 3
+        else
+            echo unknown statement type
+            exit 3
+        fi
+        
+        #echo "looking for ${statement_object} in ${statement_graph}"
+        #echo -n "            "
+        found=$(echo "${response}" | grep ${statement_object})
+        if [ -n "${found}" ]; then
+            elem=$(echo "${found}" | awk '{print NF}')
+            if [ "$elem" -eq 4 ]; then
+                found_object=$(echo "${found}" | cut -d' ' -f3)
+                found_graph=default
+            elif [ "$elem" -eq 5 ]; then
+                found_object=$(echo "${found}" | cut -d' ' -f3)
+                found_graph=$(echo "${found}" | cut -d' ' -f4)
+            elif [ "$elem" -eq 0 ]; then
+                echo "empty statement in result"
+                exit 3
+            else
+                echo "unknown statement type in result"
+                exit 3
+            fi
+            if [ "${statement_graph}" = "${found_graph}" ]; then
+                let same_count++
+                #echo "    graph ${statement_graph} found"
+            else
+                let moved_count++
+                #echo "    graph ${statement_graph} moved, ${statement_object} now in graph ${found_graph}"
+            fi
+        else
+            let deleted_count++
+            #echo "    graph ${statement_graph} deleted"
+        fi
+    done
+    if [ "${same_count}" -eq "${input_lines}" ]; then
+        echo "all found"
+    elif [ "${deleted_count}" -eq "${input_lines}" ]; then
+        echo "nothing found"
+    else
+        echo "same: ${same_count}  moved: ${moved_count}  deleted: ${deleted_count}"
+    fi
+}
+
 let count=0
 for method in GET PUT DELETE POST HEAD PATCH; do
     for graph in none default graph-name-protocol; do
@@ -88,28 +158,29 @@ for method in GET PUT DELETE POST HEAD PATCH; do
                     esac
                     case "$content" in
                         n-triples)
-                            contentvar="${input_triples}"
+                            body_content="${input_triples}"
                             ;;
                         n-quads)
-                            contentvar="${input_quads}"
+                            body_content="${input_quads}"
                             ;;
                         *)
                             echo "unknown convent value: ${content}"
                             exit 4
                             ;;
                     esac
+                    body_content_lines=$(echo "${body_content}" | wc -l)
 
-                    union=$(echo -e "${initial_input}\n${contentvar}")
+                    union=$(echo -e "${initial_input}\n${body_content}")
                     #echo "${union}"
                     union_lines=$(echo "${union}" | wc -l)
 
                     let count++
                     echo "${count}."
                     echo -n "method: ${method} "
-                    echo -n "graph: ${graph} "
                     echo -n "content: ${content} "
                     echo -n "content_type: ${content_type} "
                     echo -n "accept_type: ${accept_type} "
+                    echo -n "graph: ${graph} "
                     echo -n "graphvar: ${graphvar}"
                     echo
                     
@@ -121,8 +192,8 @@ for method in GET PUT DELETE POST HEAD PATCH; do
                     
                     #output=$(curl_graph_store_get -i --repository "${STORE_REPOSITORY_WRITABLE}")
                     #echo "$output" | egrep "^Content-Type: " |cut -d' ' -f2 | sed 's/;//g'
-                    #echo -e "contentvar:\n++\n${contentvar}\n--"
-                    output=$(echo "$contentvar" | \
+                    #echo -e "body_content:\n++\n${body_content}\n--"
+                    output=$(echo "$body_content" | \
                                  curl_graph_store_update --repository "${STORE_REPOSITORY_WRITABLE}" \
                                                   -w '%{content_type}' \
                                                   -X "${method}" \
@@ -171,7 +242,7 @@ for method in GET PUT DELETE POST HEAD PATCH; do
                             echo "no output"
                         else
                             echo -n "normal output "
-                            echo "lines: $lines empty: ${empty} triples: ${triples} quads: ${quads} unknown: ${unknown}"
+                            echo "lines: $lines  empty: ${empty}  triples: ${triples}  quads: ${quads}  unknown: ${unknown}"
                         fi
                     fi
                     
@@ -183,6 +254,8 @@ for method in GET PUT DELETE POST HEAD PATCH; do
                         if [ "$sum" -gt 0 ]; then
                             echo "  no. statements: $sum"
                             check_content
+                            check_results initial_input
+                            check_results body_content
                         fi
                     fi
 
@@ -202,7 +275,7 @@ for method in GET PUT DELETE POST HEAD PATCH; do
                         fi
                         response=$(echo "$output"| head -n -1)
                         lines=$(echo "$response" | wc -l)
-                        echo -n "lines: $lines "
+                        echo -n "lines: $lines  "
                         let triples=0
                         let quads=0
                         let unknown=0
@@ -223,11 +296,13 @@ for method in GET PUT DELETE POST HEAD PATCH; do
                         if [ "$unknown" -ne 0 ]; then
                             echo -e "--\n$response\n++"
                         fi
-                        echo "empty: ${empty} triples: ${triples} quads: ${quads} unknown: ${unknown}"
+                        echo "empty: ${empty}  triples: ${triples}  quads: ${quads}  unknown: ${unknown}"
 
                         let sum="$triples"+"$quads"
                         echo "  no. statements: $sum"
                         check_content
+                        check_results initial_input
+                        check_results body_content
                     fi
                     echo
                     #sed 's/"[^"]*"/STRING/g' | sed 's/<[^>]*>/URL/g' | awk '{print NF}'

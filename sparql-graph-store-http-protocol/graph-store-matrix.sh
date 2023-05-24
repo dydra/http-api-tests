@@ -77,7 +77,7 @@ function check_results() {
     # check content
     let same_count=0
     let moved_count=0
-    let deleted_count=0
+    let removed_count=0
     for i in $(seq "${input_lines}"); do
         statement=$(echo "${input}" | sed "${i}q;d")
         elem=$(echo "${statement}" | awk '{print NF}')
@@ -121,18 +121,44 @@ function check_results() {
                 #echo "    graph ${statement_graph} moved, ${statement_object} now in graph ${found_graph}"
             fi
         else
-            let deleted_count++
-            #echo "    graph ${statement_graph} deleted"
+            let removed_count++
+            #echo "    graph ${statement_graph} removed"
         fi
     done
     if [ "${same_count}" -eq "${input_lines}" ]; then
+        #csv "|2"
+        csv "|all found"
         echo "all found"
-    elif [ "${deleted_count}" -eq "${input_lines}" ]; then
-        echo "nothing found"
+        csv "|||"
+    elif [ "${removed_count}" -eq "${input_lines}" ]; then
+        #csv "|0"
+        csv "|none found"
+        echo "none found"
+        csv "|||"
     else
-        echo "same: ${same_count}  moved: ${moved_count}  deleted: ${deleted_count}"
+        #csv "|1"
+        csv "|modified"
+        echo -n "found modified  "
+        csv "|${same_count}|${moved_count}|${removed_count}"
+        echo "same: ${same_count}  moved: ${moved_count}  removed: ${removed_count}"
     fi
 }
+
+function csv() {
+    echo -n $1 >&2
+}
+function csv_nl() {
+    echo >&2
+}
+
+csv "method|content|content_type|accept_type|graph"
+csv "|response content_type|output_type|no statements"
+csv "|initial input|same|moved|removed"
+csv "|body content|same|moved|removed"
+csv "|GET content_type|output_type|no statements"
+csv "|initial input|same|moved|removed"
+csv "|body content|same|moved|removed"
+csv_nl
 
 let count=0
 for method in GET PUT DELETE POST HEAD PATCH; do
@@ -183,6 +209,7 @@ for method in GET PUT DELETE POST HEAD PATCH; do
                     echo -n "graph: ${graph} "
                     echo -n "graphvar: ${graphvar}"
                     echo
+                    csv "${method}|${content}|${content_type}|${accept_type}|${graph}"
                     
                     delete_revisions --repository "${STORE_REPOSITORY_WRITABLE}" > /dev/null
                     echo "${initial_input}" | \
@@ -206,6 +233,7 @@ for method in GET PUT DELETE POST HEAD PATCH; do
                     response=$(echo "$output"| head -n -1)
                     echo -n "RESPONSE "
                     echo "type: ${response_type}"
+                    csv "|${response_type}"
                     lines=$(echo "$response" | wc -l)
                     let activitystream=0
                     if [ "$lines" -eq 8 ]; then
@@ -237,12 +265,19 @@ for method in GET PUT DELETE POST HEAD PATCH; do
                     echo -n "  "
                     if [ "${activitystream}" -eq 1 ]; then
                         echo "activity stream"
+                        csv "|activity stream|0"
+                        csv "||||"
+                        csv "||||"
                     else
                         if [ "$lines" -eq 1 ] && [ "$empty" -eq 1 ]; then
-                            echo "no output"
+                            echo "empty output"
+                            csv "|empty|0"
+                            csv "||||"
+                            csv "||||"
                         else
                             echo -n "normal output "
                             echo "lines: $lines  empty: ${empty}  triples: ${triples}  quads: ${quads}  unknown: ${unknown}"
+                            csv "|normal"
                         fi
                     fi
                     
@@ -253,6 +288,7 @@ for method in GET PUT DELETE POST HEAD PATCH; do
                         let sum="$triples"+"$quads"
                         if [ "$sum" -gt 0 ]; then
                             echo "  no. statements: $sum"
+                            csv "|${sum}"
                             check_content
                             check_results initial_input
                             check_results body_content
@@ -266,6 +302,9 @@ for method in GET PUT DELETE POST HEAD PATCH; do
                     code=$(echo "$output"| tail -n 1)
                     if [ "$code" -eq "404" ]; then
                         echo "<empty repository> (404 NOT FOUND)"
+                        csv "|(404 NOT FOUND)|<empty repository>|0"
+                        csv "||||"
+                        csv "||||"
                     else
                         output=$(echo "$output"| head -n -1)
                         response_type=$(echo "$output"| tail -n 1 | cut -d' ' -f1 | sed 's/;//g')
@@ -273,6 +312,7 @@ for method in GET PUT DELETE POST HEAD PATCH; do
                             echo "wrong response: ${response_type}"
                             exit 2
                         fi
+                        csv "|${response_type}"
                         response=$(echo "$output"| head -n -1)
                         lines=$(echo "$response" | wc -l)
                         echo -n "lines: $lines  "
@@ -300,6 +340,7 @@ for method in GET PUT DELETE POST HEAD PATCH; do
 
                         let sum="$triples"+"$quads"
                         echo "  no. statements: $sum"
+                        csv "|normal|${sum}"
                         check_content
                         check_results initial_input
                         check_results body_content
@@ -309,7 +350,9 @@ for method in GET PUT DELETE POST HEAD PATCH; do
                     # deleted graph
                     # inserted into graph
                     # actual content
-                    # content 
+                    # content
+
+                    csv_nl
                 done
             done
         done

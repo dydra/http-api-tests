@@ -1,17 +1,12 @@
 #!/bin/bash
 protocolgraph="<${STORE_NAMED_GRAPH}-protocol>"
-read -d '' triples <<EOF
-<http://example.com/default-subject> <http://example.com/default-predicate> "default-object-test" .
+read -d '' input_triples <<EOF
+<http://example.com/default-subject> <http://example.com/default-predicate> "default-object-new" .
 EOF
-read -d '' quads <<EOF
-<http://example.com/default-subject> <http://example.com/default-predicate> "default-object-test" .
-<http://example.com/named-subject> <http://example.com/named-predicate> "named-object-GRAPH1-test" <${STORE_NAMED_GRAPH}> .
-<http://example.com/named-subject> <http://example.com/named-predicate> "named-object-GRAPH2-test" <${STORE_NAMED_GRAPH}-two> .
-EOF
-read -d '' initialquads <<EOF
-<http://example.com/default-subject> <http://example.com/default-predicate> "default-object-test" .
-<http://example.com/named-subject> <http://example.com/named-predicate> "named-object-GRAPH1-test" <${STORE_NAMED_GRAPH}> .
-<http://example.com/named-subject> <http://example.com/named-predicate> "named-object-GRAPH2-test" <${STORE_NAMED_GRAPH}-two> .
+read -d '' input_quads <<EOF
+<http://example.com/default-subject> <http://example.com/default-predicate> "default-object-new" .
+<http://example.com/named-subject> <http://example.com/named-predicate> "named-object-GRAPH1-new" <${STORE_NAMED_GRAPH}> .
+<http://example.com/named-subject> <http://example.com/named-predicate> "named-object-GRAPH2-new" <${STORE_NAMED_GRAPH}-two> .
 EOF
 
 for content in n-triples n-quads; do
@@ -36,10 +31,10 @@ for content in n-triples n-quads; do
                     esac
                     case "$content" in
                         n-triples)
-                            contentvar="$triples"
+                            contentvar="${input_triples}"
                             ;;
                         n-quads)
-                            contentvar="quads"
+                            contentvar="${input_quads}"
                             ;;
                         *)
                             echo "unknown convent value: ${content}"
@@ -50,30 +45,31 @@ for content in n-triples n-quads; do
                     echo -n "content: ${content} "
                     echo "content_type: ${content_type} accept_type: ${accept_type} graph: ${graph} method: ${method} graphvar: ${graphvar}"
                     delete_revisions --repository "${STORE_REPOSITORY_WRITABLE}" > /dev/null
-                    #echo -e "++\n${contentvar}--"
-                    echo "$contentvar" | \
                     curl_graph_store_update -X POST  -o /dev/null \
                                             -H "Content-Type: application/n-quads" \
                                             --repository "${STORE_REPOSITORY_WRITABLE}" \
+                                            <<EOF
+<http://example.com/default-subject> <http://example.com/default-predicate> "default-object-org" .
+<http://example.com/named-subject> <http://example.com/named-predicate> "named-object-GRAPH1-org" <${STORE_NAMED_GRAPH}> .
+<http://example.com/named-subject> <http://example.com/named-predicate> "named-object-GRAPH2-org" <${STORE_NAMED_GRAPH}-two> .
+<http://example.com/named-subject> <http://example.com/named-predicate> "named-object-GRAPH3-org" ${protocolgraph} .
+EOF
                     #output=$(curl_graph_store_get -i --repository "${STORE_REPOSITORY_WRITABLE}")
                     #echo "$output" | egrep "^Content-Type: " |cut -d' ' -f2 | sed 's/;//g'
-                                            if [ "${method}" = "HEAD" ]; then exit 23; fi
-                    output=$(curl_graph_store_update --repository "${STORE_REPOSITORY_WRITABLE}" \
+                    #echo -e "contentvar:\n++\n${contentvar}\n--"
+                    output=$(echo "$contentvar" | \
+                                 curl_graph_store_update --repository "${STORE_REPOSITORY_WRITABLE}" \
                                                   -w '%{content_type}' \
                                                   -X "${method}" \
                                                   -H "Accept: ${accept_type}" \
                                                   -H "Content-Type: ${content_type}" \
-                                                  ${graphvar} \
-                                                  <<EOF
-<http://example.com/default-subject> <http://example.com/default-predicate> "default-object-test" .
-<http://example.com/named-subject> <http://example.com/named-predicate> "named-object-GRAPH1-test" <${STORE_NAMED_GRAPH}> .
-<http://example.com/named-subject> <http://example.com/named-predicate> "named-object-GRAPH2-test" <${STORE_NAMED_GRAPH}-two> .
-EOF
-)
+                                                  ${graphvar}
+                          )
                     #echo -e "++\n${output}\n--"
                     response_type=$(echo "$output"| tail -n 1 |cut -d' ' -f1 | sed 's/;//g')
                     response=$(echo "$output"| head -n -1)
-                    echo "response type: ${response_type}"
+                    echo -n "RESPONSE "
+                    echo "type: ${response_type}"
                     lines=$(echo "$response" | wc -l)
                     let activitystream=0
                     if [ "$lines" -eq 8 ]; then
@@ -82,7 +78,13 @@ EOF
                             let activitystream=1
                         fi
                     fi
-                    echo -n "activitystream: ${activitystream} "
+                    # echo -n "activitystream: ${activitystream} "
+                    if [ "${activitystream}" -eq 1 ]; then
+                        echo -n "activity stream "
+                    else
+                        #echo -n "normal output   "
+                        echo -n "output          "
+                    fi
                     echo -n "lines: $lines "
                     let triples=0
                     let quads=0
@@ -106,7 +108,7 @@ EOF
                     fi
                     echo "empty: ${empty} triples: ${triples} quads: ${quads} unknown: ${unknown}"
 
-                    echo -n "GET               "
+                    echo -n "GET             "
                     output=$(curl_graph_store_get --repository "${STORE_REPOSITORY_WRITABLE}" \
                                                   -w '%{content_type}\n%{http_code}' \
                                                   -H "Accept: application/n-quads")
@@ -144,9 +146,16 @@ EOF
                             echo -e "--\n$response\n++"
                         fi
                         echo "empty: ${empty} triples: ${triples} quads: ${quads} unknown: ${unknown}"
+
+                        echo "$response" | grep "default-object-new"
+"default-object-new"
+"named-object-GRAPH1-new" <${STORE_NAMED_GRAPH}>
+"named-object-GRAPH2-new" <${STORE_NAMED_GRAPH}-two>
+"named-object-GRAPH1-org" <${STORE_NAMED_GRAPH}>
+"named-object-GRAPH2-org" <${STORE_NAMED_GRAPH}-two>
+"named-object-GRAPH3-org" ${protocolgraph}
                     fi
                     echo
-                    if [ "${method}" = "HEAD" ]; then exit 23; fi
                     #sed 's/"[^"]*"/STRING/g' | sed 's/<[^>]*>/URL/g' | awk '{print NF}'
                     # deleted graph
                     # inserted into graph

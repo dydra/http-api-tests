@@ -14,8 +14,8 @@
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
 echo "put triples w/ none"  > $ECHO_OUTPUT
-# while, in theory, one coulr return a 400 and claim it is a protocol violatation, that leaves no
-# easy way to clear a repositiry with named graph content and import just the default graph.
+# while, in theory, one could return a 400 and claim it is a protocol violatation, that leaves no
+# easy way to clear a repository with named graph content and import just the default graph.
 curl_graph_store_update -X PUT  -w "%{http_code}\n" -o /dev/null\
      -H "Content-Type: application/n-triples" \
      --repository "${STORE_REPOSITORY}-write"  <<EOF  \

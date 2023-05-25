@@ -151,7 +151,7 @@ function csv_nl() {
     echo >&2
 }
 
-csv "method|content|content_type|accept_type|graph"
+csv "no|method|content|content_type|accept_type|graph"
 csv "|response content_type|output_type|no statements"
 csv "|initial input|same|moved|removed"
 csv "|body content|same|moved|removed"
@@ -209,7 +209,7 @@ for method in GET PUT DELETE POST HEAD PATCH; do
                     echo -n "graph: ${graph} "
                     echo -n "graphvar: ${graphvar}"
                     echo
-                    csv "${method}|${content}|${content_type}|${accept_type}|${graph}"
+                    csv "${count}|${method}|${content}|${content_type}|${accept_type}|${graph}"
                     
                     delete_revisions --repository "${STORE_REPOSITORY_WRITABLE}" > /dev/null
                     echo "${initial_input}" | \

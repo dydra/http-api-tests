@@ -108,17 +108,27 @@ curl_graph_store_update -X PATCH -o /dev/null \
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-quads-default" .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-quads-default" <${STORE_NAMED_GRAPH}-two> .
 EOF
-
 echo "test patch quads to default" > ${ECHO_OUTPUT}
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
  | sort > PATCH-out.nq
 rapper -q -i nquads -o nquads PATCH-out.nq > /dev/null 
+if [ "${GRAPH_STORE_PATCH_LEGACY}" = "true" ]; then
+# rdfcache/dydrad:
 sort <<EOF > PATCH-test.nq
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-quads-default" .
 <http://example.com/default-subject> <http://example.com/default-predicate> "extra object PATCH-triples-extra-graph" <${STORE_NAMED_GRAPH}-three> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-quads-default" <${STORE_NAMED_GRAPH}-two> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
+else
+# rlmdb:
+sort <<EOF > PATCH-test.nq
+<http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-quads-default" .
+<http://example.com/default-subject> <http://example.com/default-predicate> "extra object PATCH-triples-extra-graph" <${STORE_NAMED_GRAPH}-three> .
+<http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-quads-default" .
+<http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
+EOF
+fi
 diff -w PATCH-out.nq PATCH-test.nq
 # known to fail. patch quads to default should replace any statement graph
 #<http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-quads-default" .
@@ -151,12 +161,23 @@ echo "test patch triples to graph" > ${ECHO_OUTPUT}
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
  | sort > PATCH-out.nq
 rapper -q -i nquads -o nquads PATCH-out.nq > /dev/null 
+if [ "${GRAPH_STORE_PATCH_LEGACY}" = "true" ]; then
+# rdfcache/dydrad:
 sort <<EOF > PATCH-test.nq
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-triples-graph" .
 <http://example.com/default-subject> <http://example.com/default-predicate> "extra object PATCH-triples-extra-graph" <${STORE_NAMED_GRAPH}-three> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-triples-graph" <${STORE_NAMED_GRAPH}-two> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
+else
+# rlmdb:
+sort <<EOF > PATCH-test.nq
+<http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-triples-graph" <${STORE_NAMED_GRAPH}-three> .
+<http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
+<http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-triples-graph" <${STORE_NAMED_GRAPH}-three> .
+<http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
+EOF
+fi
 diff -w PATCH-out.nq PATCH-test.nq
 # known to fail. patch triples to graph should replace any statement graph
 #<http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-triples-graph" <${STORE_NAMED_GRAPH}-three> .
@@ -177,12 +198,23 @@ echo "test patch quads to graph" > ${ECHO_OUTPUT}
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
  | sort > PATCH-out.nq
 rapper -q -i nquads -o nquads PATCH-out.nq > /dev/null 
+if [ "${GRAPH_STORE_PATCH_LEGACY}" = "true" ]; then
+# rdfcache/dydrad:
 sort <<EOF > PATCH-test.nq
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-quads-graph" .
 <http://example.com/default-subject> <http://example.com/default-predicate> "extra object PATCH-triples-extra-graph" <${STORE_NAMED_GRAPH}-three> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-quads-graph" <${STORE_NAMED_GRAPH}-two> .
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
+else
+# rlmdb:
+sort <<EOF > PATCH-test.nq
+<http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
+<http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-quads-graph" <${STORE_NAMED_GRAPH}-three> .
+<http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-quads-graph" <${STORE_NAMED_GRAPH}-three> .
+<http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
+EOF
+fi
 diff -w PATCH-out.nq PATCH-test.nq
 # known to fail : patch quads to graph should replace any statement graph
 #<http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-quads-graph" <${STORE_NAMED_GRAPH}-three> .
@@ -190,8 +222,3 @@ diff -w PATCH-out.nq PATCH-test.nq
 #<http://example.com/default-subject> <http://example.com/default-predicate> "extra object PATCH-triples-extra-graph" <${STORE_NAMED_GRAPH}-three> .
 #<http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-quads-graph" <${STORE_NAMED_GRAPH}-three> .
 #<http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
-
-
-
-
-

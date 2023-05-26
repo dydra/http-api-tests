@@ -6,6 +6,9 @@
 echo "multipart patch: initialize" > ${ECHO_OUTPUT}
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
+# <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <http://dydra.com/openrdf-sesame/mem-rdf/graph-name> .
+# <http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
+
 echo "add extra graph" > ${ECHO_OUTPUT}
 curl_graph_store_update -X PATCH -o /dev/null \
      -H "Content-Type: multipart/related; boundary=patch" \
@@ -21,13 +24,12 @@ X-HTTP-Method-Override: POST
 --patch--
 EOF
 
+# <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <http://dydra.com/openrdf-sesame/mem-rdf/graph-name> .
+# <http://example.com/default-subject> <http://example.com/default-predicate> "new object" .
 
 echo "test patch quads w/ none" > ${ECHO_OUTPUT}
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
-| rapper -q -i nquads -o nquads /dev/stdin | sort > result.nq
+    | rapper -q -i nquads -o nquads /dev/stdin | sort > result.nq
 fgrep -q "new object" result.nq
 fgrep -q "named object" result.nq
 fgrep -qv "default object" result.nq
-
-
-

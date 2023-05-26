@@ -72,6 +72,9 @@ export STORE_REPOSITORY_PUBLIC="${STORE_REPOSITORY}-public"
 export STORE_REPOSITORY_REVISIONED="${STORE_REPOSITORY}-revisioned"
 export STORE_REPOSITORY_CLASS_DEFAULT="lmdb-quad-repository"
 export STORE_REVISIONED_REPOSITORY_CLASS_DEFAULT="lmdb-revisioned-repository"
+if [[ "" == "${GRAPH_STORE_PATCH_LEGACY}" ]]
+then export GRAPH_STORE_PATCH_LEGACY=true
+fi
 export STORE_CLIENT_IP="127.0.0.1"
 export STORE_PREFIX="rdf"
 export STORE_DGRAPH="sesame"

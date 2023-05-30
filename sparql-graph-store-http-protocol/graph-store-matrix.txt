@@ -1,0 +1,2304 @@
+1.
+method: GET content: n-triples content_type: application/n-triples accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  normal output lines: 4  empty: 0  triples: 4  quads: 0  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-org" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>)
+    "named-object-GRAPH3-org" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>)
+    "default-object-new" not found
+  checking initial_input: found modified  same: 1  moved: 3  removed: 0
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+2.
+method: GET content: n-triples content_type: application/n-triples accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  normal output lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+3.
+method: GET content: n-triples content_type: application/n-quads accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  normal output lines: 4  empty: 0  triples: 4  quads: 0  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-org" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>)
+    "named-object-GRAPH3-org" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>)
+    "default-object-new" not found
+  checking initial_input: found modified  same: 1  moved: 3  removed: 0
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+4.
+method: GET content: n-triples content_type: application/n-quads accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  normal output lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+5.
+method: GET content: n-quads content_type: application/n-triples accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  normal output lines: 4  empty: 0  triples: 4  quads: 0  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-org" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>)
+    "named-object-GRAPH3-org" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>)
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: found modified  same: 1  moved: 3  removed: 0
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+6.
+method: GET content: n-quads content_type: application/n-triples accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  normal output lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+7.
+method: GET content: n-quads content_type: application/n-quads accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  normal output lines: 4  empty: 0  triples: 4  quads: 0  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-org" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>)
+    "named-object-GRAPH3-org" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>)
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: found modified  same: 1  moved: 3  removed: 0
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+8.
+method: GET content: n-quads content_type: application/n-quads accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  normal output lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+9.
+method: GET content: n-triples content_type: application/n-triples accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  normal output lines: 1  empty: 0  triples: 1  quads: 0  unknown: 0
+  no. statements: 1
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" not found
+    "default-object-new" not found
+  checking initial_input: found modified  same: 1  moved: 0  removed: 3
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+10.
+method: GET content: n-triples content_type: application/n-triples accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  normal output lines: 1  empty: 0  triples: 1  quads: 0  unknown: 0
+  no. statements: 1
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" not found
+    "default-object-new" not found
+  checking initial_input: found modified  same: 1  moved: 0  removed: 3
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+11.
+method: GET content: n-triples content_type: application/n-quads accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  normal output lines: 1  empty: 0  triples: 1  quads: 0  unknown: 0
+  no. statements: 1
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" not found
+    "default-object-new" not found
+  checking initial_input: found modified  same: 1  moved: 0  removed: 3
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+12.
+method: GET content: n-triples content_type: application/n-quads accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  normal output lines: 1  empty: 0  triples: 1  quads: 0  unknown: 0
+  no. statements: 1
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" not found
+    "default-object-new" not found
+  checking initial_input: found modified  same: 1  moved: 0  removed: 3
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+13.
+method: GET content: n-quads content_type: application/n-triples accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  normal output lines: 1  empty: 0  triples: 1  quads: 0  unknown: 0
+  no. statements: 1
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" not found
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: found modified  same: 1  moved: 0  removed: 3
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+14.
+method: GET content: n-quads content_type: application/n-triples accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  normal output lines: 1  empty: 0  triples: 1  quads: 0  unknown: 0
+  no. statements: 1
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" not found
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: found modified  same: 1  moved: 0  removed: 3
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+15.
+method: GET content: n-quads content_type: application/n-quads accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  normal output lines: 1  empty: 0  triples: 1  quads: 0  unknown: 0
+  no. statements: 1
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" not found
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: found modified  same: 1  moved: 0  removed: 3
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+16.
+method: GET content: n-quads content_type: application/n-quads accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  normal output lines: 1  empty: 0  triples: 1  quads: 0  unknown: 0
+  no. statements: 1
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" not found
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: found modified  same: 1  moved: 0  removed: 3
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+17.
+method: GET content: n-triples content_type: application/n-triples accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  normal output lines: 1  empty: 0  triples: 1  quads: 0  unknown: 0
+  no. statements: 1
+    "default-object-org" not found
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>)
+    "default-object-new" not found
+  checking initial_input: found modified  same: 0  moved: 1  removed: 3
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+18.
+method: GET content: n-triples content_type: application/n-triples accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  normal output lines: 1  empty: 0  triples: 0  quads: 1  unknown: 0
+  no. statements: 1
+    "default-object-org" not found
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: found modified  same: 1  moved: 0  removed: 3
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+19.
+method: GET content: n-triples content_type: application/n-quads accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  normal output lines: 1  empty: 0  triples: 1  quads: 0  unknown: 0
+  no. statements: 1
+    "default-object-org" not found
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>)
+    "default-object-new" not found
+  checking initial_input: found modified  same: 0  moved: 1  removed: 3
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+20.
+method: GET content: n-triples content_type: application/n-quads accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  normal output lines: 1  empty: 0  triples: 0  quads: 1  unknown: 0
+  no. statements: 1
+    "default-object-org" not found
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: found modified  same: 1  moved: 0  removed: 3
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+21.
+method: GET content: n-quads content_type: application/n-triples accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  normal output lines: 1  empty: 0  triples: 1  quads: 0  unknown: 0
+  no. statements: 1
+    "default-object-org" not found
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>)
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: found modified  same: 0  moved: 1  removed: 3
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+22.
+method: GET content: n-quads content_type: application/n-triples accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  normal output lines: 1  empty: 0  triples: 0  quads: 1  unknown: 0
+  no. statements: 1
+    "default-object-org" not found
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: found modified  same: 1  moved: 0  removed: 3
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+23.
+method: GET content: n-quads content_type: application/n-quads accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  normal output lines: 1  empty: 0  triples: 1  quads: 0  unknown: 0
+  no. statements: 1
+    "default-object-org" not found
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>)
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: found modified  same: 0  moved: 1  removed: 3
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+24.
+method: GET content: n-quads content_type: application/n-quads accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  normal output lines: 1  empty: 0  triples: 0  quads: 1  unknown: 0
+  no. statements: 1
+    "default-object-org" not found
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: found modified  same: 1  moved: 0  removed: 3
+  checking body_content: none found
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+25.
+method: PUT content: n-triples content_type: application/n-triples accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 1  empty: 0  triples: 1  quads: 0  unknown: 0
+  no. statements: 1
+    "default-object-org" not found
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph default
+  checking initial_input: none found
+  checking body_content: all found
+
+26.
+method: PUT content: n-triples content_type: application/n-triples accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 1  empty: 0  triples: 1  quads: 0  unknown: 0
+  no. statements: 1
+    "default-object-org" not found
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph default
+  checking initial_input: none found
+  checking body_content: all found
+
+27.
+method: PUT content: n-triples content_type: application/n-quads accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 1  empty: 0  triples: 1  quads: 0  unknown: 0
+  no. statements: 1
+    "default-object-org" not found
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph default
+  checking initial_input: none found
+  checking body_content: all found
+
+28.
+method: PUT content: n-triples content_type: application/n-quads accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 1  empty: 0  triples: 1  quads: 0  unknown: 0
+  no. statements: 1
+    "default-object-org" not found
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph default
+  checking initial_input: none found
+  checking body_content: all found
+
+29.
+method: PUT content: n-quads content_type: application/n-triples accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 3  empty: 0  triples: 1  quads: 2  unknown: 0
+  no. statements: 3
+    "default-object-org" not found
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph default
+    "named-object-GRAPH1-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>
+  checking initial_input: none found
+  checking body_content: all found
+
+30.
+method: PUT content: n-quads content_type: application/n-triples accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 3  empty: 0  triples: 1  quads: 2  unknown: 0
+  no. statements: 3
+    "default-object-org" not found
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph default
+    "named-object-GRAPH1-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>
+  checking initial_input: none found
+  checking body_content: all found
+
+31.
+method: PUT content: n-quads content_type: application/n-quads accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 3  empty: 0  triples: 1  quads: 2  unknown: 0
+  no. statements: 3
+    "default-object-org" not found
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph default
+    "named-object-GRAPH1-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>
+  checking initial_input: none found
+  checking body_content: all found
+
+32.
+method: PUT content: n-quads content_type: application/n-quads accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 3  empty: 0  triples: 1  quads: 2  unknown: 0
+  no. statements: 3
+    "default-object-org" not found
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" not found
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph default
+    "named-object-GRAPH1-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>
+  checking initial_input: none found
+  checking body_content: all found
+
+33.
+method: PUT content: n-triples content_type: application/n-triples accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: all found
+
+34.
+method: PUT content: n-triples content_type: application/n-triples accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: all found
+
+35.
+method: PUT content: n-triples content_type: application/n-quads accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: all found
+
+36.
+method: PUT content: n-triples content_type: application/n-quads accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: all found
+
+37.
+method: PUT content: n-quads content_type: application/n-triples accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 6  empty: 0  triples: 3  quads: 3  unknown: 0
+  no. statements: 6
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+    "named-object-GRAPH1-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 1  moved: 2  removed: 0
+
+38.
+method: PUT content: n-quads content_type: application/n-triples accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 6  empty: 0  triples: 3  quads: 3  unknown: 0
+  no. statements: 6
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+    "named-object-GRAPH1-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 1  moved: 2  removed: 0
+
+39.
+method: PUT content: n-quads content_type: application/n-quads accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 6  empty: 0  triples: 3  quads: 3  unknown: 0
+  no. statements: 6
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+    "named-object-GRAPH1-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 1  moved: 2  removed: 0
+
+40.
+method: PUT content: n-quads content_type: application/n-quads accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 6  empty: 0  triples: 3  quads: 3  unknown: 0
+  no. statements: 6
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+    "named-object-GRAPH1-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 1  moved: 2  removed: 0
+
+41.
+method: PUT content: n-triples content_type: application/n-triples accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 0  moved: 1  removed: 0
+
+42.
+method: PUT content: n-triples content_type: application/n-triples accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 0  moved: 1  removed: 0
+
+43.
+method: PUT content: n-triples content_type: application/n-quads accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 0  moved: 1  removed: 0
+
+44.
+method: PUT content: n-triples content_type: application/n-quads accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 0  moved: 1  removed: 0
+
+45.
+method: PUT content: n-quads content_type: application/n-triples accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 6  empty: 0  triples: 1  quads: 5  unknown: 0
+  no. statements: 6
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+    "named-object-GRAPH1-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 0  moved: 3  removed: 0
+
+46.
+method: PUT content: n-quads content_type: application/n-triples accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 6  empty: 0  triples: 1  quads: 5  unknown: 0
+  no. statements: 6
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+    "named-object-GRAPH1-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 0  moved: 3  removed: 0
+
+47.
+method: PUT content: n-quads content_type: application/n-quads accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 6  empty: 0  triples: 1  quads: 5  unknown: 0
+  no. statements: 6
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+    "named-object-GRAPH1-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 0  moved: 3  removed: 0
+
+48.
+method: PUT content: n-quads content_type: application/n-quads accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 6  empty: 0  triples: 1  quads: 5  unknown: 0
+  no. statements: 6
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+    "named-object-GRAPH1-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 0  moved: 3  removed: 0
+
+49.
+method: DELETE content: n-triples content_type: application/n-triples accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  activity stream
+GET             <empty repository> (404 NOT FOUND)
+
+50.
+method: DELETE content: n-triples content_type: application/n-triples accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  activity stream
+GET             <empty repository> (404 NOT FOUND)
+
+51.
+method: DELETE content: n-triples content_type: application/n-quads accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  activity stream
+GET             <empty repository> (404 NOT FOUND)
+
+52.
+method: DELETE content: n-triples content_type: application/n-quads accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  activity stream
+GET             <empty repository> (404 NOT FOUND)
+
+53.
+method: DELETE content: n-quads content_type: application/n-triples accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  activity stream
+GET             <empty repository> (404 NOT FOUND)
+
+54.
+method: DELETE content: n-quads content_type: application/n-triples accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  activity stream
+GET             <empty repository> (404 NOT FOUND)
+
+55.
+method: DELETE content: n-quads content_type: application/n-quads accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  activity stream
+GET             <empty repository> (404 NOT FOUND)
+
+56.
+method: DELETE content: n-quads content_type: application/n-quads accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  activity stream
+GET             <empty repository> (404 NOT FOUND)
+
+57.
+method: DELETE content: n-triples content_type: application/n-triples accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 3  empty: 0  triples: 0  quads: 3  unknown: 0
+  no. statements: 3
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: none found
+
+58.
+method: DELETE content: n-triples content_type: application/n-triples accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 3  empty: 0  triples: 0  quads: 3  unknown: 0
+  no. statements: 3
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: none found
+
+59.
+method: DELETE content: n-triples content_type: application/n-quads accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 3  empty: 0  triples: 0  quads: 3  unknown: 0
+  no. statements: 3
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: none found
+
+60.
+method: DELETE content: n-triples content_type: application/n-quads accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 3  empty: 0  triples: 0  quads: 3  unknown: 0
+  no. statements: 3
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: none found
+
+61.
+method: DELETE content: n-quads content_type: application/n-triples accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 3  empty: 0  triples: 0  quads: 3  unknown: 0
+  no. statements: 3
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: none found
+
+62.
+method: DELETE content: n-quads content_type: application/n-triples accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 3  empty: 0  triples: 0  quads: 3  unknown: 0
+  no. statements: 3
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: none found
+
+63.
+method: DELETE content: n-quads content_type: application/n-quads accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 3  empty: 0  triples: 0  quads: 3  unknown: 0
+  no. statements: 3
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: none found
+
+64.
+method: DELETE content: n-quads content_type: application/n-quads accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 3  empty: 0  triples: 0  quads: 3  unknown: 0
+  no. statements: 3
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: none found
+
+65.
+method: DELETE content: n-triples content_type: application/n-triples accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 3  empty: 0  triples: 1  quads: 2  unknown: 0
+  no. statements: 3
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" not found
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: none found
+
+66.
+method: DELETE content: n-triples content_type: application/n-triples accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 3  empty: 0  triples: 1  quads: 2  unknown: 0
+  no. statements: 3
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" not found
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: none found
+
+67.
+method: DELETE content: n-triples content_type: application/n-quads accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 3  empty: 0  triples: 1  quads: 2  unknown: 0
+  no. statements: 3
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" not found
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: none found
+
+68.
+method: DELETE content: n-triples content_type: application/n-quads accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 3  empty: 0  triples: 1  quads: 2  unknown: 0
+  no. statements: 3
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" not found
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: none found
+
+69.
+method: DELETE content: n-quads content_type: application/n-triples accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 3  empty: 0  triples: 1  quads: 2  unknown: 0
+  no. statements: 3
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: none found
+
+70.
+method: DELETE content: n-quads content_type: application/n-triples accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 3  empty: 0  triples: 1  quads: 2  unknown: 0
+  no. statements: 3
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: none found
+
+71.
+method: DELETE content: n-quads content_type: application/n-quads accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 3  empty: 0  triples: 1  quads: 2  unknown: 0
+  no. statements: 3
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: none found
+
+72.
+method: DELETE content: n-quads content_type: application/n-quads accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 3  empty: 0  triples: 1  quads: 2  unknown: 0
+  no. statements: 3
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: none found
+
+73.
+method: POST content: n-triples content_type: application/n-triples accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 5  empty: 0  triples: 1  quads: 4  unknown: 0
+  no. statements: 5
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph <urn:uuid:6A331917-FEDD-11ED-85E0-3F406BBF91BC> (was in default)
+  checking initial_input: all found
+  checking body_content: found modified  same: 0  moved: 1  removed: 0
+
+74.
+method: POST content: n-triples content_type: application/n-triples accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 5  empty: 0  triples: 1  quads: 4  unknown: 0
+  no. statements: 5
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph <urn:uuid:6AF66DDB-FEDD-11ED-85E0-3F406BBF91BC> (was in default)
+  checking initial_input: all found
+  checking body_content: found modified  same: 0  moved: 1  removed: 0
+
+75.
+method: POST content: n-triples content_type: application/n-quads accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 5  empty: 0  triples: 2  quads: 3  unknown: 0
+  no. statements: 5
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+  checking initial_input: all found
+  checking body_content: all found
+
+76.
+method: POST content: n-triples content_type: application/n-quads accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 5  empty: 0  triples: 2  quads: 3  unknown: 0
+  no. statements: 5
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+  checking initial_input: all found
+  checking body_content: all found
+
+77.
+method: POST content: n-quads content_type: application/n-triples accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 7  empty: 0  triples: 1  quads: 6  unknown: 0
+  no. statements: 7
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph <urn:uuid:6D3C4C23-FEDD-11ED-85E2-3F406BBF91BC> (was in default)
+    "named-object-GRAPH1-new" found in graph <urn:uuid:6D3C4C23-FEDD-11ED-85E2-3F406BBF91BC> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph <urn:uuid:6D3C4C23-FEDD-11ED-85E2-3F406BBF91BC> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: all found
+  checking body_content: found modified  same: 0  moved: 3  removed: 0
+
+78.
+method: POST content: n-quads content_type: application/n-triples accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 7  empty: 0  triples: 1  quads: 6  unknown: 0
+  no. statements: 7
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph <urn:uuid:6E130CB3-FEDD-11ED-85E3-3F406BBF91BC> (was in default)
+    "named-object-GRAPH1-new" found in graph <urn:uuid:6E130CB3-FEDD-11ED-85E3-3F406BBF91BC> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph <urn:uuid:6E130CB3-FEDD-11ED-85E3-3F406BBF91BC> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: all found
+  checking body_content: found modified  same: 0  moved: 3  removed: 0
+
+79.
+method: POST content: n-quads content_type: application/n-quads accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 7  empty: 0  triples: 2  quads: 5  unknown: 0
+  no. statements: 7
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+    "named-object-GRAPH1-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>
+  checking initial_input: all found
+  checking body_content: all found
+
+80.
+method: POST content: n-quads content_type: application/n-quads accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 7  empty: 0  triples: 2  quads: 5  unknown: 0
+  no. statements: 7
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+    "named-object-GRAPH1-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>
+  checking initial_input: all found
+  checking body_content: all found
+
+81.
+method: POST content: n-triples content_type: application/n-triples accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 5  empty: 0  triples: 2  quads: 3  unknown: 0
+  no. statements: 5
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+  checking initial_input: all found
+  checking body_content: all found
+
+82.
+method: POST content: n-triples content_type: application/n-triples accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 5  empty: 0  triples: 2  quads: 3  unknown: 0
+  no. statements: 5
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+  checking initial_input: all found
+  checking body_content: all found
+
+83.
+method: POST content: n-triples content_type: application/n-quads accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 5  empty: 0  triples: 2  quads: 3  unknown: 0
+  no. statements: 5
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+  checking initial_input: all found
+  checking body_content: all found
+
+84.
+method: POST content: n-triples content_type: application/n-quads accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 5  empty: 0  triples: 2  quads: 3  unknown: 0
+  no. statements: 5
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+  checking initial_input: all found
+  checking body_content: all found
+
+85.
+method: POST content: n-quads content_type: application/n-triples accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 7  empty: 0  triples: 4  quads: 3  unknown: 0
+  no. statements: 7
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+    "named-object-GRAPH1-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: all found
+  checking body_content: found modified  same: 1  moved: 2  removed: 0
+
+86.
+method: POST content: n-quads content_type: application/n-triples accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 7  empty: 0  triples: 4  quads: 3  unknown: 0
+  no. statements: 7
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+    "named-object-GRAPH1-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: all found
+  checking body_content: found modified  same: 1  moved: 2  removed: 0
+
+87.
+method: POST content: n-quads content_type: application/n-quads accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 7  empty: 0  triples: 4  quads: 3  unknown: 0
+  no. statements: 7
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+    "named-object-GRAPH1-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: all found
+  checking body_content: found modified  same: 1  moved: 2  removed: 0
+
+88.
+method: POST content: n-quads content_type: application/n-quads accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 7  empty: 0  triples: 4  quads: 3  unknown: 0
+  no. statements: 7
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+    "named-object-GRAPH1-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: all found
+  checking body_content: found modified  same: 1  moved: 2  removed: 0
+
+89.
+method: POST content: n-triples content_type: application/n-triples accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 5  empty: 0  triples: 1  quads: 4  unknown: 0
+  no. statements: 5
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+  checking initial_input: all found
+  checking body_content: found modified  same: 0  moved: 1  removed: 0
+
+90.
+method: POST content: n-triples content_type: application/n-triples accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 5  empty: 0  triples: 1  quads: 4  unknown: 0
+  no. statements: 5
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+  checking initial_input: all found
+  checking body_content: found modified  same: 0  moved: 1  removed: 0
+
+91.
+method: POST content: n-triples content_type: application/n-quads accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 5  empty: 0  triples: 1  quads: 4  unknown: 0
+  no. statements: 5
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+  checking initial_input: all found
+  checking body_content: found modified  same: 0  moved: 1  removed: 0
+
+92.
+method: POST content: n-triples content_type: application/n-quads accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 5  empty: 0  triples: 1  quads: 4  unknown: 0
+  no. statements: 5
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+  checking initial_input: all found
+  checking body_content: found modified  same: 0  moved: 1  removed: 0
+
+93.
+method: POST content: n-quads content_type: application/n-triples accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 7  empty: 0  triples: 1  quads: 6  unknown: 0
+  no. statements: 7
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+    "named-object-GRAPH1-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: all found
+  checking body_content: found modified  same: 0  moved: 3  removed: 0
+
+94.
+method: POST content: n-quads content_type: application/n-triples accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 7  empty: 0  triples: 1  quads: 6  unknown: 0
+  no. statements: 7
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+    "named-object-GRAPH1-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: all found
+  checking body_content: found modified  same: 0  moved: 3  removed: 0
+
+95.
+method: POST content: n-quads content_type: application/n-quads accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 7  empty: 0  triples: 1  quads: 6  unknown: 0
+  no. statements: 7
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+    "named-object-GRAPH1-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: all found
+  checking body_content: found modified  same: 0  moved: 3  removed: 0
+
+96.
+method: POST content: n-quads content_type: application/n-quads accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 7  empty: 0  triples: 1  quads: 6  unknown: 0
+  no. statements: 7
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+    "named-object-GRAPH1-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: all found
+  checking body_content: found modified  same: 0  moved: 3  removed: 0
+
+97.
+method: HEAD content: n-triples content_type: application/n-triples accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+98.
+method: HEAD content: n-triples content_type: application/n-triples accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+99.
+method: HEAD content: n-triples content_type: application/n-quads accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+100.
+method: HEAD content: n-triples content_type: application/n-quads accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+101.
+method: HEAD content: n-quads content_type: application/n-triples accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+102.
+method: HEAD content: n-quads content_type: application/n-triples accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+103.
+method: HEAD content: n-quads content_type: application/n-quads accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+104.
+method: HEAD content: n-quads content_type: application/n-quads accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+105.
+method: HEAD content: n-triples content_type: application/n-triples accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+106.
+method: HEAD content: n-triples content_type: application/n-triples accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+107.
+method: HEAD content: n-triples content_type: application/n-quads accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+108.
+method: HEAD content: n-triples content_type: application/n-quads accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+109.
+method: HEAD content: n-quads content_type: application/n-triples accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+110.
+method: HEAD content: n-quads content_type: application/n-triples accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+111.
+method: HEAD content: n-quads content_type: application/n-quads accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+112.
+method: HEAD content: n-quads content_type: application/n-quads accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+113.
+method: HEAD content: n-triples content_type: application/n-triples accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+114.
+method: HEAD content: n-triples content_type: application/n-triples accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+115.
+method: HEAD content: n-triples content_type: application/n-quads accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+116.
+method: HEAD content: n-triples content_type: application/n-quads accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+117.
+method: HEAD content: n-quads content_type: application/n-triples accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+118.
+method: HEAD content: n-quads content_type: application/n-triples accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+119.
+method: HEAD content: n-quads content_type: application/n-quads accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+120.
+method: HEAD content: n-quads content_type: application/n-quads accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  empty output
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" not found
+    "named-object-GRAPH1-new" not found
+    "named-object-GRAPH2-new" not found
+  checking initial_input: all found
+  checking body_content: none found
+
+121.
+method: PATCH content: n-triples content_type: application/n-triples accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: all found
+
+122.
+method: PATCH content: n-triples content_type: application/n-triples accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: all found
+
+123.
+method: PATCH content: n-triples content_type: application/n-quads accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: all found
+
+124.
+method: PATCH content: n-triples content_type: application/n-quads accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: all found
+
+125.
+method: PATCH content: n-quads content_type: application/n-triples accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 5  empty: 0  triples: 1  quads: 4  unknown: 0
+  no. statements: 5
+    "default-object-org" not found
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+    "named-object-GRAPH1-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>
+  checking initial_input: found modified  same: 2  moved: 0  removed: 2
+  checking body_content: all found
+
+126.
+method: PATCH content: n-quads content_type: application/n-triples accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 5  empty: 0  triples: 1  quads: 4  unknown: 0
+  no. statements: 5
+    "default-object-org" not found
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+    "named-object-GRAPH1-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>
+  checking initial_input: found modified  same: 2  moved: 0  removed: 2
+  checking body_content: all found
+
+127.
+method: PATCH content: n-quads content_type: application/n-quads accept_type: application/n-triples graph: none graphvar: 
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 5  empty: 0  triples: 1  quads: 4  unknown: 0
+  no. statements: 5
+    "default-object-org" not found
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+    "named-object-GRAPH1-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>
+  checking initial_input: found modified  same: 2  moved: 0  removed: 2
+  checking body_content: all found
+
+128.
+method: PATCH content: n-quads content_type: application/n-quads accept_type: application/n-quads graph: none graphvar: 
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 5  empty: 0  triples: 1  quads: 4  unknown: 0
+  no. statements: 5
+    "default-object-org" not found
+    "named-object-GRAPH1-org" not found
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+    "named-object-GRAPH1-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>
+  checking initial_input: found modified  same: 2  moved: 0  removed: 2
+  checking body_content: all found
+
+129.
+method: PATCH content: n-triples content_type: application/n-triples accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: all found
+
+130.
+method: PATCH content: n-triples content_type: application/n-triples accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: all found
+
+131.
+method: PATCH content: n-triples content_type: application/n-quads accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: all found
+
+132.
+method: PATCH content: n-triples content_type: application/n-quads accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: all found
+
+133.
+method: PATCH content: n-quads content_type: application/n-triples accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 6  empty: 0  triples: 3  quads: 3  unknown: 0
+  no. statements: 6
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+    "named-object-GRAPH1-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 1  moved: 2  removed: 0
+
+134.
+method: PATCH content: n-quads content_type: application/n-triples accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 6  empty: 0  triples: 3  quads: 3  unknown: 0
+  no. statements: 6
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+    "named-object-GRAPH1-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 1  moved: 2  removed: 0
+
+135.
+method: PATCH content: n-quads content_type: application/n-quads accept_type: application/n-triples graph: default graphvar: default
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 6  empty: 0  triples: 3  quads: 3  unknown: 0
+  no. statements: 6
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+    "named-object-GRAPH1-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 1  moved: 2  removed: 0
+
+136.
+method: PATCH content: n-quads content_type: application/n-quads accept_type: application/n-quads graph: default graphvar: default
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 6  empty: 0  triples: 3  quads: 3  unknown: 0
+  no. statements: 6
+    "default-object-org" not found
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+    "default-object-new" found in graph default
+    "named-object-GRAPH1-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph default (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 1  moved: 2  removed: 0
+
+137.
+method: PATCH content: n-triples content_type: application/n-triples accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 0  moved: 1  removed: 0
+
+138.
+method: PATCH content: n-triples content_type: application/n-triples accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 0  moved: 1  removed: 0
+
+139.
+method: PATCH content: n-triples content_type: application/n-quads accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 0  moved: 1  removed: 0
+
+140.
+method: PATCH content: n-triples content_type: application/n-quads accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 4  empty: 0  triples: 1  quads: 3  unknown: 0
+  no. statements: 4
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 0  moved: 1  removed: 0
+
+141.
+method: PATCH content: n-quads content_type: application/n-triples accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 6  empty: 0  triples: 1  quads: 5  unknown: 0
+  no. statements: 6
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+    "named-object-GRAPH1-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 0  moved: 3  removed: 0
+
+142.
+method: PATCH content: n-quads content_type: application/n-triples accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 6  empty: 0  triples: 1  quads: 5  unknown: 0
+  no. statements: 6
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+    "named-object-GRAPH1-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 0  moved: 3  removed: 0
+
+143.
+method: PATCH content: n-quads content_type: application/n-quads accept_type: application/n-triples graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-triples
+  activity stream
+GET             lines: 6  empty: 0  triples: 1  quads: 5  unknown: 0
+  no. statements: 6
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+    "named-object-GRAPH1-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 0  moved: 3  removed: 0
+
+144.
+method: PATCH content: n-quads content_type: application/n-quads accept_type: application/n-quads graph: graph-name-protocol graphvar: graph=<http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol>
+RESPONSE type: application/n-quads
+  activity stream
+GET             lines: 6  empty: 0  triples: 1  quads: 5  unknown: 0
+  no. statements: 6
+    "default-object-org" found in graph default
+    "named-object-GRAPH1-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>
+    "named-object-GRAPH2-org" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-two>
+    "named-object-GRAPH3-org" not found
+    "default-object-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in default)
+    "named-object-GRAPH1-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-one>)
+    "named-object-GRAPH2-new" found in graph <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-protocol> (was in <http://dydra.com/openrdf-sesame/mem-rdf/graph-name-three>)
+  checking initial_input: found modified  same: 3  moved: 0  removed: 1
+  checking body_content: found modified  same: 0  moved: 3  removed: 0
+

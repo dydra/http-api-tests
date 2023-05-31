@@ -46,8 +46,10 @@ curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
 rapper -q -i nquads -o nquads PUT-out.nq > /dev/null
 # hexdump -C PUT-out.nq
 # hexdump -C PUT-in.nq
-# diff -w PUT-out.nq PUT-in.nq
-cmp PUT-out.nq PUT-in.nq
+# cmp PUT-out.nq PUT-in.nq
+#  Why was "cmp" used here? new spocq correctly returns nquads with CR+LF,
+#  and this fails with cmp. So changing this back to "diff". (20230531 mgr)
+diff -w PUT-out.nq PUT-in.nq
 
 # put with default: clear the default graph
 # put triple content with default: store in the default graph. ignore any statement graph term (if permitted)

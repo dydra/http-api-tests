@@ -221,7 +221,9 @@ for method in GET PUT DELETE POST HEAD PATCH; do
                     echo
                     csv "${count}|${method}|${content}|${content_type}|${accept_type}|${graph}"
                     
-                    delete_revisions --repository "${STORE_REPOSITORY_WRITABLE}" > /dev/null
+                    #delete_revisions --repository "${STORE_REPOSITORY_WRITABLE}" > /dev/null
+                    curl_graph_store_delete -o /dev/null --repository "${STORE_REPOSITORY}-write"
+
                     echo "${initial_input}" | \
                          curl_graph_store_update -X POST  -o /dev/null \
                                             -H "Content-Type: application/n-quads" \

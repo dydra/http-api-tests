@@ -15,7 +15,9 @@ bash ./graph-store-matrix.no_sh 2> "${base_csv}.tmp" |tee "${base_txt}.tmp" > ${
 
 echo "Comparing created response matrix for sparql graph store http protocol..." > ${ECHO_OUTPUT}
 # remove random parts of URN:UUIDs
-sed 's/<urn:uuid:[0-9A-Z-]*>/<urn:uuid>/g' < "${base_txt}" > "${base_txt}_nouuid"
+sed 's/<urn:uuid:[0-9A-Z-]*>/<urn:uuid>/g' < "${base_txt}" \
+    | sed "s/openrdf-sesame\/mem-rdf/${STORE_ACCOUNT}\/${STORE_REPOSITORY}/g" \
+    > "${base_txt}_nouuid"
 sed 's/<urn:uuid:[0-9A-Z-]*>/<urn:uuid>/g' < "${base_txt}.tmp" > "${base_txt}.tmp_nouuid"
 # compare
 diff -q "${base_csv}" "${base_csv}.tmp"

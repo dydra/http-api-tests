@@ -28,10 +28,10 @@ function check_content() {
             statement_object=$(echo "${statement}" | cut -d' ' -f3)
             statement_graph=$(echo "${statement}" | cut -d' ' -f4)
         elif [ "$elem" -eq 0 ]; then
-            echo empty statement
+            echo "empty statement"
             exit 3
         else
-            echo unknown statement type
+            echo "unknown statement type"
             exit 3
         fi
         
@@ -39,8 +39,17 @@ function check_content() {
         #echo -n "            "
         echo -n "    "
         found=$(echo "${response}" | grep ${statement_object})
+        found_count=$(echo "${found}" | wc -l)
+        #echo "fc: ${found_count}"
+        #echo "reponse: [[[${response}]]]"
+        #echo "found: >>>$found<<<"
+        if [ "$found_count" -ne 1 ]; then
+            echo "multiple statements found for object ${statement_object}"
+            exit 3
+        else
         if [ -n "${found}" ]; then
             elem=$(echo "${found}" | awk '{print NF}')
+            #echo "elem: $elem"
             if [ "$elem" -eq 4 ]; then
                 found_object=$(echo "${found}" | cut -d' ' -f3)
                 found_graph=default
@@ -61,6 +70,7 @@ function check_content() {
             fi
         else
             echo "${statement_object} not found"
+        fi
         fi
     done
 }

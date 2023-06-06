@@ -27,7 +27,7 @@ sparql-graph-store-http-protocol/PATCH-sparql-update.sh # not supported
 sparql-graph-store-http-protocol/PATCH-trix-all.sh # NYI
 # 20200308 sparql-graph-store-http-protocol/POST-ntriples+nquads-direct.sh # direct graph specification yields a 404
 # 20200308 sparql-graph-store-http-protocol/PUT-ntriples+nquads-direct.sh # direct graph specification yields a 404
-sparql-graph-store-http-protocol/PUT-rj.sh        # NYI
+# sparql-graph-store-http-protocol/PUT-rj.sh        # NYI # 20230605 mgr added as it seems to work
 # sparql-graph-store-http-protocol/PUT-trix.sh      # NYI
 # sparql-graph-store-http-protocol/GET-dot.sh       # official media type is not known to export program.
 

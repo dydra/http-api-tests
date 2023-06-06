@@ -17,5 +17,5 @@ echo PUT-rj location GET > $ECHO_OUTPUT
 curl_graph_store_get \
      -H "Accept: application/n-quads" --repository "${STORE_REPOSITORY}-write" \
    | tr -s '\n' '\t' \
-   | fgrep "default object"  \
-   | fgrep -q "named object"
+   | fgrep "default object" | fgrep  "named object" | fgrep -v "<${STORE_NAMED_GRAPH}>" \
+   | tr -s '\t' '\n' | wc -l | fgrep -q 2

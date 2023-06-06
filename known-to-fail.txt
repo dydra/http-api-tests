@@ -23,7 +23,7 @@ sparql-protocol/paths/paths-none.sh  # anomalous!!!!
 sparql-protocol/slice/GET-sparql-view-html.sh # need to define the view
 sparql-protocol/slice/GET-sparql-view.sh # need to define the view
 
-sparql-graph-store-http-protocol/PATCH-sparql-update.sh # not supported
+# sparql-graph-store-http-protocol/PATCH-sparql-update.sh # not supported # 20230605 mgr added
 sparql-graph-store-http-protocol/PATCH-trix-all.sh # NYI
 # 20200308 sparql-graph-store-http-protocol/POST-ntriples+nquads-direct.sh # direct graph specification yields a 404
 # 20200308 sparql-graph-store-http-protocol/PUT-ntriples+nquads-direct.sh # direct graph specification yields a 404

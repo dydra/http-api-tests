@@ -25,6 +25,11 @@
 # export STORE_HOST=<host>.dydra.com
 # bash initialize-minimal.sh
 
+if [[ "" == "${STORE_REPOSITORY_CLASS}" ]]
+then
+  echo "STORE_REPOSITORY_CLASS is required"
+  exit 1
+fi
 
 # http api tests : repository creation and content initialization
 set -e
@@ -36,6 +41,7 @@ for account in ${STORE_ACCOUNT} jhacker test; do create_account $account; done
 
 for repository in ${STORE_REPOSITORY} ${STORE_REPOSITORY_WRITABLE} ${STORE_REPOSITORY_PUBLIC} ${STORE_REPOSITORY_PROVENANCE} \
                   foaf collation inference ldp public tpf; do
+    echo create_repository --repository $repository --class ${STORE_REPOSITORY_CLASS}
     create_repository --repository $repository --class ${STORE_REPOSITORY_CLASS}
 done
 create_repository --account test --repository test --class ${STORE_REPOSITORY_CLASS}

@@ -31,7 +31,7 @@ echo PUT-turtle : test gsp update completion > $ECHO_OUTPUT
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
     | fgrep http://example.com/default-subject | fgrep -q 'default object PUT-successor'
 
-# wait for the asynchronous successor to run
+echo "wait for the asynchronous successor to run" > $ECHO_OUTPUT
 sleep 45
 
 

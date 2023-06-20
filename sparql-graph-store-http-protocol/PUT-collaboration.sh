@@ -15,6 +15,7 @@ _:collabaccess <http://www.w3.org/ns/auth/acl#accessTo> <http://dydra.com/accoun
 _:collabaccess <http://www.w3.org/ns/auth/acl#agent> <http://dydra.com/users/jhacker> <http://dydra.com/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY_WRITABLE}> .
 EOF
 
+echo "initialize the target repository" > $ECHO_OUTPUT
 initialize_repository --repository "${STORE_REPOSITORY_WRITABLE}"
 
 echo "put content as jhacker" > $ECHO_OUTPUT

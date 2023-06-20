@@ -10,7 +10,7 @@ curl_graph_store_update -X POST   -w "%{http_code}\n" -o /dev/null \
    | test_post_success
 _:collabaccess <http://www.w3.org/ns/auth/acl#mode> <http://www.w3.org/ns/auth/acl#Write> <http://dydra.com/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY_WRITABLE}> .
 _:collabaccess <http://www.w3.org/ns/auth/acl#mode> <http://www.w3.org/ns/auth/acl#Read> <http://dydra.com/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY_WRITABLE}> .
-_:collabaccess <http://www.w3.org/ns/auth/acl#accessTo> <http://dydra.com/openrdf-sesame/mem-rdf-write> <http://dydra.com/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY_WRITABLE}> .
+_:collabaccess <http://www.w3.org/ns/auth/acl#accessTo> <http://dydra.com/${STORE_ACCOUNT}/${STORE_REPOSITORY_WRITABLE}> <http://dydra.com/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY_WRITABLE}> .
 _:collabaccess <http://www.w3.org/ns/auth/acl#accessTo> <http://dydra.com/account/openrdf-sesame/repository/mem-rdf-write> <http://dydra.com/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY_WRITABLE}> .
 _:collabaccess <http://www.w3.org/ns/auth/acl#agent> <http://dydra.com/users/jhacker> <http://dydra.com/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY_WRITABLE}> .
 EOF

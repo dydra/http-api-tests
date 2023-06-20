@@ -91,8 +91,10 @@ To test and (if necessary) solve all dependencies you may simply run:
 ## Sesame HTTP communication protocol
 
 These tests exercise the Sesame rest api, as per the OpenRDF "HTTP communication protocol"
-[description](http://www.openrdf.org/doc/sesame2/system/ch08.html),
-[or](http://openrdf.callimachus.net/sesame/2.7/docs/system.docbook?view#chapter-http-protocol).
+[description](http://www.openrdf.org/doc/sesame2/system/ch08.html)
+([archival link](https://web.archive.org/web/20121215091734/http://www.openrdf.org/doc/sesame2/system/ch08.html)),
+[or](http://openrdf.callimachus.net/sesame/2.7/docs/system.docbook?view#chapter-http-protocol)
+([archival link](https://web.archive.org/web/20160329043259/http://rdf4j.org/sesame/2.7/docs/system.docbook?view#chapter-http-protocol)).
 For the v2.0 Sesame protocol, the concrete resources, with reference to
 the described overview:
 
@@ -117,10 +119,10 @@ The compact graph store patterns provide and alternative, less encumbered means
 to address the resource and its content:
 
         ${STORE_URL}/${STORE_ACCOUNT}
-          /${STORE_REPOSITORY}
-          /${STORE_REPOSITORY}?default               : the default graph
-          /${STORE_REPOSITORY}?graph=${STORE_IGRAPH} : an arbitrary indirect graph
-                               graph=urn:dydra:service-description : the repository SPARQL endpoint service description
+          /${STORE_REPOSITORY}/service
+          /${STORE_REPOSITORY}/service?default               : the default graph
+          /${STORE_REPOSITORY}/service?graph=${STORE_IGRAPH} : an arbitrary indirect graph
+                              /service?graph=urn:dydra:service-description : the repository SPARQL endpoint service description
           /${STORE_REPOSITORY}/${STORE_RGRAPH}       : graph relative to the repository base url
 
 
@@ -165,6 +167,7 @@ and json_reformat. Test failures match against the HTTP status code.
 ### Graph store support through the Sesame HTTP protocol
 
 The graph store support under [sesame](http://www.openrdf.org/doc/sesame2/system/ch08.html#d0e659)
+([archival link](https://web.archive.org/web/20121215091734/http://www.openrdf.org/doc/sesame2/system/ch08.html#d0e659))
 provides two resource patterns.
 
     <SESAME_URL>/repositories/<ID>/rdf-graphs/service
@@ -179,30 +182,30 @@ on the openrdf topic, the designator for a directly referenced named graph in a
 sesame request URI is the literal URL. That is, it includes the "/repositories" text.
 
 > The SPARQL 1.1 Graph Store HTTP Protocol is supported on a per-repository basis.
-> The functionality is accessible at <SESAME_URL>/repositories/<ID>/rdf-graphs/service
-> (for indirectly referenced named graphs), and <SESAME_URL>/repositories/<ID>/rdf-graphs/<NAME>
+> The functionality is accessible at &lt;SESAME_URL&gt;/repositories/&lt;ID&gt;/rdf-graphs/service
+> (for indirectly referenced named graphs), and &lt;SESAME_URL&gt;/repositories/&lt;ID&gt;/rdf-graphs/&lt;NAME&gt;
 > (for directly referenced named graphs).
 > A request on a directly referenced named graph entails that the request URL itself is used
 > as the named graph identifier in the repository.
 
 
-For a repository on a DYDRA host, the sesame request patterns manifest in terms of the host authority, the
-user account and the repository name
+For a repository on a DYDRA host, the sesame request patterns manifest in terms of the host authority,
+the user account and the repository name
 
-    <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/service
-    <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/<NAME>
+    <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/rdf-graphs/service
+    <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/rdf-graphs/<GRAPH-NAME>
 
 The consequence is that, in order to designate the repository as a whole, the sesame request URL must take a form
 
-    <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/service?graph=<HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>
+    <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/rdf-graphs/service?graph=<HTTP-HOST>/<ACCOUNT-NAME>/<REPOSITORY-NAME>
 
 and the default graph is designated as
 
-    <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/service?default
+    <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/rdf-graphs/service?default
 
 While a request of the form
 
-    <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/<NAME>
+    <HTTP-HOST>/<ACCOUNT-NAME>/repositories/<REPOSITORY-NAME>/rdf-graphs/<GRAPP-NAME>
 
 designate exactly that named graph in the store.
 

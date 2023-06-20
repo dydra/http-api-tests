@@ -213,6 +213,7 @@ ${CURL} -X DELETE -s -w "%{http_code}\n" -u ":${STORE_TOKEN}" \
 
 echo " ensure it is gone" >  ${ECHO_OUTPUT}
 curl_sparql_request -X GET   -w "%{http_code}\n" \
+    -H "Content-Type: " \
     --account "test" \
     --repository "foaf__types__view" \
     | tee $ECHO_OUTPUT | test_not_found ; 

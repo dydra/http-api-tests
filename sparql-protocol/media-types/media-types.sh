@@ -17,7 +17,7 @@ function test_media_type_with () {
   local new_file="${mime_file}.new"
 
   echo "request: ${mime}" "${new_file}" > $ECHO_OUTPUT
-  curl_sparql_request -H "Accept: ${mime}" --repository mem-rdf-write <<EOF \
+  curl_sparql_request -H "Accept: ${mime}" --repository "${STORE_REPOSITORY_WRITABLE}" <<EOF \
     | tee ${ECHO_OUTPUT} \
     | sed -e 's/.0E0"/.0"/' | sed -e 's/.0E0</.0</g'  | sed -e 's/.0E0,/.0,/g' > ${new_file}
 $query

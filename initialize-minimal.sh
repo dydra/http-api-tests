@@ -39,14 +39,21 @@ fi
 
 for account in ${STORE_ACCOUNT} jhacker test; do create_account $account; done
 
+class=${STORE_REPOSITORY_CLASS:-${STORE_REPOSITORY_CLASS_DEFAULT}}
+rev_class=${STORE_REVISIONED_REPOSITORY_CLASS:-${STORE_REVISIONED_REPOSITORY_CLASS_DEFAULT}}
+
 for repository in ${STORE_REPOSITORY} ${STORE_REPOSITORY_WRITABLE} ${STORE_REPOSITORY_PUBLIC} ${STORE_REPOSITORY_PROVENANCE} \
                   foaf collation inference ldp public tpf; do
     echo create_repository --repository $repository --class ${STORE_REPOSITORY_CLASS}
     create_repository --repository $repository --class ${STORE_REPOSITORY_CLASS}
 done
-create_repository --account test --repository test --class ${STORE_REPOSITORY_CLASS}
-create_repository --account test --repository foaf --class ${STORE_REPOSITORY_CLASS}
-create_repository --account system --repository null --class ${STORE_REPOSITORY_CLASS}
+# in case it is an rdfcache repository the STORE_REPOSITORY_REVISIONED needs to be
+# configred as revisioned true in /srv/dydra/config/server.conf:
+create_repository --repository ${STORE_REPOSITORY_REVISIONED} --class ${rev_class}
+create_repository --account test --repository test --class ${class}
+create_repository --account test --repository test__rev --class ${rev_class}
+create_repository --account test --repository foaf --class ${class}
+create_repository --account system --repository null --class ${class}
 
 # authorization and metadata :
 # add authorization for authenticated users to read the repository list either from both accounts-api and the sesame resources
@@ -124,3 +131,5 @@ ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
 <http://www.setf.de/#self> <http://xmlns.com/foaf/0.1/homepage> <http://dydra.com/test> .
 <http://www.setf.de/#self> <http://xmlns.com/foaf/0.1/mbox> <mailto:test@dydra.com> .
 EOF
+
+echo done

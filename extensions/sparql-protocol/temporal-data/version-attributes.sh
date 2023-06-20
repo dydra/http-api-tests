@@ -113,7 +113,7 @@ for i in 1 2 3; do
 EOF
 done
 
-echo "next, verify the consitution of each revision"
+echo "next, verify the consitution of each revision" > $ECHO_OUTPUT
 
 for revision in "HEAD" "HEAD~" "HEAD~2"; do
   curl_sparql_request revision-id=${revision} \

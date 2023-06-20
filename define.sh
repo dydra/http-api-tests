@@ -68,7 +68,13 @@ fi
 
 export STORE_REPOSITORY_WRITABLE="${STORE_REPOSITORY}-write"
 export STORE_REPOSITORY_PROVENANCE="${STORE_REPOSITORY}-provenance"
-export STORE_REPOSITORY_PUBLIC="public"
+export STORE_REPOSITORY_PUBLIC="${STORE_REPOSITORY}-public"
+export STORE_REPOSITORY_REVISIONED="${STORE_REPOSITORY}-revisioned"
+export STORE_REPOSITORY_CLASS_DEFAULT="lmdb-quad-repository"
+export STORE_REVISIONED_REPOSITORY_CLASS_DEFAULT="lmdb-revisioned-repository"
+if [[ "" == "${GRAPH_STORE_PATCH_LEGACY}" ]]
+then export GRAPH_STORE_PATCH_LEGACY=true
+fi
 export STORE_CLIENT_IP="127.0.0.1"
 export STORE_PREFIX="rdf"
 export STORE_DGRAPH="sesame"
@@ -110,7 +116,7 @@ export STATUS_NOT_IMPLEMENTED=501
 
 if [[ "" == "${CURL}" ]]
 then
-  export CURL="curl --ipv4 -k"  # ignore certificates
+  export CURL="curl --ipv4 --http1.1 -k"  # ignore certificates
 fi
 # export CURL="curl -v --ipv4"
 # export CURL="curl --ipv4 --trace-ascii /dev/tty"
@@ -483,11 +489,11 @@ function curl_sparql_request () {
 
 
 function curl_sparql_query () {
-  curl_sparql_request -H "Content-Type:application/sparql-query" $@
+  curl_sparql_request -H "Content-Type:application/sparql-query" "$@"
 }
 
 function curl_sparql_update () {
-  curl_sparql_request -H "Content-Type:application/sparql-update" $*
+  curl_sparql_request -H "Content-Type:application/sparql-update" "$@"
 }
 
 
@@ -550,11 +556,11 @@ function curl_sparql_view () {
 
 # curl_graph_store_delete { -H $accept-header-argument } { graph }
 function curl_graph_store_delete () {
-  curl_graph_store_get -X DELETE $@
+  curl_graph_store_get -X DELETE "$@"
 }
 
 # curl_graph_store_get { -H $accept-header-argument } {--repository $repository} { graph }
-function curl_graph_store_get () {
+function curl_graph_store_get_nofail () {
   local -a curl_args=()
   local -a accept_media_type=("-H" "Accept: $STORE_GRAPH_MEDIA_TYPE")
   local -a content_media_type=()
@@ -598,13 +604,21 @@ function curl_graph_store_get () {
   if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
   if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
 
-  echo ${CURL} -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
-  ${CURL} -f -s "${curl_args[@]}" ${curl_url}
+  echo ${CURL} -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
+  ${CURL} -s "${curl_args[@]}" ${curl_url}
+}
+
+function curl_graph_store_get () {
+  curl_graph_store_get_nofail -f "$@"
 }
 
 # curl_graph_store_get_code { $accept-header-argument } { graph }
 function curl_graph_store_get_code () {
-  curl_graph_store_get -w "%{http_code}\n" $@
+  curl_graph_store_get -w "%{http_code}\n" "$@"
+}
+
+function curl_graph_store_get_code_nofail () {
+  curl_graph_store_get_nofail -w "%{stderr}%{http_code}\n" "$@"
 }
 
 function curl_graph_store_update () {
@@ -665,12 +679,12 @@ function curl_graph_store_update () {
 
 
 function curl_graph_store_clear () {
-  curl_graph_store_update -X DELETE $@ -o /dev/null <<EOF
+  curl_graph_store_update -X DELETE "$@" -o /dev/null <<EOF
 EOF
 }
 
 function clear_repository_content () {
-  curl_graph_store_update -X PUT $@ -o /dev/null <<EOF
+  curl_graph_store_update -X PUT "$@" -o /dev/null <<EOF
 EOF
 }
 
@@ -685,16 +699,16 @@ function clear_repository_revisions () {
 # initialize_repository_content { --repository $repository-name } { --url $url }
 # clear everything, insert one statement each in the default and the named graphs
 function initialize_repository_content () {
-  curl_graph_store_update -X PUT $@ -o /dev/null <<EOF
+  curl_graph_store_update -X PUT "$@" -o /dev/null <<EOF
 <http://example.com/default-subject> <http://example.com/default-predicate> "default object" .
 EOF
-  curl_graph_store_update -X POST graph=${STORE_NAMED_GRAPH} -o /dev/null $@ <<EOF
+  curl_graph_store_update -X POST graph=${STORE_NAMED_GRAPH} -o /dev/null "$@" <<EOF
 <http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
 EOF
 }
 
 function initialize_repository () {
-  initialize_repository_content $@
+  initialize_repository_content "$@"
 }
 
 function initialize_repository_public () {
@@ -818,7 +832,7 @@ function create_repository() {
   local -a curl_args=()
   local -a account="${STORE_ACCOUNT}"
   local -a repository="new"
-  local -a class=lmdb-quad-repository
+  local -a class="${STORE_REPOSITORY_CLASS_DEFAULT}"
   local -a temporal_properties=""
   local -a time_series_properties=""
   while [[ "$#" > 0 ]] ; do
@@ -832,6 +846,7 @@ function create_repository() {
     esac
   done
   local -a URL="${STORE_URL}/system/accounts/${account}/repositories"
+  echo "create repository: ${account}/${repository}, class: ${class}" > $ECHO_OUTPUT
   ${CURL} -w "%{http_code}\n" -f -s -X POST "${curl_args[@]}" \
      -H "Content-Type: application/json" \
      -H "Accept: application/n-quads" \
@@ -872,25 +887,77 @@ function delete_repository () {
     esac
   done
   local -a URL="${STORE_URL}/system/accounts/${account}/repositories/${repository}"
+  echo "delete repository: ${account}/${repository}" > $ECHO_OUTPUT
   ${CURL} -w "%{http_code}\n" -f -s -X DELETE "${curl_args[@]}" \
      -H "Accept: application/n-quads" \
      -u ":${STORE_TOKEN_ADMIN}" ${URL} \
      | tee ${ECHO_OUTPUT}
 }
 
-# repository_has_revisions { --account $account } {--repository $repository}
-# tests whether the repository contins more than one revision
-# this rather than whether it has the revision metadata sub-databases,
-# as the tests require more than one revision
+function delete_revisions () {
+  local -a curl_args=()
+  local -a account="${STORE_ACCOUNT}"
+  local -a repository="new"
+  local url_args=()
+  while [[ "$#" > 0 ]] ; do
+    case "$1" in
+      --account) account="${2}"; shift 2;;
+      --repository) repository="${2}"; shift 2;;
+      *=*) url_args+=("${1}"); shift 1;;
+      *) curl_args+=("${1}"); shift 1;;
+    esac
+  done
+  local -a curl_url="${STORE_URL}/system/accounts/${account}/repositories/${repository}/revisions"
+  if [[ ${#url_args[*]} > 0 ]] ; then curl_url=$(IFS='&' ; echo "${curl_url}?${url_args[*]}") ; fi
+  ${CURL} -w "%{http_code}\n" -f -s -X DELETE "${curl_args[@]}" \
+     -o /dev/null \
+     -H "Accept: application/n-quads" \
+     -u ":${STORE_TOKEN_ADMIN}" ${curl_url}
+  ##echo -e "\n\npress key to continue ${url_args[*]}" > /dev/tty; read
+}
 
-function repository_has_revisions () {
+# repository_revision_count { --account $account } {--repository $repository}
+# returns the revision count from dydra's repository introspection,
+# 0 for an unrevisioned repository, >=1 for revisioned repositories
+
+function repository_revision_count () {
+  local -a curl_args=()
+  local -a account="${STORE_ACCOUNT}"
+  local -a repository="new"
+  while [[ "$#" > 0 ]] ; do
+    case "$1" in
+      --account) account="${2}"; shift 2;;
+      --repository) repository="${2}"; shift 2;;
+      *) curl_args+=("${1}"); shift 1;;
+    esac
+  done
+curl_sparql_request --account ${account} --repository ${repository} revision-id=HEAD <<EOF \
+   | tee $ECHO_OUTPUT | jq -r '.results.bindings[].revisionCount.value'
+prefix dydra: <http://dydra.com/sparql-functions#>
+select (dydra:repository-revision-count() as ?revisionCount)
+where {}
+EOF
+}
+
+# repository_is_revisioned { --account $account } {--repository $repository}
+# tests whether the repository is revisioned or not,
+# regardless of whether it has actually stored multiple revisions or not
+
+function repository_is_revisioned () {
+  repository_revision_count "$@" | egrep -q '^[1-9][0-9]*$'
+}
+
+# repository_list_revisions { --account $account } {--repository $repository}
+# returns list of revision UUIDs
+
+function repository_list_revisions () {
   local -a user=(-u ":${STORE_TOKEN}")
   local account=${STORE_ACCOUNT}
   local repository=${STORE_REPOSITORY}
   local -a curl_args=()
   local curl_url=""
 
-
+  local -a accept_media_type=("-H" "Accept:text/plain")
   local -a method=("-X" "GET")
   local -a user=(-u ":${STORE_TOKEN}")
   local revision=""
@@ -899,6 +966,11 @@ function repository_has_revisions () {
 
   while [[ "$#" > 0 ]] ; do
     case "$1" in
+      -H) case "$2" in
+          Accept:*) accept_media_type[1]="${2}"; shift 2;;
+#          Content-Type:*) content_media_type[1]="${2}"; shift 2;;
+#          *) curl_args+=("${1}" "${2}"); shift 2;;
+          esac ;;
       --account) account="${2}"; shift 2;;
       --repository) repository="${2}"; shift 2;;
       -u|--user) if [[ -z "${2}" ]]; then user=(); else user[1]="${2}"; fi; shift 2;;
@@ -906,10 +978,28 @@ function repository_has_revisions () {
   done
   if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
   curl_url="${STORE_URL}/system/accounts/${account}/repositories/${repository}/revisions";
+  curl_args+=("${accept_media_type[@]}");
 
   echo ${CURL} -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
-  ${CURL} -f -s "${curl_args[@]}" ${curl_url} \
-  -H "Accept: text/plain" | wc | fgrep -q -v "1      37"
+  ${CURL} -f -s "${curl_args[@]}" ${curl_url}
+}
+
+# repository_number_of_revisions { --account $account } {--repository $repository}
+# returns the number of actual revisions,
+# that is, it returns at least 1,
+# and, incidentally, also 1 for an unrevisioned repository
+
+function repository_number_of_revisions () {
+  repository_list_revisions "$@" | wc -l
+}
+
+# repository_has_revisions { --account $account } {--repository $repository}
+# tests whether the repository contains more than one revision
+# this rather than whether it has the revision metadata sub-databases,
+# as the tests require more than one revision
+
+function repository_has_revisions () {
+  repository_list_revisions "$@" | wc | fgrep -q -v "1      37"
 }
 
 function set_store_features () {
@@ -946,7 +1036,9 @@ export -f curl_sparql_view
 export -f curl_graph_store_clear
 export -f curl_graph_store_delete
 export -f curl_graph_store_get
+export -f curl_graph_store_get_nofail
 export -f curl_graph_store_get_code
+export -f curl_graph_store_get_code_nofail
 export -f curl_graph_store_update
 export -f curl_download
 export -f curl_tpf_get
@@ -987,9 +1079,13 @@ export -f initialize_collaboration
 export -f initialize_prefixes
 export -f initialize_privacy
 
+export -f delete_revisions
+export -f repository_revision_count
+export -f repository_is_revisioned
+export -f repository_number_of_revisions
+export -f repository_list_revisions
 
-
-# this records an script to clear environment variables prior to sourcing this file when changing STORE_HOST
+# this records a script to clear environment variables prior to sourcing this file when changing STORE_HOST
   cat /dev/null > ./reset_environment.sh
   printenv | egrep '^STORE[^=]*=.*' \
   | sed -e 's/\(STORE[^=]*\)=.*/\1/' \

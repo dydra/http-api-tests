@@ -26,6 +26,7 @@ curl_graph_store_update -X PUT -o /tmp/successor.nt \
 EOF
 
 export repositoryRevisionUUID=`fgrep 'http://www.w3.org/ns/activitystreams#object' /tmp/successor.nt | sed 's/.*revision=\([^>]*\).*/\1/'`
+rm /tmp/successor.nt
 
 echo PUT-rj : test gsp update completion > $ECHO_OUTPUT
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
@@ -39,7 +40,7 @@ sleep 30
 echo PUT-rj : test successor query completion > $ECHO_OUTPUT
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
     | tee ${ECHO_OUTPUT} \
-    | fgrep openrdf-sesame/mem-rdf-write | fgrep -q '"1"^^<http://www.w3.org/2001/XMLSchema#integer>'
+    | fgrep "${STORE_ACCOUNT}/${STORE_REPOSITORY}-write" | fgrep -q '"1"^^<http://www.w3.org/2001/XMLSchema#integer>'
 
 # test that the revision was adopted
 echo PUT-rj : test successor query completion using $repositoryRevisionUUID > $ECHO_OUTPUT

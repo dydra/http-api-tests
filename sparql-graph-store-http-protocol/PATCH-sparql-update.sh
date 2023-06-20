@@ -18,3 +18,10 @@ curl_graph_store_update -X PATCH  -w "%{http_code}\n" \
 PREFIX     : <http://example.org/> 
 INSERT { GRAPH :g2 { ?s ?p 'r' } } WHERE { ?s ?p ?o }
 EOF
+
+curl_graph_store_get \
+     --repository "${STORE_REPOSITORY}-write"  \
+   | tr -s '\n' '\t' \
+   | fgrep '"default object"' | fgrep '"named object"' | fgrep "<${STORE_NAMED_GRAPH}>" \
+   | fgrep '<http://example.org/g2> ' \
+   | tr -s '\t' '\n' | wc -l | fgrep -q 3

@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# should yield all statementsin the store independent of graph, but encoded as triples.
+# should yield all statements in the store independent of graph, but encoded as triples.
 
 curl_graph_store_get -H "Accept: application/n-triples" \
    | rapper -q --input ntriples --output ntriples /dev/stdin - | tr -s '\n' '\t' \

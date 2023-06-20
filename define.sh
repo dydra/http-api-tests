@@ -845,6 +845,21 @@ function create_repository() {
 EOF
 }
 
+function create_typed_repository() {
+  local -a newRepo=${1}
+  local -a repoClass=${2}
+  local -a URL="${STORE_URL}/system/accounts/${STORE_ACCOUNT}/repositories"
+
+  echo "$testName : $newRepo $repoClass"
+  ${CURL} -w "%{http_code}\n" -f -s -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/n-quads" \
+    --data-binary @- \
+    -u ":${STORE_TOKEN_ADMIN}" ${URL} <<EOF
+{"repository": { "name": "${newRepo}", "class": "lmdb-repository", "storageclass": "${repoClass}" } }
+EOF
+}
+
 function delete_repository () {
   local -a curl_args=()
   local -a account="${STORE_ACCOUNT}"
@@ -859,7 +874,8 @@ function delete_repository () {
   local -a URL="${STORE_URL}/system/accounts/${account}/repositories/${repository}"
   ${CURL} -w "%{http_code}\n" -f -s -X DELETE "${curl_args[@]}" \
      -H "Accept: application/n-quads" \
-     -u ":${STORE_TOKEN_ADMIN}" ${URL}
+     -u ":${STORE_TOKEN_ADMIN}" ${URL} \
+     | tee ${ECHO_OUTPUT}
 }
 
 # repository_has_revisions { --account $account } {--repository $repository}
@@ -903,6 +919,10 @@ function set_store_features () {
     then export STORE_STATEMENT_ANNOTATION="true"
     else export STORE_STATEMENT_ANNOTATION="false"
   fi
+  if `fgrep -q statementCollation service-description.ttl`
+    then export STORE_STATEMENT_COLLATION="true"
+    else export STORE_STATEMENT_COLLATION="false"
+  fi
   if `fgrep -q indexedTimes service-description.ttl`
     then export STORE_INDEXED_TIMES="true"
     else export STORE_INDEXED_TIMES="false"
@@ -913,9 +933,9 @@ function set_store_features () {
   fi
 }
 
-
 export -f create_account
 export -f create_repository
+export -f create_typed_repository
 export -f delete_repository
 export -f repository_has_revisions
 
@@ -967,4 +987,13 @@ export -f initialize_collaboration
 export -f initialize_prefixes
 export -f initialize_privacy
 
+
+
+# this records an script to clear environment variables prior to sourcing this file when changing STORE_HOST
+  cat /dev/null > ./reset_environment.sh
+  printenv | egrep '^STORE[^=]*=.*' \
+  | sed -e 's/\(STORE[^=]*\)=.*/\1/' \
+  | while read variable; do echo "unset $variable" >> ./reset_environment.sh ; done
+
+set_store_features
 

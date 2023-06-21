@@ -59,7 +59,7 @@ function get_visibility() {
     -H "Content-Type: application/sparql-query" \
     -H "Accept: application/json" <<EOF \
     | tee ${ECHO_OUTPUT} | jq '.[] | join(",")'
-select ?o ?v where { graph ?g {?s ?p ?o {| <urn:dydra:copy> ?v |} } }
+select ?o ?v where { {?s ?p ?o {| <urn:dydra:copy> ?v |}} union {graph ?g {?s ?p ?o {| <urn:dydra:copy> ?v |}}} }
 EOF
 }
 

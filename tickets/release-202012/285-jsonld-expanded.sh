@@ -31,7 +31,7 @@ where {
 order by ?o
 EOF
 
-json_diff tmp.json /dev/fd/0 <<EOF 2>&1 | tee $ECHO_OUTPUT | egrep -q '^\{\}$'
+json_diff tmp.json /dev/fd/0 <<EOF 2>&1 | tee $ECHO_OUTPUT | egrep -q '^\[\]$'
 [
    {
       "@id" : "_:g1",

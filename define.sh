@@ -468,9 +468,9 @@ function curl_sparql_request () {
       *=*) url_args+=("${1}"); shift 1;;
       *) curl_args+=("${1}"); shift 1;;
     esac
-    # echo "curl_args in loop ${curl_args[@]}"
+    # echo "curl_args in loop ${curl_args[@]}" > /dev/tty
   done
-  # echo "curl_args ${curl_args[@]}";
+  # echo "curl_args ${curl_args[@]}" > /dev/tty
   curl_url="${STORE_URL}/${account}/${repository}/sparql"
   url_args+=(${user_id[@]})
   if [[ ${#url_args[*]} > 0 ]] ; then curl_url=$(IFS='&' ; echo "${curl_url}?${url_args[*]}") ; fi
@@ -499,6 +499,7 @@ function curl_sparql_update () {
 
 # curl_sparql_view { accept-header-argument } { content-type-header-argument } { view_name }
 # operate with/on a view
+# content-type is permitted in order to post to a view
 function curl_sparql_view () {
   local -a curl_args=()
   local -a accept_media_type=("-H" "Accept: $STORE_SPARQL_RESULTS_MEDIA_TYPE")
@@ -919,8 +920,11 @@ function delete_revisions () {
 # repository_revision_count { --account $account } {--repository $repository}
 # returns the revision count from dydra's repository introspection,
 # 0 for an unrevisioned repository, >=1 for revisioned repositories
+#
+# the temporary file is used because as of "GNU bash, version 3.2.57(1)-release (arm64-apple-darwin22)"
+# bash saw the "|" after inline data in the function definition as a syntax error
 
-function repository_revision_count () {
+function curl_repository_revision_count () {
   local -a curl_args=()
   local -a account="${STORE_ACCOUNT}"
   local -a repository="new"
@@ -931,12 +935,19 @@ function repository_revision_count () {
       *) curl_args+=("${1}"); shift 1;;
     esac
   done
-curl_sparql_request --account ${account} --repository ${repository} revision-id=HEAD <<EOF \
-   | tee $ECHO_OUTPUT | jq -r '.results.bindings[].revisionCount.value'
+
+cat > /tmp/curl_repository_revision_count.rq <<EOF
 prefix dydra: <http://dydra.com/sparql-functions#>
 select (dydra:repository-revision-count() as ?revisionCount)
 where {}
 EOF
+
+curl_sparql_request  --account "${account}" --repository "${repository}" revision-id=HEAD --data-binary @/tmp/curl_repository_revision_count.rq
+}
+
+
+function repository_revision_count () {
+  curl_repository_revision_count "$@" | tee $ECHO_OUTPUT | jq -r '.results.bindings[].revisionCount.value'
 }
 
 # repository_is_revisioned { --account $account } {--repository $repository}
@@ -988,9 +999,10 @@ function repository_list_revisions () {
 # returns the number of actual revisions,
 # that is, it returns at least 1,
 # and, incidentally, also 1 for an unrevisioned repository
+# sed in order to remove whitespace
 
 function repository_number_of_revisions () {
-  repository_list_revisions "$@" | wc -l
+  repository_list_revisions "$@" | wc -l | sed -e 's/ //g'
 }
 
 # repository_has_revisions { --account $account } {--repository $repository}
@@ -1081,6 +1093,7 @@ export -f initialize_privacy
 
 export -f delete_revisions
 export -f repository_revision_count
+export -f curl_repository_revision_count
 export -f repository_is_revisioned
 export -f repository_number_of_revisions
 export -f repository_list_revisions

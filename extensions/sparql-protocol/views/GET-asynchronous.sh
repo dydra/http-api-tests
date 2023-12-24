@@ -18,6 +18,7 @@ function async_sparql_get () {
   curl_sparql_view -w "%{http_code}\n" -o  ${ECHO_OUTPUT} \
     -H "Content-Type: " \
     -H "Accept-Asynchronous: notify" \
+    -H "Asynchronous-Authorization: Bearer ${STORE_TOKEN}" \
     -H "Asynchronous-Location: https://${STORE_HOST}/${STORE_ACCOUNT}/${STORE_REPOSITORY_WRITABLE}/service?default" \
     -H "Asynchronous-Method: POST" \
     -H "Asynchronous-Content-Type: application/n-triples" \

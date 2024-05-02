@@ -5,9 +5,11 @@ set -e
 # import one qos variant for that view
 # exercise the view and ensure that the qos is refleted in the response 
 # import a second qos variant for that view
-# exercise the view again and ensure that the second qos is refleted in the response 
+# exercise the view again and ensure that the second qos is reflected in the response
+# delete the specifications and ensure that the quality is default 
 # remove the view
 
+# for background:
 # (spocq.i::REPOSITORY-VIEW-DEFINITIONS (repository "test/test"))
 
 echo "create repository" > $ECHO_OUTPUT

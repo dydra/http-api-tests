@@ -8,6 +8,7 @@ set -e
 # - import setttings for a non-existent service quality should fail
 # remove the view
 
+# for background:
 # (spocq.i::REPOSITORY-VIEW-DEFINITIONS (repository "test/test"))
 
 echo "create repository" > $ECHO_OUTPUT

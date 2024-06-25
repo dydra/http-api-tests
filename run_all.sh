@@ -25,15 +25,18 @@ date
 initialize_all_repositories
 # problems with the repository content
 # run extensions/git
-run extensions/admin/revisions
+# 20230814 confuses the curl_sparql_request operator
+#run extensions/admin/revisions
 run extensions/graph-store-protocol
 run extensions/sparql-protocol/collation
 run extensions/sparql-protocol/meta-data
 run extensions/sparql-protocol/describe
+run extensions/sparql-protocol/free-text
 run extensions/sparql-protocol/parameters
 run extensions/sparql-protocol/provenance
 run extensions/sparql-protocol/revisions
 run extensions/sparql-protocol/sparql-operators
+run extensions/quality-of-service
 # some translations depend on gensym state
 # run extensions/sparql-protocol/sql
 run extensions/sparql-protocol/temporal-data

@@ -1,13 +1,11 @@
 #! /bin/bash
 # test kleene-star paths across and within graphs
 
-${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
-     -H "Accept: application/n-quads" \
-     -H "Content-Type: application/n-quads" --data-binary @- \
-     -u ":${STORE_TOKEN}" \
-     -o $ECHO_OUTPUT \
-     "${STORE_URL}/test/test/service" <<EOF \
-     | test_put_success
+echo "# test kleene-star paths across and within graphs" > $ECHO_OUTPUT
+
+curl_graph_store_update -X PUT -o /dev/null \
+      -H "Content-Type: application/n-quads" \
+      --repository "${STORE_REPOSITORY}-write" <<EOF
 <http://example.org/node0> <http://example.com/kleene-name> "kleene leaf 0" .
 <http://example.org/node1> <http://example.com/kleene-name> "kleene leaf 1" <http://example.org/node1> .
 <http://example.org/node1> <http://example.com/kleene-predicate> <http://example.org/node2> <http://example.org/node1> .
@@ -18,12 +16,12 @@ ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
 EOF
 
 
-curl_graph_store_get --repository "test" --account "test" \
+curl_graph_store_get --repository "${STORE_REPOSITORY}-write" --account "test" \
   | wc | fgrep -q 7
 
 echo "test ex:kleene-predicate+" > $ECHO_OUTPUT
 curl_sparql_request \
- --repository "test" \
+ --repository "${STORE_REPOSITORY}-write" \
  --account "test" \
  -H "Content-Type: application/sparql-query" \
  -H "Accept: application/sparql-results+json" <<EOF \
@@ -38,7 +36,7 @@ EOF
 
 echo "test ex:kleene-predicate+ w/ second variable pattern" > $ECHO_OUTPUT
 curl_sparql_request\
- --repository "test" \
+ --repository "${STORE_REPOSITORY}-write" \
  --account "test" \
  -H "Content-Type: application/sparql-query" \
  -H "Accept: application/sparql-results+json" <<EOF \
@@ -56,7 +54,7 @@ EOF
 
 echo "test ex:kleene-predicate+ w/ second constant pattern" > $ECHO_OUTPUT
 curl_sparql_request \
- --repository "test" \
+ --repository "${STORE_REPOSITORY}-write" \
  --account "test" \
  -H "Content-Type: application/sparql-query" \
  -H "Accept: application/sparql-results+json" <<EOF \
@@ -72,7 +70,7 @@ EOF
 
 
 curl_sparql_request '$name=%22kleene%20leaf%201%22' \
- --repository "test" \
+ --repository "${STORE_REPOSITORY}-write" \
  --account "test" \
  -H "Content-Type: application/sparql-query" \
  -H "Accept: application/sparql-results+json" <<EOF \
@@ -88,7 +86,7 @@ EOF
 
 echo "test ex:kleene-predicate+ across graphs" > $ECHO_OUTPUT
 curl_sparql_request '$node=%3chttp%3a%2f%2fexample.org%2fnode1%3e' \
- --repository "test" \
+ --repository "${STORE_REPOSITORY}-write" \
  --account "test" \
  -H "Content-Type: application/sparql-query" \
  -H "Accept: application/sparql-results+json" <<EOF \
@@ -104,7 +102,7 @@ EOF
 
 echo "test ex:kleene-predicate+ multi-graph dataset from constant subject" > $ECHO_OUTPUT
 curl_sparql_request \
- --repository "test" \
+ --repository "${STORE_REPOSITORY}-write" \
  --account "test" \
  -H "Content-Type: application/sparql-query" \
  -H "Accept: application/sparql-results+json" <<EOF \
@@ -119,7 +117,7 @@ EOF
 
 echo "test ex:kleene-predicate+ multi-graph graph form from constant subject" > $ECHO_OUTPUT
 curl_sparql_request \
- --repository "test" \
+ --repository "${STORE_REPOSITORY}-write" \
  --account "test" \
  -H "Content-Type: application/sparql-query" \
  -H "Accept: application/sparql-results+json" <<EOF \
@@ -133,9 +131,9 @@ where {
 }
 EOF
 
-echo "test ex:kleene-predicate+ single graph from from constant subject" > $ECHO_OUTPUT
+echo "test ex:kleene-predicate+ single graph form from constant subject" > $ECHO_OUTPUT
 curl_sparql_request \
- --repository "test" \
+ --repository "${STORE_REPOSITORY}-write" \
  --account "test" \
  -H "Content-Type: application/sparql-query" \
  -H "Accept: application/sparql-results+json" <<EOF \
@@ -149,9 +147,9 @@ where {
 }
 EOF
 
-echo "test ex:kleene-predicate+ single graph from from constant subject in service clause" > $ECHO_OUTPUT
+echo "test ex:kleene-predicate+ single graph form from constant subject in service clause" > $ECHO_OUTPUT
 curl_sparql_request \
- --repository "test" \
+ --repository "${STORE_REPOSITORY}-write" \
  --account "test" \
  -H "Content-Type: application/sparql-query" \
  -H "Accept: application/sparql-results+json" <<EOF \
@@ -159,7 +157,7 @@ curl_sparql_request \
 prefix ex: <http://example.com/>
 select * # count(*)
 where {
-  service <http://localhost/test/test> {
+  service <http://localhost/test/${STORE_REPOSITORY}-write> {
     graph <http://example.org/node1> {
       <http://example.org/node1> ex:kleene-predicate+ ?Leaf .
     }
@@ -167,9 +165,9 @@ where {
 }
 EOF
 
-echo "test ex:kleene-predicate+ all graph from from constant subject in service clause" > $ECHO_OUTPUT
+echo "test ex:kleene-predicate+ all graph form from constant subject in service clause" > $ECHO_OUTPUT
 curl_sparql_request \
- --repository "test" \
+ --repository "${STORE_REPOSITORY}-write" \
  --account "test" \
  -H "Content-Type: application/sparql-query" \
  -H "Accept: application/sparql-results+json" <<EOF \
@@ -177,7 +175,7 @@ curl_sparql_request \
 prefix ex: <http://example.com/>
 select * # count(*)
 where {
-  service <http://localhost/test/test> {
+  service <http://localhost/test/${STORE_REPOSITORY}-write> {
     graph <urn:dydra:all> {
       <http://example.org/node1> ex:kleene-predicate+ ?Leaf .
     }
@@ -185,9 +183,9 @@ where {
 }
 EOF
 
-echo "test ex:kleene-predicate+ all graph multiple patterns from from variable subject in service clause" > $ECHO_OUTPUT
+echo "test ex:kleene-predicate+ all graph multiple patterns form from variable subject in service clause" > $ECHO_OUTPUT
 curl_sparql_request '$name=%22kleene%20leaf%201%22' \
- --repository "test" \
+ --repository "${STORE_REPOSITORY}-write" \
  --account "test" \
  -H "Content-Type: application/sparql-query" \
  -H "Accept: application/sparql-results+json" <<EOF \
@@ -195,7 +193,7 @@ curl_sparql_request '$name=%22kleene%20leaf%201%22' \
 prefix ex: <http://example.com/>
 select * # count(*)
 where {
-  service <http://localhost/test/test> {
+  service <http://localhost/test/${STORE_REPOSITORY}-write> {
     graph <urn:dydra:all> {
       ?node ex:kleene-name ?name .
       ?node ex:kleene-predicate+ ?Leaf .
@@ -205,13 +203,9 @@ where {
 EOF
 
 echo "import 4-node dataset" > $ECHO_OUTPUT
-${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
-     -H "Accept: application/n-quads" \
-     -H "Content-Type: application/n-quads" --data-binary @- \
-     -u ":${STORE_TOKEN}" \
-     -o $ECHO_OUTPUT \
-     "${STORE_URL}/test/test/service" <<EOF \
-     | test_put_success
+curl_graph_store_update -X PUT -o /dev/null \
+      -H "Content-Type: application/n-quads" \
+      --repository "${STORE_REPOSITORY}-write" <<EOF
 <http://example.org/node0> <http://example.com/kleene-name> "default node 0" .
 <http://example.org/node0> <http://example.com/kleene-predicate> <http://example.org/node1> .
 <http://example.org/node1> <http://example.com/kleene-name> "default node 1" .
@@ -227,7 +221,7 @@ EOF
 
 echo "test ex:kleene-predicate+ default graph form from variable subject in service clause" > $ECHO_OUTPUT
 curl_sparql_request \
- --repository "test" \
+ --repository "${STORE_REPOSITORY}-write" \
  --account "test" \
  -H "Content-Type: application/sparql-query" \
  -H "Accept: application/sparql-results+json" <<EOF \
@@ -235,7 +229,7 @@ curl_sparql_request \
 prefix ex: <http://example.com/>
 select * # count(*)
 where {
-  service <http://localhost/test/test> {
+  service <http://localhost/test/${STORE_REPOSITORY}-write> {
     graph <urn:dydra:default> {
       ?node ex:kleene-name ?name .
       ?node ex:kleene-predicate+ ?Leaf .
@@ -246,7 +240,7 @@ EOF
 
 echo "test ex:kleene-predicate+ named graph form from variable subject in service clause" > $ECHO_OUTPUT
 curl_sparql_request \
- --repository "test" \
+ --repository "${STORE_REPOSITORY}-write" \
  --account "test" \
  -H "Content-Type: application/sparql-query" \
  -H "Accept: application/sparql-results+json" <<EOF \
@@ -254,7 +248,7 @@ curl_sparql_request \
 prefix ex: <http://example.com/>
 select * # count(*)
 where {
-  service <http://localhost/test/test> {
+  service <http://localhost/test/${STORE_REPOSITORY}-write> {
     graph <urn:dydra:named> {
       ?node ex:kleene-name ?name .
       ?node ex:kleene-predicate+ ?Leaf .
@@ -265,7 +259,7 @@ EOF
 
 echo "test ex:kleene-predicate+ all graph form from variable subject in service clause" > $ECHO_OUTPUT
 curl_sparql_request \
- --repository "test" \
+ --repository "${STORE_REPOSITORY}-write" \
  --account "test" \
  -H "Content-Type: application/sparql-query" \
  -H "Accept: application/sparql-results+json" <<EOF \
@@ -273,7 +267,7 @@ curl_sparql_request \
 prefix ex: <http://example.com/>
 select * # count(*)
 where {
-  service <http://localhost/test/test> {
+  service <http://localhost/test/${STORE_REPOSITORY}-write> {
     graph <urn:dydra:all> {
       ?node ex:kleene-name ?name .
       ?node ex:kleene-predicate+ ?Leaf .
@@ -284,7 +278,7 @@ EOF
 
 echo "test ex:kleene-predicate+ no graph form from variable subject in service clause" > $ECHO_OUTPUT
 curl_sparql_request \
- --repository "test" \
+ --repository "${STORE_REPOSITORY}-write" \
  --account "test" \
  -H "Content-Type: application/sparql-query" \
  -H "Accept: application/sparql-results+json" <<EOF \
@@ -292,16 +286,16 @@ curl_sparql_request \
 prefix ex: <http://example.com/>
 select * # count(*)
 where {
-  service <http://localhost/test/test> {
+  service <http://localhost/test/${STORE_REPOSITORY}-write> {
     ?node ex:kleene-name ?name .
     ?node ex:kleene-predicate+ ?Leaf .
   }
 }
 EOF
 
-echo "test ex:kleene-predicate+ constant graph form from variable subject in service clause" > $ECHO_OUTPUT
+echo "test ex:kleene-predicate+ constant graph form from variable subject" > $ECHO_OUTPUT
 curl_sparql_request \
- --repository "test" \
+ --repository "${STORE_REPOSITORY}-write" \
  --account "test" \
  -H "Content-Type: application/sparql-query" \
  -H "Accept: application/sparql-results+json" <<EOF \

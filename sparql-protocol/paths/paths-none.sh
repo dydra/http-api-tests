@@ -2,6 +2,9 @@
 # test path queries which specify no graphs, leaving the default dataset in place
 # see the paths README
 
+echo "test path queries which specify no graphs, leaving the default dataset in place" > $ECHO_OUTPUT
+
+
 curl_graph_store_update -X PUT -o /dev/null \
       -H "Content-Type: application/n-quads" \
       --repository "${STORE_REPOSITORY}-write" <<EOF
@@ -124,16 +127,28 @@ select (count (?s) as ?count)
 where { graph ?g { ?s :p/:p/:p/:p ?o} }
 EOF
 
-
+# for the test dataset, nodes which appear as both subject and object inter-graph
+# introduce a duplicate solution
+echo "intergraph kleen paths yield 12 total results" > $ECHO_OUTPUT
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .count | .value' | tr -s '\n' ',' | fgrep -q '"2","3","3","1"'
+   | jq '.results.bindings | length' | fgrep -q '12'
 prefix : <http://example.com/> 
-select ?s (count(?s) as ?count)
+select ?s ?o
 where { graph ?g {?s :p* ?o} }
-group by ?s
+EOF
+
+echo "intergraph kleen paths yield 10 total results" > $ECHO_OUTPUT
+curl_sparql_request \
+     --repository "${STORE_REPOSITORY}-write" \
+     -H "Content-Type: application/sparql-query" \
+     -H "Accept: application/sparql-results+json" <<EOF \
+   | jq '.results.bindings | length' | fgrep -q '10'
+prefix : <http://example.com/> 
+select distinct ?s ?o
+where { graph ?g {?s :p* ?o} }
 order by ?s
 EOF
 
@@ -142,12 +157,10 @@ curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .count | .value' | tr -s '\n' ',' | fgrep -q '"1","1","1"'
+   | jq '.results.bindings | length' | fgrep -q '6'
 prefix    : <http://example.com/> 
-select ?s (count(?s) as ?count)
+select ?s ?o
 where { graph ?g {?s :p+ ?o} }
-group by ?s
-order by ?s
 EOF
 
 

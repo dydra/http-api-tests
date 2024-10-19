@@ -7,7 +7,7 @@
 curl_sparql_request \
      -H "Accept: text/csv" \
      -H "Content-Type:application/sparql-query" <<EOF \
- | sort -d | tee $ECHO_OUTPUT | diff -w - /dev/fd/2 2<<TEST
+ | sort -d | tee $ECHO_OUTPUT | diff --strip-trailing-cr -w - /dev/fd/2 2<<TEST
 SELECT  ?id ?value
 WHERE {
   VALUES (?id) {

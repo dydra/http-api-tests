@@ -25,4 +25,8 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: run all tests
-        run: run_all_tests
+        shell: bash
+        env:
+          STORE_HOST: ${{ secrets.STORE_HOST }}
+          STORE_TOKEN: ${{ secrets.STORE_TOKEN }}
+        run: bash "${GITHUB_WORKSPACE}/.github/run_all.sh"

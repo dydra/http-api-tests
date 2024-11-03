@@ -23,10 +23,22 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      # Provide utilities
+      - name: install utilities
+        run: |
+          sudo apt-get update
+          sudo apt-get install -qq raptor2-utils
+          sudo apt-get install -qq yajl-tools
+          sudo apt-get install -qq jq
+          sudo apt-get install -qq graphviz
+          sudo apt-get install -qq tidy
+          sudo apt-get install -qq libxml2-utils
+        
       # Runs a single command using the runners shell
       - name: run all tests
         shell: bash
         env:
           STORE_HOST: ${{ secrets.STORE_HOST }}
           STORE_TOKEN: ${{ secrets.STORE_TOKEN }}
-        run: bash "${GITHUB_WORKSPACE}/.github/run_all.sh"
+        run: bash run_all.sh
+        

@@ -25,7 +25,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: run all tests
-      - shall: bash
+        shell: bash
         env:
           STORE_HOST: ${{ secrets.STORE_HOST }}
           STORE_TOKEN: ${{ secrets.STORE_TOKEN }}

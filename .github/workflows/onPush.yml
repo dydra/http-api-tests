@@ -25,4 +25,4 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: run all tests
-        run: run_all_tests
+        run: bash run_all_tests

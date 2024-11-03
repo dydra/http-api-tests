@@ -1,5 +1,7 @@
 #! /bin/bash
 
+if [ -z "$STORE_REPOSITORY_CLASS" ]; then source define.sh; fi
+
 function run () {
   bash ./run.sh $@
   let "all_errors += $?"

@@ -24,14 +24,15 @@ jobs:
       - uses: actions/checkout@v2
 
       # Provide utilities
-      - name install utilities
-        sudo apt-get update
-        sudo apt-get install -qq raptor2-utils
-        sudo apt-get install -qq yajl-tools
-        sudo apt-get install -qq jq
-        sudo apt-get install -qq graphviz
-        sudo apt-get install -qq tidy
-        sudo apt-get install -qq libxml2-utils
+      - name: install utilities
+        run: |
+          sudo apt-get update
+          sudo apt-get install -qq raptor2-utils
+          sudo apt-get install -qq yajl-tools
+          sudo apt-get install -qq jq
+          sudo apt-get install -qq graphviz
+          sudo apt-get install -qq tidy
+          sudo apt-get install -qq libxml2-utils
         
       # Runs a single command using the runners shell
       - name: run all tests

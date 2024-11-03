@@ -29,7 +29,7 @@ EOF
 curl_sparql_request \
  --repository "${STORE_REPOSITORY}-write" \
  -H "Accept: application/sparql-results+json" <<EOF \
- jq '.results.bindings[].o'  | tr -s '\n' '\t'  \
+ | jq '.results.bindings[].o'  | tr -s '\n' '\t'  \
  | fgrep '"depth 0"' \
  | fgrep -v '"depth 1 by uri"' | fgrep -q '"depth 1 by blank node"'
 

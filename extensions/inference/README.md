@@ -14,7 +14,7 @@ It is intended to cover the following mechanisms:
 
 ## Pattern-Directed entailment
 
-The library's construct and n3 rules are are compiled into filter which activated
+The library's construct and n3 rules are are compiled into filters which activated
 BGP transformations. These tests cover
 
 - test different rule formats for simple rdfs entailment

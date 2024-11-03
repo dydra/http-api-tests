@@ -56,10 +56,10 @@ fi
 
 export STORE_SITE="dydra.com"           # the abstract site name
 if [[ "" == "${STORE_ACCOUNT}" ]]
-then export STORE_ACCOUNT="openrdf-sesame"
+then export STORE_ACCOUNT="test"
 fi
 if [[ "" == "${STORE_REPOSITORY}" ]]
-then export STORE_REPOSITORY="mem-rdf"
+then export STORE_REPOSITORY="test"
 fi
 if [[ "" == "${STORE_COLLABORATOR}" ]]
 then export STORE_COLLABORATOR="jhacker"
@@ -70,8 +70,6 @@ export STORE_REPOSITORY_WRITABLE="${STORE_REPOSITORY}-write"
 export STORE_REPOSITORY_PROVENANCE="${STORE_REPOSITORY}-provenance"
 export STORE_REPOSITORY_PUBLIC="${STORE_REPOSITORY}-public"
 export STORE_REPOSITORY_REVISIONED="${STORE_REPOSITORY}-revisioned"
-export STORE_REPOSITORY_CLASS_DEFAULT="lmdb-quad-repository"
-export STORE_REVISIONED_REPOSITORY_CLASS_DEFAULT="lmdb-revisioned-repository"
 if [[ "" == "${GRAPH_STORE_PATCH_LEGACY}" ]]
 then export GRAPH_STORE_PATCH_LEGACY=true
 fi
@@ -290,7 +288,7 @@ function initialize_account () {
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -H "Content-Type: application/n-quads" --data-binary @- \
      -u ":${STORE_TOKEN}" \
-     ${STORE_URL}/${STORE_ACCOUNT}/system <<EOF
+     ${STORE_URL}/${STORE_ACCOUNT}/system/service <<EOF
 <http://dydra.com/accounts/openrdf-sesame> <urn:dydra:baseIRI> <http://dydra.com/accounts/openrdf-sesame> <http://dydra.com/accounts/openrdf-sesame> .
 EOF
 }
@@ -315,7 +313,7 @@ function initialize_repository_configuration () {
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -H "Content-Type: application/n-quads" --data-binary @- \
      -u ":${STORE_TOKEN}" \
-     ${STORE_URL}/${STORE_ACCOUNT}/system <<EOF
+     ${STORE_URL}/${STORE_ACCOUNT}/system/service <<EOF
 <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:baseIRI> <http://www.openrdf.org/mem-rdf> <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> .
 <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:skolemize> "false"^^<http://www.w3.org/2001/XMLSchema#boolean> <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> .
 <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> <urn:dydra:defaultContextTerm> <urn:dydra:default> <http://${STORE_SITE}/accounts/openrdf-sesame/repositories/mem-rdf> .
@@ -484,7 +482,7 @@ function curl_sparql_request () {
 
   echo ${CURL} -L -f -s "${curl_args[@]}" ${curl_url} > $ECHO_OUTPUT
   mkdir -p /tmp/test/
-  ${CURL} -L -f -s "${curl_args[@]}" ${curl_url}
+  ${CURL} -L -f -s  "${curl_args[@]}" ${curl_url}
 }
 
 
@@ -519,6 +517,7 @@ function curl_sparql_view () {
     case "$1" in
       --account) account="${2}"; shift 2;;
       default|DEFAULT) graph="default"; shift 1;;
+      -D) curl_args+=("${1}" "${2}"); shift 2;;
       --graph) if [[ "" == "${2}" ]] ; then graph=""; else graph="graph=${2}"; fi;  shift 2;;
       -H) case "$2" in
           Accept:*) accept_media_type[1]="${2}"; shift 2;;
@@ -833,8 +832,9 @@ function create_repository() {
   local -a curl_args=()
   local -a account="${STORE_ACCOUNT}"
   local -a repository="new"
-  local -a class="${STORE_REPOSITORY_CLASS_DEFAULT}"
+  local -a class="${STORE_REPOSITORY_CLASS}"
   local -a temporal_properties=""
+  local -a event_properties=""
   local -a time_series_properties=""
   while [[ "$#" > 0 ]] ; do
     case "$1" in
@@ -847,7 +847,7 @@ function create_repository() {
     esac
   done
   local -a URL="${STORE_URL}/system/accounts/${account}/repositories"
-  echo "create repository: ${account}/${repository}, class: ${class}" > $ECHO_OUTPUT
+  echo "create repository: ${account}/${repository}, class: ${class}" > /dev/tty > $ECHO_OUTPUT
   ${CURL} -w "%{http_code}\n" -f -s -X POST "${curl_args[@]}" \
      -H "Content-Type: application/json" \
      -H "Accept: application/n-quads" \
@@ -1032,6 +1032,15 @@ function set_store_features () {
   if `fgrep -q indexedEvents service-description.ttl`
     then export STORE_INDEXED_EVENTS="true"
     else export STORE_INDEXED_EVENTS="false"
+  fi
+
+  if [[ "true" == ${STORE_INDEXED_TIMES} ]]
+  then
+    export STORE_REVISIONED_REPOSITORY_CLASS=lmdb-revisioned-repository
+    export STORE_REPOSITORY_CLASS=lmdb-quad-repository
+  else
+    export STORE_REVISIONED_REPOSITORY_CLASS=revisioned-lmdb-repository
+    export STORE_REPOSITORY_CLASS=lmdb-repository
   fi
 }
 

@@ -4,11 +4,14 @@ source test-if-revisioned-and-common-functions.sh
 
 echo "initial test after delete revisions" > ${INFO_OUTPUT}
 delete_revisions --repository ${repository} | fgrep -x 200 > ${GREP_OUTPUT}
+echo "deleted" > ${INFO_OUTPUT}
 repository_number_of_revisions --repository ${repository} | fgrep -x "1" > ${GREP_OUTPUT}
 
+echo "check_empty_repository top" > ${INFO_OUTPUT}
 check_empty_repository
 make_base_revision_ordinals
 
+echo "add_quad 1" > ${INFO_OUTPUT}
 add_quad 1
 repository_number_of_revisions --repository ${repository} | fgrep -x "2" > ${GREP_OUTPUT}
 curl_graph_store_get --repository ${repository} | tr -s '\n' '\t' \

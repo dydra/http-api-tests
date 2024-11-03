@@ -1,7 +1,8 @@
 #! /bin/bash
 
+# execute an import with rdf xml
 # add a successor query
-# notify back to the repository
+# use asynchronous headers to direct notification back to the repository
 
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
@@ -16,11 +17,12 @@ curl_graph_store_update -X PUT -o /tmp/successor.nt \
      -H "Asynchronous-Content-Type: application/n-quads" \
      -H "Asynchronous-Location: https://localhost/${STORE_ACCOUNT}/${STORE_REPOSITORY}-write/service" \
      -H "Asynchronous-Method: POST" \
+     -H "Asynchronous-Authorization: Bearer ${STORE_TOKEN}" \
      --repository "${STORE_REPOSITORY}-write" <<EOF
 <?xml version="1.0" encoding="utf-8"?>
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about="http://example.com/default-subject">
-    <ns0:default-predicate xmlns:ns0="http://example.com/">default object PUT-successor</ns0:default-predicate>
+    <ns0:default-predicate xmlns:ns0="http://example.com/">default object PUT with successor</ns0:default-predicate>
   </rdf:Description>
 </rdf:RDF>
 EOF
@@ -32,7 +34,7 @@ echo "repositoryRevisionUUID: $repositoryRevisionUUID" > $ECHO_OUTPUT
 
 echo PUT-rdf+xml : test gps update completion > $ECHO_OUTPUT
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
-    | fgrep http://example.com/default-subject | fgrep -q 'default object PUT-successor'
+    | fgrep http://example.com/default-subject | fgrep -q 'default object PUT with successor'
 
 # wait for the asynchronous successor to run
 sleep 30

@@ -1,7 +1,8 @@
 #! /bin/bash
 
+# execute an import with rdf json
 # add a successor query
-# notify back to the repository
+# use asynchronous headers to direct notification back to the repository
 
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 # -o /dev/null
@@ -17,9 +18,10 @@ curl_graph_store_update -X PUT -o /tmp/successor.nt \
      -H "Asynchronous-Content-Type: application/n-quads" \
      -H "Asynchronous-Location: https://localhost/${STORE_ACCOUNT}/${STORE_REPOSITORY}-write/service" \
      -H "Asynchronous-Method: POST" \
+     -H "Asynchronous-Authorization: Bearer ${STORE_TOKEN}" \
      --repository "${STORE_REPOSITORY}-write" <<EOF
 { "http://example.com/default-subject" : {
-  "http://example.com/default-predicate" : [ { "value" : "default object PUT-successor",
+  "http://example.com/default-predicate" : [ { "value" : "default object PUT with successor",
                                                "type" : "literal" } ]
   }
 }
@@ -30,9 +32,9 @@ rm /tmp/successor.nt
 
 echo PUT-rj : test gsp update completion > $ECHO_OUTPUT
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
-    | fgrep http://example.com/default-subject | fgrep -q 'default object PUT-successor'
+    | fgrep http://example.com/default-subject | fgrep -q 'default object PUT with successor'
 
-# wait for the asynchronous successor to run
+echo PUT-rj : wait for the asynchronous successor to run > $ECHO_OUTPUT
 sleep 30
 
 

@@ -12,20 +12,24 @@ set -e
 # for background:
 # (spocq.i::REPOSITORY-VIEW-DEFINITIONS (repository "test/test"))
 
-echo "create repository" > $ECHO_OUTPUT
+echo "create qos repository" > $ECHO_OUTPUT
+create_repository --repository quality-of-service \
+  | test_success
+
+echo "create view" > $ECHO_OUTPUT
 curl_sparql_view -X PUT --account test --repository test -w "%{http_code}\n" \
     -H "Content-Type: application/sparql-query" \
     --data-binary @- test_qos <<EOF | test_put_success
 select * where {?s ?p ?o}
 EOF
 
-echo "SPARQL qos specified" > $ECHO_OUTPUT
+echo "Queued qos specified" > $ECHO_OUTPUT
 curl_graph_store_update -X PUT -w "%{http_code}\n" --account test --repository quality-of-service -H "Content-Type: application/trig" <<EOF | test_success
 <http://dydra.com/quality-of-service> {
     <http://dydra.com/quality-of-service/class/Test> <http://dydra.com/quality-of-service/class> <http://dydra.com/quality-of-service/class/Application> .
 }
 <http://dydra.com/quality-of-service> {
-    <http://dydra.com/quality-of-service/class/Application> <http://dydra.com/quality-of-service/quality> <http://dydra.com/quality-of-service/class/SPARQL> .
+    <http://dydra.com/quality-of-service/class/Application> <http://dydra.com/quality-of-service/quality> <http://dydra.com/quality-of-service/class/Queued> .
 }
 
 <http://dydra.com/quality-of-service/views> {
@@ -38,7 +42,7 @@ echo "retrieve SPARQL qos" > $ECHO_OUTPUT
 curl_sparql_view -X GET --account test --repository test -w "%{http_code}\n" \
     -H "Accept: application/sparql-results+json" \
     -D - test_qos \
-    | fgrep Service-Quality | fgrep -q SPARQL
+    | fgrep Service-Quality | fgrep -q Queued
 
 
 echo "Scheduled qos specified" > $ECHO_OUTPUT
@@ -68,12 +72,13 @@ echo "clear the specification" > $ECHO_OUTPUT
 curl_graph_store_update -X PUT -w "%{http_code}\n" --account test --repository quality-of-service -H "Content-Type: application/trig" <<EOF | test_success
 EOF
 
+# SPARQL is the default established by the nginx general view location
 sleep 10
 echo "retrieve no qos" > $ECHO_OUTPUT
 curl_sparql_view -X GET --account test --repository test -w "%{http_code}\n" \
     -H "Accept: application/sparql-results+json" \
     -D - test_qos \
-     | fgrep Service-Quality | fgrep -q Unspecified
+     | fgrep Service-Quality | fgrep -q SPARQL
 
 
 echo "delete view" > $ECHO_OUTPUT

@@ -60,8 +60,13 @@ echo "check visibilities of quads in revisions ${rev}: empty revision" > ${INFO_
 # HEAD~4 is tail and gives 404 already
 #curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' '\t' \
     #    | fgrep -v "object-3.1" | fgrep -v "object-3.2" | fgrep -v "object-2.1" | fgrep -v "object-2.2" > ${GREP_OUTPUT}
-result=$(curl_graph_store_get_code_nofail --repository ${repository} revision-id=${rev} 2>&1 > /dev/null)
-test "$result" -eq "404"
+
+curl_graph_store_get -w '%{http_code}\n' --repository ${repository} revision-id=${rev} \
+  | test_not_found
+# fails on osx
+#result=$(curl_graph_store_get_code_nofail --repository ${repository} revision-id=${rev} 2>&1 > /dev/null)
+#test "$result" -eq "404"
+
 rev="HEAD~5"
 echo "check visibilities of quads in revisions ${rev}" > ${INFO_OUTPUT}
 curl_graph_store_get --repository ${repository} revision-id=${rev} | tr -s '\n' '\t' \

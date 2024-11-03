@@ -16,10 +16,11 @@ http-communication-protocol-for-sesame/repositories/mem-ref/rdf-graphs/service/P
 sparql-graph-store-http-protocol/GET-graph-service-description.sh # NYI
 # sparql-graph-store-http-protocol/GET-trix.sh       # NYI
 # sparql-graph-store-http-protocol/HEAD-direct.sh    # NYI
-sparql-protocol/paths/paths-from-named-constant.sh # anomalous!!!!
-sparql-protocol/paths/paths-from-named-named.sh # anomalous!!!!
-sparql-protocol/paths/paths-from-named.sh # anomalous!!!!
-sparql-protocol/paths/paths-none.sh  # anomalous!!!!
+# 20241017 all paths should not pass
+# sparql-protocol/paths/paths-from-named-constant.sh # anomalous!!!!
+# sparql-protocol/paths/paths-from-named-named.sh # anomalous!!!!
+# sparql-protocol/paths/paths-from-named.sh # anomalous!!!!
+# sparql-protocol/paths/paths-none.sh  # anomalous!!!!
 sparql-protocol/slice/GET-sparql-view-html.sh # need to define the view
 sparql-protocol/slice/GET-sparql-view.sh # need to define the view
 

@@ -12,23 +12,44 @@ The resource allocation is determined by the upstream host which is specified in
 The upstream hosts are recorded in the system/system repository.
 From these the upstream entries are generated and manually incorporated in
 
-    /opt/rails/etc/nginx/dydra/upstream.conf.
+    /opt/rails/etc/nginx/dydra/upstream/spocq-upstream.conf
 
 view specific locations are generated from the contents of the
 <http://dydra.com/quality-of-service/views> and <http://dydra.com/quality-of-service> graphs
 in an account's system repository.
-These are stored in the account's respective .conf file in the /opt/rails/etc/nginx/dydra/qos/ directory.
-The general /opt/rails/etc/nginx/dydra/upstream.conf file must include a reference to the account's location configuration file in order for them to be active.
-This file is generated as a side-effect of updating the account's quality-of-service repository
+These are stored in the account's respective .conf file in the directory
+
+    /opt/rails/etc/nginx/dydra/spocq/qos/
+
+These are included by a general qos route configuration file
+
+    /opt/rails/etc/nginx/dydra/spocq/qos.conf
+
+It must include a reference to the account's location configuration file in order for them to be active.
+The account configuration file is generated as a side-effect of updating the account's quality-of-service repository
+
+QOS for non-view locations is managed by recognizing a quality-of-service header.
+This is passed through an identity map to validate the header and to establish a default which falls back to the general pattern-based locations.
+
+  map $http_quality_of_service $upstream {
+    Administration Administration;
+    Queued Queued;
+    SPARQL SPARQL;
+    Scheduled Scheduled;
+    Service Service;
+    default spocq; # legacy
+  }
 
 #### Systemd configuration
 
-Each upstream processor is defined by a systemd entry which determines the executed binary, the initialization arguments and the configuration file.
+Each upstream processor is defined by a systemd .service file which determines the executed binary, the initialization arguments and the configuration file.
 The binaries are all spocq-server.
 The arguments and configurations allow for
 - varied heap sizes
 - maximum simultaneous request counts
 - maximum pending request queue lengths.
+
+each instance is associated with its own /opt/spocq/init-http-127-0-0-1-???.sxp initialization file.
 
 
 #### Account configuration

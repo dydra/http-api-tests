@@ -79,8 +79,15 @@ function make_base_revision_ordinals() {
 }
 
 function check_empty_repository() {
+  echo "check empty repository" > ${INFO_OUTPUT}
   rev="HEAD"
   result=$(curl_graph_store_get_code_nofail --repository ${repository} revision-id=${rev} 2>&1 > /dev/null)
   echo "result: ${result}" > ${INFO_OUTPUT}
   test "$result" -eq "404"
+}
+
+function check_empty_repository() {
+  echo "check empty repository" > ${INFO_OUTPUT}
+  curl_graph_store_get -w '%{http_code}\n' --repository ${repository} revision-id=${rev} \
+  | test_not_found
 }

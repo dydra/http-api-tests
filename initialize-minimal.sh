@@ -39,8 +39,8 @@ fi
 
 for account in ${STORE_ACCOUNT} jhacker test; do create_account $account; done
 
-class=${STORE_REPOSITORY_CLASS:-${STORE_REPOSITORY_CLASS_DEFAULT}}
-rev_class=${STORE_REVISIONED_REPOSITORY_CLASS:-${STORE_REVISIONED_REPOSITORY_CLASS_DEFAULT}}
+class=${STORE_REPOSITORY_CLASS}
+rev_class=${STORE_REVISIONED_REPOSITORY_CLASS}
 
 for repository in ${STORE_REPOSITORY} ${STORE_REPOSITORY_WRITABLE} ${STORE_REPOSITORY_PUBLIC} ${STORE_REPOSITORY_PROVENANCE} \
                   foaf collation inference ldp public tpf; do

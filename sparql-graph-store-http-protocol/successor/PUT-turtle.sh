@@ -1,7 +1,8 @@
 #! /bin/bash
 
+# execute an import with turtle
 # add a successor query
-# notify back to the repository
+# use asynchronous headers to direct notification back to the repository
 
 initialize_repository --repository "${STORE_REPOSITORY}-write"
 
@@ -19,9 +20,10 @@ curl_graph_store_update -X PUT -o /tmp/successor.nt \
      -H "Asynchronous-Content-Type: application/n-quads" \
      -H "Asynchronous-Location: https://localhost/${STORE_ACCOUNT}/${STORE_REPOSITORY}-write/service" \
      -H "Asynchronous-Method: POST" \
+     -H "Asynchronous-Authorization: Bearer ${STORE_TOKEN}" \
      --repository "${STORE_REPOSITORY}-write" <<EOF
 <http://example.com/default-subject>
-    <http://example.com/default-predicate> "default object PUT-successor" .
+    <http://example.com/default-predicate> "default object PUT with successor" .
 EOF
 
 export repositoryRevisionUUID=`fgrep 'http://www.w3.org/ns/activitystreams#object' /tmp/successor.nt | sed 's/.*revision=\([^>]*\).*/\1/'`
@@ -31,14 +33,13 @@ echo "repositoryRevisionUUID: $repositoryRevisionUUID" > $ECHO_OUTPUT
 
 echo PUT-turtle : test gsp update completion > $ECHO_OUTPUT
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
-    | fgrep http://example.com/default-subject | fgrep -q 'default object PUT-successor'
+    | fgrep http://example.com/default-subject | fgrep -q 'default object PUT with successor'
 
-echo "wait for the asynchronous successor to run" > $ECHO_OUTPUT
-sleep 45
+echo "PUT-turtle : wait for the asynchronous successor to run" > $ECHO_OUTPUT
+sleep 30
 
 
 # test that the result count was 1
-# this fails on occasion, when the async update commits after the get is staged, but not yet run.
 echo PUT-turtle : test successor query completion > $ECHO_OUTPUT
 curl_graph_store_get --repository "${STORE_REPOSITORY}-write" \
     | tee ${ECHO_OUTPUT} \

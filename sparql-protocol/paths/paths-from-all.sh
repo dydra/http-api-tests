@@ -138,7 +138,7 @@ curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep -q '3'
+   | tee $ECHO_OUTPUT | jq '.results.bindings | length' | fgrep -q '3'
 prefix    : <http://example.com/> 
 select ?s ?o
 from <urn:dydra:all>
@@ -150,7 +150,7 @@ curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep -q '2'
+   | tee $ECHO_OUTPUT | jq '.results.bindings | length' | fgrep -q '2'
 prefix    : <http://example.com/> 
 select ?s ?o
 from <urn:dydra:all>

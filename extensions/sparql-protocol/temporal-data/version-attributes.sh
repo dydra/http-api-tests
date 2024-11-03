@@ -9,8 +9,9 @@ then
   exit 0
 fi
 
-echo "first, clear the repository" > $ECHO_OUTPUT
-### checks, also that it exists
+echo "first, create or clear the repository" > $ECHO_OUTPUT
+create_repository --repository test__rev --class $STORE_REVISIONED_REPOSITORY_CLASS \
+  | test_success
 curl -s -X DELETE -H "Accept: text/turtle" --user ":${STORE_TOKEN}" -o $ECHO_OUTPUT \
   "https://${STORE_HOST}/system/accounts/test/repositories/test__rev/revisions"
 

@@ -87,7 +87,9 @@ do
     echo "${EXPECTED}"
   else
     ( cd $script_directory;
-      bash -e -u $script_filename;
+      # -u caused curl_args=() to fail unless something was added to it
+      # bash -e -u $script_filename;
+      bash -e $script_filename;
     )
     if [[ $? == "0" ]]
     then

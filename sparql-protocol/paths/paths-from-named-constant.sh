@@ -12,7 +12,8 @@ curl_graph_store_update -X PUT -o /dev/null \
 <http://example.com/s4> <http://example.com/p> <http://example.com/s5> <http://example.com/g3> .
 EOF
 
-# curl_graph_store_get --repository "${STORE_REPOSITORY}-write"
+curl_graph_store_get --repository "${STORE_REPOSITORY}-write" --account "test" \
+  | wc | fgrep -q 4
 
 # simple enumeration of all statements merged into the default graph
 # should yield no result, as no named graph is in the dataset
@@ -116,12 +117,12 @@ from named :g2
 where { graph ?g {?s :p/:p ?o} }
 EOF
 
-# no such path among the two graphs given "from named"
+echo "no such path among the two graphs given 'from named'" > $ECHO_OUTPUT
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep -q '0'
+   | tee $ECHO_OUTPUT | jq '.results.bindings[] | .[].value' | fgrep -q '0'
 prefix    : <http://example.com/> 
 select (count (?s) as ?count)
 from named :g1
@@ -129,12 +130,12 @@ from named :g2
 where { graph ?g { ?s :p/:p/:p ?o} }
 EOF
 
-# test graph scope for * and +
+echo "test graph scope for * and +" > $ECHO_OUTPUT
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .count | .value' | tr -s '\n' ',' | fgrep -q '"2","3","1"'
+   | tee $ECHO_OUTPUT | jq '.results.bindings[] | .count | .value' | tr -s '\n' ',' | fgrep -q '"3","3","1"'
 prefix : <http://example.com/> 
 select ?s (count(?s) as ?count)
 from named :g1
@@ -149,7 +150,7 @@ curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .count | .value' | tr -s '\n' ',' | fgrep -q '"1","1"'
+   | jq '.results.bindings[] | .count | .value' | tr -s '\n' ',' | fgrep -q '"2","1"'
 prefix    : <http://example.com/> 
 select ?s (count(?s) as ?count)
 from named :g1

@@ -17,6 +17,18 @@ curl_graph_store_update -X PUT -o /dev/null \
 <http://example.com/default-subject> <http://example.com/default-predicate> "extra object PATCH-triples-extra-graph" .
 EOF
 
+
+echo "patch triples w/ none" > ${ECHO_OUTPUT}
+curl_graph_store_update -X PATCH  -w "%{http_code}\n" -o /dev/null \
+     -H "Content-Type: application/n-triples" \
+     --repository "${STORE_REPOSITORY}-write"  <<EOF  \
+   | test_bad_request
+<http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-triples-none" .
+<http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-triples-none" <${STORE_NAMED_GRAPH}-two> .
+EOF
+
+# the graph is now invalid for n-triples content
+cat > /dev/null <<EOFEOF
 echo "patch triples w/ none" > ${ECHO_OUTPUT}
 curl_graph_store_update -X PATCH  -w "%{http_code}\n" -o /dev/null \
      -H "Content-Type: application/n-triples" \
@@ -38,11 +50,13 @@ sort <<EOF > PATCH-test.nq
 EOF
 diff -w PATCH-out.nq PATCH-test.nq
 
-# known to fail. patch triples w/ none should strip any statement graph
+# earlier known to fail, because patch triples w/ none should strip any statement graph. now it rejects the content
 #<http://example.com/default-subject> <http://example.com/default-predicate> "default object PATCH-triples-none" .
 #<http://example.com/default-subject> <http://example.com/default-predicate> "extra object PATCH-triples-extra-graph" <${STORE_NAMED_GRAPH}-three> .
 #<http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-triples-none" .
 #<http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
+EOFEOF
+
 
 echo "patch quads w/ none" > ${ECHO_OUTPUT}
 curl_graph_store_update -X PATCH   -w "%{http_code}\n" -o /dev/null \
@@ -77,6 +91,8 @@ curl_graph_store_update -X PUT -o /dev/null \
 <http://example.com/default-subject> <http://example.com/default-predicate> "extra object PATCH-triples-extra-graph" .
 EOF
 
+# the graph is now invalid for n-triples content
+cat > /dev/null <<EOFEOF
 echo "patch triples to default" > ${ECHO_OUTPUT}
 curl_graph_store_update -X PATCH -o /dev/null \
      -H "Content-Type: application/n-triples" \
@@ -100,6 +116,7 @@ EOF
 #<http://example.com/default-subject> <http://example.com/default-predicate> "extra object PATCH-triples-extra-graph" <${STORE_NAMED_GRAPH}-three> .
 #<http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-triples-default" .
 #<http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
+EOFEOF
 
 echo "patch quads to default" > ${ECHO_OUTPUT}
 curl_graph_store_update -X PATCH -o /dev/null \
@@ -149,6 +166,8 @@ curl_graph_store_update -X PUT -o /dev/null \
 <http://example.com/default-subject> <http://example.com/default-predicate> "extra object PATCH-triples-extra-graph" .
 EOF
 
+# the graph is now invalid for n-triples content
+cat > /dev/null <<EOFEOF
 echo "patch triples to graph" > ${ECHO_OUTPUT}
 curl_graph_store_update -X PATCH -o /dev/null \
      -H "Content-Type: application/n-triples" \
@@ -185,6 +204,7 @@ diff -w PATCH-out.nq PATCH-test.nq
 #<http://example.com/default-subject> <http://example.com/default-predicate> "extra object PATCH-triples-extra-graph" <${STORE_NAMED_GRAPH}-three> .
 #<http://example.com/named-subject> <http://example.com/named-predicate> "named object PATCH-triples-graph" <${STORE_NAMED_GRAPH}-two> .
 #<http://example.com/named-subject> <http://example.com/named-predicate> "named object" <${STORE_NAMED_GRAPH}> .
+EOFEOF
 
 echo "patch quads to graph" > ${ECHO_OUTPUT}
 curl_graph_store_update -X PATCH -o /dev/null \

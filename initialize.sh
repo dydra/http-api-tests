@@ -33,9 +33,9 @@ export STORE_TOKEN_ADMIN=`cat ~/.dydra/${STORE_HOST}.token`
 
 #  $ACCOUNT                     : the base account
 
-${CURL} -v -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
+${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
      -u ":${STORE_TOKEN_ADMIN}" ${STORE_URL}/system/accounts <<EOF \
- | tee /dev/tty | egrep -q "${STATUS_POST_SUCCESS}"
+ | egrep -q "${STATUS_POST_SUCCESS}"
 {"account": {"name": "${STORE_ACCOUNT}"} }
 EOF
 
@@ -43,8 +43,9 @@ EOF
 # add authorization for authenticated users to read the repository list either from both accounts-api and the sesame resources
 
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
+     -u ":${STORE_TOKEN_ADMIN}" \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     ${STORE_URL}/${STORE_ACCOUNT}/system?auth_token=${STORE_TOKEN_ADMIN} <<EOF \
+     ${STORE_URL}/${STORE_ACCOUNT}/system/service <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 _:aclBase1 <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}> .
 _:aclBase1 <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/repositories> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}> .
@@ -68,8 +69,9 @@ EOF
 # authorization and metadata
 
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
+     -u ":${STORE_TOKEN_ADMIN}" \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     ${STORE_URL}/${STORE_ACCOUNT}-anon/system?auth_token=${STORE_TOKEN_ADMIN} <<EOF \
+     ${STORE_URL}/${STORE_ACCOUNT}-anon/system/service <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 _:acl1 <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}-anon/profile> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}-anon> .
 _:acl1 <http://www.w3.org/ns/auth/acl#mode> <http://www.w3.org/ns/auth/acl#Read> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}-anon> .
@@ -92,18 +94,18 @@ EOF
 # the standard repository w/ an extensive configuration
 
 ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
+     -u ":${STORE_TOKEN}" \
      ${STORE_URL}/system/accounts/${STORE_ACCOUNT}/repositories <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 {"repository": {"name": "${STORE_REPOSITORY}"} }
 EOF
 
-initialize_repository_configuration ;
+initialize_repository_configuration |  egrep -q "${STATUS_POST_SUCCESS}" ;
 initialize_repository_content ;
 initialize_repository_public ;
 
 ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
+     -u ":${STORE_TOKEN}" \
      ${STORE_URL}/system/accounts/${STORE_ACCOUNT}/repositories <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 {"repository": {"name": "${STORE_REPOSITORY}-write"} }
@@ -113,7 +115,7 @@ EOF
 #  ${STORE_ACCOUNT}/${STORE_REPOSITORY_PUBLIC}    : owner plus anonymous (agent) read
 
 ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
+     -u ":${STORE_TOKEN}" \
      ${STORE_URL}/system/accounts/${STORE_ACCOUNT}/repositories <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 {"repository": {"name": "$STORE_REPOSITORY_PUBLIC"} }
@@ -124,7 +126,7 @@ EOF
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -H "Content-Type: application/n-quads" --data-binary @- \
      -u ":${STORE_TOKEN}" \
-     ${STORE_URL}/${STORE_ACCOUNT}/system <<EOF \
+     ${STORE_URL}/${STORE_ACCOUNT}/system/service <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 _:aclAnon <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/${STORE_REPOSITORY_PUBLIC}> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY_PUBLIC}> .
 _:aclAnon <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY_PUBLIC}> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY_PUBLIC}> .
@@ -138,8 +140,8 @@ EOF
 ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
      -H "Accept: application/n-quads" \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY_PUBLIC} <<EOF \
+     -u ":${STORE_TOKEN}" \
+     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY_PUBLIC}/service <<EOF \
   |  egrep -q "${STATUS_PUT_SUCCESS}"
 <http://example.com/subject> <http://example.com/predicate> "object" <${STORE_URL}>.
 EOF
@@ -159,7 +161,7 @@ EOF
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -H "Content-Type: application/n-quads" --data-binary @- \
      -u ":${STORE_TOKEN}" \
-     ${STORE_URL}/${STORE_ACCOUNT}/system <<EOF \
+     ${STORE_URL}/${STORE_ACCOUNT}/system/service <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 _:aclUser <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-user> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-user> .
 _:aclUser <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-user> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-user> .
@@ -174,7 +176,7 @@ ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
      -H "Accept: application/n-quads" \
      -H "Content-Type: application/n-quads" --data-binary @- \
      -u ":${STORE_TOKEN}" \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-user <<EOF \
+     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-user/service <<EOF \
  |  egrep -q "${STATUS_PUT_SUCCESS}"
 <http://example.com/subject> <http://example.com/predicate> "object" <${STORE_URL}>.
 EOF
@@ -195,7 +197,7 @@ EOF
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -H "Content-Type: application/n-quads" --data-binary @- \
      -u ":${STORE_TOKEN}" \
-     ${STORE_URL}/${STORE_ACCOUNT}/system <<EOF \
+     ${STORE_URL}/${STORE_ACCOUNT}/system/service <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 _:aclRead <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-byuser> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-byuser> .
 _:aclRead <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-byuser> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-byuser> .
@@ -220,7 +222,7 @@ EOF
 # with the necessary accounts
 
 ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
-     -u "$:{STORE_TOKEN_ADMIN}" \
+     -u ":${STORE_TOKEN_ADMIN}" \
      ${STORE_URL}/system/accounts <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 {"account": {"name": "${STORE_ACCOUNT}-read"} }
@@ -228,7 +230,7 @@ EOF
 # to reset: (initialize-account-metadata (account "openrdf-sesame-read"))
 
 ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
-     -u "$:{STORE_TOKEN_ADMIN}" \
+     -u ":${STORE_TOKEN_ADMIN}" \
      ${STORE_URL}/system/accounts <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 {"account": {"name": "${STORE_ACCOUNT}-write"} }
@@ -236,7 +238,7 @@ EOF
 # to reset: (initialize-account-metadata (account "openrdf-sesame-write"))
 
 ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
-     -u "$:{STORE_TOKEN_ADMIN}" \
+     -u ":${STORE_TOKEN_ADMIN}" \
      ${STORE_URL}/system/accounts <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 {"account": {"name": "${STORE_ACCOUNT}-readwrite"} }
@@ -246,8 +248,8 @@ EOF
 # and authentication
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     -u "$:{STORE_TOKEN_ADMIN}" \
-     ${STORE_URL}/system/system <<EOF \
+     -u ":${STORE_TOKEN_ADMIN}" \
+     ${STORE_URL}/system/system/service <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}-read> <urn:dydra:accessToken> "${STORE_TOKEN}_READ" <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}-read> .
 <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}-write> <urn:dydra:accessToken> "${STORE_TOKEN}_WRITE" <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}-write> .
@@ -258,8 +260,8 @@ EOF
 ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
      -H "Accept: application/n-quads" \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-byuser <<EOF \
+     -u ":${STORE_TOKEN}" \
+     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-byuser/service <<EOF \
  |  egrep -q "${STATUS_PUT_SUCCESS}"
 <http://example.com/subject> <http://example.com/predicate> "object" <${STORE_URL}>.
 EOF
@@ -268,7 +270,7 @@ EOF
 #  $ACCOUNT/$REPOSITORY-readbyip : owner plus read for $STORE_CLIENT_IP for any agent
 
 ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
+     -u ":${STORE_TOKEN}" \
      ${STORE_URL}/system/accounts/${STORE_ACCOUNT}/repositories <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 {"repository": {"name": "${STORE_REPOSITORY}-readbyip"} }
@@ -279,8 +281,8 @@ EOF
 
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
-     ${STORE_URL}/${STORE_ACCOUNT}/system <<EOF \
+     -u ":${STORE_TOKEN}" \
+     ${STORE_URL}/${STORE_ACCOUNT}/system/service <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 _:aclReadByIp <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-readbyip> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-readbyip> .
 _:aclReadByIp <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-readbyip> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-readbyip> .
@@ -295,8 +297,8 @@ EOF
 ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
      -H "Accept: application/n-quads" \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-readbyip <<EOF \
+     -u ":${STORE_TOKEN}" \
+     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-readbyip/service <<EOF \
  |  egrep -q "${STATUS_PUT_SUCCESS}"
 <http://example.com/subject> <http://example.com/predicate> "object" <${STORE_URL}>.
 EOF
@@ -306,7 +308,7 @@ EOF
 #  $ACCOUNT/$REPOSITORY-writebyip : owner plus write for $STORE_CLIENT_IP for any user
 
 ${CURL} -w "%{http_code}\n" -f -s -X POST -H "Content-Type: application/json" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
+     -u ":${STORE_TOKEN}" \
      ${STORE_URL}/system/accounts/${STORE_ACCOUNT}/repositories <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 {"repository": {"name": "${STORE_REPOSITORY}-writebyip"} }
@@ -317,8 +319,8 @@ EOF
 
 ${CURL} -w "%{http_code}\n" -L -f -s -X POST \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
-     ${STORE_URL}/${STORE_ACCOUNT}/system <<EOF \
+     -u ":${STORE_TOKEN}" \
+     ${STORE_URL}/${STORE_ACCOUNT}/system/service <<EOF \
  |  egrep -q "${STATUS_POST_SUCCESS}"
 _:aclWriteByIp <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-writebyip> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-writebyip> .
 _:aclWriteByIp <http://www.w3.org/ns/auth/acl#accessTo> <http://${STORE_SITE}/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-writeby> <http://${STORE_SITE}/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}-writebyip> .
@@ -333,8 +335,8 @@ EOF
 ${CURL} -w "%{http_code}\n" -L -f -s -X PUT \
      -H "Accept: application/n-quads" \
      -H "Content-Type: application/n-quads" --data-binary @- \
-     -u "${STORE_TOKEN}:" \
-     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-writebyip <<EOF \
+     -u ":${STORE_TOKEN}" \
+     ${STORE_URL}/${STORE_ACCOUNT}/${STORE_REPOSITORY}-writebyip/service <<EOF \
  |  egrep -q "${STATUS_PUT_SUCCESS}"
 <http://example.com/subject> <http://example.com/predicate> "object" <${STORE_URL}>.
 EOF

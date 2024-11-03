@@ -18,8 +18,8 @@ curl_sparql_view -X PUT --account test --repository test -w "%{http_code}\n" \
 select * where {?s ?p ?o}
 EOF
 
-echo "invalid view specified" > $ECHO_OUTPUT
-curl_graph_store_update -X PUT -w "%{http_code}\n" --account test --repository quality-of-service -H "Content-Type: application/trig" <<EOF | test_bad_request
+echo "allow invalid view specified" > $ECHO_OUTPUT
+curl_graph_store_update -X PUT -w "%{http_code}\n" --account test --repository quality-of-service -H "Content-Type: application/trig" <<EOF | test_success
 <http://dydra.com/quality-of-service> {
     <http://dydra.com/quality-of-service/class/Test> <http://dydra.com/quality-of-service/class> <http://dydra.com/quality-of-service/class/Application> .
 }

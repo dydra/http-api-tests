@@ -41,7 +41,7 @@ from :g2
 where {graph ?g {?s :p ?o} }
 EOF
 
-# simple elementary path in either direction
+echo "simple elementary path in either direction" > ${ECHO_OUTPUT}
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
@@ -60,11 +60,12 @@ where {
 }
 EOF
 
+echo "test union of paths with constant object" > $ECHO_OUTPUT
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep -q '2'
+   | tee $ECHO_OUTPUT | jq '.results.bindings[] | .[].value' | fgrep -q '2'
 prefix    : <http://example.com/> 
 select (count (?s) as ?count)
 from :g1
@@ -78,14 +79,14 @@ where {
 }
 EOF
 
-
+echo "sequence paths with single constant anchor should travers boundary" > $ECHO_OUTPUT
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep -q '2'
+   | tee $ECHO_OUTPUT | jq '.results.bindings[] | .[].value' | fgrep -q '2'
 prefix    : <http://example.com/> 
-select (count (*) as ?count)
+select * # (count (*) as ?count)
 from :g1
 from :g2
 where { 
@@ -96,12 +97,12 @@ where {
 EOF
 
 
-# possible sequence paths
+echo "sequence path variants with variable anchors should yield one path across boundary" > $ECHO_OUTPUT
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep -q '1'
+   | tee $ECHO_OUTPUT | jq '.results.bindings[] | .[].value' | fgrep -q '1'
 prefix    : <http://example.com/> 
 select (count (?s) as ?count)
 from :g1
@@ -109,11 +110,12 @@ from :g2
 where {?s :p/:p ?o}
 EOF
 
+echo "unrolled path variants with variable anchors should yield the same endpoints as the path" > $ECHO_OUTPUT
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep -q '1'
+   | tee $ECHO_OUTPUT | jq '.results.bindings[] | .[].value' | fgrep -q '1'
 prefix    : <http://example.com/> 
 select (count (?s) as ?count)
 from :g1
@@ -122,11 +124,12 @@ where {?s :p ?x . ?x :p ?o}
 EOF
 
 
+echo "sequence beyond dataset boundaries yields no result" > $ECHO_OUTPUT
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .[].value' | fgrep -q '0'
+   | tee $ECHO_OUTPUT | jq '.results.bindings[] | .[].value' | fgrep -q '0'
 prefix    : <http://example.com/> 
 select (count (?s) as ?count)
 from :g1
@@ -134,12 +137,12 @@ from :g2
 where {?s :p/:p/:p ?o}
 EOF
 
-# test traversal from merged default graph
+echo "test * traversal from merged default graph" > $ECHO_OUTPUT
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .count | .value' | tr -s '\n' ',' | fgrep -q '"3","2","1"'
+   | tee $ECHO_OUTPUT | jq '.results.bindings[] | .count | .value' | tr -s '\n' ',' | fgrep -q '"3","2","1"'
 prefix : <http://example.com/> 
 select ?s (count(?s) as ?count)
 from :g1
@@ -149,12 +152,12 @@ group by ?s
 order by ?s
 EOF
 
-
+echo "test + traversal from merged default graph" > $ECHO_OUTPUT
 curl_sparql_request \
      --repository "${STORE_REPOSITORY}-write" \
      -H "Content-Type: application/sparql-query" \
      -H "Accept: application/sparql-results+json" <<EOF \
-   | jq '.results.bindings[] | .count | .value' | tr -s '\n' ',' | fgrep -q '"2","1"'
+   | tee $ECHO_OUTPUT | jq '.results.bindings[] | .count | .value' | tr -s '\n' ',' | fgrep -q '"2","1"'
 prefix    : <http://example.com/> 
 select ?s (count(?s) as ?count)
 from :g1

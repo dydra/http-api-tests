@@ -33,19 +33,19 @@ function async_sparql_get () {
 initialize_repository_content --repository ${STORE_REPOSITORY}
 clear_repository_content --repository ${STORE_REPOSITORY_WRITABLE}
 
-# get source content
+echo "get source content" > ${ECHO_OUTPUT}
 curl_graph_store_get --repository ${STORE_REPOSITORY} -H "Accept: application/n-triples" | sort > GET-asynchronous.nt
 
 # curl_sparql_view --repository "${STORE_REPOSITORY}" all
 # curl_sparql_view --repository "${STORE_REPOSITORY}" construct_all
 
-# perform the asynchronous request
-async_sparql_get construct_all
+echo "perform the asynchronous request" > ${ECHO_OUTPUT}
+async_sparql_get all
 
 sleep 20
 
 # curl_sparql_view --repository ${STORE_REPOSITORY_WRITABLE} all
-
+echo "retrieve asynchronous notification content" > ${ECHO_OUTPUT}
 curl_graph_store_get --repository ${STORE_REPOSITORY_WRITABLE} | sort | tee ${ECHO_OUTPUT} | cmp -s /dev/stdin GET-asynchronous.nt
 
 echo "${0} complete" >  ${ECHO_OUTPUT}

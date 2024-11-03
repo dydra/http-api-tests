@@ -16,7 +16,7 @@ function test_media_type_with () {
   local ref_file="${mime_file}.ref"
   local new_file="${mime_file}.new"
 
-  echo "request: ${mime}" "${new_file}" > /dev/tty # $ECHO_OUTPUT
+  echo "request: ${mime}" "${new_file}" > $ECHO_OUTPUT
   curl_sparql_request -H "Accept: ${mime}" --repository "${STORE_REPOSITORY_WRITABLE}" user_id=media-types.sh.${mime} <<EOF \
     | tee ${ECHO_OUTPUT} \
     | sed -e 's/.0E0"/.0"/' | sed -e 's/.0E0</.0</g'  | sed -e 's/.0E0,/.0,/g' > ${new_file}

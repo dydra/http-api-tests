@@ -398,7 +398,7 @@ EOF
 ## but note, some require presence in the respective directory
 
 function run_all_tests() {
-  bash run_all.sh | tee /dev/tty > run_all.out 2&>1 
+  bash run_all.sh | tee ${ECHO_OUTPUT} > run_all.out 2&>1 
 }
 
 function run_test() {
@@ -847,7 +847,7 @@ function create_repository() {
     esac
   done
   local -a URL="${STORE_URL}/system/accounts/${account}/repositories"
-  echo "create repository: ${account}/${repository}, class: ${class}" > /dev/tty > $ECHO_OUTPUT
+  echo "create repository: ${account}/${repository}, class: ${class}" > $ECHO_OUTPUT
   ${CURL} -w "%{http_code}\n" -f -s -X POST "${curl_args[@]}" \
      -H "Content-Type: application/json" \
      -H "Accept: application/n-quads" \

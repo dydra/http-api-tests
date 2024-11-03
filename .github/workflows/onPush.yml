@@ -30,3 +30,4 @@ jobs:
           STORE_HOST: ${{ secrets.STORE_HOST }}
           STORE_TOKEN: ${{ secrets.STORE_TOKEN }}
         run: bash run_all.sh
+        

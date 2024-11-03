@@ -29,4 +29,4 @@ jobs:
         env:
           STORE_HOST: ${{ secrets.STORE_HOST }}
           STORE_TOKEN: ${{ secrets.STORE_TOKEN }}
-        run: bash "${GITHUB_WORKSPACE}/.github/run_all.sh"
+        run: bash run_all.sh

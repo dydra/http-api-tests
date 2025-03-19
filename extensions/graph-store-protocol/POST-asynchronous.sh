@@ -25,6 +25,8 @@ requestID=`date +%Y%m%dT%H%M%S`
 
 echo "post async triples" > $ECHO_OUTPUT
 
+token_base64=$(echo -n ":${STORE_TOKEN}" | base64 -w 0)
+
 function async_graph_store_update () {
   requestID=`date +%Y%m%dT%H%M%S`
   index=$1
@@ -32,6 +34,7 @@ function async_graph_store_update () {
     -H "Accept-Asynchronous: notify" \
     -H "Asynchronous-Location: https://${STORE_HOST}/${STORE_ACCOUNT}/${STORE_REPOSITORY_WRITABLE}/service" \
     -H "Asynchronous-Method: POST" \
+    -H "Asynchronous-Authorization: Basic ${token_base64}" \
     -H "Asynchronous-Content-Type: application/ld+json" \
     -H "Accept: application/json" \
     -H "Client-Request-Id: ${requestID}.${index}" \

@@ -47,4 +47,4 @@ jobs:
         run: bash run_all.sh
       - name: extract failed tests
         shell: bash
-	run: grep FAILED failed_all.txt
+        run: grep FAILED failed_all.txt

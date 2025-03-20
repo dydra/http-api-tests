@@ -45,4 +45,6 @@ jobs:
           STORE_HOST: ${{ secrets.STORE_HOST }}
           STORE_TOKEN: ${{ secrets.STORE_TOKEN }}
         run: bash run_all.sh
-        
+      - name: extract failed tests
+        shell: bash
+	run: grep FAILED failed_all.txt

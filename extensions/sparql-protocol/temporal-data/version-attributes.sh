@@ -29,13 +29,26 @@ done
 echo "next, verify single head" > $ECHO_OUTPUT
 curl_sparql_request revision-id=HEAD \
    --account test --repository test__rev <<EOF \
-   | tee $ECHO_OUTPUT | fgrep -c 'PUT3' | fgrep -q "1"
+   | tee $ECHO_OUTPUT | fgrep -c 'PUT' | fgrep -q "1"
 prefix dydra: <urn:dydra>
 prefix time: <http://www.w3.org/2006/time#>
 prefix : <http://example.org#>
 select ?subject ?predicate ?object
 where {
    ?subject ?predicate ?object
+}
+EOF
+
+echo "next, verify single head w/ attribute" > $ECHO_OUTPUT
+curl_sparql_request revision-id=HEAD \
+   --account test --repository test__rev <<EOF \
+   | tee $ECHO_OUTPUT | fgrep -c 'PUT' | fgrep -q "1"
+prefix dydra: <urn:dydra>
+prefix time: <http://www.w3.org/2006/time#>
+prefix : <http://example.org#>
+select ?subject ?predicate ?object
+where {
+   ?subject ?predicate ?object {| dydra:starts ?addedOrdinal |}
 }
 EOF
 

@@ -25,13 +25,17 @@ requestID=`date +%Y%m%dT%H%M%S`
 
 echo "post async triples" > $ECHO_OUTPUT
 
+token_base64=$(echo -n ":${STORE_TOKEN}" | base64 -w 0)
+
+requestID=`date +%Y%m%dT%H%M%S`
+
 function async_graph_store_update () {
-  requestID=`date +%Y%m%dT%H%M%S`
   index=$1
   curl_graph_store_update -X POST -w "%{http_code}\n" -o /dev/null \
     -H "Accept-Asynchronous: notify" \
     -H "Asynchronous-Location: https://${STORE_HOST}/${STORE_ACCOUNT}/${STORE_REPOSITORY_WRITABLE}/service" \
     -H "Asynchronous-Method: POST" \
+    -H "Asynchronous-Authorization: Basic ${token_base64}" \
     -H "Asynchronous-Content-Type: application/ld+json" \
     -H "Accept: application/json" \
     -H "Client-Request-Id: ${requestID}.${index}" \
@@ -64,6 +68,19 @@ curl_sparql_request -X POST \
   | fgrep -c "default object POST-async" \
   | fgrep -q 10
 select distinct ?o from <urn:dydra:all> where {?s <http://example.com/default-predicate> ?o}
+EOF
+
+
+echo "test async notifications" > $ECHO_OUTPUT
+curl_sparql_request -X POST \
+  -H "Accept: application/sparql-results+json" \
+  -H "Client-Request-Id: ${requestID}" \
+  -H "Content-Type: application/sparql-query" \
+  --repository "${STORE_REPOSITORY_WRITABLE}" --data-binary @- <<EOF \
+  | tee $ECHO_OUTPUT \
+  | fgrep -c "${requestID}" \
+  | fgrep -q 10
+select ?o from <urn:dydra:all> where {?s <http://www.w3.org/ns/activitystreams#inReplyTo> ?o}
 EOF
 
 

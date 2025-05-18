@@ -1,0 +1,84 @@
+20250405:
+please implement a node.js filter for an atop log which extracts performance statistics for an application.
+it should accept a pathname for the atop log fine, the application name, and optionally '-b' and '-e' arguments to permit hh:mm values to pass to the "atop -r" command.
+an example of one page of the atop log is in the file atom_mdb_copy.log. examples of the process log entry for mdb_copy are in the grep_mdb_copy.log file.
+
+the output should in csv format and each line should correlate the process statistics whith the global statistics
+to include the timestamp, application name, cpu_percentage, read and write MB/s, and read and write iops.
+the system statistics include read and write operations.
+these must be compined with the interval from the header line to compute the rate.
+
+a csv header could be:
+
+  timestamp,app,cpu_percent,read_iops,write_iops,read_MBps,write_MBps
+
+
+20250407:
+  create a new node.js program, extend_query_statics.js, which uses another csv file to control the process_atop_logs.js program.
+  the second csv file records statistics for query executions.
+  take the query-20250403T142931.csv as an example.
+  each line contains a start timestamp, an end timestamp and a result count.
+  read that query csv file and for each line, execute process_atop_logs with the atop log file for the respective day or days
+  and for the respective time interval
+  note that the timestamps in the query csv file are in zulu time.
+  
+  for each line of query statistics create a new csv file with the timestamp and count in its name.
+
+
+extend the process_atop_logs sript to include the wait percentage.
+this is the last entry in the CPU line in the global section.
+and example is
+    
+    CPU | sys       3% | user      6% | irq       0% | idle   3180% | wait     11% |
+
+
+implement a control script which accepts a repository name,
+modifies the atop daemon's interval to 5 seconds,
+runs the test-spo.sh script with that repository as the argugment,
+waits for it to complete,
+returns the atop interval to 60 seconds and then
+run the extend_query_stats script with the current atop log and the output from the test-spo.sh script.
+
+take the set of csv files which that produced and generate an html page
+with svg graphs for the respective read and write MB/s and the wait percent plotted in a timeseries graph
+
+the atop configuration is changed by editing its script file at "/usr/share/atop/atop.daily".
+the initial value for the line to change there is
+
+    LOGINTERVAL=60                          # default interval in seconds  
+
+please modify the script to edit that file.
+
+please add a mechanism to integrate the content of an additional log file into the query_*.csv result statistics.
+the new log file include cache hit and mist statics. the first lines look like
+TIME         HITS   MISSES  DIRTIES    RATIO   BUFFERS_MB   CACHE_MB
+2025-04-12T11:27:05     2155        0       18   100.0%          121     201837
+2025-04-12T11:27:06     2573        0       10   100.0%          121     201837
+2025-04-12T11:27:07     1872        0        0   100.0%          121     201837
+
+the log file will be /tmp/cachestat.log
+it contains one entry for each second.
+the first column is a timestamp.
+the third column is the count of cache misses over the sample interval.
+correlate the count of misses with the data written to the query statistics csl and extend each line with an additional ccolumn for cache misses.
+include the data in the generated graphs with a second scale for it on the right side.
+
+the rest of the implementation now works well.
+you should not change anything except to correlate this new value,
+integrate it into the statistics result csv and include it in the graphs.
+
+
+implement a new utility which filters the syslog to extract query match and scan statistics.
+each syslog entry looks like this:
+
+2025-04-13T00:15:02.472789+02:00 [notice] spocq[54725]: [T] [statistics] <https://nxp-dev.dydra.com/nlv00294/plm> { <urn:uuid:94068C70-17EB-11F0-8637-B94AD69B2694> :timestamp "2025-04-12T22:15:01Z"^^<http://www.w3.org/2001/XMLSchema#dateTime>;  :agent_id "james"; :agent_location "213.227.138.5"; :algebra_operations 1; :bytes_allocated 5488224; :match_requests 0; :match_responses 0; :name "sparql"; :query_time 784006; :real_time 24000; :run_time 12618919; :service_quality "SPARQL"; :signature "9b8dbc8e953179fa67f173de0469174fce3a8363"; :solutions_constructed 1; :solutions_processed 0; :solutions_returned 1; :user_id "monitoring" . }
+
+the first entry is a timestamp.
+the sixth entry, the url, is the repository identifier. of this the last two url elements constitute the name. in this example "nlv00294/plm".
+the "match_requests" is the count of statement patterns in the respective query.
+the "match_responses" is the count of solutions returned for all patterns.
+the average is match_responses/match_requests
+
+the utility should accept a repository name and optionally a start and end time.
+for each matching entry in the interval extract the request and response count.
+produce a csv with timetamp,repositors,match_requests,match_responses,match_responses_average.

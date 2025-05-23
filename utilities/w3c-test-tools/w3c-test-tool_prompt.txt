@@ -1,0 +1,83 @@
+### Prompt: Generate a Node.js utility to run the W3C SPARQL 1.1 test suite
+
+You are ChatGPT, acting as an expert JavaScript developer.  
+Write a complete **Node.js** script named **`run‑sparql11‑tests.mjs`** (Unix shebang `#!/usr/bin/env node`, ES‑module syntax) whose purpose is to download and execute the entire W3C SPARQL 1.1 test suite against a local RDF repository, then report pass/fail for every `mf:QueryEvaluationTest`.
+
+---
+
+#### Functional requirements
+1. **Prerequisites**
+   * Node **18+** (built‑in `fetch`). Add `import fetch from 'node-fetch'` as a fallback for Node \< 20.
+   * npm package **`n3`** is installed.
+   * CLI tools **`dydra-import`** and **`sparql-query`** are available on **$PATH**.
+
+2. **Constants**
+   ```js
+   const SUMMARY_URL = 'https://www.w3.org/2009/sparql/docs/tests/summary.html';
+   const BASE        = 'https://www.w3.org/2009/sparql/docs/tests/data-sparql11';
+   const REPO        = process.env.TEST_REPO || 'test/test';
+
+   const IMPORT_CMD  = (file) => \`dydra-import ${REPO} ${file}\`;
+   const QUERY_CMD   = (qry)  => \`sparql-query ${REPO}\`;      // the query text will be piped in
+
+   const mf  = 'http://www.w3.org/2001/sw/DataAccess/tests/test-manifest#';
+   const qt  = 'http://www.w3.org/2001/sw/DataAccess/tests/test-query#';
+   const rdf = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#';
+   ```
+
+3. **High‑level algorithm**
+   * Print the active repository.
+   * **Download** `SUMMARY_URL`, parse the HTML, and collect every distinct directory referenced by  
+     `href=".../data-sparql11/<dir>/manifest#"` that appears **in the header list**.  
+     Use `matchAll` with a RegExp, de‑duplicate with a `uniq()` helper, then `sort()`.
+   * For each manifest directory:
+     1. Fetch `<BASE>/<dir>/manifest.ttl`.
+     2. Parse with `new Parser({ baseIRI: \`${BASE}/${dir}/\` })` from **n3**; group quads by subject in a `Map`.
+     3. Identify subjects that contain  
+        `rdf:type mf:QueryEvaluationTest`.
+     4. For every such test:
+        * Resolve file URIs for  
+          `qt:query`, optional `qt:data`, zero‑or‑more `qt:graphData`, and `mf:result`.
+        * Create a short **label** with `path.basename(subject)`.
+     5. **Import datasets**  
+        Download each dataset file into a temp directory (`fs.mkdtemp(path.join(tmpdir(), 'sparql11-'))`) and run  
+        `dydra-import` via `execSync`. Skip import if no data file is declared.
+     6. **Execute the query**  
+        * Download the query and expected‑result files into the same temp dir.
+        * Run the query with  
+          ```js
+          const proc = spawnSync('bash', ['-c', QUERY_CMD(queryPath)], {
+            input : await fs.readFile(queryPath),
+            encoding: 'utf8'
+          });
+          ```
+        * Write the stdout to `act_<label>` for debugging.
+     7. **Compare results**  
+        Read both expected and actual files, `trim()` whitespace, and:
+        * If identical → `console.log('   ✔', label)`.
+        * Else         → `console.log('   ✘', label, ' (results differ)')`.
+   * After all manifests are processed, output  
+     `All done.  Temporary files → ${tmpRoot}`.
+
+4. **Helper utilities**
+   ```js
+   async function fetchText (url)  { /* GET as UTF‑8, throw on !ok */ }
+   async function download  (url, file) { /* stream to disk */ }
+   function exec (cmd, opts={}) { return execSync(cmd, { stdio:'pipe', encoding:'utf8', ...opts }); }
+   function uniq (arr) { return [...new Set(arr)]; }
+   ```
+
+5. **Code style & robustness**
+   * Use **async/await** with top‑level `await`.
+   * Throw explicit errors with contextual messages (`GET <url> → <status>`).
+   * Rely only on built‑in Node APIs plus the declared dependencies.
+   * Avoid global variable leaks; keep the public surface limited to `main` execution.
+
+6. **Usage examples**
+   ```bash
+   npm i n3 node-fetch
+   ./run-sparql11-tests.mjs                   # default repository test/test
+   TEST_REPO=myuser/myrepo ./run-sparql11-tests.mjs
+   ```
+
+Follow the specification **exactly**: constant names, directory structure, console output, and comparison logic must match. Output only the finished `run‑sparql11‑tests.mjs` source code—no extra commentary.

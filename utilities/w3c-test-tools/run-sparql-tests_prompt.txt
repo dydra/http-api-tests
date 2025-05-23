@@ -1,0 +1,65 @@
+Generate two Node ES-module scripts for a SPARQL test harness.
+
+─────────────────────────────────
+Script 1 – run-sparql-tests.mjs
+─────────────────────────────────
+• Discover every manifest.ttl under the current directory.
+• Process each manifest
+   * For each directory, fetch `manifest.ttl` (base IRI `https://www.w3.org/2009/sparql/docs/tests/data-sparql11/<dir>/`).
+   * Associate each manifest file with its directory.
+   * Parse the manifest file with the `n3` library.
+   * Extract the mf:entries names from the mf:manifest.
+   * For every triple set whose subject is typed `mf:QueryEvaluationTest`, collect:
+     * `qt:query` → the query file
+     * `qt:data` (optional) → default graph file
+     * zero or more `qt:graphData` files
+     * `mf:result` → expected result file name
+• For each mf:QueryEvaluationTest in mf:entries:
+   * viewName = query file basename without extension.
+   * If the service url ends with “/sparql”, upload qt:data / qt:graphData via Graph-Store PUT to the same path with “/service”, using header
+     Authorization: Bearer <token> when a token is supplied as process.argv[2].
+   * Execute the query:
+     * POST the query body to /sparql with Accept application/sparql-results+json|xml
+       else GET <service-root>/<viewName>
+   * Save the raw result as results/<service-name>/<manifest-dir>/<viewName>.srj | .srx
+   * Hard-code the services array:
+
+     const SERVICES = [
+      { name: 'dydra.com.sparql', url : 'https://dydra.com/sparql-12/exists-tests-inline/sparql' },
+      { name: 'dydra.com', url : 'https://dydra.com/sparql-12/exists-tests' } ];
+
+• Compare actual vs. expected results
+   * Canonicalize the actual result file and the expected result file.
+   * Use just the 'sparql' element from xml documents.
+   * Strict string comparison (`trim()` both sides).
+   * Log “${view} succeeded” for a match, “${view} (followed by the two results)” otherwise.
+
+────────────────────────────────────
+Script 2 – summarize-sparql-results.mjs
+────────────────────────────────────
+• Build an expected map:
+key = <manifest-dir>/<view>.rq
+value = { query text, mf:result text, canon }
+• Build a produced map by reading every .srj/.srx under results/<service>/…
+Store each file twice: with the .rq key and with its real filename key.
+• Canon:
+– JSON → sorted keys.
+– XML → fast-xml-parser, keep only parsed.sparql element.
+• Generate results/summary.html:
+– Row label toggles query | intended (flex layout).
+– Service columns show ✔ / ✘ or “missing (service/.../file.ext)”.
+– Click ✘ cell to show/hide the differing actual result.
+• Dependencies: n3, node-fetch, fast-xml-parser.
+• Provide usage comments at the top of each script.
+
+Return only the full code for both scripts (ready to save as
+run-sparql-tests.mjs and summarize-sparql-results.mjs); no extra prose.
+
+────────────────────────────────────
+General structure & style
+   * Top-of-file shebang: `#!/usr/bin/env node`.
+   * Use `import` syntax and `node-fetch` polyfill for Node < 20.
+   * Put constants (URLs, prefixes, shell-command builders) in one section.
+   * Provide small helper functions (`fetchText`, `download`, `exec`, `uniq`).
+   * Print a short progress report: repository used, each manifest, pass/fail ticks.
+   * On completion, print the temp-dir location.

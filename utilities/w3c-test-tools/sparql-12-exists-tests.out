@@ -1,0 +1,412 @@
+
+all-quads
+{ "head": { "vars": [ "g", "o", "p", "s" ] },
+   "results": {
+   "bindings": [
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-bnodes/data1"},
+     "o": {"type":"literal", "datatype":"http://www.w3.org/2001/XMLSchema#integer", "value":"123"},
+     "p": {"type":"uri", "value":"http://example/p2"},
+     "s": {"type":"uri", "value":"http://example/s"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-bnodes/data1"},
+     "o": {"type":"bnode", "value":"b0"},
+     "p": {"type":"uri", "value":"http://example/p1"},
+     "s": {"type":"uri", "value":"http://example/s"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-bnodes/data2"},
+     "o": {"type":"bnode", "value":"b0"},
+     "p": {"type":"uri", "value":"http://example/p2"},
+     "s": {"type":"uri", "value":"http://example/s"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-bnodes/data2"},
+     "o": {"type":"bnode", "value":"b0"},
+     "p": {"type":"uri", "value":"http://example/p1"},
+     "s": {"type":"uri", "value":"http://example/s"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-filter/data1"},
+     "o": {"type":"literal", "value":"z"},
+     "p": {"type":"uri", "value":"ex:p"},
+     "s": {"type":"uri", "value":"ex:a"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-sparql11/exists01"},
+     "o": {"type":"uri", "value":"http://www.example.org/o1"},
+     "p": {"type":"uri", "value":"http://www.example.org/p"},
+     "s": {"type":"uri", "value":"http://www.example.org/s"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-sparql11/exists01"},
+     "o": {"type":"uri", "value":"http://www.example.org/o2"},
+     "p": {"type":"uri", "value":"http://www.example.org/p"},
+     "s": {"type":"uri", "value":"http://www.example.org/s"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-sparql11/exists01"},
+     "o": {"type":"uri", "value":"http://www.example.org/o"},
+     "p": {"type":"uri", "value":"http://www.example.org/p"},
+     "s": {"type":"uri", "value":"http://www.example.org/s"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-sparql11/exists01"},
+     "o": {"type":"uri", "value":"http://www.example.org/o1"},
+     "p": {"type":"uri", "value":"http://www.example.org/p"},
+     "s": {"type":"uri", "value":"http://www.example.org/t"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-sparql11/exists01"},
+     "o": {"type":"uri", "value":"http://www.example.org/o2"},
+     "p": {"type":"uri", "value":"http://www.example.org/p"},
+     "s": {"type":"uri", "value":"http://www.example.org/t"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-sparql11/exists02"},
+     "o": {"type":"uri", "value":"http://www.example.org/o1"},
+     "p": {"type":"uri", "value":"http://www.example.org/p"},
+     "s": {"type":"uri", "value":"http://www.example.org/a"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-sparql11/exists02"},
+     "o": {"type":"uri", "value":"http://www.example.org/o1"},
+     "p": {"type":"uri", "value":"http://www.example.org/p"},
+     "s": {"type":"uri", "value":"http://www.example.org/b"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-sparql11/exists02"},
+     "o": {"type":"uri", "value":"http://www.example.org/o2"},
+     "p": {"type":"uri", "value":"http://www.example.org/p"},
+     "s": {"type":"uri", "value":"http://www.example.org/b"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-pfps/existsBlank01"},
+     "o": {"type":"bnode", "value":"b"},
+     "p": {"type":"uri", "value":"http://www.example.org/p"},
+     "s": {"type":"uri", "value":"http://www.example.org/s"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-pfps/existsbpb"},
+     "o": {"type":"uri", "value":"http://www.example.org/b"},
+     "p": {"type":"uri", "value":"http://www.example.org/p"},
+     "s": {"type":"uri", "value":"http://www.example.org/b"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-pfps/existsHernandez01"},
+     "o": {"type":"uri", "value":"http://www.example.org/j"},
+     "p": {"type":"uri", "value":"http://www.example.org/country"},
+     "s": {"type":"uri", "value":"http://www.example.org/a"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-pfps/existsHernandez01"},
+     "o": {"type":"uri", "value":"http://www.example.org/b"},
+     "p": {"type":"uri", "value":"http://www.example.org/parent"},
+     "s": {"type":"uri", "value":"http://www.example.org/a"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-pfps/existsHernandez01"},
+     "o": {"type":"uri", "value":"http://www.example.org/j"},
+     "p": {"type":"uri", "value":"http://www.example.org/country"},
+     "s": {"type":"uri", "value":"http://www.example.org/b"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-pfps/existsHernandez01"},
+     "o": {"type":"uri", "value":"http://www.example.org/c"},
+     "p": {"type":"uri", "value":"http://www.example.org/parent"},
+     "s": {"type":"uri", "value":"http://www.example.org/b"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-pfps/existsHernandez01"},
+     "o": {"type":"uri", "value":"http://www.example.org/k"},
+     "p": {"type":"uri", "value":"http://www.example.org/country"},
+     "s": {"type":"uri", "value":"http://www.example.org/c"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-pfps/existsHernandez01"},
+     "o": {"type":"uri", "value":"http://www.example.org/d"},
+     "p": {"type":"uri", "value":"http://www.example.org/parent"},
+     "s": {"type":"uri", "value":"http://www.example.org/c"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-pfps/existsSubquery04"},
+     "o": {"type":"uri", "value":"http://www.example.org/b"},
+     "p": {"type":"uri", "value":"http://www.example.org/a"},
+     "s": {"type":"uri", "value":"http://www.example.org/d"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-pfps/existsSubquery04"},
+     "o": {"type":"uri", "value":"http://www.example.org/h"},
+     "p": {"type":"uri", "value":"http://www.example.org/f"},
+     "s": {"type":"uri", "value":"http://www.example.org/g"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-pfps/existsSubquery09"},
+     "o": {"type":"uri", "value":"http://www.example.org/b"},
+     "p": {"type":"uri", "value":"http://www.example.org/p"},
+     "s": {"type":"uri", "value":"http://www.example.org/b"} },
+ { "g": {"type":"uri", "value":"http://www.w3c.org/exists-pfps/existsSubquery09"},
+     "o": {"type":"uri", "value":"http://www.example.org/c"},
+     "p": {"type":"uri", "value":"http://www.example.org/p"},
+     "s": {"type":"uri", "value":"http://www.example.org/b"} } ] } }
+
+exists-bad-syntax-01
+{ "head": { "vars": [ "o" ] },
+   "results": {
+   "bindings": [ ] } }
+
+exists-bad-syntax-02
+{ "head": { "vars": [ "o" ] },
+   "results": {
+   "bindings": [ ] } }
+
+exists-bad-syntax-03
+{ "head": { "vars": [ "o" ] },
+   "results": {
+   "bindings": [ ] } }
+
+exists-bad-syntax-04
+HTTP Status: 400 (Bad Request): While processing query #<QUERY-ERROR-TASK [F7C27C30-34F9-11F0-A9F8-F02F7494A8ED/NIL, SELECT@INITIALIZE, sparql-12/exists-tests@HEAD] {1029F74E33}>, an error was signaled: task 'F7C27C30-34F9-11F0-A9F8-F02F7494A8ED': repository 'sparql-12/exists-tests': Invalid message received :
+failed to parse after ';' at offset 42 on line 4.
+PREFIX : <http://example/>
+
+SELECT * {
+   ;s :p1 ?o
+   FILTER EXISTS {
+     { SELECT (?z+1 AS ?o) { :x :y ?z } }
+     :a :b :c
+   }
+}
+
+
+
+
+exists-bad-syntax-05
+{ "head": { "vars": [ "o" ] },
+   "results": {
+   "bindings": [ ] } }
+
+exists-bgp-A1
+{ "head": { "vars": [ "x" ] },
+   "results": {
+   "bindings": [ ] } }
+
+exists-bgp-A2
+{ "head": { "vars": [ "x" ] },
+   "results": {
+   "bindings": [ ] } }
+
+exists-bnode-01
+{ "head": { "vars": [ "o" ] },
+   "results": {
+   "bindings": [ ] } }
+
+exists-bnode-02
+{ "head": { "vars": [ "o" ] },
+   "results": {
+   "bindings": [
+ { "o": {"type":"bnode", "value":"b0"} } ] } }
+
+exists-empty-bgp-01
+{ "head": { "vars": [ ] },
+   "results": {
+   "bindings": [ ] } }
+
+exists-empty-bgp-02
+{ "head": { "vars": [ ] },
+   "results": {
+   "bindings": [ ] } }
+
+exists-filter-01
+{ "head": { "vars": [ "v" ] },
+   "results": {
+   "bindings": [
+ { "v": {"type":"uri", "value":"ex:a"} } ] } }
+
+exists-filter-02
+{ "head": { "vars": [ "v" ] },
+   "results": {
+   "bindings": [
+ { "v": {"type":"uri", "value":"ex:a"} } ] } }
+
+exists-filter-03
+{ "head": { "vars": [ "v" ] },
+   "results": {
+   "bindings": [
+ { "v": {"type":"uri", "value":"ex:a"} } ] } }
+
+exists-good-syntax-01
+{ "head": { "vars": [ "o" ] },
+   "results": {
+   "bindings": [ ] } }
+
+exists-minus-01
+{ "head": { "vars": [ "x" ] },
+   "results": {
+   "bindings": [ ] } }
+
+exists-subselect-hidden
+{ "head": { "vars": [ "o" ] },
+   "results": {
+   "bindings": [ ] } }
+
+exists-subselect-no-projection
+{ "head": { "vars": [ "o" ] },
+   "results": {
+   "bindings": [ ] } }
+
+exists-subselect-projection
+{ "head": { "vars": [ "o" ] },
+   "results": {
+   "bindings": [ ] } }
+
+exists01
+{ "head": { "vars": [ "o", "p", "s" ] },
+   "results": {
+   "bindings": [
+ { "o": {"type":"uri", "value":"http://www.example.org/o1"},
+     "p": {"type":"uri", "value":"http://www.example.org/p"},
+     "s": {"type":"uri", "value":"http://www.example.org/s"} },
+ { "o": {"type":"uri", "value":"http://www.example.org/o2"},
+     "p": {"type":"uri", "value":"http://www.example.org/p"},
+     "s": {"type":"uri", "value":"http://www.example.org/s"} },
+ { "o": {"type":"uri", "value":"http://www.example.org/o"},
+     "p": {"type":"uri", "value":"http://www.example.org/p"},
+     "s": {"type":"uri", "value":"http://www.example.org/s"} } ] } }
+
+exists02
+{ "head": { "vars": [ "p", "s" ] },
+   "results": {
+   "bindings": [
+ { "p": {"type":"uri", "value":"http://www.example.org/p"},
+     "s": {"type":"uri", "value":"http://www.example.org/s"} },
+ { "p": {"type":"uri", "value":"http://www.example.org/p"},
+     "s": {"type":"uri", "value":"http://www.example.org/t"} } ] } }
+
+exists03
+{ "head": { "vars": [ "p", "s" ] },
+   "results": {
+   "bindings": [ ] } }
+
+exists04
+{ "head": { "vars": [ "p", "s" ] },
+   "results": {
+   "bindings": [
+ { "p": {"type":"uri", "value":"http://www.example.org/p"},
+     "s": {"type":"uri", "value":"http://www.example.org/s"} } ] } }
+
+exists05
+{ "head": { "vars": [ "p", "s" ] },
+   "results": {
+   "bindings": [ ] } }
+
+existsBlank01
+{ "head": { "vars": [ "x" ] },
+   "results": {
+   "bindings": [ ] } }
+
+existsBound01
+{ "head": { "vars": [ "x" ] },
+   "results": {
+   "bindings": [
+ { "x": {"type":"uri", "value":"http://www.example.org/b"} } ] } }
+
+existsHernandez01
+{ "head": { "vars": [ "parent" ] },
+   "results": {
+   "bindings": [
+ { "parent": {"type":"uri", "value":"http://www.example.org/a"} },
+ { "parent": {"type":"uri", "value":"http://www.example.org/b"} } ] } }
+
+existsHernandez02
+{ "head": { "vars": [ "parent" ] },
+   "results": {
+   "bindings": [
+ { "parent": {"type":"uri", "value":"http://www.example.org/b"} } ] } }
+
+existsMinus01
+{ "head": { "vars": [ "x" ] },
+   "results": {
+   "bindings": [ ] } }
+
+existsScope01
+{ "head": { "vars": [ "x" ] },
+   "results": {
+   "bindings": [
+ { "x": {"type":"uri", "value":"http://www.example.org/b"} } ] } }
+
+existsScope02
+{ "head": { "vars": [ "x" ] },
+   "results": {
+   "bindings": [
+ { "x": {"type":"uri", "value":"http://www.example.org/b"} } ] } }
+
+existsSubquery01
+{ "head": { "vars": [ "x" ] },
+   "results": {
+   "bindings": [
+ { "x": {"type":"uri", "value":"http://www.example.org/b"} } ] } }
+
+existsSubquery02
+{ "head": { "vars": [ "x" ] },
+   "results": {
+   "bindings": [
+ { "x": {"type":"uri", "value":"http://www.example.org/b"} } ] } }
+
+existsSubquery03
+{ "head": { "vars": [ "x" ] },
+   "results": {
+   "bindings": [
+ { "x": {"type":"uri", "value":"http://www.example.org/b"} } ] } }
+
+existsSubquery04
+{ "head": { "vars": [ "x" ] },
+   "results": {
+   "bindings": [
+ { "x": {"type":"uri", "value":"http://www.example.org/d"} } ] } }
+
+existsSubquery05
+{ "head": { "vars": [ "x" ] },
+   "results": {
+   "bindings": [
+ { "x": {"type":"uri", "value":"http://www.example.org/d"} } ] } }
+
+existsSubquery06
+{ "head": { "vars": [ "x" ] },
+   "results": {
+   "bindings": [
+ { "x": {"type":"uri", "value":"http://www.example.org/b"} } ] } }
+
+existsSubquery07
+{ "head": { "vars": [ "x" ] },
+   "results": {
+   "bindings": [ ] } }
+
+existsSubquery08
+{ "head": { "vars": [ "x" ] },
+   "results": {
+   "bindings": [
+ { "x": {"type":"uri", "value":"http://www.example.org/b"} } ] } }
+
+existsSubquery09
+{ "head": { "vars": [ "x" ] },
+   "results": {
+   "bindings": [
+ { "x": {"type":"uri", "value":"http://www.example.org/b"} },
+ { "x": {"type":"uri", "value":"http://www.example.org/b"} } ] } }
+
+existsSubquery10
+{ "head": { "vars": [ "x" ] },
+   "results": {
+   "bindings": [
+ { "x": {"type":"uri", "value":"http://www.example.org/b"} } ] } }
+
+existsSubquery11
+{ "head": { "vars": [ "x" ] },
+   "results": {
+   "bindings": [
+ { "x": {"type":"uri", "value":"http://www.example.org/b"} } ] } }
+
+existsValues01
+{ "head": { "vars": [ "x" ] },
+   "results": {
+   "bindings": [
+ { "x": {"type":"uri", "value":"http://www.example.org/b"} } ] } }
+
+existsValues02
+{ "head": { "vars": [ "x" ] },
+   "results": {
+   "bindings": [ ] } }
+
+minus-filter-01
+{ "head": { "vars": [ "v" ] },
+   "results": {
+   "bindings": [
+ { "v": {"type":"uri", "value":"ex:a"} } ] } }
+
+minus-filter-02
+{ "head": { "vars": [ "v" ] },
+   "results": {
+   "bindings": [
+ { "v": {"type":"uri", "value":"ex:a"} } ] } }
+
+minus-filter-03
+{ "head": { "vars": [ "v" ] },
+   "results": {
+   "bindings": [
+ { "v": {"type":"uri", "value":"ex:a"} } ] } }
+
+not-exists-filter-01
+{ "head": { "vars": [ "v" ] },
+   "results": {
+   "bindings": [ ] } }
+
+not-exists-filter-02
+{ "head": { "vars": [ "v" ] },
+   "results": {
+   "bindings": [ ] } }
+
+not-exists-filter-03
+{ "head": { "vars": [ "v" ] },
+   "results": {
+   "bindings": [ ] } }
+
+scope-filter-01
+{ "head": { "vars": [ "v" ] },
+   "results": {
+   "bindings": [
+ { "v": {"type":"uri", "value":"ex:a"} } ] } }

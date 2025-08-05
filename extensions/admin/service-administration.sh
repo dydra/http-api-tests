@@ -36,17 +36,59 @@ REPO_CFG_EP="https://${STORE_HOST}/system/accounts/${STORE_ACCOUNT}/repositories
 # ---------------------------------------------------------------------------
 json_contains() {
   local want="$1" have="$2"
+  # Strip surrounding [ ] delimiters (if present) and whitespace from the fragment we
+  # expect (WANT). Afterwards, use Node.js to parse the JSON structures and verify
+  # that at least one object inside the response (HAVE) contains **all** key/value
+  # pairs specified in the WANT fragment.  This allows the check to succeed even
+  # when the response is an array with additional collaboration entries or when
+  # property orders differ.
   node - <<'JS' "$want" "$have"
- // console.log(process.argv);
-const want = JSON.parse(process.argv[2]);
-const have = JSON.parse(process.argv[3]);
-for (const [k, v] of Object.entries(want)) {
-  if (!(k in have) || String(have[k]).replace(/\s+/g, '') !== String(v).replace(/\s+/g, '')) {
-    console.error(`Mismatch for ${k}: expected ${v}, got ${have[k]}`);
-    console.error('WANT:\n' + JSON.stringify(want, null, 2));
-    console.error('HAVE:\n' + JSON.stringify(have, null, 2));
-    process.exit(1);
-  }
+const wantRaw = process.argv[2];
+const haveRaw = process.argv[3];
+
+function stripBrackets(str) {
+  const t = str.trim();
+  return (t.startsWith('[') && t.endsWith(']')) ? t.slice(1, -1) : t;
+}
+
+let want;
+let have;
+try {
+  want = JSON.parse(stripBrackets(wantRaw));
+} catch (e) {
+  console.error('Invalid WANT JSON:', e.message);
+  process.exit(1);
+}
+try {
+  have = JSON.parse(haveRaw);
+} catch (e) {
+  console.error('Invalid HAVE JSON:', e.message);
+  process.exit(1);
+}
+
+function normalize(val) {
+  return String(val).replace(/\s+/g, '');
+}
+
+function objectMatches(needle, hay) {
+  return Object.entries(needle).every(([k, v]) =>
+    k in hay && normalize(hay[k]) === normalize(v)
+  );
+}
+
+let ok = false;
+if (Array.isArray(have)) {
+  const needles = Array.isArray(want) ? want : [want];
+  ok = needles.every(n => have.some(h => objectMatches(n, h)));
+} else {
+  ok = objectMatches(Array.isArray(want) ? want[0] : want, have);
+}
+
+if (!ok) {
+  console.error('Test fragment not found in response');
+  console.error('WANT:', JSON.stringify(want, null, 2));
+  console.error('HAVE:', JSON.stringify(have, null, 2));
+  process.exit(1);
 }
 process.exit(0);
 JS
@@ -60,6 +102,7 @@ resp=$(curl_graph_store_get --url "$ACCOUNT_CFG_EP" \
         -H "Authorization: Bearer $STORE_TOKEN" \
         -H "Accept: application/json" \
         -w "\nstatuscode:%{http_code}\n")
+echo initial account response: $resp > $ECHO_OUTPUT
 http=$(echo "$resp" | fgrep statuscode | sed -e's/^statuscode://')
 orig_account_cfg=$(echo "$resp" | sed -e 's/^statuscode:.*//')
 echo "$http" | test_ok step1.account || { echo "step1.account failed"; exit 1; }
@@ -68,6 +111,7 @@ resp=$(curl_graph_store_get --url "$REPO_CFG_EP" \
         -H "Authorization: Bearer $STORE_TOKEN" \
         -H "Accept: application/json" \
         -w "\nstatuscode:%{http_code}\n")
+echo initial repeository response: $resp > $ECHO_OUTPUT
 http=$(echo "$resp" | fgrep statuscode | sed -e 's/^statuscode://')
 orig_repo_cfg=$(echo "$resp" | sed -e 's/^statuscode:.*//')
 echo "$http" | test_ok step1.repo || { echo "step1.repo failed"; exit 1; }
@@ -131,7 +175,7 @@ fi
 # 4) Update repository configuration
 # ---------------------------------------------------------------------------
 INFO "Step 4: update repository configuration"
-new_repo_cfg='{ "abstract":"Meta Repo", "description":"meta description", "privacySetting":"readByAuthenticatedUserOrIP", "prefixes":"PREFIX xx: <http://xx.org/ns#>\n" }'
+new_repo_cfg='{ "abstract":"Meta Repo", "description":"meta description", "privacySetting":"readByAuthenticatedUserOrIP", "prefixes":"PREFIX xx: <http://xx.org/ns#>\n", "permissible_ip_addresses":"127.0.0.1" }'
 
 resp=$(curl_graph_store_post --url "$REPO_CFG_EP" \
         -H "Authorization: Bearer $STORE_TOKEN" \
@@ -177,6 +221,86 @@ if json_contains "$orig_repo_cfg" "$restored_repo_cfg"; then
 else
   FAIL "step5.verify_restore_repo failed"
   exit 1
+fi
+
+# ---------------------------------------------------------------------------
+# 6) CRUD operations on repository collaborations
+# ---------------------------------------------------------------------------
+COLLAB_EP="https://${STORE_HOST}/system/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/collaboration"
+
+INFO "Step 6a: fetch existing collaboration list"
+resp=$(curl_graph_store_get --url "$COLLAB_EP" \
+        -H "Authorization: Bearer $STORE_TOKEN" \
+        -H "Accept: application/json" \
+        -w "\nstatuscode:%{http_code}\n")
+echo existing response: $resp > $ECHO_OUTPUT
+http=$(echo "$resp" | fgrep statuscode | sed -e 's/^statuscode://')
+orig_collab=$(echo "$resp" | sed -e 's/^statuscode:.*//')
+echo "$http" | test_ok step6.get_collab || FAIL "initial collaboration fetch failed"
+
+# --- create a collaboration --------------------------------------------------
+new_collab='[{"account":"jhacker","read":true,"write":false}]'
+
+INFO "Step 6b: create collaboration jhacker"
+resp=$(curl_graph_store_post --url "$COLLAB_EP" \
+        -H "Authorization: Bearer $STORE_TOKEN" \
+        -H "Content-Type: application/json" \
+        -H "Accept: application/json" \
+        --data "$new_collab" \
+        -w "\nstatuscode:%{http_code}\n")
+http=$(echo "$resp" | fgrep statuscode | sed -e 's/^statuscode://')
+echo "$http" | test_ok step6.post_create || FAIL "create collaboration failed"
+
+# verify creation
+resp=$(curl_graph_store_get --url "$COLLAB_EP" -H "Authorization: Bearer $STORE_TOKEN" -H "Accept: application/json" -w "\nstatuscode:%{http_code}\n")
+echo created response: $resp > $ECHO_OUTPUT
+current_collab=$(echo "$resp" | sed -e 's/^statuscode:.*//')
+if json_contains "$new_collab" "$current_collab"; then
+  INFO "Step 6b verification succeeded"
+else
+  FAIL "collaboration create verification failed"; exit 1; fi
+
+# --- update collaboration (give write=true) ----------------------------------
+update_collab='[{"account":"jhacker","read":true,"write":true}]'
+
+INFO "Step 6c: update collaboration jhacker (write=true)"
+resp=$(curl_graph_store_post --url "$COLLAB_EP" \
+      -H "Authorization: Bearer $STORE_TOKEN" \
+      -H "Content-Type: application/json" \
+      -H "Accept: application/json" \
+      --data "$update_collab" -w "\nstatuscode:%{http_code}\n")
+echo $resp > $ECHO_OUTPUT
+http=$(echo "$resp" | fgrep statuscode | sed -e 's/^statuscode://')
+echo "$http" | test_ok step6.post_update || FAIL "update collaboration failed"
+
+resp=$(curl_graph_store_get --url "$COLLAB_EP" -H "Authorization: Bearer $STORE_TOKEN" -H "Accept: application/json" -w "\nstatuscode:%{http_code}\n")
+echo updated response: $resp > $ECHO_OUTPUT
+current_collab=$(echo "$resp" | sed -e 's/^statuscode:.*//')
+if json_contains "$update_collab" "$current_collab"; then
+  INFO "Step 6c verification succeeded"; else FAIL "update verification failed"; exit 1; fi
+
+# --- delete collaboration ----------------------------------------------------
+delete_collab='[{"account":"jhacker"}]'
+
+INFO "Step 6d: delete collaboration jhacker"
+resp=$(curl_graph_store_post --url "$COLLAB_EP" \
+      -H "Authorization: Bearer $STORE_TOKEN" \
+      -H "Content-Type: application/json" \
+      -H "Accept: application/json" \
+      --data "$delete_collab" -w "\nstatuscode:%{http_code}\n")
+http=$(echo "$resp" | fgrep statuscode | sed -e 's/^statuscode://')
+echo "$http" | test_ok step6.post_delete || FAIL "delete collaboration failed"
+
+resp=$(curl_graph_store_get --url "$COLLAB_EP" -H "Authorization: Bearer $STORE_TOKEN" -H "Accept: application/json" -w "\nstatuscode:%{http_code}\n")
+echo deleted response: $resp > $ECHO_OUTPUT
+current_collab=$(echo "$resp" | sed -e 's/^statuscode:.*//')
+if json_contains "$delete_collab" "$current_collab"; then
+  FAIL "delete verification failed (still present)"; exit 1; else INFO "Step 6d verification succeeded"; fi
+
+# restore original collaborations if any
+if [[ -n "$orig_collab" ]]; then
+  curl_graph_store_post --url "$COLLAB_EP" -H "Authorization: Bearer $STORE_TOKEN" -H "Content-Type: application/json" -H "Accept: application/json" --data "$orig_collab" -w "%{http_code}" -o /dev/null
+  INFO "Step 6e: restored original collaboration set"
 fi
 
 INFO "All service-administration tests completed."

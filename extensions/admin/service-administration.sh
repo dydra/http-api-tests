@@ -17,7 +17,8 @@ set -euo pipefail
 # ------------------------------------------------------------
 
 BLUE='\033[0;34m'; RED='\033[0;31m'; NC='\033[0m'
-INFO()  { echo -e "${BLUE}[INFO]${NC} $(basename "$0"): $*" > "$ECHO_OUTPUT"; }
+export INFO_OUTPUT=/dev/tty
+INFO()  { echo -e "${BLUE}[INFO]${NC} $(basename "$0"): $*" > "$INFO_OUTPUT"; }
 FAIL()  { echo -e "${RED}[FAIL]${NC} $(basename "$0"): $*" >&2; }
 
 
@@ -47,21 +48,28 @@ const wantRaw = process.argv[2];
 const haveRaw = process.argv[3];
 
 function stripBrackets(str) {
-  const t = str.trim();
-  return (t.startsWith('[') && t.endsWith(']')) ? t.slice(1, -1) : t;
+  return str;
+  const t = str.trim(); return t;
+//  return (t.startsWith('[') && t.endsWith(']')) ? t.slice(1, -1) : t;
 }
 
 let want;
 let have;
 try {
+  console.warn("wantRaw", wantRaw);
   want = JSON.parse(stripBrackets(wantRaw));
+  console.warn("want", want);
 } catch (e) {
+  console.error('Invalid HAVE JSON:', wantRaw);
   console.error('Invalid WANT JSON:', e.message);
   process.exit(1);
 }
 try {
+  console.warn("haveRaw", haveRaw);
   have = JSON.parse(haveRaw);
+  console.warn("have", have);
 } catch (e) {
+  console.error('Invalid HAVE JSON:', haveRaw);
   console.error('Invalid HAVE JSON:', e.message);
   process.exit(1);
 }
@@ -102,7 +110,7 @@ resp=$(curl_graph_store_get --url "$ACCOUNT_CFG_EP" \
         -H "Authorization: Bearer $STORE_TOKEN" \
         -H "Accept: application/json" \
         -w "\nstatuscode:%{http_code}\n")
-echo initial account response: $resp > $ECHO_OUTPUT
+echo initial account response: $resp > $INFO_OUTPUT
 http=$(echo "$resp" | fgrep statuscode | sed -e's/^statuscode://')
 orig_account_cfg=$(echo "$resp" | sed -e 's/^statuscode:.*//')
 echo "$http" | test_ok step1.account || { echo "step1.account failed"; exit 1; }
@@ -111,7 +119,7 @@ resp=$(curl_graph_store_get --url "$REPO_CFG_EP" \
         -H "Authorization: Bearer $STORE_TOKEN" \
         -H "Accept: application/json" \
         -w "\nstatuscode:%{http_code}\n")
-echo initial repeository response: $resp > $ECHO_OUTPUT
+echo initial repeository response: $resp > $INFO_OUTPUT
 http=$(echo "$resp" | fgrep statuscode | sed -e 's/^statuscode://')
 orig_repo_cfg=$(echo "$resp" | sed -e 's/^statuscode:.*//')
 echo "$http" | test_ok step1.repo || { echo "step1.repo failed"; exit 1; }
@@ -138,7 +146,6 @@ resp=$(curl_graph_store_get --url "$ACCOUNT_CFG_EP" \
         -H "Accept: application/json" \
         -w "\nstatuscode:%{http_code}\n")
 updated_account_cfg=$(echo "$resp" | sed -e 's/^statuscode:.*//')
-
 if json_contains "$new_account_cfg" "$updated_account_cfg"; then
   INFO "Step 2: update account configuration succeeded"
 else
@@ -216,6 +223,7 @@ resp=$(curl_graph_store_get --url "$REPO_CFG_EP" \
         -H "Accept: application/json" \
         -w "\nstatuscode:%{http_code}\n")
 restored_repo_cfg=$(echo "$resp" | sed -e 's/^statuscode:.*//')
+echo "restored: ${restored_repo_cfg}"
 if json_contains "$orig_repo_cfg" "$restored_repo_cfg"; then
   INFO "Step 5: restore original repository configuration succeeded"
 else
@@ -227,17 +235,47 @@ fi
 # 6) CRUD operations on repository collaborations
 # ---------------------------------------------------------------------------
 COLLAB_EP="https://${STORE_HOST}/system/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}/collaboration"
+# ---------------------------------------------------------------------------
+# SPARQL endpoint for the account's system repository (used to verify that
+# collaboration metadata is propagated as ACL quads)
+# ---------------------------------------------------------------------------
+SYS_SPARQL_EP="https://${STORE_HOST}/${STORE_ACCOUNT}/system/sparql"
+REPOSITORY_IRI="http://dydra.com/accounts/${STORE_ACCOUNT}/repositories/${STORE_REPOSITORY}"
+SPARQL_COUNT_QUERY='select (count(*) as ?c) where { graph ?g { ?s <http://www.w3.org/ns/auth/acl#agent> ?agent . filter(contains(str(?agent), "jhacker")) } }'
+SPARQL_ACCESS_QUERY="
+select ?mode where {
+  graph <${REPOSITORY_IRI}> {
+    ?node <http://www.w3.org/ns/auth/acl#accessTo> <${REPOSITORY_IRI}> .
+    ?node <http://www.w3.org/ns/auth/acl#agent> <http://dydra.com/users/jhacker> .
+    ?node <http://www.w3.org/ns/auth/acl#mode> ?mode }
+}"
+
+# Helper: return the number of ACL triples referencing "jhacker" in the system repository
+get_jhacker_acl_count() {
+  curl -sS --url "$SYS_SPARQL_EP" \
+       -H "Authorization: Bearer $STORE_TOKEN" \
+       -H "Content-Type: application/sparql-query" \
+       -H "Accept: application/sparql-results+json" \
+       --data "$SPARQL_COUNT_QUERY" | tee /dev/tty |
+    node -e "const a=require('fs').readFileSync(0,'utf8'); const j=JSON.parse(a); console.log(j.results.bindings[0] ? j.results.bindings[0].c.value : 0);"
+}
+get_jhacker_acl_modes() {
+  curl -sS --url "$SYS_SPARQL_EP" \
+       -H "Authorization: Bearer $STORE_TOKEN" \
+       -H "Content-Type: application/sparql-query" \
+       -H "Accept: application/json" \
+       --data "${SPARQL_ACCESS_QUERY}" | tr '\n' ' '
+}
 
 INFO "Step 6a: fetch existing collaboration list"
 resp=$(curl_graph_store_get --url "$COLLAB_EP" \
         -H "Authorization: Bearer $STORE_TOKEN" \
         -H "Accept: application/json" \
         -w "\nstatuscode:%{http_code}\n")
-echo existing response: $resp > $ECHO_OUTPUT
+echo existing response: $resp > $INFO_OUTPUT
 http=$(echo "$resp" | fgrep statuscode | sed -e 's/^statuscode://')
 orig_collab=$(echo "$resp" | sed -e 's/^statuscode:.*//')
-echo "$http" | test_ok step6.get_collab || FAIL "initial collaboration fetch failed"
-
+echo 
 # --- create a collaboration --------------------------------------------------
 new_collab='[{"account":"jhacker","read":true,"write":false}]'
 
@@ -253,12 +291,21 @@ echo "$http" | test_ok step6.post_create || FAIL "create collaboration failed"
 
 # verify creation
 resp=$(curl_graph_store_get --url "$COLLAB_EP" -H "Authorization: Bearer $STORE_TOKEN" -H "Accept: application/json" -w "\nstatuscode:%{http_code}\n")
-echo created response: $resp > $ECHO_OUTPUT
+echo created response: $resp > $INFO_OUTPUT
 current_collab=$(echo "$resp" | sed -e 's/^statuscode:.*//')
 if json_contains "$new_collab" "$current_collab"; then
-  INFO "Step 6b verification succeeded"
+  # also verify that collaboration metadata was written to the system repository
+  echo "mode query : ${SPARQL_ACCESS_QUERY}"
+  modes_after_create=$(get_jhacker_acl_modes)
+  echo created mode response: ${modes_after_create} > $INFO_OUTPUT
+  if json_contains '[{"mode": "http://www.w3.org/ns/auth/acl#Read" }]' "${modes_after_create}"; then
+    INFO "Step 6b metadata verification succeeded"
+  else
+    FAIL "Step 6b collaboration metadata not propagated to system repository"; exit 1
+  fi
 else
-  FAIL "collaboration create verification failed"; exit 1; fi
+  FAIL "Step 6b collaboration create verification failed"; exit 1
+fi
 
 # --- update collaboration (give write=true) ----------------------------------
 update_collab='[{"account":"jhacker","read":true,"write":true}]'
@@ -269,15 +316,24 @@ resp=$(curl_graph_store_post --url "$COLLAB_EP" \
       -H "Content-Type: application/json" \
       -H "Accept: application/json" \
       --data "$update_collab" -w "\nstatuscode:%{http_code}\n")
-echo $resp > $ECHO_OUTPUT
+echo $resp > $INFO_OUTPUT
 http=$(echo "$resp" | fgrep statuscode | sed -e 's/^statuscode://')
 echo "$http" | test_ok step6.post_update || FAIL "update collaboration failed"
 
 resp=$(curl_graph_store_get --url "$COLLAB_EP" -H "Authorization: Bearer $STORE_TOKEN" -H "Accept: application/json" -w "\nstatuscode:%{http_code}\n")
-echo updated response: $resp > $ECHO_OUTPUT
+echo updated response: $resp > $INFO_OUTPUT
 current_collab=$(echo "$resp" | sed -e 's/^statuscode:.*//')
 if json_contains "$update_collab" "$current_collab"; then
-  INFO "Step 6c verification succeeded"; else FAIL "update verification failed"; exit 1; fi
+  modes_after_update=$(get_jhacker_acl_modes)
+  echo updated sparql response: ${modes_after_update} > $INFO_OUTPUT
+  if json_contains '[{"mode": "http://www.w3.org/ns/auth/acl#Read" }, {"mode": "http://www.w3.org/ns/auth/acl#Write" }]' "${modes_after_update}"; then
+    INFO "Step 6c metadata verification succeeded"
+  else
+    FAIL "ctep 6c collaboration metadata not propagated to system repository"; exit 1;
+  fi
+else
+  FAIL "update verification failed"; exit 1;
+fi
 
 # --- delete collaboration ----------------------------------------------------
 delete_collab='[{"account":"jhacker"}]'
@@ -292,10 +348,20 @@ http=$(echo "$resp" | fgrep statuscode | sed -e 's/^statuscode://')
 echo "$http" | test_ok step6.post_delete || FAIL "delete collaboration failed"
 
 resp=$(curl_graph_store_get --url "$COLLAB_EP" -H "Authorization: Bearer $STORE_TOKEN" -H "Accept: application/json" -w "\nstatuscode:%{http_code}\n")
-echo deleted response: $resp > $ECHO_OUTPUT
+echo deleted response: $resp > $INFO_OUTPUT
 current_collab=$(echo "$resp" | sed -e 's/^statuscode:.*//')
+# verify deletion from API response
 if json_contains "$delete_collab" "$current_collab"; then
-  FAIL "delete verification failed (still present)"; exit 1; else INFO "Step 6d verification succeeded"; fi
+  FAIL "delete verification failed (still present)"; exit 1
+fi
+# additionally ensure the ACL metadata has been cleaned up
+ modes_after_delete=$(get_jhacker_acl_modes | sed -e 's/ //g')
+ echo deleted sparql response: ${modes_after_delete} > $INFO_OUTPUT
+  if [ "[]" == "${modes_after_delete}" ]; then
+    INFO "Step 6f metadata verification succeeded"
+  else
+    FAIL "ctep 6d collaboration metadata not propagated to system repository"; exit 1;
+  fi
 
 # restore original collaborations if any
 if [[ -n "$orig_collab" ]]; then

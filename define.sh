@@ -595,12 +595,13 @@ function curl_graph_store_get_nofail () {
       *) curl_args+=("${1}"); shift 1;;
     esac
   done
+
   url_args+=(${user_id[@]})
   if [[ "${graph}" ]] ; then url_args+=(${graph}); fi
   if [[ ${#url_args[*]} > 0 ]] ; then curl_url=$(IFS='&' ; echo "${curl_url}?${url_args[*]}") ; fi
   # where an empty array is possible, must be conditional due to unset variable constraint
   curl_args+=("${accept_media_type[@]}");
-  if [[ ${#content_media_type[*]} > 0 ]] ; then curl_args+=(${content_media_type[@]}); fi
+  if [[ ${#content_media_type[*]} > 0 ]] ; then curl_args+=("${content_media_type[@]}"); fi
   if [[ ${#method[*]} > 0 ]] ; then curl_args+=(${method[@]}); fi
   if [[ ${#user[*]} > 0 ]] ; then curl_args+=(${user[@]}); fi
 
@@ -610,6 +611,10 @@ function curl_graph_store_get_nofail () {
 
 function curl_graph_store_get () {
   curl_graph_store_get_nofail -f "$@"
+}
+
+function curl_graph_store_post () {
+  curl_graph_store_get_nofail -f -X POST "$@"
 }
 
 # curl_graph_store_get_code { $accept-header-argument } { graph }
@@ -1060,6 +1065,7 @@ export -f curl_graph_store_get
 export -f curl_graph_store_get_nofail
 export -f curl_graph_store_get_code
 export -f curl_graph_store_get_code_nofail
+export -f curl_graph_store_post
 export -f curl_graph_store_update
 export -f curl_download
 export -f curl_tpf_get

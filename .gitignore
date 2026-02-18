@@ -13,3 +13,4 @@ tmp
 #*#
 failed.txt
 .vs/slnx.sqlite
+node_modules

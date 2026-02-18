@@ -23,7 +23,7 @@ curl_sparql_query -X GET \
   -H "Content-Type: " \
   -H "Accept: application/n-quads" \
   | fgrep -qs  'http://www.w3.org/ns/sparql-service-description#TextIndex' \
-    || echo "no free text support" ; exit 0
+  || echo "no free text support" ; exit 0
 
 
 
